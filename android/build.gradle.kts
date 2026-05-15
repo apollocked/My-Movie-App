@@ -15,8 +15,18 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+
+// Clean reflection fix for Isar's AGP 8+ namespace requirement
 subprojects {
-    project.evaluationDependsOn(":app")
+    afterEvaluate {
+        if (project.name == "isar_flutter_libs") {
+            if (project.hasProperty("android")) {
+                val androidExtension = project.extensions.getByName("android")
+                androidExtension.javaClass.getMethod("setNamespace", String::class.java)
+                    .invoke(androidExtension, "dev.isar.isar_flutter_libs")
+            }
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {

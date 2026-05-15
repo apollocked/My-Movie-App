@@ -5,18 +5,18 @@ import 'core/routing/app_router.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // TODO: Add Firebase.initializeApp() & GetIt setup here later
-  runApp(const CinemaApp());
+  runApp(const MyMovieApp());
 }
 
-class CinemaApp extends StatelessWidget {
-  const CinemaApp({super.key});
+class MyMovieApp extends StatelessWidget {
+  const MyMovieApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Cinema Local-First',
+      title: 'My Movie',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark, // Enforcing modern OLED look
+      themeMode: ThemeMode.dark,
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
       routerConfig: AppRouter.router,
