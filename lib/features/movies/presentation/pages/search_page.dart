@@ -5,36 +5,51 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('SEARCH',
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white)),
+              Text(
+                'SEARCH',
+                style: theme.textTheme.titleLarge?.copyWith(fontSize: 28),
+              ),
               const SizedBox(height: 16),
+
+              // Polished Material 3 Embedded Input Field Container
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.04),
+                  color: theme.colorScheme.brightness == Brightness.dark
+                      ? theme.colorScheme.surfaceContainer
+                      : theme.cardColor,
                   borderRadius: BorderRadius.circular(16),
-                  border:
-                      Border.all(color: Colors.white.withValues(alpha: 0.06)),
+                  border: Border.all(color: theme.dividerColor),
+                  boxShadow: theme.brightness == Brightness.dark
+                      ? []
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.03),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          )
+                        ],
                 ),
-                child: const TextField(
-                  style: TextStyle(color: Colors.white),
+                child: TextField(
+                  style: TextStyle(color: theme.textTheme.bodyLarge?.color),
                   decoration: InputDecoration(
                     hintText: 'Search movies...',
-                    hintStyle: TextStyle(color: Colors.white38),
-                    prefixIcon:
-                        Icon(Icons.search_rounded, color: Color(0xFFD4AF37)),
+                    hintStyle: theme.inputDecorationTheme.hintStyle,
+                    prefixIcon: Icon(
+                      Icons.search_rounded,
+                      color: theme.inputDecorationTheme.prefixIconColor,
+                    ),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 14),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 14),
                   ),
                 ),
               ),

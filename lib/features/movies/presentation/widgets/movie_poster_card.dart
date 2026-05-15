@@ -2,24 +2,39 @@ import 'package:flutter/material.dart';
 
 class MoviePosterCard extends StatelessWidget {
   final double height;
+  final dynamic
+      movie; // Structured dynamically to safely catch data properties later
 
-  const MoviePosterCard({super.key, this.height = 260});
+  const MoviePosterCard({super.key, this.height = 260, this.movie});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final width = height * 0.68;
+
+    // Read dynamic asset locations when data binding is ready
+    final imageUrl = movie?.fullPosterUrl ??
+        'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500';
+    final rating = movie?.voteAverage?.toStringAsFixed(1) ?? '8.4';
+
     return Container(
       width: width,
-      margin: const EdgeInsets.only(right: 16),
+      margin: const EdgeInsets.only(
+          right: 16,
+          bottom: 8), // Added bottom margin to prevent shadow clipping
       decoration: BoxDecoration(
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(20),
-        border:
-            Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1),
+        border: Border.all(color: theme.dividerColor, width: 1),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withValues(alpha: 0.4),
-              blurRadius: 12,
-              offset: const Offset(0, 6)),
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.5)
+                : Colors.black.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
         ],
       ),
       clipBehavior: Clip.antiAlias,
@@ -27,37 +42,47 @@ class MoviePosterCard extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.network(
-              'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500',
+              imageUrl,
               fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Container(
+                color: isDark ? Colors.grey[900] : Colors.grey[200],
+                child:
+                    Icon(Icons.movie_rounded, color: theme.hintColor, size: 32),
+              ),
             ),
           ),
-          _buildRatingBadge(),
+          _buildRatingBadge(theme, isDark, rating),
         ],
       ),
     );
   }
 
-  Widget _buildRatingBadge() {
+  Widget _buildRatingBadge(ThemeData theme, bool isDark, String rating) {
     return Positioned(
       top: 12,
       right: 12,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.65),
+          color: isDark
+              ? Colors.black.withValues(alpha: 0.7)
+              : Colors.white.withValues(alpha: 0.85),
           borderRadius: BorderRadius.circular(10),
-          border:
-              Border.all(color: Colors.white.withValues(alpha: 0.12), width: 1),
+          border: Border.all(color: theme.dividerColor, width: 1),
         ),
-        child: const Row(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.star_rounded, color: Color(0xFFD4AF37), size: 14),
-            SizedBox(width: 2),
-            Text('8.4',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold)),
+            Icon(Icons.star_rounded, color: theme.primaryColor, size: 14),
+            const SizedBox(width: 2),
+            Text(
+              rating,
+              style: TextStyle(
+                color: theme.textTheme.bodyLarge?.color,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),

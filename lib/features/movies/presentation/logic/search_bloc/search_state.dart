@@ -1,4 +1,4 @@
-import 'package:my_movies_app/entities/movie.dart';
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 
 abstract class SearchState {}
 

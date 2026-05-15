@@ -7,22 +7,41 @@ class MovieDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
+          // Background Backdrop Image Layer
           Positioned.fill(
-            child: Image.network(movie.fullBackdropUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const SizedBox()),
-          ),
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Colors.black, Colors.transparent],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter),
+            child: Image.network(
+              movie.fullBackdropUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => const SizedBox(),
             ),
           ),
+
+          // Smooth Dynamic Content Scrim Gradient
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    theme.scaffoldBackgroundColor,
+                    theme.scaffoldBackgroundColor.withValues(alpha: 0.8),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  stops: const [0.0, 0.35, 1.0],
+                ),
+              ),
+            ),
+          ),
+
+          // Movie Meta Detail Labels
           Positioned(
             bottom: 40,
             left: 20,
@@ -30,26 +49,36 @@ class MovieDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(movie.title,
-                    style: const TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                Text(
+                  movie.title,
+                  style: theme.textTheme.titleLarge?.copyWith(fontSize: 28),
+                ),
                 const SizedBox(height: 10),
-                Text(movie.overview,
-                    style:
-                        const TextStyle(fontSize: 14, color: Colors.white70)),
+                Text(
+                  movie.overview,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    height: 1.5,
+                    color: isDark ? Colors.white70 : Colors.black87,
+                  ),
+                ),
               ],
             ),
           ),
+
+          // Floating Adaptive Navigation Back Button Action
           Positioned(
             top: 40,
             left: 10,
             child: CircleAvatar(
-                backgroundColor: Colors.black45,
-                child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context))),
+              backgroundColor: isDark ? Colors.black45 : Colors.white70,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: theme.textTheme.titleLarge?.color,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
           )
         ],
       ),

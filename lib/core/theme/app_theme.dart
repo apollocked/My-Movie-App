@@ -3,44 +3,81 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTheme {
+  // Pure OLED Dark Theme Configuration
   static ThemeData get darkTheme {
+    final baseDark = ThemeData.dark();
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkBackground,
+      primaryColor: AppColors.primaryGold,
+      hintColor: AppColors.textSecondaryDark,
+      cardColor: AppColors.darkSurfaceVariant,
+      dividerColor: AppColors.darkBorder,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primaryGold,
         secondary: AppColors.secondaryAccent,
         surface: AppColors.darkSurface,
+        surfaceContainer: AppColors.darkSurfaceVariant,
         error: AppColors.errorRed,
       ),
-      textTheme:
-          GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme).copyWith(
+      textTheme: GoogleFonts.poppinsTextTheme(baseDark.textTheme).copyWith(
         titleLarge: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold, color: AppColors.textPrimaryDark),
+          fontWeight: FontWeight.bold,
+          color: AppColors.textPrimaryDark,
+        ),
         bodyLarge: GoogleFonts.poppins(color: AppColors.textPrimaryDark),
         bodyMedium: GoogleFonts.poppins(color: AppColors.textSecondaryDark),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: const CardThemeData(
         color: AppColors.darkSurfaceVariant,
         elevation: 0,
         margin: EdgeInsets.zero,
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: const TextStyle(color: AppColors.textSecondaryDark),
+        prefixIconColor: AppColors.primaryGold,
+        suffixIconColor: AppColors.textSecondaryDark,
+      ),
     );
   }
 
+  // Premium, High-Contrast Light Theme Configuration
   static ThemeData get lightTheme {
+    final baseLight = ThemeData.light();
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightBackground,
+      primaryColor: AppColors.primaryGold,
+      hintColor: AppColors.textSecondaryLight,
+      cardColor: AppColors.lightSurface,
+      dividerColor: AppColors.lightBorder,
       colorScheme: const ColorScheme.light(
         primary: AppColors.primaryGold,
         secondary: AppColors.secondaryAccent,
         surface: AppColors.lightSurface,
+        surfaceContainer: AppColors.lightSurfaceVariant,
         error: AppColors.errorRed,
       ),
-      textTheme: GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme),
+      textTheme: GoogleFonts.poppinsTextTheme(baseLight.textTheme).copyWith(
+        titleLarge: GoogleFonts.poppins(
+          fontWeight: FontWeight.bold,
+          color: AppColors.textPrimaryLight,
+        ),
+        bodyLarge: GoogleFonts.poppins(color: AppColors.textPrimaryLight),
+        bodyMedium: GoogleFonts.poppins(color: AppColors.textSecondaryLight),
+      ),
+      cardTheme: const CardThemeData(
+        color: AppColors.lightSurface,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: const TextStyle(color: AppColors.textSecondaryLight),
+        prefixIconColor: AppColors.primaryGold,
+        suffixIconColor: AppColors.textSecondaryLight,
+      ),
     );
   }
 }

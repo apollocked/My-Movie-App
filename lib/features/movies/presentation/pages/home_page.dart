@@ -1,5 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_event.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_state.dart';
 import '../widgets/movie_horizontal_list.dart';
 import '../widgets/category_selector.dart';
 
@@ -8,26 +12,51 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
-          _buildAmbientBackground(),
+          _buildAmbientBackground(theme),
           SafeArea(
             bottom: false,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(bottom: 110),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(),
-                  const CategorySelector(
-                      categories: ['Trending', 'Sci-Fi', 'Action', 'Drama']),
-                  const SizedBox(height: 24),
-                  const MovieHorizontalList(
-                      title: 'Spotlight Screenings', movies: []),
-                ],
+            child: RefreshIndicator(
+              color: theme.primaryColor,
+              onRefresh: () async =>
+                  context.read<MovieBloc>().add(LoadTrendingMovies()),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(bottom: 110),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(theme),
+                    const CategorySelector(
+                        categories: ['Trending', 'Sci-Fi', 'Action', 'Drama']),
+                    const SizedBox(height: 24),
+                    BlocBuilder<MovieBloc, MovieState>(
+                      builder: (context, state) {
+                        if (state is MovieLoading) {
+                          return SizedBox(
+                              height: 260,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: theme.primaryColor)));
+                        } else if (state is MovieLoaded) {
+                          return MovieHorizontalList(
+                              title: 'Spotlight Screenings',
+                              movies: state.movies);
+                        } else if (state is MovieError) {
+                          return SizedBox(
+                              height: 200,
+                              child: Center(child: Text(state.message)));
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -36,7 +65,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAmbientBackground() {
+  Widget _buildAmbientBackground(ThemeData theme) {
     return Positioned(
       top: -100,
       right: -50,
@@ -46,17 +75,17 @@ class HomePage extends StatelessWidget {
           width: 350,
           height: 350,
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: const Color(0xFFD4AF37).withValues(alpha: 0.06),
-          ),
+              shape: BoxShape.circle,
+              color: theme.primaryColor.withValues(
+                  alpha: theme.brightness == Brightness.dark ? 0.06 : 0.12)),
         ),
       ),
     );
   }
 
-  Widget _buildHeader() {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(16, 24, 16, 20),
+  Widget _buildHeader(ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,13 +94,13 @@ class HomePage extends StatelessWidget {
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 3,
-                  color: Colors.grey)),
-          SizedBox(height: 4),
+                  color: theme.hintColor)),
+          const SizedBox(height: 4),
           Text('World of Cinema',
               style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w900,
-                  color: Colors.white)),
+                  color: theme.textTheme.displayLarge?.color)),
         ],
       ),
     );

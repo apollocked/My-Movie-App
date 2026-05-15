@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/entities/movie.dart';
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
 

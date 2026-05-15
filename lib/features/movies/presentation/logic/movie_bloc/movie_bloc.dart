@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/entities/movie.dart';
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_state.dart'

@@ -6,6 +6,9 @@ class CategorySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return SizedBox(
       height: 38,
       child: ListView.builder(
@@ -13,31 +16,38 @@ class CategorySelector extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
+          // Keep first item selected as your default structure layout placeholder
           final isSelected = index == 0;
+
           return Container(
             margin: const EdgeInsets.only(right: 10),
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               gradient: isSelected
                   ? const LinearGradient(
-                      colors: [Color(0xFFD4AF37), Color(0xFFAA820A)])
+                      colors: [Color(0xFFD4AF37), Color(0xFFAA820A)],
+                    )
                   : null,
-              color: isSelected ? null : Colors.white.withValues(alpha: 0.04),
+              color: isSelected
+                  ? null
+                  : (isDark
+                      ? theme.colorScheme.surfaceContainer
+                      : theme.cardColor),
               borderRadius: BorderRadius.circular(30),
               border: Border.all(
-                  color: isSelected
-                      ? Colors.transparent
-                      : Colors.white.withValues(alpha: 0.06)),
+                color: isSelected ? Colors.transparent : theme.dividerColor,
+              ),
             ),
             child: Center(
               child: Text(
                 categories[index],
                 style: TextStyle(
-                    color: isSelected
-                        ? Colors.black
-                        : Colors.white.withValues(alpha: 0.7),
-                    fontSize: 13,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500),
+                  color: isSelected
+                      ? Colors.black
+                      : theme.textTheme.bodyMedium?.color,
+                  fontSize: 13,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                ),
               ),
             ),
           );

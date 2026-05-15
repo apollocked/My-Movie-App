@@ -7,48 +7,39 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final settingsCubit = context.read<SettingsCubit>();
     final currentSettings = context.watch<SettingsCubit>().state;
+    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            const Text('SETTINGS',
+            Text('SETTINGS',
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w900,
-                    color: Colors.white)),
+                    color: theme.textTheme.displayLarge?.color)),
             const SizedBox(height: 24),
-
-            // Language Control Tile
             _buildSettingsTile(
+              theme: theme,
               icon: Icons.translate_rounded,
               title: 'App Language',
               value: currentSettings.locale.languageCode.toUpperCase(),
               onTap: () {
-                // Quick trilingual toggle cycle: en -> ku -> ar -> en
                 final code = currentSettings.locale.languageCode;
-                if (code == 'en') {
-                  settingsCubit.changeLanguage('ku');
-                } else if (code == 'ku') {
-                  settingsCubit.changeLanguage('ar');
-                } else {
-                  settingsCubit.changeLanguage('en');
-                }
+                settingsCubit.changeLanguage(
+                    code == 'en' ? 'ku' : (code == 'ku' ? 'ar' : 'en'));
               },
             ),
-
-            // Theme Mode Control Tile
             _buildSettingsTile(
-              icon: currentSettings.themeMode == ThemeMode.dark
-                  ? Icons.dark_mode_rounded
-                  : Icons.light_mode_rounded,
+              theme: theme,
+              icon: isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
               title: 'OLED Display Mode',
-              value: currentSettings.themeMode == ThemeMode.dark
-                  ? 'Enabled'
-                  : 'Disabled',
+              value: isDark ? 'Enabled' : 'Disabled',
               onTap: () => settingsCubit.toggleTheme(),
             ),
           ],
@@ -58,6 +49,7 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget _buildSettingsTile({
+    required ThemeData theme,
     required IconData icon,
     required String title,
     required String value,
@@ -66,25 +58,30 @@ class SettingsPage extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.03),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
-      ),
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: theme.dividerColor),
+          boxShadow: theme.brightness == Brightness.dark
+              ? []
+              : [
+                  BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.03),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2))
+                ]),
       child: ListTile(
         onTap: onTap,
-        leading: Icon(icon, color: const Color(0xFFD4AF37)),
+        leading: Icon(icon, color: theme.primaryColor),
         title: Text(title,
-            style: const TextStyle(
-                color: Colors.white,
+            style: TextStyle(
+                color: theme.textTheme.displayLarge?.color,
                 fontWeight: FontWeight.w600,
                 fontSize: 14)),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(value,
-                style: const TextStyle(color: Colors.grey, fontSize: 13)),
-            const Icon(Icons.chevron_right_rounded,
-                color: Colors.grey, size: 20),
+            Text(value, style: TextStyle(color: theme.hintColor, fontSize: 13)),
+            Icon(Icons.chevron_right_rounded, color: theme.hintColor, size: 20),
           ],
         ),
       ),

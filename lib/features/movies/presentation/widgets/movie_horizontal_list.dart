@@ -15,6 +15,8 @@ class MovieHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,8 +24,7 @@ class MovieHorizontalList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Text(
             title,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+            style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
           ),
         ),
         SizedBox(
@@ -32,9 +33,11 @@ class MovieHorizontalList extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            itemCount: 5, // Temporary hardcoded length for display layout
+            // Cleaned your hardcoded placeholder value to read safe lengths dynamically
+            itemCount: movies.isEmpty ? 5 : movies.length,
             itemBuilder: (context, index) {
-              return MoviePosterCard(height: cardHeight);
+              final movie = movies.isEmpty ? null : movies[index];
+              return MoviePosterCard(height: cardHeight, movie: movie);
             },
           ),
         ),

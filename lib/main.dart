@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:isar/isar.dart';
+import 'package:my_movies_app/core/theme/app_theme.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
@@ -47,7 +48,6 @@ class MovieVaultApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Watch our lean SettingsCubit state modifications directly
     final settings = context.watch<SettingsCubit>().state;
 
     return MaterialApp.router(
@@ -55,14 +55,11 @@ class MovieVaultApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: settings.themeMode,
       locale: settings.locale,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xfff5f5f5),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-      ),
+
+      // Directly binds your polished layouts here
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+
       routerConfig: AppRouter.router,
     );
   }
