@@ -1,0 +1,27 @@
+## GitHub Language Detection Overrides
+android/** linguist-vendored
+ios/** linguist-vendored
+web/** linguist-vendored
+windows/** linguist-vendored
+linux/** linguist-vendored
+macos/** linguist-vendored
+
+## Line Ending & Text Handling
+* text=auto
+*.dart text eol=lf
+*.yaml text eol=lf
+*.pubspec text eol=lf
+
+## Binary Files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.ttf binary
+
+## Generated & Lock Files
+pubspec.lock -diff
+.dart_tool/** linguist-generated
+build/** linguist-generated
