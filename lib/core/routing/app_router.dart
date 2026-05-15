@@ -4,7 +4,7 @@ import '../../features/movies/domain/entities/movie.dart';
 import '../../features/movies/presentation/pages/main_navigation_shell.dart';
 import '../../features/movies/presentation/pages/home_page.dart';
 import '../../features/movies/presentation/pages/search_page.dart';
-import '../../features/movies/presentation/pages/profile_page.dart';
+import '../../features/auth/presentation/pages/profile_page.dart';
 import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
 
