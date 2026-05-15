@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../widgets/movie_horizontal_list.dart';
 import '../widgets/category_selector.dart';
@@ -8,32 +9,70 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text('CINEMA',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
-                        color: const Color(0xFFD4AF37))),
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          _buildAmbientBackground(),
+          SafeArea(
+            bottom: false,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(bottom: 110),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  const CategorySelector(
+                      categories: ['Trending', 'Sci-Fi', 'Action', 'Drama']),
+                  const SizedBox(height: 24),
+                  const MovieHorizontalList(
+                      title: 'Spotlight Screenings', movies: []),
+                ],
               ),
-              const CategorySelector(
-                  categories: ['Action', 'Sci-Fi', 'Drama', 'Thriller']),
-              const SizedBox(height: 16),
-              // Passing dummy empty structures for layout verification before hooking up BLoC values
-              const MovieHorizontalList(title: 'Trending Today', movies: []),
-              const SizedBox(height: 16),
-              const MovieHorizontalList(
-                  title: 'Upcoming Releases', movies: [], cardHeight: 160),
-            ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmbientBackground() {
+    return Positioned(
+      top: -100,
+      right: -50,
+      child: ImageFiltered(
+        imageFilter: ImageFilter.blur(sigmaX: 90, sigmaY: 90),
+        child: Container(
+          width: 350,
+          height: 350,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: const Color(0xFFD4AF37).withValues(alpha: 0.06),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return const Padding(
+      padding: EdgeInsets.fromLTRB(16, 24, 16, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('EXPLORE',
+              style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 3,
+                  color: Colors.grey)),
+          SizedBox(height: 4),
+          Text('World of Cinema',
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white)),
+        ],
       ),
     );
   }

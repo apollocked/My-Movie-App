@@ -1,3 +1,6 @@
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movies_app/features/movies/domain/repositories/movie_repository.dart';
+
 import '../datasources/movie_remote_data_source.dart';
 
 class MovieRepositoryImpl implements MovieRepository {

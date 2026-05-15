@@ -1,33 +1,64 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../domain/entities/movie.dart';
 
 class MoviePosterCard extends StatelessWidget {
-  final Movie movie;
   final double height;
 
-  const MoviePosterCard({super.key, required this.movie, this.height = 240});
+  const MoviePosterCard({super.key, this.height = 260});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.push('/movie/${movie.id}', extra: movie),
+    final width = height * 0.68;
+    return Container(
+      width: width,
+      margin: const EdgeInsets.only(right: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border:
+            Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withValues(alpha: 0.4),
+              blurRadius: 12,
+              offset: const Offset(0, 6)),
+        ],
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.network(
+              'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500',
+              fit: BoxFit.cover,
+            ),
+          ),
+          _buildRatingBadge(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRatingBadge() {
+    return Positioned(
+      top: 12,
+      right: 12,
       child: Container(
-        width: height * 0.68,
-        margin: const EdgeInsets.only(right: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: Theme.of(context).cardTheme.color,
+          color: Colors.black.withValues(alpha: 0.65),
+          borderRadius: BorderRadius.circular(10),
+          border:
+              Border.all(color: Colors.white.withValues(alpha: 0.12), width: 1),
         ),
-        clipBehavior: Clip.antiAlias,
-        child: CachedNetworkImage(
-          imageUrl: movie.fullPosterUrl,
-          fit: BoxFit.cover,
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) =>
-              const Icon(Icons.broken_image, size: 40),
+        child: const Row(
+          children: [
+            Icon(Icons.star_rounded, color: Color(0xFFD4AF37), size: 14),
+            SizedBox(width: 2),
+            Text('8.4',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold)),
+          ],
         ),
       ),
     );

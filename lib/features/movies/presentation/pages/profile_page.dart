@@ -6,26 +6,35 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.account_circle,
-                size: 80, color: Color(0xFFD4AF37)),
-            const SizedBox(height: 16),
-            const Text('Join the Community',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 8),
-              child: Text(
-                  'Create an account to keep track of your liked videos, specific metrics scores, and personalized watch-laters list.',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0xFFD4AF37).withValues(alpha: 0.1)),
+                child: const Icon(Icons.account_circle_rounded,
+                    size: 64, color: Color(0xFFD4AF37)),
+              ),
+              const SizedBox(height: 24),
+              const Text('Personal Vault',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white)),
+              const SizedBox(height: 8),
+              Text('Track your watchlist and sync items securely.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey)),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-                onPressed: () {}, child: const Text('Sign Up / Login')),
-          ],
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.5),
+                      fontSize: 13)),
+            ],
+          ),
         ),
       ),
     );

@@ -1,65 +1,94 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class MainNavigationShell extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
+  final dynamic navigationShell; // Keeps GoRouter structure compatible
 
-  const MainNavigationShell({
-    super.key,
-    required this.navigationShell,
-  });
+  const MainNavigationShell({super.key, required this.navigationShell});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: navigationShell,
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context)
-                  .colorScheme
-                  .surfaceContainerHighest
-                  .withOpacity(0.2),
-              width: 1,
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+              child: Container(
+                height: 72,
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.08), width: 1),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: _buildNavItems(),
+                ),
+              ),
             ),
           ),
         ),
-        child: NavigationBar(
-          selectedIndex: navigationShell.currentIndex,
-          onDestinationSelected: (index) => navigationShell.goBranch(index),
-          indicatorColor:
-              Theme.of(context).colorScheme.primary.withOpacity(0.15),
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          elevation: 0,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.movie_filter_outlined),
-              selectedIcon: Icon(Icons.movie_filter, color: Color(0xFFD4AF37)),
-              label: 'Home',
+      ),
+    );
+  }
+
+  List<Widget> _buildNavItems() {
+    // Replaced with bulletproof standard material icons
+    final icons = [
+      Icons.movie_creation_rounded,
+      Icons.search_rounded,
+      Icons.person_pin_rounded,
+      Icons.settings_suggest_rounded
+    ];
+    final labels = ['Cinema', 'Explore', 'Profile', 'Setup'];
+
+    return List.generate(4, (index) {
+      final isSelected = navigationShell.currentIndex == index;
+      return GestureDetector(
+        onTap: () => navigationShell.goBranch(index),
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutCubic,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? const Color(0xFFD4AF37).withValues(alpha: 0.12)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                icons[index],
+                color: isSelected
+                    ? const Color(0xFFD4AF37)
+                    : Colors.white.withValues(alpha: 0.4),
+                size: 24,
+              ),
             ),
-            NavigationDestination(
-              icon: Icon(Icons.search_rounded),
-              selectedIcon:
-                  Icon(Icons.search_rounded, color: Color(0xFFD4AF37)),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person_outline_rounded),
-              selectedIcon:
-                  Icon(Icons.person_rounded, color: Color(0xFFD4AF37)),
-              label: 'Profile',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.settings_suggest_outlined),
-              selectedIcon:
-                  Icon(Icons.settings_suggest, color: Color(0xFFD4AF37)),
-              label: 'Settings',
+            const SizedBox(height: 4),
+            Text(
+              labels[index],
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                color: isSelected
+                    ? const Color(0xFFD4AF37)
+                    : Colors.white.withValues(alpha: 0.4),
+                letterSpacing: 0.5,
+              ),
             ),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

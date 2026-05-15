@@ -11,12 +11,8 @@ class CachedMovie {
   late String title;
   late String overview;
   late String posterPath;
+  late String backdropPath;
+  late String releaseDate;
   late double voteAverage;
-
-  // Interaction flags
-  late bool isLiked;
-  late bool isWatchLater;
-  String? userNote;
-
-  late DateTime timestamp;
+  late String categoryType;
 }
