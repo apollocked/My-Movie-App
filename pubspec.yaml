@@ -25,8 +25,8 @@ dependencies:
 
   # Backend & Auth
   # firebase_core: ^2.32.0
-  # firebase_auth: ^4.17.8
-  # cloud_firestore: ^4.17.5
+  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.17.5
 
   # Local Persistence
   isar: ^3.1.0+1
@@ -41,6 +41,7 @@ dependencies:
   connectivity_plus: ^6.0.0
   flutter_dotenv: ^5.1.0
   http: ^1.6.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

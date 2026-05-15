@@ -28,7 +28,7 @@ class AppRouter {
               GoRoute(
                 path: '/',
                 name: 'home',
-                builder: (context, state) => const HomePage(),
+                builder: (context, state) => const MovieHomePage(),
               ),
             ],
           ),

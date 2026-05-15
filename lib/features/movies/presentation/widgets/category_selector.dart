@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 class CategorySelector extends StatelessWidget {
   final List<String> categories;
-  const CategorySelector({super.key, required this.categories});
+  final int selectedIndex;
+  final ValueChanged<int> onCategorySelected;
+
+  const CategorySelector({
+    super.key,
+    required this.categories,
+    required this.selectedIndex,
+    required this.onCategorySelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,39 +22,47 @@ class CategorySelector extends StatelessWidget {
       child: ListView.builder(
         padding: const EdgeInsets.only(left: 16),
         scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          // Keep first item selected as your default structure layout placeholder
-          final isSelected = index == 0;
+          final isSelected = index == selectedIndex;
 
-          return Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              gradient: isSelected
-                  ? const LinearGradient(
-                      colors: [Color(0xFFD4AF37), Color(0xFFAA820A)],
-                    )
-                  : null,
-              color: isSelected
-                  ? null
-                  : (isDark
-                      ? theme.colorScheme.surfaceContainer
-                      : theme.cardColor),
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                color: isSelected ? Colors.transparent : theme.dividerColor,
+          return GestureDetector(
+            onTap: () => onCategorySelected(index),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.fastOutSlowIn,
+              margin: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              decoration: BoxDecoration(
+                gradient: isSelected
+                    ? const LinearGradient(
+                        colors: [Color(0xFFD4AF37), Color(0xFFAA820A)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )
+                    : null,
+                color: isSelected
+                    ? null
+                    : (isDark
+                        ? theme.colorScheme.surfaceContainer
+                        : theme.cardColor),
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                  color: isSelected ? Colors.transparent : theme.dividerColor,
+                ),
               ),
-            ),
-            child: Center(
-              child: Text(
-                categories[index],
-                style: TextStyle(
-                  color: isSelected
-                      ? Colors.black
-                      : theme.textTheme.bodyMedium?.color,
-                  fontSize: 13,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              child: Center(
+                child: Text(
+                  categories[index],
+                  style: TextStyle(
+                    color: isSelected
+                        ? Colors.black
+                        : theme.textTheme.bodyMedium?.color
+                            ?.withValues(alpha: 0.7),
+                    fontSize: 13,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                  ),
                 ),
               ),
             ),
