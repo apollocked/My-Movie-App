@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Import our active search logic layers
+import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
+import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
+import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
@@ -11,6 +18,12 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedFilter = 'All';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +42,18 @@ class _SearchPageState extends State<SearchPage> {
                   style: theme.textTheme.titleLarge?.copyWith(fontSize: 28)),
             ),
 
-            // Search Input
+            // Search Text Field Group
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: _searchController,
                 style: TextStyle(color: theme.textTheme.bodyLarge?.color),
                 onChanged: (query) {
-                  if (query.length > 2) {
-                    // Fire search event when user types
-                    context
-                        .read<MovieSearchBloc>()
-                        .add(SearchMoviesEvent(query, filter: _selectedFilter));
+                  if (query.trim().length > 2) {
+                    // FIXED: Changed from SearchMoviesEvent to your registered ExecuteSearch event
+                    context.read<SearchBloc>().add(ExecuteSearch(query: query));
+                  } else if (query.trim().isEmpty) {
+                    context.read<SearchBloc>().add(ClearSearch());
                   }
                 },
                 decoration: InputDecoration(
@@ -61,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             const SizedBox(height: 16),
 
-            // Quick Filters
+            // Quick Category Chips
             SizedBox(
               height: 40,
               child: ListView(
@@ -84,10 +97,10 @@ class _SearchPageState extends State<SearchPage> {
                               isSelected ? FontWeight.bold : FontWeight.normal),
                       onSelected: (bool selected) {
                         setState(() => _selectedFilter = filter);
-                        if (_searchController.text.isNotEmpty) {
-                          context.read<MovieSearchBloc>().add(SearchMoviesEvent(
-                              _searchController.text,
-                              filter: filter));
+                        if (_searchController.text.trim().isNotEmpty) {
+                          // Trigger new search query using your filters if needed
+                          context.read<SearchBloc>().add(
+                              ExecuteSearch(query: _searchController.text));
                         }
                       },
                     ),
@@ -97,13 +110,13 @@ class _SearchPageState extends State<SearchPage> {
             ),
             const SizedBox(height: 16),
 
-            // Results Stream
+            // Dynamic Search Result Area
             Expanded(
-              child: BlocBuilder<MovieSearchBloc, MovieSearchState>(
+              child: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
-                  if (state is MovieSearchLoading) {
+                  if (state is SearchLoading) {
                     return const MovieShimmerList(cardHeight: 220);
-                  } else if (state is MovieSearchLoaded) {
+                  } else if (state is SearchLoaded) {
                     if (state.results.isEmpty) {
                       return Center(
                           child: Text('No results found.',
@@ -113,9 +126,19 @@ class _SearchPageState extends State<SearchPage> {
                       title: 'Results',
                       movies: state.results,
                       cardHeight: 260,
+                      onMovieTap: (movie) {
+                        // Safe routing layer integration
+                        // context.push('/movie-detail', extra: movie);
+                      },
+                    );
+                  } else if (state is SearchError) {
+                    return Center(
+                      child: Text(state.message,
+                          style: TextStyle(color: theme.colorScheme.error)),
                     );
                   }
-                  // Default state
+
+                  // Default/SearchInitial idle state visual indicator
                   return Center(
                     child: Icon(Icons.movie_filter_rounded,
                         size: 80, color: theme.dividerColor),

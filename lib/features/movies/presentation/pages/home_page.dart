@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// Added explicit event import to resolve the undefined method error
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_state.dart';
 import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
-
 import '../widgets/category_selector.dart';
+// Import your movie details page destination here
+// import 'movie_detail_page.dart';
 
 class MovieHomePage extends StatefulWidget {
   const MovieHomePage({super.key});
@@ -27,7 +30,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
   @override
   void initState() {
     super.initState();
-    // Load initial category on startup
     context.read<MovieBloc>().add(LoadMoviesByCategory(_homeCategories[0]));
   }
 
@@ -63,7 +65,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
                     selectedIndex: _activeCategoryIndex,
                     onCategorySelected: (index) {
                       setState(() => _activeCategoryIndex = index);
-                      // Trigger API to fetch new category movies
                       context
                           .read<MovieBloc>()
                           .add(LoadMoviesByCategory(_homeCategories[index]));
@@ -91,6 +92,13 @@ class _MovieHomePageState extends State<MovieHomePage> {
                               '${_homeCategories[_activeCategoryIndex]} Showcase',
                           movies: state.movies,
                           cardHeight: 280,
+                          // Added interactive click handler straight to movie details
+                          onMovieTap: (movie) {
+                            // If using standard Navigator:
+                            // Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(movie: movie)));
+                            // If using GoRouter:
+                            // context.push('/movie-detail', extra: movie);
+                          },
                         );
                       } else if (state is MovieError) {
                         return Center(

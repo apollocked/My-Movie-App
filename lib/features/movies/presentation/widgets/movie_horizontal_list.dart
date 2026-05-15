@@ -5,12 +5,14 @@ class MovieHorizontalList extends StatelessWidget {
   final String title;
   final List<dynamic> movies;
   final double cardHeight;
+  final ValueChanged<dynamic>? onMovieTap;
 
   const MovieHorizontalList({
     super.key,
     required this.title,
     required this.movies,
     this.cardHeight = 260,
+    this.onMovieTap,
   });
 
   @override
@@ -33,11 +35,18 @@ class MovieHorizontalList extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            // Cleaned your hardcoded placeholder value to read safe lengths dynamically
             itemCount: movies.isEmpty ? 5 : movies.length,
             itemBuilder: (context, index) {
               final movie = movies.isEmpty ? null : movies[index];
-              return MoviePosterCard(height: cardHeight, movie: movie);
+
+              return GestureDetector(
+                onTap: () {
+                  if (movie != null && onMovieTap != null) {
+                    onMovieTap!(movie);
+                  }
+                },
+                child: MoviePosterCard(height: cardHeight, movie: movie),
+              );
             },
           ),
         ),
