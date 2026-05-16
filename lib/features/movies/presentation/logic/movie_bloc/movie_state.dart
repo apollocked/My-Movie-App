@@ -1,15 +1,26 @@
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 
-abstract class MovieState {}
+abstract class MovieState {
+  const MovieState();
+}
 
-class MovieLoading extends MovieState {}
+class MovieInitialState extends MovieState {
+  const MovieInitialState();
+}
+
+class MovieLoading extends MovieState {
+  const MovieLoading();
+}
 
 class MovieLoaded extends MovieState {
   final List<Movie> movies;
-  MovieLoaded(this.movies);
+
+  // Const constructor added for consistency
+  const MovieLoaded(this.movies);
 }
 
 class MovieError extends MovieState {
   final String message;
-  MovieError(this.message);
+
+  const MovieError(this.message);
 }

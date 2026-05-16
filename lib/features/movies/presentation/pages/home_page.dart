@@ -7,8 +7,6 @@ import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movi
 import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
 import '../widgets/category_selector.dart';
-// Import your movie details page destination here
-// import 'movie_detail_page.dart';
 
 class MovieHomePage extends StatefulWidget {
   const MovieHomePage({super.key});
@@ -92,13 +90,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
                               '${_homeCategories[_activeCategoryIndex]} Showcase',
                           movies: state.movies,
                           cardHeight: 280,
-                          // Added interactive click handler straight to movie details
-                          onMovieTap: (movie) {
-                            // If using standard Navigator:
-                            // Navigator.push(context, MaterialPageRoute(builder: (_) => MovieDetailPage(movie: movie)));
-                            // If using GoRouter:
-                            // context.push('/movie-detail', extra: movie);
-                          },
+                          onMovieTap: (movie) {},
                         );
                       } else if (state is MovieError) {
                         return Center(

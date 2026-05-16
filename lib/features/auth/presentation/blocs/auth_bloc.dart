@@ -1,61 +1,54 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/login_usecase.dart';
-import '../../domain/usecases/signup_usecase.dart';
-import '../../domain/usecases/logout_usecase.dart';
-import '../../domain/repositories/auth_repository.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
+import 'package:my_movies_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:my_movies_app/features/auth/domain/usecases/login_usecase.dart';
+import 'package:my_movies_app/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final LoginUseCase _loginUseCase;
-  final SignupUseCase _signupUseCase;
-  final LogoutUseCase _logoutUseCase;
-  final AuthRepository _authRepository;
+  final LoginUseCase loginUseCase;
+  final SignupUseCase signupUseCase;
+  final LogoutUseCase logoutUseCase;
+  final AuthRepository authRepository;
 
   AuthBloc({
-    required LoginUseCase loginUseCase,
-    required SignupUseCase signupUseCase,
-    required LogoutUseCase logoutUseCase,
-    required AuthRepository authRepository,
-  })  : _loginUseCase = loginUseCase,
-        _signupUseCase = signupUseCase,
-        _logoutUseCase = logoutUseCase,
-        _authRepository = authRepository,
-        super(AuthInitial()) {
-    on<AuthCheckRequested>((event, emit) async {
-      await emit.forEach(
-        _authRepository.currentUser,
-        onData: (user) =>
-            user != null ? Authenticated(user) : Unauthenticated(),
-      );
-    });
-
-    on<AuthLoginSubmitted>((event, emit) async {
+    required this.loginUseCase,
+    required this.signupUseCase,
+    required this.logoutUseCase,
+    required this.authRepository,
+  }) : super(AuthInitial()) {
+    on<LoginRequested>((event, emit) async {
       emit(AuthLoading());
       try {
         final user =
-            await _loginUseCase(email: event.email, password: event.password);
+            await loginUseCase(email: event.email, password: event.password);
         emit(Authenticated(user));
       } catch (e) {
-        emit(AuthFailure(e.toString().replaceAll('Exception: ', '')));
+        emit(Unauthenticated(message: e.toString()));
       }
     });
 
-    on<AuthSignUpSubmitted>((event, emit) async {
+    on<SignupRequested>((event, emit) async {
       emit(AuthLoading());
       try {
         final user =
-            await _signupUseCase(email: event.email, password: event.password);
+            await signupUseCase(email: event.email, password: event.password);
         emit(Authenticated(user));
       } catch (e) {
-        emit(AuthFailure(e.toString().replaceAll('Exception: ', '')));
+        emit(Unauthenticated(message: e.toString()));
       }
     });
 
-    on<AuthLogoutRequested>((event, emit) async {
+    // FIXED: Handled the guest pipeline cleanly
+    on<ContinueAsGuestRequested>((event, emit) {
+      emit(const AuthGuest());
+    });
+
+    on<LogoutRequested>((event, emit) async {
       emit(AuthLoading());
-      await _logoutUseCase();
-      emit(Unauthenticated());
+      await logoutUseCase();
+      emit(const Unauthenticated());
     });
   }
 }

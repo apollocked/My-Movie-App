@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTheme {
-  // Pure OLED Dark Theme Configuration
   static ThemeData get darkTheme {
     final baseDark = ThemeData.dark();
     return ThemeData(
@@ -42,7 +41,6 @@ class AppTheme {
     );
   }
 
-  // Premium, High-Contrast Light Theme Configuration
   static ThemeData get lightTheme {
     final baseLight = ThemeData.light();
     return ThemeData(

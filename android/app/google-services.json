@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68723194042",
+    "project_id": "my-movies-app-apollo",
+    "storage_bucket": "my-movies-app-apollo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68723194042:android:906267e60ed25e16f82a83",
+        "android_client_info": {
+          "package_name": "com.example.my_movies_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMg6XTiKji_Rq7_NLXuM7F_YhJleWzWXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

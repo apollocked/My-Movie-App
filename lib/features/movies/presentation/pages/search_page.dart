@@ -50,7 +50,6 @@ class _SearchPageState extends State<SearchPage> {
                 style: TextStyle(color: theme.textTheme.bodyLarge?.color),
                 onChanged: (query) {
                   if (query.trim().length > 2) {
-                    // FIXED: Changed from SearchMoviesEvent to your registered ExecuteSearch event
                     context.read<SearchBloc>().add(ExecuteSearch(query: query));
                   } else if (query.trim().isEmpty) {
                     context.read<SearchBloc>().add(ClearSearch());

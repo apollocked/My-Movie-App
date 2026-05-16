@@ -1,17 +1,23 @@
-abstract class AuthEvent {}
-
-class AuthCheckRequested extends AuthEvent {}
-
-class AuthLoginSubmitted extends AuthEvent {
-  final String email;
-  final String password;
-  AuthLoginSubmitted(this.email, this.password);
+abstract class AuthEvent {
+  const AuthEvent();
 }
 
-class AuthSignUpSubmitted extends AuthEvent {
+class LoginRequested extends AuthEvent {
   final String email;
   final String password;
-  AuthSignUpSubmitted(this.email, this.password);
+  const LoginRequested(this.email, this.password);
 }
 
-class AuthLogoutRequested extends AuthEvent {}
+class SignupRequested extends AuthEvent {
+  final String email;
+  final String password;
+  const SignupRequested(this.email, this.password);
+}
+
+class ContinueAsGuestRequested extends AuthEvent {
+  const ContinueAsGuestRequested();
+}
+
+class LogoutRequested extends AuthEvent {
+  const LogoutRequested();
+}

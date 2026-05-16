@@ -1,6 +1,8 @@
 import '../../domain/entities/user_entity.dart';
 
-abstract class AuthState {}
+abstract class AuthState {
+  const AuthState();
+}
 
 class AuthInitial extends AuthState {}
 
@@ -8,12 +10,14 @@ class AuthLoading extends AuthState {}
 
 class Authenticated extends AuthState {
   final UserEntity user;
-  Authenticated(this.user);
+  const Authenticated(this.user);
 }
 
-class Unauthenticated extends AuthState {}
+class AuthGuest extends AuthState {
+  const AuthGuest();
+}
 
-class AuthFailure extends AuthState {
-  final String message;
-  AuthFailure(this.message);
+class Unauthenticated extends AuthState {
+  final String? message;
+  const Unauthenticated({this.message});
 }

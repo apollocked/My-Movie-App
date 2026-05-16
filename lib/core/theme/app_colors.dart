@@ -14,9 +14,8 @@ class AppColors {
   static const Color lightBorder = Color(0xFFE9ECEF);
 
   // Shared Brand Accents
-  static const Color primaryGold = Color(0xFFD4AF37); // Premium Cinema Gold
-  static const Color secondaryAccent =
-      Color(0xFF00E5FF); // Cyber Cyan for modern highlights
+  static const Color primaryGold = Color(0xFFD4AF37);
+  static const Color secondaryAccent = Color(0xFF00E5FF);
   static const Color errorRed = Color(0xFFFF3333);
 
   // Text Typography Scales
