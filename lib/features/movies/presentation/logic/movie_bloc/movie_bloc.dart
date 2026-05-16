@@ -15,18 +15,21 @@ const _categoryEndpoints = {
 };
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
+  final ApiClient apiClient;
   final MovieDataService _dataService;
   final FirestoreService _firestoreService = FirestoreService();
 
-  MovieBloc({required ApiClient apiClient, required Isar isar})
+  MovieBloc({required this.apiClient, required Isar isar})
       : _dataService = MovieDataService(apiClient: apiClient, isar: isar),
         super(const MovieInitialState()) {
-    on<LoadTrendingMovies>((event, emit) => _load(
-        'Trending', _categoryEndpoints['Trending']!, emit, event.language));
-    on<LoadMoviesByCategory>((event, emit) {
+    on<LoadTrendingMovies>((event, emit) async {
+      await _load(
+          'Trending', _categoryEndpoints['Trending']!, emit, event.language);
+    });
+    on<LoadMoviesByCategory>((event, emit) async {
       final endpoint =
           _categoryEndpoints[event.category] ?? '/trending/movie/day';
-      _load(event.category, endpoint, emit, event.language);
+      await _load(event.category, endpoint, emit, event.language);
     });
     on<ToggleWatchLater>((event, emit) async =>
         await _firestoreService.toggleCollection(event.movie, 'watch_later'));
@@ -41,13 +44,15 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     emit(const MovieLoading());
     try {
       final movies = await _dataService.fetchAndCache(cat, end, lang);
-      emit(MovieLoaded(movies));
+      if (!emit.isDone) emit(MovieLoaded(movies));
     } catch (e) {
       final cached = await _dataService.getCached(cat);
-      if (cached.isNotEmpty) {
-        emit(MovieLoaded(cached));
-      } else {
-        emit(MovieError(e.toString()));
+      if (!emit.isDone) {
+        if (cached.isNotEmpty) {
+          emit(MovieLoaded(cached));
+        } else {
+          emit(MovieError(e.toString()));
+        }
       }
     }
   }
