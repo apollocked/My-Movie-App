@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_movies_app/core/localization/app_strings.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import '../widgets/collection_grid.dart';
 import '../widgets/collection_empty_state.dart';
 
@@ -17,13 +15,16 @@ class CollectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    final locale = context.watch<SettingsCubit>().state.locale;
-    final translatedTitle = AppStrings.getTitle(title, locale);
+    
+    String translatedTitle = title;
+    if (title == 'Watch Later') translatedTitle = t.profile.watch_later;
+    if (title == 'My Favorites') translatedTitle = t.profile.my_favorites;
+    if (title == 'My Ratings') translatedTitle = t.profile.my_ratings;
 
     if (uid == null) {
       return Scaffold(
         appBar: AppBar(title: Text(translatedTitle)),
-        body: const Center(child: Text('Please log in to view your collection')),
+        body: Center(child: Text(t.auth.login_required_desc)),
       );
     }
 
@@ -39,19 +40,19 @@ class CollectionPage extends StatelessWidget {
             .orderBy('timestamp', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) return const Center(child: CircularProgressIndicator());
-          if (snapshot.hasError) return _fallbackList(uid, locale);
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return CollectionEmptyState(locale: locale);
+          if (snapshot.hasError) return _fallbackList(uid);
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return CollectionEmptyState();
           return CollectionGrid(docs: snapshot.data!.docs, collectionPath: collectionPath);
         },
       ),
     );
   }
 
-  Widget _fallbackList(String uid, Locale locale) {
+  Widget _fallbackList(String uid) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('users').doc(uid).collection(collectionPath).snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return CollectionEmptyState(locale: locale);
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) return CollectionEmptyState();
         return CollectionGrid(docs: snapshot.data!.docs, collectionPath: collectionPath);
       },
     );

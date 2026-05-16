@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
@@ -45,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
@@ -68,22 +70,22 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AuthHeader(
-                      title: 'Welcome Back',
-                      subtitle: 'Log in to your account',
+                      title: t.auth.welcome_back,
+                      subtitle: t.auth.login_subtitle,
                     ),
                     const SizedBox(height: 40),
                     AuthInputField(
                       controller: _emailController,
-                      label: 'Email',
-                      hint: 'Enter your email',
+                      label: t.auth.email,
+                      hint: t.auth.email_hint,
                       prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return 'Email is required';
+                          return t.auth.errors.email_required;
                         }
                         if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                          return 'Enter a valid email';
+                          return t.auth.errors.invalid_email;
                         }
                         return null;
                       },
@@ -91,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 16),
                     AuthInputField(
                       controller: _passwordController,
-                      label: 'Password',
-                      hint: 'Enter your password',
+                      label: t.auth.password,
+                      hint: t.auth.password_hint,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscurePassword,
                       suffixIcon: _obscurePassword
@@ -102,10 +104,10 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() => _obscurePassword = !_obscurePassword),
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return 'Password is required';
+                          return t.auth.errors.password_required;
                         }
                         if (value!.length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return t.auth.errors.password_too_short;
                         }
                         return null;
                       },
@@ -114,15 +116,15 @@ class _LoginPageState extends State<LoginPage> {
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
                         return AuthButton(
-                          text: 'Log In',
+                          text: t.auth.login,
                           isLoading: state is AuthLoading,
                           onPressed: _handleLogin,
                         );
                       },
                     ),
                     AuthNavigationLinks(
-                      primaryText: 'Don\'t have an account? ',
-                      linkText: 'Sign up',
+                      primaryText: t.auth.no_account,
+                      linkText: t.auth.signup,
                       linkRoute: '/signup',
                     ),
                   ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
@@ -37,6 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
@@ -60,22 +62,22 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AuthHeader(
-                      title: 'Create Account',
-                      subtitle: 'Join us to rate and save movies',
+                      title: t.auth.create_account,
+                      subtitle: t.auth.join_us_subtitle,
                     ),
                     const SizedBox(height: 40),
                     AuthInputField(
                       controller: _emailController,
-                      label: 'Email Address',
-                      hint: 'Enter your email',
+                      label: t.auth.email,
+                      hint: t.auth.email_hint,
                       prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return 'Email is required';
+                          return t.auth.errors.email_required;
                         }
                         if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                          return 'Enter a valid email';
+                          return t.auth.errors.invalid_email;
                         }
                         return null;
                       },
@@ -83,8 +85,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 16),
                     AuthInputField(
                       controller: _passwordController,
-                      label: 'Password',
-                      hint: 'At least 6 characters',
+                      label: t.auth.password,
+                      hint: t.auth.password_hint,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscurePassword,
                       suffixIcon: _obscurePassword
@@ -94,10 +96,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           setState(() => _obscurePassword = !_obscurePassword),
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return 'Password is required';
+                          return t.auth.errors.password_required;
                         }
                         if (value!.length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return t.auth.errors.password_too_short;
                         }
                         return null;
                       },
@@ -105,8 +107,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 16),
                     AuthInputField(
                       controller: _confirmPasswordController,
-                      label: 'Confirm Password',
-                      hint: 'Re-enter your password',
+                      label: t.auth.confirm_password,
+                      hint: t.auth.confirm_password_hint,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscureConfirmPassword,
                       suffixIcon: _obscureConfirmPassword
@@ -116,10 +118,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           _obscureConfirmPassword = !_obscureConfirmPassword),
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return 'Please confirm your password';
+                          return t.auth.errors.confirm_password_required;
                         }
                         if (value != _passwordController.text) {
-                          return 'Passwords do not match';
+                          return t.auth.errors.passwords_dont_match;
                         }
                         return null;
                       },
@@ -128,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
                         return AuthButton(
-                          text: 'Create Account',
+                          text: t.auth.create_account,
                           isLoading: state is AuthLoading,
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -144,8 +146,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                     AuthNavigationLinks(
-                      primaryText: 'Already have an account? ',
-                      linkText: 'Log in',
+                      primaryText: t.auth.already_account,
+                      linkText: t.auth.login,
                       linkRoute: '/login',
                     ),
                   ],

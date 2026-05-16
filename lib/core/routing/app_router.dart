@@ -39,13 +39,8 @@ class AppRouter {
           return '/onboarding';
         }
 
-        if ((authState is Authenticated || authState is AuthGuest) &&
-            isOnAuthRoute) {
+        if (authState is Authenticated && isOnAuthRoute) {
           return '/';
-        }
-
-        if (state.uri.path == '/profile' && authState is AuthGuest) {
-          return '/onboarding';
         }
 
         return null;
@@ -138,7 +133,6 @@ class AppRouter {
 
 class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
     _subscription = stream.asBroadcastStream().listen(
           (dynamic _) => notifyListeners(),
         );

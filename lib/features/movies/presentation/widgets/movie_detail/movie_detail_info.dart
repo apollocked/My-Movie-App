@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import '../../logic/movie_bloc/movie_bloc.dart';
 import '../../logic/movie_bloc/movie_event.dart';
 
@@ -68,8 +69,8 @@ class MovieDetailInfo extends StatelessWidget {
                       context.read<MovieBloc>().add(ToggleFavorite(movie));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(isFav
-                            ? 'Removed from favorites'
-                            : 'Added to favorites'),
+                            ? t.movie_detail.removed_from_favorites
+                            : t.movie_detail.added_to_favorites),
                         duration: const Duration(seconds: 1),
                         behavior: SnackBarBehavior.floating,
                       ));
@@ -80,8 +81,8 @@ class MovieDetailInfo extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 24),
-        const Text('Overview',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(t.movie_detail.overview,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         Text(overview ?? movie.overview,
             style: theme.textTheme.bodyLarge

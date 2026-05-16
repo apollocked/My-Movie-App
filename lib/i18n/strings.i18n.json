@@ -1,0 +1,129 @@
+{
+  "home": {
+    "trending": "Trending Now",
+    "top_rated": "Top Rated Movies",
+    "now_playing": "Now Playing",
+    "popular": "Popular",
+    "upcoming": "Upcoming",
+    "action": "Action Thrillers",
+    "sci_fi": "Sci-Fi Explorations",
+    "horror": "Horror & Suspense",
+    "drama": "Dramatic Masterpieces",
+    "comedy": "Laughter & Comedy",
+    "romance": "Romantic Stories",
+    "thriller": "Edge-of-Seat Thrillers",
+    "animation": "Animated Worlds",
+    "mystery": "Mystery & Detective"
+  },
+  "search": {
+    "explore": "Explore",
+    "explore_caps": "EXPLORE",
+    "hint": "Search movies...",
+    "no_results": "No results found.",
+    "filters": {
+      "all": "All",
+      "movies": "Movies",
+      "tv_shows": "TV Shows",
+      "actors": "Actors"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "my_activity": "My Activity",
+    "watch_later": "Watch Later",
+    "favorites": "My Favorites",
+    "my_favorites": "My Favorites",
+    "ratings": "My Ratings",
+    "my_ratings": "My Ratings",
+    "account": "Account",
+    "logout": "Log Out"
+  },
+  "settings": {
+    "title": "Setup",
+    "language": "Language",
+    "dark_mode": "Dark Mode"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign up",
+    "create_account": "Create Account",
+    "welcome_back": "Welcome Back",
+    "login_subtitle": "Log in to your account",
+    "join_community": "Join the Community",
+    "join_subtitle": "Sign in to unlock the full potential of CineStream and personalize your movie experience.",
+    "email": "Email",
+    "email_hint": "Enter your email",
+    "password": "Password",
+    "password_hint": "Enter your password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_hint": "Re-enter your password",
+    "no_account": "Don't have an account? ",
+    "already_account": "Already have an account? ",
+    "join_us_subtitle": "Join us to rate and save movies",
+    "onboarding_subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.",
+    "get_started": "Get Started",
+    "continue_guest": "Continue as Guest",
+    "login_required_desc": "Please log in to view your collection",
+    "errors": {
+      "email_required": "Email is required",
+      "invalid_email": "Enter a valid email",
+      "password_required": "Password is required",
+      "password_too_short": "Password must be at least 6 characters",
+      "confirm_password_required": "Confirm your password",
+      "passwords_dont_match": "Passwords do not match"
+    },
+    "guest": {
+      "continue": "Continue as Guest",
+      "get_started": "Get Started / Log In"
+    }
+  },
+  "onboarding": {
+    "subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily."
+  },
+  "guest_features": {
+    "favorites": {
+      "title": "Curate Favorites",
+      "desc": "Keep track of the movies you love most."
+    },
+    "rate": {
+      "title": "Rate & Review",
+      "desc": "Share your thoughts and influence others."
+    },
+    "watch_later": {
+      "title": "Watch Later",
+      "desc": "Never lose track of movies you want to see."
+    },
+    "sync": {
+      "title": "Sync Everywhere",
+      "desc": "Your data is saved securely and synced across all your devices."
+    }
+  },
+  "movie_detail": {
+    "overview": "Overview",
+    "watch_later": "Watch Later",
+    "saved": "Saved",
+    "rate_movie": "Rate Movie",
+    "added_to_favorites": "Added to favorites",
+    "removed_from_favorites": "Removed from favorites",
+    "saved_rating": "Saved rating: ",
+    "prompts": {
+      "login_required": "Login Required",
+      "please_sign_in": "Please sign in to",
+      "go_to_login": "Go to Login",
+      "rate_title": "Rate this Movie",
+      "slide_to_rate": "Slide to set your rating"
+    },
+    "actions": {
+      "add_watch_later": "add to Watch Later",
+      "rate_movies": "rate movies"
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "submit": "Submit Rating",
+    "cinema": "Cinema",
+    "app_name": "CineStream",
+    "empty_list": "Your list is currently empty",
+    "cine_stream": "CineStream"
+  }
+}

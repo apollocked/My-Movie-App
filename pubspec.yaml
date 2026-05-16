@@ -42,14 +42,17 @@ dependencies:
   flutter_dotenv: ^5.1.0
   http: ^1.6.0
   shimmer: ^3.0.0
+  slang: ^4.14.0
+  slang_flutter: ^4.14.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   isar_generator: ^3.1.0+1
-  build_runner: ^2.4.8
+  build_runner: ^2.4.13
   flutter_lints: ^6.0.0
+  slang_gpt: ^0.11.4
 
 flutter:
   uses-material-design: true

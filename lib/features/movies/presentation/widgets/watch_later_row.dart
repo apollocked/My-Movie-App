@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_movies_app/core/localization/app_strings.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
 
@@ -43,8 +41,7 @@ class WatchLaterRow extends StatelessWidget {
         return Column(
           children: [
             MovieHorizontalList(
-              title: AppStrings.getTitle('Your Watch Later',
-                  context.read<SettingsCubit>().state.locale),
+              title: t.movie_detail.watch_later,
               movies: movies,
               cardHeight: 220,
               onMovieTap: (Movie movie) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_state.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
@@ -15,6 +16,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       final prefs = await SharedPreferences.getInstance();
       final isDark = prefs.getBool('isDark') ?? true;
       final langCode = prefs.getString('lang') ?? 'en';
+
+      LocaleSettings.setLocaleRaw(langCode);
 
       emit(SettingsState(
         themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
@@ -33,6 +36,8 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void changeLanguage(String languageCode) async {
+    LocaleSettings.setLocaleRaw(languageCode);
+    
     emit(SettingsState(
         themeMode: state.themeMode, locale: Locale(languageCode)));
 

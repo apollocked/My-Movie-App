@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import '../../logic/movie_bloc/movie_bloc.dart';
 import '../../logic/movie_bloc/movie_event.dart';
@@ -27,7 +28,7 @@ class _RatingDialogState extends State<RatingDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      title: const Text('Rate this Movie', textAlign: TextAlign.center),
+      title: Text(t.movie_detail.prompts.rate_title, textAlign: TextAlign.center),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -45,14 +46,14 @@ class _RatingDialogState extends State<RatingDialog> {
             activeColor: Colors.amber,
             onChanged: (val) => setState(() => _selectedRating = val),
           ),
-          const Text('Slide to set your rating',
-              style: TextStyle(color: Colors.grey)),
+          Text(t.movie_detail.prompts.slide_to_rate,
+              style: const TextStyle(color: Colors.grey)),
         ],
       ),
       actions: [
         TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel')),
+            child: Text(t.common.cancel)),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -63,10 +64,10 @@ class _RatingDialogState extends State<RatingDialog> {
                 .add(RateMovie(widget.movie, _selectedRating));
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Saved rating: ${_selectedRating.toInt()}/10'),
+                content: Text('${t.movie_detail.saved_rating} ${_selectedRating.toInt()}/10'),
                 behavior: SnackBarBehavior.floating));
           },
-          child: const Text('Submit Rating'),
+          child: Text(t.common.submit),
         ),
       ],
     );

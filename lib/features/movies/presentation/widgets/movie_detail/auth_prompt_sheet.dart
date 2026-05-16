@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:my_movies_app/i18n/strings.g.dart';
+
 class AuthPromptSheet extends StatelessWidget {
   final String actionMsg;
 
@@ -8,6 +10,8 @@ class AuthPromptSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -15,13 +19,11 @@ class AuthPromptSheet extends StatelessWidget {
         children: [
           const Icon(Icons.lock_person_rounded, size: 64, color: Colors.orange),
           const SizedBox(height: 16),
-          Text('Login Required',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
+          Text(t.movie_detail.prompts.login_required,
+              style: theme.textTheme.headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          Text('Please sign in to $actionMsg.', textAlign: TextAlign.center),
+          Text('${t.movie_detail.prompts.please_sign_in} $actionMsg.', textAlign: TextAlign.center),
           const SizedBox(height: 24),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -32,8 +34,8 @@ class AuthPromptSheet extends StatelessWidget {
               Navigator.pop(context);
               context.go('/login');
             },
-            child: const Text('Go to Login',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            child: Text(t.movie_detail.prompts.go_to_login,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 12),
         ],

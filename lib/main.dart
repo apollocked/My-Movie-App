@@ -24,8 +24,12 @@ import 'package:my_movies_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:my_movies_app/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart';
 
+import 'package:my_movies_app/core/localization/fallback_delegates.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
 
   await dotenv.load(fileName: ".env");
 
@@ -49,13 +53,15 @@ void main() async {
   final LogoutUseCase logoutUseCase = LogoutUseCase(authRepository);
 
   runApp(
-    MyApp(
-      apiClient: apiClient,
-      isar: isar,
-      authRepository: authRepository,
-      loginUseCase: loginUseCase,
-      signupUseCase: signupUseCase,
-      logoutUseCase: logoutUseCase,
+    TranslationProvider(
+      child: MyApp(
+        apiClient: apiClient,
+        isar: isar,
+        authRepository: authRepository,
+        loginUseCase: loginUseCase,
+        signupUseCase: signupUseCase,
+        logoutUseCase: logoutUseCase,
+      ),
     ),
   );
 }
@@ -127,11 +133,11 @@ class _MyAppState extends State<MyApp> {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
+              FallbackMaterialLocalizationsDelegate(),
+              FallbackCupertinoLocalizationsDelegate(),
+              FallbackWidgetsLocalizationsDelegate(),
             ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('ar'),
-            ],
+            supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
           );
         },

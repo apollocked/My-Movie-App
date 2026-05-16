@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 
@@ -12,6 +13,7 @@ class OnboardingPage extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
@@ -25,13 +27,13 @@ class OnboardingPage extends StatelessWidget {
                       size: 100, color: theme.primaryColor),
                   const SizedBox(height: 24),
                   Text(
-                    'CineStream',
+                    t.common.app_name,
                     style: theme.textTheme.headlineLarge
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.',
+                    t.auth.onboarding_subtitle,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge
                         ?.copyWith(color: theme.hintColor),
@@ -49,8 +51,8 @@ class OnboardingPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16)),
                     ),
                     onPressed: () => context.go('/login'),
-                    child: const Text('Get Started / Log In',
-                        style: TextStyle(
+                    child: Text(t.auth.get_started,
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(height: 12),
@@ -68,7 +70,7 @@ class OnboardingPage extends StatelessWidget {
                       context.go('/');
                     },
                     child: Text(
-                      'Continue as Guest',
+                      t.auth.continue_guest,
                       style: TextStyle(
                           fontSize: 16,
                           color: theme.textTheme.bodyLarge?.color),

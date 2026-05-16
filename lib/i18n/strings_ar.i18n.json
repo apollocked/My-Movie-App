@@ -1,0 +1,129 @@
+{
+  "home": {
+    "trending": "الأكثر تداولاً",
+    "top_rated": "الأعلى تقييماً",
+    "now_playing": "يُعرض حالياً",
+    "popular": "الأكثر شعبية",
+    "upcoming": "قادم قريباً",
+    "action": "أفلام حركة وإثارة",
+    "sci_fi": "خيال علمي",
+    "horror": "رعب وتشويق",
+    "drama": "أفلام درامية",
+    "comedy": "أفلام كوميدية",
+    "romance": "أفلام رومانسية",
+    "thriller": "أفلام إثارة",
+    "animation": "أفلام رسوم متحركة",
+    "mystery": "غموض وتحقيق"
+  },
+  "search": {
+    "explore": "استكشف",
+    "explore_caps": "استكشف",
+    "hint": "ابحث عن أفلام...",
+    "no_results": "لم يتم العثور على نتائج.",
+    "filters": {
+      "all": "الكل",
+      "movies": "أفلام",
+      "tv_shows": "مسلسلات",
+      "actors": "ممثلون"
+    }
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "my_activity": "نشاطي",
+    "watch_later": "شاهد لاحقاً",
+    "favorites": "مفضلاتي",
+    "my_favorites": "مفضلاتي",
+    "ratings": "تقييماتي",
+    "my_ratings": "تقييماتي",
+    "account": "الحساب",
+    "logout": "تسجيل الخروج"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "dark_mode": "الوضع الليلي"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "create_account": "إنشاء حساب",
+    "welcome_back": "مرحباً بعودتك",
+    "login_subtitle": "سجل الدخول إلى حسابك",
+    "join_community": "انضم إلى المجتمع",
+    "join_subtitle": "سجل الدخول لفتح كامل إمكانيات CineStream وتخصيص تجربتك السينمائية.",
+    "email": "البريد الإلكتروني",
+    "email_hint": "أدخل بريدك الإلكتروني",
+    "password": "كلمة المرور",
+    "password_hint": "أدخل كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "confirm_password_hint": "أعد إدخال كلمة المرور",
+    "no_account": "ليس لديك حساب؟ ",
+    "already_account": "لديك حساب بالفعل؟ ",
+    "join_us_subtitle": "انضم إلينا لتقييم وحفظ الأفلام",
+    "onboarding_subtitle": "اكتشف ملايين الأفلام، وأنشئ قوائم مخصصة، وقيم عناوينك المفضلة بسهولة.",
+    "get_started": "ابدأ الآن",
+    "continue_guest": "المتابعة كضيف",
+    "login_required_desc": "يرجى تسجيل الدخول لعرض مجموعتك",
+    "errors": {
+      "email_required": "البريد الإلكتروني مطلوب",
+      "invalid_email": "أدخل بريد إلكتروني صحيح",
+      "password_required": "كلمة المرور مطلوبة",
+      "password_too_short": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+      "confirm_password_required": "يرجى تأكيد كلمة المرور",
+      "passwords_dont_match": "كلمات المرور غير متطابقة"
+    },
+    "guest": {
+      "continue": "المتابعة كضيف",
+      "get_started": "ابدأ الآن / تسجيل الدخول"
+    }
+  },
+  "onboarding": {
+    "subtitle": "اكتشف ملايين الأفلام، وأنشئ قوائم مخصصة، وقيم عناوينك المفضلة بسهولة."
+  },
+  "guest_features": {
+    "favorites": {
+      "title": "قائمة المفضلات",
+      "desc": "تتبع الأفلام التي تحبها أكثر."
+    },
+    "rate": {
+      "title": "قيم وراجع",
+      "desc": "شارك أفكارك وأثر على الآخرين."
+    },
+    "watch_later": {
+      "title": "شاهد لاحقاً",
+      "desc": "لا تفقد أبداً الأفلام التي تريد مشاهدتها."
+    },
+    "sync": {
+      "title": "مزامنة في كل مكان",
+      "desc": "بياناتك محفوظة بأمان ومزامنة عبر جميع أجهزتك."
+    }
+  },
+  "movie_detail": {
+    "overview": "نبذة عامة",
+    "watch_later": "شاهد لاحقاً",
+    "saved": "تم الحفظ",
+    "rate_movie": "قيم الفيلم",
+    "added_to_favorites": "تمت الإضافة إلى المفضلات",
+    "removed_from_favorites": "تمت الإزالة من المفضلات",
+    "saved_rating": "تم حفظ التقييم: ",
+    "prompts": {
+      "login_required": "تسجيل الدخول مطلوب",
+      "please_sign_in": "يرجى تسجيل الدخول لـ ",
+      "go_to_login": "الذهاب لتسجيل الدخول",
+      "rate_title": "قيم هذا الفيلم",
+      "slide_to_rate": "اسحب لتحديد تقييمك"
+    },
+    "actions": {
+      "add_watch_later": "الإضافة إلى قائمة المشاهدة لاحقاً",
+      "rate_movies": "تقييم الأفلام"
+    }
+  },
+  "common": {
+    "cancel": "إلغاء",
+    "submit": "إرسال التقييم",
+    "cinema": "السينما",
+    "app_name": "CineStream",
+    "empty_list": "قائمتك فارغة حالياً",
+    "cine_stream": "CineStream"
+  }
+}

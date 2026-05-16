@@ -4,8 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movies_app/core/localization/app_strings.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import '../widgets/guest_profile_view.dart';
 import '../widgets/profile_widgets.dart';
 
@@ -15,7 +14,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final locale = context.watch<SettingsCubit>().state.locale;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -31,29 +29,29 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   _buildUserHeader(theme, user.displayName, user.email),
                   const SizedBox(height: 48),
-                  ProfileSectionHeader(title: AppStrings.getTitle('My Activity', locale)),
+                  ProfileSectionHeader(title: t.profile.my_activity),
                   const SizedBox(height: 16),
                   ProfileTile(
                     icon: Icons.bookmark_outline_rounded,
-                    title: AppStrings.getTitle('Watch Later', locale),
+                    title: t.profile.watch_later,
                     onTap: () => context.push('/collection/watch_later'),
                   ),
                   ProfileTile(
                     icon: Icons.favorite_outline_rounded,
-                    title: AppStrings.getTitle('My Favorites', locale),
+                    title: t.profile.my_favorites,
                     onTap: () => context.push('/collection/favorites'),
                   ),
                   ProfileTile(
                     icon: Icons.star_outline_rounded,
-                    title: AppStrings.getTitle('My Ratings', locale),
+                    title: t.profile.my_ratings,
                     onTap: () => context.push('/collection/ratings'),
                   ),
                   const SizedBox(height: 32),
-                  ProfileSectionHeader(title: AppStrings.getTitle('Account', locale)),
+                  ProfileSectionHeader(title: t.profile.account),
                   const SizedBox(height: 16),
                   ProfileTile(
                     icon: Icons.logout_rounded,
-                    title: AppStrings.getTitle('Log Out', locale),
+                    title: t.profile.logout,
                     isDestructive: true,
                     onTap: () => context.read<AuthBloc>().add(const LogoutRequested()),
                   ),

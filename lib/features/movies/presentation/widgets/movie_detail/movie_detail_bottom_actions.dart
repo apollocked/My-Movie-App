@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import '../../logic/movie_bloc/movie_bloc.dart';
 import '../../logic/movie_bloc/movie_event.dart';
@@ -43,11 +44,17 @@ class MovieDetailBottomActions extends StatelessWidget {
             builder: (context, snapshot) {
               final isAdded = snapshot.hasData && snapshot.data!.exists;
               return ElevatedButton.icon(
-                onPressed: () => _execAction(context, 'add to Watch Later', () {
-                  context.read<MovieBloc>().add(ToggleWatchLater(movie));
-                }),
+                onPressed: () => _execAction(
+                  context,
+                  t.movie_detail.actions.add_watch_later,
+                  () {
+                    context.read<MovieBloc>().add(ToggleWatchLater(movie));
+                  },
+                ),
                 icon: Icon(isAdded ? Icons.check_circle : Icons.add_circle_outline),
-                label: Text(isAdded ? 'Saved' : 'Watch Later'),
+                label: Text(isAdded
+                    ? t.movie_detail.saved
+                    : t.movie_detail.watch_later),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: isAdded ? Colors.green : theme.primaryColor,
@@ -76,12 +83,18 @@ class MovieDetailBottomActions extends StatelessWidget {
                   ? (snapshot.data!.data() as Map<String, dynamic>)['rating']
                   : null;
               return OutlinedButton.icon(
-                onPressed: () => _execAction(context, 'rate movies', () {
-                  RatingDialog.show(context, movie);
-                }),
+                onPressed: () => _execAction(
+                  context,
+                  t.movie_detail.actions.rate_movies,
+                  () {
+                    RatingDialog.show(context, movie);
+                  },
+                ),
                 icon: Icon(hasRated ? Icons.star : Icons.star_border,
                     color: Colors.amber),
-                label: Text(hasRated ? '${rating.toInt()}/10' : 'Rate Movie'),
+                label: Text(hasRated
+                    ? '${rating.toInt()}/10'
+                    : t.movie_detail.rate_movie),
                 style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(

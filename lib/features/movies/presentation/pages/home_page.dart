@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/core/utils/locale_utils.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movies_app/core/localization/app_strings.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_state.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
@@ -26,7 +26,8 @@ class _MovieHomePageState extends State<MovieHomePage> {
   void initState() {
     super.initState();
     final locale = context.read<SettingsCubit>().state.locale;
-    context.read<MovieBloc>().add(LoadMoviesByCategory('Trending', language: getTmdbLanguageCode(locale)));
+    context.read<MovieBloc>().add(LoadMoviesByCategory('Trending',
+        language: getTmdbLanguageCode(locale)));
   }
 
   @override
@@ -40,12 +41,16 @@ class _MovieHomePageState extends State<MovieHomePage> {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<SettingsCubit, SettingsState>(
         listenWhen: (previous, current) => previous.locale != current.locale,
-        listener: (context, state) => movieBloc.add(LoadMoviesByCategory('Trending', language: getTmdbLanguageCode(state.locale))),
+        listener: (context, state) => movieBloc.add(LoadMoviesByCategory(
+            'Trending',
+            language: getTmdbLanguageCode(state.locale))),
         child: SafeArea(
           top: false,
           child: RefreshIndicator(
             color: theme.primaryColor,
-            onRefresh: () async => movieBloc.add(LoadMoviesByCategory('Trending', language: getTmdbLanguageCode(locale))),
+            onRefresh: () async => movieBloc.add(LoadMoviesByCategory(
+                'Trending',
+                language: getTmdbLanguageCode(locale))),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
@@ -54,7 +59,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
                   _buildHero(),
                   const SizedBox(height: 24),
                   if (authState is Authenticated) const WatchLaterRow(),
-                  _buildCategories(movieBloc.apiClient, locale),
+                  _buildCategories(movieBloc.apiClient),
                   const SizedBox(height: 48),
                 ],
               ),
@@ -68,21 +73,60 @@ class _MovieHomePageState extends State<MovieHomePage> {
   Widget _buildHero() {
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        if (state is MovieLoading) return const SizedBox(height: 480, child: Center(child: CircularProgressIndicator()));
+        if (state is MovieLoading)
+          return const SizedBox(
+              height: 480, child: Center(child: CircularProgressIndicator()));
         if (state is MovieLoaded && state.movies.isNotEmpty) {
           final m = state.movies.first;
-          return FeaturedMovieHero(movie: m, onPlayPressed: () => context.push('/movie/${m.id}', extra: m), onInfoPressed: () => context.push('/movie/${m.id}', extra: m));
+          return FeaturedMovieHero(
+              movie: m,
+              onPlayPressed: () => context.push('/movie/${m.id}', extra: m),
+              onInfoPressed: () => context.push('/movie/${m.id}', extra: m));
         }
         return const SizedBox.shrink();
       },
     );
   }
 
-  Widget _buildCategories(dynamic apiClient, Locale locale) {
-    final titles = ['Trending Now', 'Top Rated Movies', 'Action Thrillers', 'Sci-Fi Explorations', 'Horror & Suspense'];
-    final endpoints = ['/trending/movie/day', '/movie/top_rated', '/movie/now_playing', '/movie/popular', '/movie/upcoming'];
+  Widget _buildCategories(dynamic apiClient) {
+    final titles = [
+      t.home.trending,
+      t.home.top_rated,
+      t.home.now_playing,
+      t.home.popular,
+      t.home.upcoming,
+      t.home.action,
+      t.home.sci_fi,
+      t.home.horror,
+      t.home.drama,
+      t.home.comedy,
+      t.home.romance,
+      t.home.thriller,
+      t.home.animation,
+      t.home.mystery,
+    ];
+
+    final endpoints = [
+      '/trending/movie/day',
+      '/movie/top_rated',
+      '/movie/now_playing',
+      '/movie/popular',
+      '/movie/upcoming',
+      '/discover/movie?with_genres=28',
+      '/discover/movie?with_genres=878',
+      '/discover/movie?with_genres=27',
+      '/discover/movie?with_genres=18',
+      '/discover/movie?with_genres=35',
+      '/discover/movie?with_genres=10749',
+      '/discover/movie?with_genres=53',
+      '/discover/movie?with_genres=16',
+      '/discover/movie?with_genres=9648',
+    ];
     return Column(
-      children: List.generate(titles.length, (i) => CategoryRow(apiClient: apiClient, title: AppStrings.getTitle(titles[i], locale), endpoint: endpoints[i])),
+      children: List.generate(
+          titles.length,
+          (i) => CategoryRow(
+              apiClient: apiClient, title: titles[i], endpoint: endpoints[i])),
     );
   }
 }

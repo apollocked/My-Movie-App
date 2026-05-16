@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/core/utils/locale_utils.dart';
-import 'package:my_movies_app/core/localization/app_strings.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/i18n/strings.g.dart';
 
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-              child: Text(AppStrings.getTitle('EXPLORE', locale),
+              child: Text(t.search.explore,
                   style: theme.textTheme.titleLarge?.copyWith(fontSize: 28)),
             ),
             Padding(
@@ -61,7 +61,7 @@ class _SearchPageState extends State<SearchPage> {
                   }
                 },
                 decoration: InputDecoration(
-                  hintText: AppStrings.getTitle('Search movies...', locale),
+                  hintText: t.search.hint,
                   hintStyle: theme.inputDecorationTheme.hintStyle,
                   prefixIcon: Icon(Icons.search_rounded,
                       color: theme.inputDecorationTheme.prefixIconColor),
@@ -84,10 +84,16 @@ class _SearchPageState extends State<SearchPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: ['All', 'Movies', 'TV Shows', 'Actors'].map((filter) {
                   final isSelected = _selectedFilter == filter;
+                  String label = filter;
+                  if (filter == 'All') label = t.search.filters.all;
+                  if (filter == 'Movies') label = t.search.filters.movies;
+                  if (filter == 'TV Shows') label = t.search.filters.tv_shows;
+                  if (filter == 'Actors') label = t.search.filters.actors;
+
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: FilterChip(
-                      label: Text(filter),
+                      label: Text(label),
                       selected: isSelected,
                       selectedColor: theme.primaryColor.withValues(alpha: 0.2),
                       checkmarkColor: theme.primaryColor,
@@ -120,7 +126,7 @@ class _SearchPageState extends State<SearchPage> {
                   } else if (state is SearchLoaded) {
                     if (state.results.isEmpty) {
                       return Center(
-                          child: Text('No results found.',
+                          child: Text(t.search.no_results,
                               style: theme.textTheme.bodyMedium));
                     }
                     return GridView.builder(
