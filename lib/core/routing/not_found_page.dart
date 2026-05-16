@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/empty_state_widget.dart';
 
 class NotFoundPage extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
 import 'package:my_movies_app/core/utils/locale_utils.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import '../widgets/movie_detail/movie_detail_bottom_actions.dart';
 import '../widgets/movie_detail/movie_detail_info.dart';
@@ -41,8 +41,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         final videos = data['videos']?['results'] as List?;
         String? trailerKey;
         if (videos != null && videos.isNotEmpty) {
-          final t = videos.firstWhere((v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
-              orElse: () => videos.firstWhere((v) => v['site'] == 'YouTube', orElse: () => null));
+          final t = videos.firstWhere(
+              (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
+              orElse: () => videos.firstWhere((v) => v['site'] == 'YouTube',
+                  orElse: () => null));
           if (t != null) trailerKey = t['key'];
         }
         setState(() {
@@ -84,7 +86,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: _ytController != null
                         ? YoutubePlayer(controller: _ytController!)
-                        : Image.network(widget.movie.fullPosterUrl, fit: BoxFit.cover),
+                        : Image.network(widget.movie.fullPosterUrl,
+                            fit: BoxFit.cover),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -93,7 +96,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MovieDetailInfo(movie: widget.movie, uid: uid, overview: _details?['overview']),
+                        MovieDetailInfo(
+                            movie: widget.movie,
+                            uid: uid,
+                            overview: _details?['overview']),
                         const SizedBox(height: 32),
                         MovieDetailBottomActions(movie: widget.movie, uid: uid),
                         const SizedBox(height: 40),

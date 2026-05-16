@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
 import 'package:my_movies_app/core/utils/locale_utils.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_state.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
 import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
 
@@ -40,17 +40,20 @@ class _CategoryRowState extends State<CategoryRow> {
     setState(() => _isLoading = true);
     try {
       final language = getTmdbLanguageCode(locale);
-      final data = await widget.apiClient.get(widget.endpoint, params: {'language': language});
+      final data = await widget.apiClient
+          .get(widget.endpoint, params: {'language': language});
       final rawList = data['results'] as List;
-      final movies = rawList.map((json) => Movie(
-        id: (json['id'] as num?)?.toInt() ?? 0,
-        title: json['title'] as String? ?? '',
-        overview: json['overview'] as String? ?? '',
-        posterPath: json['poster_path'] as String? ?? '',
-        backdropPath: json['backdrop_path'] as String? ?? '',
-        releaseDate: json['release_date'] as String? ?? '',
-        voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
-      )).toList();
+      final movies = rawList
+          .map((json) => Movie(
+                id: (json['id'] as num?)?.toInt() ?? 0,
+                title: json['title'] as String? ?? '',
+                overview: json['overview'] as String? ?? '',
+                posterPath: json['poster_path'] as String? ?? '',
+                backdropPath: json['backdrop_path'] as String? ?? '',
+                releaseDate: json['release_date'] as String? ?? '',
+                voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+              ))
+          .toList();
 
       if (mounted) {
         setState(() {
@@ -80,8 +83,10 @@ class _CategoryRowState extends State<CategoryRow> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(widget.title, style: Theme.of(context).textTheme.titleLarge),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(widget.title,
+                style: Theme.of(context).textTheme.titleLarge),
           ),
           const MovieShimmerList(cardHeight: 220),
           const SizedBox(height: 24),

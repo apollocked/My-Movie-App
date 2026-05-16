@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_state.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
@@ -37,7 +37,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void changeLanguage(String languageCode) async {
     LocaleSettings.setLocaleRaw(languageCode);
-    
+
     emit(SettingsState(
         themeMode: state.themeMode, locale: Locale(languageCode)));
 

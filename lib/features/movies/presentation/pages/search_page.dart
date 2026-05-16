@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/core/utils/locale_utils.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 
-import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_event.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_state.dart';
 import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/search_shimmer.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/empty_state_widget.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_poster_card.dart';

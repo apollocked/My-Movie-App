@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 
 class AuthPromptSheet extends StatelessWidget {
   final String actionMsg;
@@ -23,19 +23,21 @@ class AuthPromptSheet extends StatelessWidget {
               style: theme.textTheme.headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          Text('${t.movie_detail.prompts.please_sign_in} $actionMsg.', textAlign: TextAlign.center),
+          Text('${t.movie_detail.prompts.please_sign_in} $actionMsg.',
+              textAlign: TextAlign.center),
           const SizedBox(height: 24),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(56),
-                shape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16))),
             onPressed: () {
               Navigator.pop(context);
               context.go('/login');
             },
             child: Text(t.movie_detail.prompts.go_to_login,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 12),
         ],

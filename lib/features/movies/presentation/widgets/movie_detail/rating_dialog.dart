@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
-import '../../logic/movie_bloc/movie_bloc.dart';
-import '../../logic/movie_bloc/movie_event.dart';
+import '../../blocs/movie_bloc/movie_bloc.dart';
+import '../../blocs/movie_bloc/movie_event.dart';
 
 class RatingDialog extends StatefulWidget {
   final Movie movie;
@@ -28,7 +28,8 @@ class _RatingDialogState extends State<RatingDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      title: Text(t.movie_detail.prompts.rate_title, textAlign: TextAlign.center),
+      title:
+          Text(t.movie_detail.prompts.rate_title, textAlign: TextAlign.center),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -64,7 +65,8 @@ class _RatingDialogState extends State<RatingDialog> {
                 .add(RateMovie(widget.movie, _selectedRating));
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('${t.movie_detail.saved_rating} ${_selectedRating.toInt()}/10'),
+                content: Text(
+                    '${t.movie_detail.saved_rating} ${_selectedRating.toInt()}/10'),
                 behavior: SnackBarBehavior.floating));
           },
           child: Text(t.common.submit),

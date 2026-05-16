@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 
 class CollectionEmptyState extends StatelessWidget {
   const CollectionEmptyState({super.key});
@@ -17,7 +17,8 @@ class CollectionEmptyState extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             t.common.empty_list,
-            style: theme.textTheme.titleMedium?.copyWith(color: theme.hintColor),
+            style:
+                theme.textTheme.titleMedium?.copyWith(color: theme.hintColor),
           ),
         ],
       ),

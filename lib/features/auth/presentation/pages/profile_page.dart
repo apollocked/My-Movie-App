@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 import '../widgets/guest_profile_view.dart';
 import '../widgets/profile_widgets.dart';
 
@@ -20,12 +20,15 @@ class ProfilePage extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is AuthLoading) return const Center(child: CircularProgressIndicator());
+            if (state is AuthLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
             if (state is AuthGuest) return const GuestProfileView();
             if (state is Authenticated) {
               final user = state.user;
               return ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                 children: [
                   _buildUserHeader(theme, user.displayName, user.email),
                   const SizedBox(height: 48),
@@ -53,7 +56,8 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.logout_rounded,
                     title: t.profile.logout,
                     isDestructive: true,
-                    onTap: () => context.read<AuthBloc>().add(const LogoutRequested()),
+                    onTap: () =>
+                        context.read<AuthBloc>().add(const LogoutRequested()),
                   ),
                 ],
               );
@@ -70,18 +74,29 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 100, height: 100,
+            width: 100,
+            height: 100,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: LinearGradient(colors: [theme.primaryColor, Colors.orangeAccent]),
-              boxShadow: [BoxShadow(color: theme.primaryColor.withValues(alpha: 0.3), blurRadius: 20, offset: const Offset(0, 10))],
+              gradient: LinearGradient(
+                  colors: [theme.primaryColor, Colors.orangeAccent]),
+              boxShadow: [
+                BoxShadow(
+                    color: theme.primaryColor.withValues(alpha: 0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10))
+              ],
             ),
             child: const Icon(Icons.person, size: 50, color: Colors.white),
           ),
           const SizedBox(height: 20),
-          Text(name ?? 'CineVault Moviegoer', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+          Text(name ?? 'CineVault Moviegoer',
+              style: theme.textTheme.headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          Text(email, style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor)),
+          Text(email,
+              style:
+                  theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor)),
         ],
       ),
     );

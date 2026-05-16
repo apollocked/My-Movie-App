@@ -6,16 +6,16 @@ import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/firebase_options.dart';
+import 'package:my_movies_app/core/config/firebase_options.dart';
 import 'package:my_movies_app/core/routing/app_router.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
 import 'package:my_movies_app/core/theme/app_theme.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
-import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_state.dart';
-import 'package:my_movies_app/features/auth/data/datasource/auth_remote_data_source.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
+import 'package:my_movies_app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/domain/repositories/auth_repository.dart';
@@ -25,7 +25,7 @@ import 'package:my_movies_app/features/auth/domain/usecases/signup_usecase.dart'
 import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart';
 
 import 'package:my_movies_app/core/localization/fallback_delegates.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

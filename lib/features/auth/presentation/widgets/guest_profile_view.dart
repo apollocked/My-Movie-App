@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
 
 class GuestProfileView extends StatelessWidget {
   const GuestProfileView({super.key});
@@ -35,18 +35,21 @@ class GuestProfileView extends StatelessWidget {
             shape: BoxShape.circle,
             color: theme.primaryColor.withValues(alpha: 0.1),
           ),
-          child: Icon(Icons.account_circle_outlined, size: 80, color: theme.primaryColor),
+          child: Icon(Icons.account_circle_outlined,
+              size: 80, color: theme.primaryColor),
         ),
         const SizedBox(height: 24),
         Text(
           t.auth.join_community,
-          style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.headlineSmall
+              ?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Text(
           t.auth.join_subtitle,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor, height: 1.5),
+          style: theme.textTheme.bodyMedium
+              ?.copyWith(color: theme.hintColor, height: 1.5),
         ),
       ],
     );
@@ -90,7 +93,11 @@ class GuestProfileView extends StatelessWidget {
           height: 56,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [theme.primaryColor, theme.primaryColor.withValues(alpha: 0.8), theme.colorScheme.secondary],
+              colors: [
+                theme.primaryColor,
+                theme.primaryColor.withValues(alpha: 0.8),
+                theme.colorScheme.secondary
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -108,22 +115,29 @@ class GuestProfileView extends StatelessWidget {
               backgroundColor: Colors.transparent,
               foregroundColor: Colors.white,
               shadowColor: Colors.transparent,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
             ),
             onPressed: () => context.go('/login'),
-            child: Text(t.auth.login, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            child: Text(t.auth.login,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(height: 16),
         OutlinedButton(
           style: OutlinedButton.styleFrom(
             minimumSize: const Size.fromHeight(56),
-            side: BorderSide(color: theme.primaryColor.withValues(alpha: 0.5), width: 1.5),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            side: BorderSide(
+                color: theme.primaryColor.withValues(alpha: 0.5), width: 1.5),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             foregroundColor: theme.primaryColor,
           ),
           onPressed: () => context.go('/signup'),
-          child: Text(t.auth.create_account, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          child: Text(t.auth.create_account,
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         ),
       ],
     );
@@ -161,12 +175,14 @@ class _FeatureItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                style: theme.textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
               Text(
                 description,
-                style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
+                style:
+                    theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
               ),
             ],
           ),

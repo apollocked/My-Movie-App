@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/features/movies/data/services/firestore_service.dart';
-import 'package:my_movies_app/features/movies/data/services/movie_data_service.dart';
+import 'package:my_movies_app/features/movies/data/datasources/movie_firestore_data_source.dart';
+import 'package:my_movies_app/features/movies/data/datasources/movie_local_data_source.dart';
 import 'movie_event.dart';
 import 'movie_state.dart';
 
@@ -16,11 +16,12 @@ const _categoryEndpoints = {
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final ApiClient apiClient;
-  final MovieDataService _dataService;
-  final FirestoreService _firestoreService = FirestoreService();
+  final MovieLocalDataSource _dataService;
+  final MovieFirestoreDataSourceImpl movieFirestoreDataSourceImpl =
+      MovieFirestoreDataSourceImpl();
 
   MovieBloc({required this.apiClient, required Isar isar})
-      : _dataService = MovieDataService(apiClient: apiClient, isar: isar),
+      : _dataService = MovieLocalDataSource(apiClient: apiClient, isar: isar),
         super(const MovieInitialState()) {
     on<LoadTrendingMovies>((event, emit) async {
       await _load(
@@ -32,11 +33,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       await _load(event.category, endpoint, emit, event.language);
     });
     on<ToggleWatchLater>((event, emit) async =>
-        await _firestoreService.toggleCollection(event.movie, 'watch_later'));
-    on<ToggleFavorite>((event, emit) async =>
-        await _firestoreService.toggleCollection(event.movie, 'favorites'));
-    on<RateMovie>((event, emit) async =>
-        await _firestoreService.saveRating(event.movie, event.rating));
+        await movieFirestoreDataSourceImpl.toggleCollection(
+            event.movie, 'watch_later'));
+    on<ToggleFavorite>((event, emit) async => await movieFirestoreDataSourceImpl
+        .toggleCollection(event.movie, 'favorites'));
+    on<RateMovie>((event, emit) async => await movieFirestoreDataSourceImpl
+        .saveRating(event.movie, event.rating));
   }
 
   Future<void> _load(

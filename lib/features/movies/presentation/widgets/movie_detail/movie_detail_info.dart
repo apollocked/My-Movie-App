@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
-import 'package:my_movies_app/i18n/strings.g.dart';
-import '../../logic/movie_bloc/movie_bloc.dart';
-import '../../logic/movie_bloc/movie_event.dart';
+import 'package:my_movies_app/core/localization/strings.g.dart';
+import '../../blocs/movie_bloc/movie_bloc.dart';
+import '../../blocs/movie_bloc/movie_event.dart';
 
 class MovieDetailInfo extends StatelessWidget {
   final Movie movie;
@@ -38,12 +38,14 @@ class MovieDetailInfo extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.star_rounded, color: Colors.amber, size: 20),
+                      const Icon(Icons.star_rounded,
+                          color: Colors.amber, size: 20),
                       const SizedBox(width: 4),
                       Text('${movie.voteAverage.toStringAsFixed(1)}/10',
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(width: 16),
-                      const Icon(Icons.calendar_month, size: 18, color: Colors.grey),
+                      const Icon(Icons.calendar_month,
+                          size: 18, color: Colors.grey),
                       const SizedBox(width: 4),
                       Text(movie.releaseDate.split('-').first,
                           style: const TextStyle(color: Colors.grey)),
