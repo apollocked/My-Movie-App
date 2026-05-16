@@ -13,6 +13,7 @@ import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
 import '../../features/auth/presentation/blocs/auth_bloc.dart';
 import '../../features/auth/presentation/blocs/auth_state.dart';
+import 'not_found_page.dart';
 
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -21,6 +22,7 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
     debugLogDiagnostics: true,
+    errorBuilder: (context, state) => const NotFoundPage(),
     redirect: (context, state) {
       // Get auth state from context
       final authState = context.read<AuthBloc>().state;
@@ -39,6 +41,11 @@ class AppRouter {
       if ((authState is Authenticated || authState is AuthGuest) &&
           isOnAuthRoute) {
         return '/';
+      }
+
+      // Guest attempting to access profile should go to onboarding
+      if (state.uri.path == '/profile' && authState is AuthGuest) {
+        return '/onboarding';
       }
 
       return null; // No redirect

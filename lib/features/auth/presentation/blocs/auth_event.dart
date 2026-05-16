@@ -1,3 +1,5 @@
+import 'package:my_movies_app/features/auth/domain/entities/user_entity.dart';
+
 abstract class AuthEvent {
   const AuthEvent();
 }
@@ -16,6 +18,11 @@ class SignupRequested extends AuthEvent {
 
 class ContinueAsGuestRequested extends AuthEvent {
   const ContinueAsGuestRequested();
+}
+
+class AuthStatusChanged extends AuthEvent {
+  final UserEntity? user;
+  const AuthStatusChanged(this.user);
 }
 
 class LogoutRequested extends AuthEvent {

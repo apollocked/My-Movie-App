@@ -195,12 +195,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             const SizedBox(width: 16),
                             Expanded(
                               child: OutlinedButton.icon(
-                                onPressed: () => _execAction(
-                                    'rate movies',
-                                    () => ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                            content:
-                                                Text('Rating Submitted!')))),
+                                onPressed: () => _execAction('rate movies', () {
+                                  context.read<MovieBloc>().add(RateMovie(widget.movie, 10.0));
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('10/10 Rating Submitted to Firebase!')));
+                                }),
                                 icon: const Icon(Icons.star_border),
                                 label: const Text('Rate'),
                                 style: OutlinedButton.styleFrom(

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +30,8 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     on<LoadTrendingMovies>(_onLoadTrendingMovies);
     on<LoadMoviesByCategory>(_onLoadMoviesByCategory);
     on<ToggleWatchLater>(_onToggleWatchLater);
+    on<ToggleFavorite>(_onToggleFavorite);
+    on<RateMovie>(_onRateMovie);
   }
 
   Future<void> _onLoadTrendingMovies(
@@ -73,10 +77,16 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     ToggleWatchLater event,
     Emitter<MovieState> emit,
   ) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final watchLaterJson = prefs.getStringList('watch_later') ?? [];
-      final movieJsonStr = jsonEncode({
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+    
+    final docRef = FirebaseFirestore.instance.collection('users').doc(uid).collection('watch_later').doc(event.movie.id.toString());
+    final doc = await docRef.get();
+    
+    if (doc.exists) {
+      await docRef.delete();
+    } else {
+      await docRef.set({
         'id': event.movie.id,
         'title': event.movie.title,
         'overview': event.movie.overview,
@@ -85,19 +95,48 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         'releaseDate': event.movie.releaseDate,
         'voteAverage': event.movie.voteAverage,
       });
-
-      final existingIndex = watchLaterJson.indexWhere((jsonStr) => jsonDecode(jsonStr)['id'] == event.movie.id);
-      
-      if (existingIndex >= 0) {
-        watchLaterJson.removeAt(existingIndex);
-      } else {
-        watchLaterJson.add(movieJsonStr);
-      }
-      
-      await prefs.setStringList('watch_later', watchLaterJson);
-    } catch (_) {
-      // Silently fail for toggle
     }
+  }
+
+  Future<void> _onToggleFavorite(
+    ToggleFavorite event,
+    Emitter<MovieState> emit,
+  ) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+    
+    final docRef = FirebaseFirestore.instance.collection('users').doc(uid).collection('favorites').doc(event.movie.id.toString());
+    final doc = await docRef.get();
+    
+    if (doc.exists) {
+      await docRef.delete();
+    } else {
+      await docRef.set({
+        'id': event.movie.id,
+        'title': event.movie.title,
+        'overview': event.movie.overview,
+        'posterPath': event.movie.posterPath,
+        'backdropPath': event.movie.backdropPath,
+        'releaseDate': event.movie.releaseDate,
+        'voteAverage': event.movie.voteAverage,
+      });
+    }
+  }
+
+  Future<void> _onRateMovie(
+    RateMovie event,
+    Emitter<MovieState> emit,
+  ) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+    
+    final docRef = FirebaseFirestore.instance.collection('users').doc(uid).collection('ratings').doc(event.movie.id.toString());
+    await docRef.set({
+      'id': event.movie.id,
+      'title': event.movie.title,
+      'rating': event.rating,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 
   Future<void> _fetchAndCacheMovies(
