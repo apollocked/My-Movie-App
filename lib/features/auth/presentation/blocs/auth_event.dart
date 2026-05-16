@@ -4,6 +4,10 @@ abstract class AuthEvent {
   const AuthEvent();
 }
 
+class AuthCheckRequested extends AuthEvent {
+  const AuthCheckRequested();
+}
+
 class LoginRequested extends AuthEvent {
   final String email;
   final String password;

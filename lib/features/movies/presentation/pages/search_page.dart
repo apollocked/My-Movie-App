@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movies_app/core/utils/locale_utils.dart';
+import 'package:my_movies_app/core/localization/app_strings.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
 
-// Import our active search logic layers
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
@@ -30,6 +32,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final locale = context.watch<SettingsCubit>().state.locale;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -39,11 +42,9 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-              child: Text('EXPLORE',
+              child: Text(AppStrings.getTitle('EXPLORE', locale),
                   style: theme.textTheme.titleLarge?.copyWith(fontSize: 28)),
             ),
-
-            // Search Text Field Group
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
@@ -51,13 +52,16 @@ class _SearchPageState extends State<SearchPage> {
                 style: TextStyle(color: theme.textTheme.bodyLarge?.color),
                 onChanged: (query) {
                   if (query.trim().length > 2) {
-                    context.read<SearchBloc>().add(ExecuteSearch(query: query, filter: _selectedFilter));
+                    context.read<SearchBloc>().add(ExecuteSearch(
+                        query: query,
+                        filter: _selectedFilter,
+                        language: getTmdbLanguageCode(locale)));
                   } else if (query.trim().isEmpty) {
                     context.read<SearchBloc>().add(const ClearSearch());
                   }
                 },
                 decoration: InputDecoration(
-                  hintText: 'Search movies, actors, directors...',
+                  hintText: AppStrings.getTitle('Search movies...', locale),
                   hintStyle: theme.inputDecorationTheme.hintStyle,
                   prefixIcon: Icon(Icons.search_rounded,
                       color: theme.inputDecorationTheme.prefixIconColor),
@@ -73,8 +77,6 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Quick Category Chips
             SizedBox(
               height: 40,
               child: ListView(
@@ -98,9 +100,10 @@ class _SearchPageState extends State<SearchPage> {
                       onSelected: (bool selected) {
                         setState(() => _selectedFilter = filter);
                         if (_searchController.text.trim().isNotEmpty) {
-                          // Trigger new search query using your filters if needed
-                          context.read<SearchBloc>().add(
-                              ExecuteSearch(query: _searchController.text, filter: filter));
+                          context.read<SearchBloc>().add(ExecuteSearch(
+                              query: _searchController.text,
+                              filter: filter,
+                              language: getTmdbLanguageCode(locale)));
                         }
                       },
                     ),
@@ -109,8 +112,6 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Dynamic Search Result Area
             Expanded(
               child: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
@@ -124,7 +125,8 @@ class _SearchPageState extends State<SearchPage> {
                     }
                     return GridView.builder(
                       padding: const EdgeInsets.all(16),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 0.65,
                         crossAxisSpacing: 16,
@@ -134,7 +136,8 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (context, index) {
                         final movie = state.results[index];
                         return InkWell(
-                          onTap: () => context.push('/movie/${movie.id}', extra: movie),
+                          onTap: () =>
+                              context.push('/movie/${movie.id}', extra: movie),
                           borderRadius: BorderRadius.circular(20),
                           child: MoviePosterCard(movie: movie),
                         );
@@ -147,7 +150,6 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   }
 
-                  // Default/SearchInitial idle state visual indicator
                   return Center(
                     child: Icon(Icons.movie_filter_rounded,
                         size: 80, color: theme.dividerColor),

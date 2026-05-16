@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/movies/domain/entities/movie.dart';
 import '../../features/movies/presentation/pages/main_navigation_shell.dart';
 import '../../features/movies/presentation/pages/home_page.dart';
@@ -19,129 +19,136 @@ import 'not_found_page.dart';
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-  static final router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
-    initialLocation: '/',
-    debugLogDiagnostics: true,
-    errorBuilder: (context, state) => const NotFoundPage(),
-    redirect: (context, state) {
-      // Get auth state from context
-      final authState = context.read<AuthBloc>().state;
+  static GoRouter router(AuthBloc authBloc) {
+    return GoRouter(
+      navigatorKey: _rootNavigatorKey,
+      initialLocation: '/',
+      debugLogDiagnostics: true,
+      errorBuilder: (context, state) => const NotFoundPage(),
+      refreshListenable: GoRouterRefreshStream(authBloc.stream),
+      redirect: (context, state) {
+        final authState = authBloc.state;
 
-      // Check if user is on auth routes
-      final isOnAuthRoute = state.uri.path == '/onboarding' ||
-          state.uri.path == '/login' ||
-          state.uri.path == '/signup';
+        final isOnAuthRoute = state.uri.path == '/onboarding' ||
+            state.uri.path == '/login' ||
+            state.uri.path == '/signup';
 
-      // If initial state or unauthenticated, redirect to onboarding if not already there
-      if ((authState is AuthInitial || authState is Unauthenticated) && !isOnAuthRoute) {
-        return '/onboarding';
-      }
+        if (authState is AuthInitial) return null;
 
-      // If on auth routes and authenticated, go to home
-      // (We allow AuthGuest to stay on auth routes so they can login/signup if they want)
-      if (authState is Authenticated && isOnAuthRoute) {
-        return '/';
-      }
+        if (authState is Unauthenticated && !isOnAuthRoute) {
+          return '/onboarding';
+        }
 
-      // Guest attempting to access profile should go to onboarding (Auth Page)
-      if (state.uri.path == '/profile' && authState is AuthGuest) {
-        return '/onboarding';
-      }
+        if ((authState is Authenticated || authState is AuthGuest) &&
+            isOnAuthRoute) {
+          return '/';
+        }
 
-      return null; // No redirect
-    },
-    routes: [
-      // ===== Authentication Routes =====
-      GoRoute(
-        path: '/onboarding',
-        name: 'onboarding',
-        builder: (context, state) => const OnboardingPage(),
-      ),
-      GoRoute(
-        path: '/login',
-        name: 'login',
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: '/signup',
-        name: 'signup',
-        builder: (context, state) => const SignUpPage(),
-      ),
+        if (state.uri.path == '/profile' && authState is AuthGuest) {
+          return '/onboarding';
+        }
 
-      // StatefulShellRoute maintains separate navigation states for each sub-tab
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return MainNavigationShell(navigationShell: navigationShell);
-        },
-        branches: [
-          // Branch 1: Home Dashboard Ecosystem
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/',
-                name: 'home',
-                builder: (context, state) => const MovieHomePage(),
-              ),
-            ],
-          ),
-          // Branch 2: Search Core Engine Hub
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/search',
-                name: 'search',
-                builder: (context, state) => const SearchPage(),
-              ),
-            ],
-          ),
-          // Branch 3: User Notes & Profile Customizations
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/profile',
-                name: 'profile',
-                builder: (context, state) => const ProfilePage(),
-              ),
-            ],
-          ),
-          // Branch 4: System Localization & Preferences Configuration
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/settings',
-                name: 'settings',
-                builder: (context, state) => const SettingsPage(),
-              ),
-            ],
-          ),
-        ],
-      ),
+        return null;
+      },
+      routes: [
+        GoRoute(
+          path: '/onboarding',
+          name: 'onboarding',
+          builder: (context, state) => const OnboardingPage(),
+        ),
+        GoRoute(
+          path: '/login',
+          name: 'login',
+          builder: (context, state) => const LoginPage(),
+        ),
+        GoRoute(
+          path: '/signup',
+          name: 'signup',
+          builder: (context, state) => const SignUpPage(),
+        ),
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) {
+            return MainNavigationShell(navigationShell: navigationShell);
+          },
+          branches: [
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/',
+                  name: 'home',
+                  builder: (context, state) => const MovieHomePage(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/search',
+                  name: 'search',
+                  builder: (context, state) => const SearchPage(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/profile',
+                  name: 'profile',
+                  builder: (context, state) => const ProfilePage(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/settings',
+                  name: 'settings',
+                  builder: (context, state) => const SettingsPage(),
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/movie/:id',
+          name: 'movie_details',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final movie = state.extra as Movie;
+            return MovieDetailPage(movie: movie);
+          },
+        ),
+        GoRoute(
+          path: '/collection/:type',
+          name: 'collection',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final type = state.pathParameters['type']!;
+            String title = 'Collection';
+            if (type == 'watch_later') title = 'Watch Later';
+            if (type == 'favorites') title = 'My Favorites';
+            if (type == 'ratings') title = 'My Ratings';
+            return CollectionPage(title: title, collectionPath: type);
+          },
+        ),
+      ],
+    );
+  }
+}
 
-      // Full-screen Sub-route stacked on top of the navigation shell
-      GoRoute(
-        path: '/movie/:id',
-        name: 'movie_details',
-        parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) {
-          // Fallback parsing if arguments aren't explicitly passed directly via extra parameter maps
-          final movie = state.extra as Movie;
-          return MovieDetailPage(movie: movie);
-        },
-      ),
-      GoRoute(
-        path: '/collection/:type',
-        name: 'collection',
-        parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) {
-          final type = state.pathParameters['type']!;
-          String title = 'Collection';
-          if (type == 'watch_later') title = 'Watch Later';
-          if (type == 'favorites') title = 'My Favorites';
-          if (type == 'ratings') title = 'My Ratings';
-          return CollectionPage(title: title, collectionPath: type);
-        },
-      ),
-    ],
-  );
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen(
+          (dynamic _) => notifyListeners(),
+        );
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
 }

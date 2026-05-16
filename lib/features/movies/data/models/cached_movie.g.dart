@@ -22,9 +22,9 @@ const CachedMovieSchema = CollectionSchema(
       name: r'backdropPath',
       type: IsarType.string,
     ),
-    r'categoryType': PropertySchema(
+    r'category': PropertySchema(
       id: 1,
-      name: r'categoryType',
+      name: r'category',
       type: IsarType.string,
     ),
     r'movieId': PropertySchema(
@@ -93,7 +93,7 @@ int _cachedMovieEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.backdropPath.length * 3;
-  bytesCount += 3 + object.categoryType.length * 3;
+  bytesCount += 3 + object.category.length * 3;
   bytesCount += 3 + object.overview.length * 3;
   bytesCount += 3 + object.posterPath.length * 3;
   bytesCount += 3 + object.releaseDate.length * 3;
@@ -108,7 +108,7 @@ void _cachedMovieSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.backdropPath);
-  writer.writeString(offsets[1], object.categoryType);
+  writer.writeString(offsets[1], object.category);
   writer.writeLong(offsets[2], object.movieId);
   writer.writeString(offsets[3], object.overview);
   writer.writeString(offsets[4], object.posterPath);
@@ -125,7 +125,7 @@ CachedMovie _cachedMovieDeserialize(
 ) {
   final object = CachedMovie();
   object.backdropPath = reader.readString(offsets[0]);
-  object.categoryType = reader.readString(offsets[1]);
+  object.category = reader.readString(offsets[1]);
   object.id = id;
   object.movieId = reader.readLong(offsets[2]);
   object.overview = reader.readString(offsets[3]);
@@ -546,14 +546,13 @@ extension CachedMovieQueryFilter
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeEqualTo(
+  QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition> categoryEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'categoryType',
+        property: r'category',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -561,7 +560,7 @@ extension CachedMovieQueryFilter
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeGreaterThan(
+      categoryGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -569,7 +568,7 @@ extension CachedMovieQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'categoryType',
+        property: r'category',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -577,7 +576,7 @@ extension CachedMovieQueryFilter
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeLessThan(
+      categoryLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -585,15 +584,14 @@ extension CachedMovieQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'categoryType',
+        property: r'category',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeBetween(
+  QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition> categoryBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -602,7 +600,7 @@ extension CachedMovieQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'categoryType',
+        property: r'category',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -613,13 +611,13 @@ extension CachedMovieQueryFilter
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeStartsWith(
+      categoryStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'categoryType',
+        property: r'category',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -627,13 +625,13 @@ extension CachedMovieQueryFilter
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeEndsWith(
+      categoryEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'categoryType',
+        property: r'category',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -641,21 +639,22 @@ extension CachedMovieQueryFilter
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeContains(String value, {bool caseSensitive = true}) {
+      categoryContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'categoryType',
+        property: r'category',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeMatches(String pattern, {bool caseSensitive = true}) {
+  QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition> categoryMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'categoryType',
+        property: r'category',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -663,20 +662,20 @@ extension CachedMovieQueryFilter
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeIsEmpty() {
+      categoryIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'categoryType',
+        property: r'category',
         value: '',
       ));
     });
   }
 
   QueryBuilder<CachedMovie, CachedMovie, QAfterFilterCondition>
-      categoryTypeIsNotEmpty() {
+      categoryIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'categoryType',
+        property: r'category',
         value: '',
       ));
     });
@@ -1416,16 +1415,15 @@ extension CachedMovieQuerySortBy
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy> sortByCategoryType() {
+  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy> sortByCategory() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryType', Sort.asc);
+      return query.addSortBy(r'category', Sort.asc);
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy>
-      sortByCategoryTypeDesc() {
+  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy> sortByCategoryDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryType', Sort.desc);
+      return query.addSortBy(r'category', Sort.desc);
     });
   }
 
@@ -1517,16 +1515,15 @@ extension CachedMovieQuerySortThenBy
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy> thenByCategoryType() {
+  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy> thenByCategory() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryType', Sort.asc);
+      return query.addSortBy(r'category', Sort.asc);
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy>
-      thenByCategoryTypeDesc() {
+  QueryBuilder<CachedMovie, CachedMovie, QAfterSortBy> thenByCategoryDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'categoryType', Sort.desc);
+      return query.addSortBy(r'category', Sort.desc);
     });
   }
 
@@ -1624,10 +1621,10 @@ extension CachedMovieQueryWhereDistinct
     });
   }
 
-  QueryBuilder<CachedMovie, CachedMovie, QDistinct> distinctByCategoryType(
+  QueryBuilder<CachedMovie, CachedMovie, QDistinct> distinctByCategory(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'categoryType', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'category', caseSensitive: caseSensitive);
     });
   }
 
@@ -1686,9 +1683,9 @@ extension CachedMovieQueryProperty
     });
   }
 
-  QueryBuilder<CachedMovie, String, QQueryOperations> categoryTypeProperty() {
+  QueryBuilder<CachedMovie, String, QQueryOperations> categoryProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'categoryType');
+      return query.addPropertyName(r'category');
     });
   }
 

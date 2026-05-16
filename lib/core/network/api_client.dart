@@ -1,36 +1,45 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiClient {
-  final http.Client _client = http.Client();
-  final String _baseUrl = 'https://api.themoviedb.org/3';
+  late final Dio _dio;
 
-  Map<String, String> get _headers => {
-        'Authorization': 'Bearer ${dotenv.env['TMDB_API_ACCESS_TOKEN']}',
-        'Content-Type': 'application/json;charset=utf-8',
-      };
+  ApiClient() {
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://api.themoviedb.org/3',
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 15),
+        headers: {
+          'Authorization': 'Bearer ${dotenv.env['TMDB_API_ACCESS_TOKEN']}',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      ),
+    );
+  }
 
-  Future<Map<String, dynamic>> get(String endpoint,
-      {Map<String, String>? params}) async {
-    final queryParams = params ?? {};
-
-    final uri =
-        Uri.parse('$_baseUrl$endpoint').replace(queryParameters: queryParams);
+  Future<Map<String, dynamic>> get(String endpoint, {Map<String, dynamic>? params}) async {
     try {
-      final response = await _client.get(uri, headers: _headers).timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => throw Exception('Request timeout'),
-          );
-
+      final response = await _dio.get(endpoint, queryParameters: params);
+      
       if (response.statusCode == 200) {
-        return jsonDecode(response.body) as Map<String, dynamic>;
+        return response.data as Map<String, dynamic>;
       } else {
-        throw Exception(
-            'Server Error: ${response.statusCode} - ${response.body}');
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          message: 'Server Error: ${response.statusCode}',
+        );
       }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('Network timeout. Please check your connection.');
+      } else if (e.type == DioExceptionType.badResponse) {
+        throw Exception('Server error: ${e.response?.statusCode}');
+      }
+      throw Exception('Unexpected network error: ${e.message}');
     } catch (e) {
-      throw Exception('API Error: $e');
+      throw Exception('Request failed: $e');
     }
   }
 }

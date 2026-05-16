@@ -15,21 +15,19 @@ class SettingsCubit extends Cubit<SettingsState> {
       final prefs = await SharedPreferences.getInstance();
       final isDark = prefs.getBool('isDark') ?? true;
       final langCode = prefs.getString('lang') ?? 'en';
-      
+
       emit(SettingsState(
         themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
         locale: Locale(langCode),
       ));
-    } catch (_) {
-      // Keep defaults if failed
-    }
+    } catch (_) {}
   }
 
   void toggleTheme() async {
     final nextMode =
         state.themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
     emit(SettingsState(themeMode: nextMode, locale: state.locale));
-    
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isDark', nextMode == ThemeMode.dark);
   }
@@ -37,7 +35,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   void changeLanguage(String languageCode) async {
     emit(SettingsState(
         themeMode: state.themeMode, locale: Locale(languageCode)));
-        
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('lang', languageCode);
   }

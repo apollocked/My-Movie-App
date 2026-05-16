@@ -25,7 +25,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       if (event.filter == 'TV Shows') endpoint = '/search/tv';
       if (event.filter == 'Actors') endpoint = '/search/person';
 
-      final data = await apiClient.get(endpoint, params: {'query': event.query});
+      final data = await apiClient.get(endpoint, params: {'query': event.query, 'language': event.language});
       final results = data['results'] as List;
 
       final movies = results

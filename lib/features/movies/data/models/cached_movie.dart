@@ -14,5 +14,5 @@ class CachedMovie {
   late String backdropPath;
   late String releaseDate;
   late double voteAverage;
-  late String categoryType;
+  late String category;
 }

@@ -15,7 +15,6 @@ class MovieLoading extends MovieState {
 class MovieLoaded extends MovieState {
   final List<Movie> movies;
 
-  // Const constructor added for consistency
   const MovieLoaded(this.movies);
 }
 

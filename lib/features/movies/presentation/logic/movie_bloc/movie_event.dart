@@ -5,12 +5,14 @@ abstract class MovieEvent {
 }
 
 class LoadTrendingMovies extends MovieEvent {
-  const LoadTrendingMovies();
+  final String language;
+  const LoadTrendingMovies({this.language = 'en-US'});
 }
 
 class LoadMoviesByCategory extends MovieEvent {
   final String category;
-  const LoadMoviesByCategory(this.category);
+  final String language;
+  const LoadMoviesByCategory(this.category, {this.language = 'en-US'});
 }
 
 class ToggleWatchLater extends MovieEvent {

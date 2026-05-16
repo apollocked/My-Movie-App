@@ -17,7 +17,6 @@ class Movie {
     required this.voteAverage,
   });
 
-  // Help helper getters for UI image parsing
   String get fullPosterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';
   String get fullBackdropUrl => 'https://image.tmdb.org/t/p/w780$backdropPath';
 }

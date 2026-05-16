@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import '../logic/movie_bloc/movie_bloc.dart';
+import '../logic/movie_bloc/movie_event.dart';
+
+class CardQuickActions extends StatelessWidget {
+  final Movie movie;
+  final String uid;
+
+  const CardQuickActions({super.key, required this.movie, required this.uid});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 8, left: 8,
+      child: Column(
+        children: [
+          _ActionIcon(
+            uid: uid, movie: movie, collection: 'favorites',
+            icon: Icons.favorite, inactiveIcon: Icons.favorite_border,
+            activeColor: Colors.red,
+            onTap: () {
+              context.read<MovieBloc>().add(ToggleFavorite(movie));
+              _showFeedback(context, 'Updated Favorites');
+            },
+          ),
+          const SizedBox(height: 8),
+          _ActionIcon(
+            uid: uid, movie: movie, collection: 'watch_later',
+            icon: Icons.bookmark, inactiveIcon: Icons.bookmark_add_outlined,
+            activeColor: Colors.green,
+            onTap: () {
+              context.read<MovieBloc>().add(ToggleWatchLater(movie));
+              _showFeedback(context, 'Updated Watch Later');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showFeedback(BuildContext context, String msg) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg), duration: const Duration(seconds: 1),
+      behavior: SnackBarBehavior.floating, width: 200,
+    ));
+  }
+}
+
+class _ActionIcon extends StatelessWidget {
+  final String uid;
+  final Movie movie;
+  final String collection;
+  final IconData icon, inactiveIcon;
+  final Color activeColor;
+  final VoidCallback onTap;
+
+  const _ActionIcon({
+    required this.uid, required this.movie, required this.collection,
+    required this.icon, required this.inactiveIcon,
+    required this.activeColor, required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').doc(uid)
+          .collection(collection).doc(movie.id.toString()).snapshots(),
+      builder: (context, snapshot) {
+        final isActive = snapshot.hasData && snapshot.data!.exists;
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.all(6),
+            decoration: const BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+            child: Icon(isActive ? icon : inactiveIcon, color: isActive ? activeColor : Colors.white70, size: 16),
+          ),
+        );
+      },
+    );
+  }
+}

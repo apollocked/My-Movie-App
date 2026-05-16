@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movies_app/core/localization/app_strings.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
 
 class MainNavigationShell extends StatelessWidget {
   final dynamic navigationShell;
@@ -57,7 +60,13 @@ class MainNavigationShell extends StatelessWidget {
       Icons.person_pin_rounded,
       Icons.settings_suggest_rounded
     ];
-    final labels = ['Cinema', 'Explore', 'Profile', 'Setup'];
+    final locale = context.read<SettingsCubit>().state.locale;
+    final labels = [
+      AppStrings.getTitle('Cinema', locale),
+      AppStrings.getTitle('Explore', locale),
+      AppStrings.getTitle('Profile', locale),
+      AppStrings.getTitle('Setup', locale)
+    ];
 
     return List.generate(4, (index) {
       final isSelected = navigationShell.currentIndex == index;

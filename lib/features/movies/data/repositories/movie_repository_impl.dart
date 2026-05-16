@@ -10,7 +10,6 @@ class MovieRepositoryImpl implements MovieRepository {
 
   @override
   Future<List<Movie>> getTrending() async {
-    // Falls back seamlessly to remote data mapping
     return await remoteDataSource.getTrendingMovies();
   }
 
