@@ -48,6 +48,7 @@ class TranslationsKu extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsGuestFeaturesKu guest_features = _TranslationsGuestFeaturesKu._(_root);
 	@override late final _TranslationsMovieDetailKu movie_detail = _TranslationsMovieDetailKu._(_root);
 	@override late final _TranslationsCommonKu common = _TranslationsCommonKu._(_root);
+	@override late final _TranslationsNotFoundKu not_found = _TranslationsNotFoundKu._(_root);
 }
 
 // Path: home
@@ -65,12 +66,12 @@ class _TranslationsHomeKu extends TranslationsHomeEn {
 	@override String get action => 'ئەکشن و هەستبزوێن';
 	@override String get sci_fi => 'خەیاڵی زانستی';
 	@override String get horror => 'ترسناک و دڵەڕاوکێ';
-	@override String get drama => 'درامی';
+	@override String get drama => 'دراما';
 	@override String get comedy => 'کۆمیدی';
 	@override String get romance => 'ڕۆمانسی';
 	@override String get thriller => 'هەستبزوێن';
 	@override String get animation => 'ئەنیمەیشن';
-	@override String get mystery => 'مشتومڕاوی';
+	@override String get mystery => 'نهێنی';
 }
 
 // Path: search
@@ -85,6 +86,9 @@ class _TranslationsSearchKu extends TranslationsSearchEn {
 	@override String get hint => 'بگەڕێ بۆ فیلمەکان...';
 	@override String get no_results => 'هیچ ئەنجامێک نەدۆزرایەوە.';
 	@override late final _TranslationsSearchFiltersKu filters = _TranslationsSearchFiltersKu._(_root);
+	@override String get no_results_subtitle => 'هەوڵی گەڕان بدە بۆ شتێکی تر';
+	@override String get discover_title => 'فیلمەکان بدۆزەرەوە';
+	@override String get discover_subtitle => 'دەست بکە بە نووسین بۆ گەڕان لە ملیۆنان فیلم و زنجیرە';
 }
 
 // Path: profile
@@ -96,7 +100,7 @@ class _TranslationsProfileKu extends TranslationsProfileEn {
 	// Translations
 	@override String get title => 'پڕۆفایل';
 	@override String get my_activity => 'چالاکییەکانم';
-	@override String get watch_later => 'سەيرکردنی دواتر';
+	@override String get watch_later => 'سەیرکردنی دواتر';
 	@override String get favorites => 'دڵخوازەکانم';
 	@override String get my_favorites => 'دڵخوازەکانم';
 	@override String get ratings => 'هەڵسەنگاندنەکانم';
@@ -144,6 +148,8 @@ class _TranslationsAuthKu extends TranslationsAuthEn {
 	@override String get get_started => 'دەستپێبکە';
 	@override String get continue_guest => 'بەردەوامبە وەک میوان';
 	@override String get login_required_desc => 'تکایە بچۆ ژوورەوە بۆ بینینی لیستەکانت';
+	@override String get welcome_title => 'بەخێربێیت بۆ CineStream';
+	@override String get onboarding_settings => 'ئەزموونەکەت بگونجێنە';
 	@override late final _TranslationsAuthErrorsKu errors = _TranslationsAuthErrorsKu._(_root);
 	@override late final _TranslationsAuthGuestKu guest = _TranslationsAuthGuestKu._(_root);
 }
@@ -179,7 +185,7 @@ class _TranslationsMovieDetailKu extends TranslationsMovieDetailEn {
 
 	// Translations
 	@override String get overview => 'کورتە';
-	@override String get watch_later => 'سەيرکردنی دواتر';
+	@override String get watch_later => 'سەیرکردنی دواتر';
 	@override String get saved => 'پاشەکەوتکرا';
 	@override String get rate_movie => 'نمرە بدە بە فیلمەکە';
 	@override String get added_to_favorites => 'بۆ دڵخوازەکان زیادکرا';
@@ -196,12 +202,27 @@ class _TranslationsCommonKu extends TranslationsCommonEn {
 	final TranslationsKu _root; // ignore: unused_field
 
 	// Translations
-	@override String get cancel => 'پاشگەزبوونەوە';
+	@override String get cancel => 'هەڵوەشاندنەوە';
 	@override String get submit => 'نمرەکە بنێرە';
 	@override String get cinema => 'سینەما';
 	@override String get app_name => 'CineStream';
-	@override String get empty_list => 'قائمتک فارغة حالياً';
+	@override String get empty_list => 'لیستەکەت لە ئێستادا بەتاڵە';
 	@override String get cine_stream => 'CineStream';
+	@override String get retry => 'دووبارە هەوڵبدەرەوە';
+	@override String get error_title => 'هەڵەیەک ڕوویدا';
+}
+
+// Path: not_found
+class _TranslationsNotFoundKu extends TranslationsNotFoundEn {
+	_TranslationsNotFoundKu._(TranslationsKu root) : this._root = root, super.internal(root);
+
+	final TranslationsKu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پەڕەکە نەدۆزرایەوە';
+	@override String get title_404 => '404 - پەڕەکە نەدۆزرایەوە';
+	@override String get subtitle => 'ئەو پەڕەیەی بەدوایدا دەگەڕێیت بوونی نییە یان گواستراوەتەوە.';
+	@override String get return_home => 'بگەڕێوە بۆ سەرەتا';
 }
 
 // Path: search.filters
@@ -213,7 +234,7 @@ class _TranslationsSearchFiltersKu extends TranslationsSearchFiltersEn {
 	// Translations
 	@override String get all => 'هەمووی';
 	@override String get movies => 'فیلمەکان';
-	@override String get tv_shows => 'بەرنامەکان';
+	@override String get tv_shows => 'زنجیرەکان';
 	@override String get actors => 'ئەکتەرەکان';
 }
 
@@ -272,7 +293,7 @@ class _TranslationsGuestFeaturesWatchLaterKu extends TranslationsGuestFeaturesWa
 	final TranslationsKu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'سەيرکردنی دواتر';
+	@override String get title => 'سەیرکردنی دواتر';
 	@override String get desc => 'هەرگیز ئەو فیلمانە مەدۆڕێنە کە دەتەوێت بیبینیت.';
 }
 
@@ -284,7 +305,7 @@ class _TranslationsGuestFeaturesSyncKu extends TranslationsGuestFeaturesSyncEn {
 
 	// Translations
 	@override String get title => 'هاوکاتکردن لە هەموو شوێنێک';
-	@override String get desc => 'زانیارییەکانت بە پارێزراوی دەمێننەوە لە هەموو ئامێرەکانت.';
+	@override String get desc => 'زانیارییەکانت بە پارێزراوی دەمێننەوە لە هەموو ئامێرەکانتدا.';
 }
 
 // Path: movie_detail.prompts
@@ -328,23 +349,26 @@ extension on TranslationsKu {
 			'home.action' => 'ئەکشن و هەستبزوێن',
 			'home.sci_fi' => 'خەیاڵی زانستی',
 			'home.horror' => 'ترسناک و دڵەڕاوکێ',
-			'home.drama' => 'درامی',
+			'home.drama' => 'دراما',
 			'home.comedy' => 'کۆمیدی',
 			'home.romance' => 'ڕۆمانسی',
 			'home.thriller' => 'هەستبزوێن',
 			'home.animation' => 'ئەنیمەیشن',
-			'home.mystery' => 'مشتومڕاوی',
+			'home.mystery' => 'نهێنی',
 			'search.explore' => 'دۆزینەوە',
 			'search.explore_caps' => 'دۆزینەوە',
 			'search.hint' => 'بگەڕێ بۆ فیلمەکان...',
 			'search.no_results' => 'هیچ ئەنجامێک نەدۆزرایەوە.',
 			'search.filters.all' => 'هەمووی',
 			'search.filters.movies' => 'فیلمەکان',
-			'search.filters.tv_shows' => 'بەرنامەکان',
+			'search.filters.tv_shows' => 'زنجیرەکان',
 			'search.filters.actors' => 'ئەکتەرەکان',
+			'search.no_results_subtitle' => 'هەوڵی گەڕان بدە بۆ شتێکی تر',
+			'search.discover_title' => 'فیلمەکان بدۆزەرەوە',
+			'search.discover_subtitle' => 'دەست بکە بە نووسین بۆ گەڕان لە ملیۆنان فیلم و زنجیرە',
 			'profile.title' => 'پڕۆفایل',
 			'profile.my_activity' => 'چالاکییەکانم',
-			'profile.watch_later' => 'سەيرکردنی دواتر',
+			'profile.watch_later' => 'سەیرکردنی دواتر',
 			'profile.favorites' => 'دڵخوازەکانم',
 			'profile.my_favorites' => 'دڵخوازەکانم',
 			'profile.ratings' => 'هەڵسەنگاندنەکانم',
@@ -374,6 +398,8 @@ extension on TranslationsKu {
 			'auth.get_started' => 'دەستپێبکە',
 			'auth.continue_guest' => 'بەردەوامبە وەک میوان',
 			'auth.login_required_desc' => 'تکایە بچۆ ژوورەوە بۆ بینینی لیستەکانت',
+			'auth.welcome_title' => 'بەخێربێیت بۆ CineStream',
+			'auth.onboarding_settings' => 'ئەزموونەکەت بگونجێنە',
 			'auth.errors.email_required' => 'ئیمەیڵ پێویستە',
 			'auth.errors.invalid_email' => 'ئیمەیڵێکی دروست بنووسە',
 			'auth.errors.password_required' => 'وشەی نهێنی پێویستە',
@@ -387,12 +413,12 @@ extension on TranslationsKu {
 			'guest_features.favorites.desc' => 'ئەو فیلمانەی حەزت لێیەتی بپارێزە.',
 			'guest_features.rate.title' => 'نمرە بدە و ڕا دەرببڕە',
 			'guest_features.rate.desc' => 'بۆچوونی خۆت بڵاو بکەرەوە.',
-			'guest_features.watch_later.title' => 'سەيرکردنی دواتر',
+			'guest_features.watch_later.title' => 'سەیرکردنی دواتر',
 			'guest_features.watch_later.desc' => 'هەرگیز ئەو فیلمانە مەدۆڕێنە کە دەتەوێت بیبینیت.',
 			'guest_features.sync.title' => 'هاوکاتکردن لە هەموو شوێنێک',
-			'guest_features.sync.desc' => 'زانیارییەکانت بە پارێزراوی دەمێننەوە لە هەموو ئامێرەکانت.',
+			'guest_features.sync.desc' => 'زانیارییەکانت بە پارێزراوی دەمێننەوە لە هەموو ئامێرەکانتدا.',
 			'movie_detail.overview' => 'کورتە',
-			'movie_detail.watch_later' => 'سەيرکردنی دواتر',
+			'movie_detail.watch_later' => 'سەیرکردنی دواتر',
 			'movie_detail.saved' => 'پاشەکەوتکرا',
 			'movie_detail.rate_movie' => 'نمرە بدە بە فیلمەکە',
 			'movie_detail.added_to_favorites' => 'بۆ دڵخوازەکان زیادکرا',
@@ -405,12 +431,18 @@ extension on TranslationsKu {
 			'movie_detail.prompts.slide_to_rate' => 'ڕایبکێشە بۆ دیاریکردنی نمرەکەت',
 			'movie_detail.actions.add_watch_later' => 'زیادکردن بۆ سەیرکردنی دواتر',
 			'movie_detail.actions.rate_movies' => 'نمرەدان بە فیلمەکان',
-			'common.cancel' => 'پاشگەزبوونەوە',
+			'common.cancel' => 'هەڵوەشاندنەوە',
 			'common.submit' => 'نمرەکە بنێرە',
 			'common.cinema' => 'سینەما',
 			'common.app_name' => 'CineStream',
-			'common.empty_list' => 'قائمتک فارغة حالياً',
+			'common.empty_list' => 'لیستەکەت لە ئێستادا بەتاڵە',
 			'common.cine_stream' => 'CineStream',
+			'common.retry' => 'دووبارە هەوڵبدەرەوە',
+			'common.error_title' => 'هەڵەیەک ڕوویدا',
+			'not_found.title' => 'پەڕەکە نەدۆزرایەوە',
+			'not_found.title_404' => '404 - پەڕەکە نەدۆزرایەوە',
+			'not_found.subtitle' => 'ئەو پەڕەیەی بەدوایدا دەگەڕێیت بوونی نییە یان گواستراوەتەوە.',
+			'not_found.return_home' => 'بگەڕێوە بۆ سەرەتا',
 			_ => null,
 		};
 	}

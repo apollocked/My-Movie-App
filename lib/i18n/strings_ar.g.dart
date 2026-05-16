@@ -48,6 +48,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsGuestFeaturesAr guest_features = _TranslationsGuestFeaturesAr._(_root);
 	@override late final _TranslationsMovieDetailAr movie_detail = _TranslationsMovieDetailAr._(_root);
 	@override late final _TranslationsCommonAr common = _TranslationsCommonAr._(_root);
+	@override late final _TranslationsNotFoundAr not_found = _TranslationsNotFoundAr._(_root);
 }
 
 // Path: home
@@ -85,6 +86,9 @@ class _TranslationsSearchAr extends TranslationsSearchEn {
 	@override String get hint => 'ابحث عن أفلام...';
 	@override String get no_results => 'لم يتم العثور على نتائج.';
 	@override late final _TranslationsSearchFiltersAr filters = _TranslationsSearchFiltersAr._(_root);
+	@override String get no_results_subtitle => 'حاول البحث عن شيء آخر';
+	@override String get discover_title => 'اكتشف الأفلام';
+	@override String get discover_subtitle => 'ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية';
 }
 
 // Path: profile
@@ -144,6 +148,8 @@ class _TranslationsAuthAr extends TranslationsAuthEn {
 	@override String get get_started => 'ابدأ الآن';
 	@override String get continue_guest => 'المتابعة كضيف';
 	@override String get login_required_desc => 'يرجى تسجيل الدخول لعرض مجموعتك';
+	@override String get welcome_title => 'مرحباً بك في CineStream';
+	@override String get onboarding_settings => 'خصص تجربتك';
 	@override late final _TranslationsAuthErrorsAr errors = _TranslationsAuthErrorsAr._(_root);
 	@override late final _TranslationsAuthGuestAr guest = _TranslationsAuthGuestAr._(_root);
 }
@@ -202,6 +208,21 @@ class _TranslationsCommonAr extends TranslationsCommonEn {
 	@override String get app_name => 'CineStream';
 	@override String get empty_list => 'قائمتك فارغة حالياً';
 	@override String get cine_stream => 'CineStream';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get error_title => 'حدث خطأ ما';
+}
+
+// Path: not_found
+class _TranslationsNotFoundAr extends TranslationsNotFoundEn {
+	_TranslationsNotFoundAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'الصفحة غير موجودة';
+	@override String get title_404 => '404 - الصفحة غير موجودة';
+	@override String get subtitle => 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.';
+	@override String get return_home => 'العودة إلى الرئيسية';
 }
 
 // Path: search.filters
@@ -213,7 +234,7 @@ class _TranslationsSearchFiltersAr extends TranslationsSearchFiltersEn {
 	// Translations
 	@override String get all => 'الكل';
 	@override String get movies => 'أفلام';
-	@override String get tv_shows => 'مسلسلات';
+	@override String get tv_shows => 'برامج تلفزيونية';
 	@override String get actors => 'ممثلون';
 }
 
@@ -340,8 +361,11 @@ extension on TranslationsAr {
 			'search.no_results' => 'لم يتم العثور على نتائج.',
 			'search.filters.all' => 'الكل',
 			'search.filters.movies' => 'أفلام',
-			'search.filters.tv_shows' => 'مسلسلات',
+			'search.filters.tv_shows' => 'برامج تلفزيونية',
 			'search.filters.actors' => 'ممثلون',
+			'search.no_results_subtitle' => 'حاول البحث عن شيء آخر',
+			'search.discover_title' => 'اكتشف الأفلام',
+			'search.discover_subtitle' => 'ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية',
 			'profile.title' => 'الملف الشخصي',
 			'profile.my_activity' => 'نشاطي',
 			'profile.watch_later' => 'شاهد لاحقاً',
@@ -374,6 +398,8 @@ extension on TranslationsAr {
 			'auth.get_started' => 'ابدأ الآن',
 			'auth.continue_guest' => 'المتابعة كضيف',
 			'auth.login_required_desc' => 'يرجى تسجيل الدخول لعرض مجموعتك',
+			'auth.welcome_title' => 'مرحباً بك في CineStream',
+			'auth.onboarding_settings' => 'خصص تجربتك',
 			'auth.errors.email_required' => 'البريد الإلكتروني مطلوب',
 			'auth.errors.invalid_email' => 'أدخل بريد إلكتروني صحيح',
 			'auth.errors.password_required' => 'كلمة المرور مطلوبة',
@@ -411,6 +437,12 @@ extension on TranslationsAr {
 			'common.app_name' => 'CineStream',
 			'common.empty_list' => 'قائمتك فارغة حالياً',
 			'common.cine_stream' => 'CineStream',
+			'common.retry' => 'إعادة المحاولة',
+			'common.error_title' => 'حدث خطأ ما',
+			'not_found.title' => 'الصفحة غير موجودة',
+			'not_found.title_404' => '404 - الصفحة غير موجودة',
+			'not_found.subtitle' => 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
+			'not_found.return_home' => 'العودة إلى الرئيسية',
 			_ => null,
 		};
 	}

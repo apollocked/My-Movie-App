@@ -8,7 +8,8 @@ import 'package:my_movies_app/i18n/strings.g.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
-import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
+import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/search_shimmer.dart';
+import 'package:my_movies_app/features/movies/presentation/widgets/empty_state_widget.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_poster_card.dart';
 
 class SearchPage extends StatefulWidget {
@@ -91,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                   if (filter == 'Actors') label = t.search.filters.actors;
 
                   return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
+                    padding: const EdgeInsetsDirectional.only(end: 8.0),
                     child: FilterChip(
                       label: Text(label),
                       selected: isSelected,
@@ -122,12 +123,14 @@ class _SearchPageState extends State<SearchPage> {
               child: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
                   if (state is SearchLoading) {
-                    return const MovieShimmerList(cardHeight: 220);
+                    return const SearchShimmer();
                   } else if (state is SearchLoaded) {
                     if (state.results.isEmpty) {
-                      return Center(
-                          child: Text(t.search.no_results,
-                              style: theme.textTheme.bodyMedium));
+                      return EmptyStateWidget(
+                        icon: Icons.search_off_rounded,
+                        title: t.search.no_results,
+                        subtitle: t.search.no_results_subtitle,
+                      );
                     }
                     return GridView.builder(
                       padding: const EdgeInsets.all(16),
@@ -150,15 +153,26 @@ class _SearchPageState extends State<SearchPage> {
                       },
                     );
                   } else if (state is SearchError) {
-                    return Center(
-                      child: Text(state.message,
-                          style: TextStyle(color: theme.colorScheme.error)),
+                    return EmptyStateWidget(
+                      icon: Icons.error_outline_rounded,
+                      title: t.common.error_title,
+                      subtitle: state.message,
+                      onAction: () {
+                        if (_searchController.text.isNotEmpty) {
+                          context.read<SearchBloc>().add(ExecuteSearch(
+                              query: _searchController.text,
+                              filter: _selectedFilter,
+                              language: getTmdbLanguageCode(locale)));
+                        }
+                      },
+                      actionLabel: t.common.retry,
                     );
                   }
 
-                  return Center(
-                    child: Icon(Icons.movie_filter_rounded,
-                        size: 80, color: theme.dividerColor),
+                  return EmptyStateWidget(
+                    icon: Icons.movie_filter_rounded,
+                    title: t.search.discover_title,
+                    subtitle: t.search.discover_subtitle,
                   );
                 },
               ),

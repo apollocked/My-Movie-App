@@ -20,7 +20,7 @@ class CategorySelector extends StatelessWidget {
     return SizedBox(
       height: 38,
       child: ListView.builder(
-        padding: const EdgeInsets.only(left: 16),
+        padding: const EdgeInsetsDirectional.only(start: 16),
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
@@ -32,7 +32,7 @@ class CategorySelector extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               curve: Curves.fastOutSlowIn,
-              margin: const EdgeInsets.only(right: 10),
+              margin: const EdgeInsetsDirectional.only(end: 10),
               padding: const EdgeInsets.symmetric(horizontal: 22),
               decoration: BoxDecoration(
                 gradient: isSelected

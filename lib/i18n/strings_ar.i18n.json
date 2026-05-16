@@ -23,9 +23,12 @@
     "filters": {
       "all": "الكل",
       "movies": "أفلام",
-      "tv_shows": "مسلسلات",
+      "tv_shows": "برامج تلفزيونية",
       "actors": "ممثلون"
-    }
+    },
+    "no_results_subtitle": "حاول البحث عن شيء آخر",
+    "discover_title": "اكتشف الأفلام",
+    "discover_subtitle": "ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية"
   },
   "profile": {
     "title": "الملف الشخصي",
@@ -64,6 +67,8 @@
     "get_started": "ابدأ الآن",
     "continue_guest": "المتابعة كضيف",
     "login_required_desc": "يرجى تسجيل الدخول لعرض مجموعتك",
+    "welcome_title": "مرحباً بك في CineStream",
+    "onboarding_settings": "خصص تجربتك",
     "errors": {
       "email_required": "البريد الإلكتروني مطلوب",
       "invalid_email": "أدخل بريد إلكتروني صحيح",
@@ -124,6 +129,14 @@
     "cinema": "السينما",
     "app_name": "CineStream",
     "empty_list": "قائمتك فارغة حالياً",
-    "cine_stream": "CineStream"
+    "cine_stream": "CineStream",
+    "retry": "إعادة المحاولة",
+    "error_title": "حدث خطأ ما"
+  },
+  "not_found": {
+    "title": "الصفحة غير موجودة",
+    "title_404": "404 - الصفحة غير موجودة",
+    "subtitle": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "return_home": "العودة إلى الرئيسية"
   }
 }

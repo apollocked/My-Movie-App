@@ -33,7 +33,7 @@ class MovieHorizontalList extends StatelessWidget {
         SizedBox(
           height: cardHeight,
           child: ListView.builder(
-            padding: const EdgeInsets.only(left: 16.0),
+            padding: const EdgeInsetsDirectional.only(start: 16.0),
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemCount: movies.isEmpty ? 5 : movies.length,

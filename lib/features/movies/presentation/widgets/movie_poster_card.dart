@@ -18,7 +18,7 @@ class MoviePosterCard extends StatelessWidget {
     final width = height * 0.68;
 
     return Container(
-      width: width, margin: const EdgeInsets.only(right: 16, bottom: 8),
+      width: width, margin: const EdgeInsetsDirectional.only(end: 16, bottom: 8),
       decoration: BoxDecoration(
         color: theme.cardColor, borderRadius: BorderRadius.circular(20),
         border: Border.all(color: theme.dividerColor),

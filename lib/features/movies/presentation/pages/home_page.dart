@@ -13,6 +13,7 @@ import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movi
 import 'package:my_movies_app/features/movies/presentation/widgets/featured_movie_hero.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/category_row.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/watch_later_row.dart';
+import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/hero_shimmer.dart';
 
 class MovieHomePage extends StatefulWidget {
   const MovieHomePage({super.key});
@@ -73,9 +74,9 @@ class _MovieHomePageState extends State<MovieHomePage> {
   Widget _buildHero() {
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        if (state is MovieLoading)
-          return const SizedBox(
-              height: 480, child: Center(child: CircularProgressIndicator()));
+        if (state is MovieLoading) {
+          return const HeroShimmer();
+        }
         if (state is MovieLoaded && state.movies.isNotEmpty) {
           final m = state.movies.first;
           return FeaturedMovieHero(

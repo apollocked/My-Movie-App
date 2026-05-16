@@ -16,20 +16,50 @@ class MovieShimmerList extends StatelessWidget {
     return SizedBox(
       height: cardHeight,
       child: ListView.builder(
-        padding: const EdgeInsets.only(left: 16.0),
+        padding: const EdgeInsetsDirectional.only(start: 16.0),
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 4,
         itemBuilder: (context, index) {
-          return Shimmer.fromColors(
-            baseColor: baseColor,
-            highlightColor: highlightColor,
-            child: Container(
-              width: cardHeight * 0.68,
-              margin: const EdgeInsets.only(right: 16, bottom: 8),
-              decoration: BoxDecoration(
-                color: baseColor,
-                borderRadius: BorderRadius.circular(20),
+          return Container(
+            width: cardHeight * 0.68,
+            margin: const EdgeInsetsDirectional.only(end: 16, bottom: 8),
+            child: Shimmer.fromColors(
+              baseColor: baseColor,
+              highlightColor: highlightColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Poster
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: baseColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  // Title Shimmer
+                  Container(
+                    width: double.infinity,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  // Rating Shimmer
+                  Container(
+                    width: 40,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      color: baseColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ],
               ),
             ),
           );

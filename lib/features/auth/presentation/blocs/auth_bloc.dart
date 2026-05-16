@@ -29,24 +29,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthCheckRequested>((event, emit) async {
       final prefs = await SharedPreferences.getInstance();
       final isGuest = prefs.getBool('is_guest') ?? false;
+      final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
       
       final user = await authRepository.currentUser.first;
       if (user != null) {
         emit(Authenticated(user));
-      } else if (isGuest) {
+      } else if (isGuest || hasSeenOnboarding) {
+        // If they already chose guest or have seen onboarding, don't force them back to it
         emit(const AuthGuest());
       } else {
         emit(const Unauthenticated());
       }
     });
 
-    on<AuthStatusChanged>((event, emit) {
+    on<AuthStatusChanged>((event, emit) async {
       if (event.user != null) {
         emit(Authenticated(event.user!));
       } else {
-        // Only emit Unauthenticated if we are not in AuthGuest state
-        if (state is! AuthGuest) {
+        final prefs = await SharedPreferences.getInstance();
+        final isGuest = prefs.getBool('is_guest') ?? false;
+        final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
+
+        // Only emit Unauthenticated if we are not in AuthGuest state 
+        // AND we haven't seen onboarding yet
+        if (state is! AuthGuest && !isGuest && !hasSeenOnboarding) {
           emit(const Unauthenticated());
+        } else if (state is! AuthGuest) {
+          emit(const AuthGuest());
         }
       }
     });
@@ -58,6 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await loginUseCase(email: event.email, password: event.password);
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('is_guest', false);
+        await prefs.setBool('has_seen_onboarding', true);
         emit(Authenticated(user));
       } catch (e) {
         emit(Unauthenticated(message: e.toString()));
@@ -71,6 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await signupUseCase(email: event.email, password: event.password);
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('is_guest', false);
+        await prefs.setBool('has_seen_onboarding', true);
         emit(Authenticated(user));
       } catch (e) {
         emit(Unauthenticated(message: e.toString()));
@@ -80,6 +91,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ContinueAsGuestRequested>((event, emit) async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('is_guest', true);
+      await prefs.setBool('has_seen_onboarding', true);
       emit(const AuthGuest());
     });
 
@@ -87,8 +99,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       await logoutUseCase();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('is_guest', false);
-      emit(const Unauthenticated());
+      // When logout, treat as guest so we stay on home page
+      await prefs.setBool('is_guest', true);
+      emit(const AuthGuest());
     });
   }
 

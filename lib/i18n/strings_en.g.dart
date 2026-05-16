@@ -49,6 +49,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsGuestFeaturesEn guest_features = TranslationsGuestFeaturesEn.internal(_root);
 	late final TranslationsMovieDetailEn movie_detail = TranslationsMovieDetailEn.internal(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
+	late final TranslationsNotFoundEn not_found = TranslationsNotFoundEn.internal(_root);
 }
 
 // Path: home
@@ -123,6 +124,15 @@ class TranslationsSearchEn {
 	String get no_results => 'No results found.';
 
 	late final TranslationsSearchFiltersEn filters = TranslationsSearchFiltersEn.internal(_root);
+
+	/// en: 'Try searching for something else'
+	String get no_results_subtitle => 'Try searching for something else';
+
+	/// en: 'Discover Movies'
+	String get discover_title => 'Discover Movies';
+
+	/// en: 'Start typing to explore millions of movies and TV shows'
+	String get discover_subtitle => 'Start typing to explore millions of movies and TV shows';
 }
 
 // Path: profile
@@ -247,6 +257,12 @@ class TranslationsAuthEn {
 	/// en: 'Please log in to view your collection'
 	String get login_required_desc => 'Please log in to view your collection';
 
+	/// en: 'Welcome to CineStream'
+	String get welcome_title => 'Welcome to CineStream';
+
+	/// en: 'Customize your experience'
+	String get onboarding_settings => 'Customize your experience';
+
 	late final TranslationsAuthErrorsEn errors = TranslationsAuthErrorsEn.internal(_root);
 	late final TranslationsAuthGuestEn guest = TranslationsAuthGuestEn.internal(_root);
 }
@@ -334,6 +350,33 @@ class TranslationsCommonEn {
 
 	/// en: 'CineStream'
 	String get cine_stream => 'CineStream';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
+
+	/// en: 'Something went wrong'
+	String get error_title => 'Something went wrong';
+}
+
+// Path: not_found
+class TranslationsNotFoundEn {
+	TranslationsNotFoundEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Page Not Found'
+	String get title => 'Page Not Found';
+
+	/// en: '404 - Page Not Found'
+	String get title_404 => '404 - Page Not Found';
+
+	/// en: 'The page you are looking for does not exist or has been moved.'
+	String get subtitle => 'The page you are looking for does not exist or has been moved.';
+
+	/// en: 'Return to Home'
+	String get return_home => 'Return to Home';
 }
 
 // Path: search.filters
@@ -528,6 +571,9 @@ extension on Translations {
 			'search.filters.movies' => 'Movies',
 			'search.filters.tv_shows' => 'TV Shows',
 			'search.filters.actors' => 'Actors',
+			'search.no_results_subtitle' => 'Try searching for something else',
+			'search.discover_title' => 'Discover Movies',
+			'search.discover_subtitle' => 'Start typing to explore millions of movies and TV shows',
 			'profile.title' => 'Profile',
 			'profile.my_activity' => 'My Activity',
 			'profile.watch_later' => 'Watch Later',
@@ -560,6 +606,8 @@ extension on Translations {
 			'auth.get_started' => 'Get Started',
 			'auth.continue_guest' => 'Continue as Guest',
 			'auth.login_required_desc' => 'Please log in to view your collection',
+			'auth.welcome_title' => 'Welcome to CineStream',
+			'auth.onboarding_settings' => 'Customize your experience',
 			'auth.errors.email_required' => 'Email is required',
 			'auth.errors.invalid_email' => 'Enter a valid email',
 			'auth.errors.password_required' => 'Password is required',
@@ -597,6 +645,12 @@ extension on Translations {
 			'common.app_name' => 'CineStream',
 			'common.empty_list' => 'Your list is currently empty',
 			'common.cine_stream' => 'CineStream',
+			'common.retry' => 'Retry',
+			'common.error_title' => 'Something went wrong',
+			'not_found.title' => 'Page Not Found',
+			'not_found.title_404' => '404 - Page Not Found',
+			'not_found.subtitle' => 'The page you are looking for does not exist or has been moved.',
+			'not_found.return_home' => 'Return to Home',
 			_ => null,
 		};
 	}
