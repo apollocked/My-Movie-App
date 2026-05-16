@@ -14,16 +14,23 @@ class ApiClient {
   Future<Map<String, dynamic>> get(String endpoint,
       {Map<String, String>? params}) async {
     final queryParams = params ?? {};
-    queryParams['api_key'] = dotenv.env['TMDB_API_KEY'] ?? '';
 
     final uri =
         Uri.parse('$_baseUrl$endpoint').replace(queryParameters: queryParams);
-    final response = await _client.get(uri, headers: _headers);
+    try {
+      final response = await _client.get(uri, headers: _headers).timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => throw Exception('Request timeout'),
+          );
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body) as Map<String, dynamic>;
-    } else {
-      throw Exception('Server Error: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body) as Map<String, dynamic>;
+      } else {
+        throw Exception(
+            'Server Error: ${response.statusCode} - ${response.body}');
+      }
+    } catch (e) {
+      throw Exception('API Error: $e');
     }
   }
 }

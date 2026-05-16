@@ -17,12 +17,7 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profile'),
         centerTitle: true,
       ),
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is Unauthenticated || state is AuthGuest) {
-            context.go('/onboarding');
-          }
-        },
+      body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -42,20 +37,39 @@ class ProfilePage extends StatelessWidget {
                         style: theme.textTheme.titleLarge),
                     const SizedBox(height: 8),
                     Text(
-                      'Sign up or log in to unlock personalized features like ratings and adding movies to your favorites list.',
+                      'Sign up or log in to access personalized features like ratings, watch lists, and saved movies.',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium
                           ?.copyWith(color: theme.hintColor),
                     ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(200, 48),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                      ),
-                      onPressed: () => context.go('/onboarding'),
-                      child: const Text('Sign In / Register'),
+                    const SizedBox(height: 32),
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(48),
+                            backgroundColor: theme.primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          onPressed: () => context.go('/login'),
+                          child: const Text('Log In'),
+                        ),
+                        const SizedBox(height: 12),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(48),
+                            side: BorderSide(
+                              color: theme.dividerColor,
+                              width: 1.5,
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
+                          onPressed: () => context.go('/signup'),
+                          child: const Text('Create Account'),
+                        ),
+                      ],
                     ),
                   ],
                 ),

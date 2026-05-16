@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
-import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_movies_app/firebase_options.dart';
@@ -9,7 +8,8 @@ import 'package:my_movies_app/core/routing/app_router.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
-import 'package:my_movies_app/features/movies/data/models/movie_model.dart';
+import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
 import 'package:my_movies_app/features/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/domain/repositories/auth_repository.dart';
@@ -87,6 +87,10 @@ class MyApp extends StatelessWidget {
             logoutUseCase: logoutUseCase,
             authRepository: authRepository,
           ),
+        ),
+        // FIXED: Added SettingsCubit into the global widget tree scope
+        BlocProvider<SettingsCubit>(
+          create: (context) => SettingsCubit(),
         ),
       ],
       child: MaterialApp.router(
