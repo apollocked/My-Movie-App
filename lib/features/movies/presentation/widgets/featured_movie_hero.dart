@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 import 'hero_action_chip.dart';
 
 class FeaturedMovieHero extends StatelessWidget {
@@ -122,7 +123,7 @@ class FeaturedMovieHero extends StatelessWidget {
             label: 'Favorite',
             icon: Icons.favorite,
             inactiveIcon: Icons.favorite_border,
-            activeColor: Colors.red),
+            activeColor: AppColors.favoriteRed),
         const SizedBox(width: 12),
         HeroActionChip(
             movie: movie!,
@@ -131,7 +132,7 @@ class FeaturedMovieHero extends StatelessWidget {
             label: 'Watch Later',
             icon: Icons.bookmark,
             inactiveIcon: Icons.bookmark_add_outlined,
-            activeColor: Colors.green),
+            activeColor: AppColors.watchLaterGreen),
       ],
     );
   }

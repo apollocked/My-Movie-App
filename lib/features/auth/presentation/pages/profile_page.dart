@@ -5,6 +5,7 @@ import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
 import 'package:my_movies_app/core/localization/strings.g.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 import '../widgets/guest_profile_view.dart';
 import '../widgets/profile_widgets.dart';
 
@@ -79,7 +80,7 @@ class ProfilePage extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                  colors: [theme.primaryColor, Colors.orangeAccent]),
+                  colors: [theme.primaryColor, AppColors.secondaryAccent]),
               boxShadow: [
                 BoxShadow(
                     color: theme.primaryColor.withValues(alpha: 0.3),

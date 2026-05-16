@@ -12,6 +12,7 @@ import '../../features/auth/presentation/pages/onboarding/onboarding_page.dart';
 import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
 import '../../features/movies/presentation/pages/collection_page.dart';
+import '../../common/ui/no_internet_page.dart';
 import '../../features/auth/presentation/blocs/auth_bloc.dart';
 import '../../features/auth/presentation/blocs/auth_state.dart';
 import 'not_found_page.dart';
@@ -61,6 +62,11 @@ class AppRouter {
           name: 'signup',
           builder: (context, state) => const SignUpPage(),
         ),
+        GoRoute(
+          path: '/no-internet',
+          name: 'no-internet',
+          builder: (context, state) => const NoInternetPage(),
+        ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
             return MainNavigationShell(navigationShell: navigationShell);
@@ -109,8 +115,17 @@ class AppRouter {
           name: 'movie_details',
           parentNavigatorKey: _rootNavigatorKey,
           builder: (context, state) {
-            final movie = state.extra as Movie;
-            return MovieDetailPage(movie: movie);
+            // 1. Extract the ID safely from the path parameters
+            final idString = state.pathParameters['id']!;
+            final movieId = int.parse(idString);
+
+            // 2. Cast extra safely as NULLABLE (so it won't crash if dropped)
+            final movie = state.extra is Movie ? state.extra as Movie : null;
+
+            return MovieDetailPage(
+              movieId: movieId,
+              movie: movie, // Pass it down as optional/initial data
+            );
           },
         ),
         GoRoute(

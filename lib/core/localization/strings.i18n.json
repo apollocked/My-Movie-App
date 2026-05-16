@@ -133,6 +133,13 @@
     "retry": "Retry",
     "error_title": "Something went wrong"
   },
+  "connectivity": {
+    "title": "No Internet Connection",
+    "description": "Please check your internet connection and try again. CineStream requires an active internet connection to function properly.",
+    "troubleshooting_title": "Troubleshooting Tips:",
+    "check_connection": "Checking connection...",
+    "retry": "Retry"
+  },
   "not_found": {
     "title": "Page Not Found",
     "title_404": "404 - Page Not Found",

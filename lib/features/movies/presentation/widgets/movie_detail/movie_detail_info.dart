@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import 'package:my_movies_app/core/localization/strings.g.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 import '../../blocs/movie_bloc/movie_bloc.dart';
 import '../../blocs/movie_bloc/movie_event.dart';
 
@@ -39,16 +40,25 @@ class MovieDetailInfo extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.star_rounded,
-                          color: Colors.amber, size: 20),
+                          color: AppColors.ratingYellow, size: 20),
                       const SizedBox(width: 4),
                       Text('${movie.voteAverage.toStringAsFixed(1)}/10',
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
                       const SizedBox(width: 16),
-                      const Icon(Icons.calendar_month,
-                          size: 18, color: Colors.grey),
+                      Icon(Icons.calendar_month,
+                          size: 18,
+                          color: theme.brightness == Brightness.dark
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondaryLight),
                       const SizedBox(width: 4),
                       Text(movie.releaseDate.split('-').first,
-                          style: const TextStyle(color: Colors.grey)),
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.brightness == Brightness.dark
+                                ? AppColors.textSecondaryDark
+                                : AppColors.textSecondaryLight,
+                          )),
                     ],
                   ),
                 ],
@@ -66,7 +76,7 @@ class MovieDetailInfo extends StatelessWidget {
                   final isFav = snapshot.hasData && snapshot.data!.exists;
                   return IconButton(
                     icon: Icon(isFav ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.red, size: 32),
+                        color: AppColors.favoriteRed, size: 32),
                     onPressed: () {
                       context.read<MovieBloc>().add(ToggleFavorite(movie));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

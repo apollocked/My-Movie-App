@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:my_movies_app/core/localization/strings.g.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 
 class AuthPromptSheet extends StatelessWidget {
   final String actionMsg;
@@ -17,7 +17,8 @@ class AuthPromptSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.lock_person_rounded, size: 64, color: Colors.orange),
+          const Icon(Icons.lock_person_rounded,
+              size: 64, color: AppColors.warningOrange),
           const SizedBox(height: 16),
           Text(t.movie_detail.prompts.login_required,
               style: theme.textTheme.headlineSmall

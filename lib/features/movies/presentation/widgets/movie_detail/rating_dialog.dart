@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movies_app/core/localization/strings.g.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import '../../blocs/movie_bloc/movie_bloc.dart';
 import '../../blocs/movie_bloc/movie_event.dart';
@@ -26,6 +27,7 @@ class _RatingDialogState extends State<RatingDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       title:
@@ -48,7 +50,10 @@ class _RatingDialogState extends State<RatingDialog> {
             onChanged: (val) => setState(() => _selectedRating = val),
           ),
           Text(t.movie_detail.prompts.slide_to_rate,
-              style: const TextStyle(color: Colors.grey)),
+              style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.brightness == Brightness.dark
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight)),
         ],
       ),
       actions: [

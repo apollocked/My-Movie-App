@@ -20,13 +20,25 @@ class AppTheme {
         surfaceContainer: AppColors.darkSurfaceVariant,
         error: AppColors.errorRed,
       ),
-      textTheme: GoogleFonts.poppinsTextTheme(baseDark.textTheme).copyWith(
-        titleLarge: GoogleFonts.poppins(
+      textTheme:
+          GoogleFonts.notoSansArabicTextTheme(baseDark.textTheme).copyWith(
+        titleLarge: GoogleFonts.notoSansArabic(
           fontWeight: FontWeight.bold,
           color: AppColors.textPrimaryDark,
         ),
-        bodyLarge: GoogleFonts.poppins(color: AppColors.textPrimaryDark),
-        bodyMedium: GoogleFonts.poppins(color: AppColors.textSecondaryDark),
+        titleMedium: GoogleFonts.notoSansArabic(
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimaryDark,
+        ),
+        bodyLarge: GoogleFonts.notoSansArabic(color: AppColors.textPrimaryDark),
+        bodyMedium:
+            GoogleFonts.notoSansArabic(color: AppColors.textSecondaryDark),
+        labelLarge: GoogleFonts.notoSansArabic(
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimaryDark,
+        ),
+        labelMedium:
+            GoogleFonts.notoSansArabic(color: AppColors.textTertiaryDark),
       ),
       cardTheme: const CardThemeData(
         color: AppColors.darkSurfaceVariant,
@@ -58,13 +70,26 @@ class AppTheme {
         surfaceContainer: AppColors.lightSurfaceVariant,
         error: AppColors.errorRed,
       ),
-      textTheme: GoogleFonts.poppinsTextTheme(baseLight.textTheme).copyWith(
-        titleLarge: GoogleFonts.poppins(
+      textTheme:
+          GoogleFonts.notoSansArabicTextTheme(baseLight.textTheme).copyWith(
+        titleLarge: GoogleFonts.notoSansArabic(
           fontWeight: FontWeight.bold,
           color: AppColors.textPrimaryLight,
         ),
-        bodyLarge: GoogleFonts.poppins(color: AppColors.textPrimaryLight),
-        bodyMedium: GoogleFonts.poppins(color: AppColors.textSecondaryLight),
+        titleMedium: GoogleFonts.notoSansArabic(
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimaryLight,
+        ),
+        bodyLarge:
+            GoogleFonts.notoSansArabic(color: AppColors.textPrimaryLight),
+        bodyMedium:
+            GoogleFonts.notoSansArabic(color: AppColors.textSecondaryLight),
+        labelLarge: GoogleFonts.notoSansArabic(
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimaryLight,
+        ),
+        labelMedium:
+            GoogleFonts.notoSansArabic(color: AppColors.textTertiaryLight),
       ),
       cardTheme: const CardThemeData(
         color: AppColors.lightSurface,

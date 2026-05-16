@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 
 class MovieShimmerList extends StatelessWidget {
   final double cardHeight;
@@ -9,9 +10,10 @@ class MovieShimmerList extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final baseColor =
-        isDark ? theme.colorScheme.surfaceContainer : Colors.grey[300]!;
-    final highlightColor = isDark ? theme.cardColor : Colors.grey[100]!;
+    final baseColor = isDark
+        ? theme.colorScheme.surfaceContainer
+        : AppColors.lightSurfaceVariant;
+    final highlightColor = isDark ? theme.cardColor : AppColors.lightSurface;
 
     return SizedBox(
       height: cardHeight,

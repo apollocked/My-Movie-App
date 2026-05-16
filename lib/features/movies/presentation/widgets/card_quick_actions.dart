@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 import '../blocs/movie_bloc/movie_bloc.dart';
 import '../blocs/movie_bloc/movie_event.dart';
 
@@ -24,7 +25,7 @@ class CardQuickActions extends StatelessWidget {
             collection: 'favorites',
             icon: Icons.favorite,
             inactiveIcon: Icons.favorite_border,
-            activeColor: Colors.red,
+            activeColor: AppColors.favoriteRed,
             onTap: () {
               context.read<MovieBloc>().add(ToggleFavorite(movie));
               _showFeedback(context, 'Updated Favorites');
@@ -37,7 +38,7 @@ class CardQuickActions extends StatelessWidget {
             collection: 'watch_later',
             icon: Icons.bookmark,
             inactiveIcon: Icons.bookmark_add_outlined,
-            activeColor: Colors.green,
+            activeColor: AppColors.watchLaterGreen,
             onTap: () {
               context.read<MovieBloc>().add(ToggleWatchLater(movie));
               _showFeedback(context, 'Updated Watch Later');

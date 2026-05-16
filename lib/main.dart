@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/core/config/firebase_options.dart';
 import 'package:my_movies_app/core/routing/app_router.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
+import 'package:my_movies_app/core/network/connectivity_cubit/connectivity_cubit.dart';
 import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
@@ -23,7 +24,6 @@ import 'package:my_movies_app/features/auth/data/repositories/auth_repository_im
 import 'package:my_movies_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:my_movies_app/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart';
-
 import 'package:my_movies_app/core/localization/fallback_delegates.dart';
 import 'package:my_movies_app/core/localization/strings.g.dart';
 
@@ -93,6 +93,7 @@ class _MyAppState extends State<MyApp> {
   late final MovieBloc _movieBloc;
   late final SearchBloc _searchBloc;
   late final SettingsCubit _settingsCubit;
+  late final ConnectivityCubit _connectivityCubit;
   late final GoRouter _router;
 
   @override
@@ -108,7 +109,14 @@ class _MyAppState extends State<MyApp> {
     _movieBloc = MovieBloc(apiClient: widget.apiClient, isar: widget.isar);
     _searchBloc = SearchBloc(apiClient: widget.apiClient);
     _settingsCubit = SettingsCubit();
+    _connectivityCubit = ConnectivityCubit();
     _router = AppRouter.router(_authBloc);
+  }
+
+  @override
+  void dispose() {
+    _connectivityCubit.close();
+    super.dispose();
   }
 
   @override
@@ -119,6 +127,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<SearchBloc>.value(value: _searchBloc),
         BlocProvider<AuthBloc>.value(value: _authBloc),
         BlocProvider<SettingsCubit>.value(value: _settingsCubit),
+        BlocProvider<ConnectivityCubit>.value(value: _connectivityCubit),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settingsState) {
@@ -139,9 +148,23 @@ class _MyAppState extends State<MyApp> {
             ],
             supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
+            builder: (context, child) =>
+                _buildConnectivityOverlay(context, child),
           );
         },
       ),
+    );
+  }
+
+  /// Build connectivity overlay that shows no-internet page when offline
+  Widget _buildConnectivityOverlay(BuildContext context, Widget? child) {
+    return BlocListener<ConnectivityCubit, ConnectivityState>(
+      listener: (context, state) {
+        if (state is ConnectivityOffline) {
+          _router.push('/no-internet');
+        }
+      },
+      child: child ?? const SizedBox.shrink(),
     );
   }
 }

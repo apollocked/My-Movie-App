@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_movies_app/core/localization/strings.g.dart';
+import 'package:my_movies_app/core/theme/app_colors.dart';
 import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import '../../blocs/movie_bloc/movie_bloc.dart';
 import '../../blocs/movie_bloc/movie_event.dart';
@@ -58,7 +59,8 @@ class MovieDetailBottomActions extends StatelessWidget {
                     : t.movie_detail.watch_later),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: isAdded ? Colors.green : theme.primaryColor,
+                  backgroundColor:
+                      isAdded ? AppColors.watchLaterGreen : theme.primaryColor,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),
