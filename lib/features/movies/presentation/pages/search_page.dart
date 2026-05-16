@@ -7,8 +7,7 @@ import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/sea
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_event.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
 import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
-import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
-import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movies_app/features/movies/presentation/widgets/movie_poster_card.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -123,12 +122,22 @@ class _SearchPageState extends State<SearchPage> {
                           child: Text('No results found.',
                               style: theme.textTheme.bodyMedium));
                     }
-                    return MovieHorizontalList(
-                      title: 'Results',
-                      movies: state.results,
-                      cardHeight: 260,
-                      onMovieTap: (Movie movie) {
-                        context.push('/movie/${movie.id}', extra: movie);
+                    return GridView.builder(
+                      padding: const EdgeInsets.all(16),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.65,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemCount: state.results.length,
+                      itemBuilder: (context, index) {
+                        final movie = state.results[index];
+                        return InkWell(
+                          onTap: () => context.push('/movie/${movie.id}', extra: movie),
+                          borderRadius: BorderRadius.circular(20),
+                          child: MoviePosterCard(movie: movie),
+                        );
                       },
                     );
                   } else if (state is SearchError) {

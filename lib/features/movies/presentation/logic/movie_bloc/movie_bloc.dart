@@ -94,6 +94,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         'backdropPath': event.movie.backdropPath,
         'releaseDate': event.movie.releaseDate,
         'voteAverage': event.movie.voteAverage,
+        'timestamp': FieldValue.serverTimestamp(),
       });
     }
   }
@@ -119,6 +120,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         'backdropPath': event.movie.backdropPath,
         'releaseDate': event.movie.releaseDate,
         'voteAverage': event.movie.voteAverage,
+        'timestamp': FieldValue.serverTimestamp(),
       });
     }
   }
@@ -134,6 +136,8 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     await docRef.set({
       'id': event.movie.id,
       'title': event.movie.title,
+      'posterPath': event.movie.posterPath,
+      'voteAverage': event.movie.voteAverage,
       'rating': event.rating,
       'timestamp': FieldValue.serverTimestamp(),
     });

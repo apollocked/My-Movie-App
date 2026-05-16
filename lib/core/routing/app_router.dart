@@ -11,6 +11,7 @@ import '../../features/auth/presentation/pages/sigin_up_page.dart';
 import '../../features/auth/presentation/pages/onboarding/onboarding_page.dart';
 import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
+import '../../features/movies/presentation/pages/collection_page.dart';
 import '../../features/auth/presentation/blocs/auth_bloc.dart';
 import '../../features/auth/presentation/blocs/auth_state.dart';
 import 'not_found_page.dart';
@@ -32,18 +33,18 @@ class AppRouter {
           state.uri.path == '/login' ||
           state.uri.path == '/signup';
 
-      // If initial state, redirect to onboarding
-      if (authState is AuthInitial && !isOnAuthRoute) {
+      // If initial state or unauthenticated, redirect to onboarding if not already there
+      if ((authState is AuthInitial || authState is Unauthenticated) && !isOnAuthRoute) {
         return '/onboarding';
       }
 
       // If on auth routes and authenticated, go to home
-      if ((authState is Authenticated || authState is AuthGuest) &&
-          isOnAuthRoute) {
+      // (We allow AuthGuest to stay on auth routes so they can login/signup if they want)
+      if (authState is Authenticated && isOnAuthRoute) {
         return '/';
       }
 
-      // Guest attempting to access profile should go to onboarding
+      // Guest attempting to access profile should go to onboarding (Auth Page)
       if (state.uri.path == '/profile' && authState is AuthGuest) {
         return '/onboarding';
       }
@@ -126,6 +127,19 @@ class AppRouter {
           // Fallback parsing if arguments aren't explicitly passed directly via extra parameter maps
           final movie = state.extra as Movie;
           return MovieDetailPage(movie: movie);
+        },
+      ),
+      GoRoute(
+        path: '/collection/:type',
+        name: 'collection',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final type = state.pathParameters['type']!;
+          String title = 'Collection';
+          if (type == 'watch_later') title = 'Watch Later';
+          if (type == 'favorites') title = 'My Favorites';
+          if (type == 'ratings') title = 'My Ratings';
+          return CollectionPage(title: title, collectionPath: type);
         },
       ),
     ],
