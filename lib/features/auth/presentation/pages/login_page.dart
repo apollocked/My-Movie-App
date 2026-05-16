@@ -4,6 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
+import 'package:my_movies_app/features/auth/presentation/widgets/auth_button.dart';
+import 'package:my_movies_app/features/auth/presentation/widgets/auth_header.dart';
+import 'package:my_movies_app/features/auth/presentation/widgets/auth_input_field.dart';
+import 'package:my_movies_app/features/auth/presentation/widgets/auth_navigation_links.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -39,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
@@ -64,44 +67,17 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 48),
-                    Icon(Icons.movie_creation_rounded,
-                        size: 64, color: theme.primaryColor),
-                    const SizedBox(height: 24),
-                    Text(
-                      'Welcome Back',
-                      style: theme.textTheme.headlineMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Log in to your account',
-                      style: theme.textTheme.bodyMedium
-                          ?.copyWith(color: theme.hintColor),
+                    AuthHeader(
+                      title: 'Welcome Back',
+                      subtitle: 'Log in to your account',
                     ),
                     const SizedBox(height: 40),
-                    TextFormField(
+                    AuthInputField(
                       controller: _emailController,
+                      label: 'Email',
+                      hint: 'Enter your email',
+                      prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        hintText: 'Enter your email',
-                        prefixIcon: Icon(Icons.email_outlined,
-                            color: theme.primaryColor),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: theme.dividerColor),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: theme.dividerColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide:
-                              BorderSide(color: theme.primaryColor, width: 2),
-                        ),
-                      ),
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
                           return 'Email is required';
@@ -113,38 +89,17 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
+                    AuthInputField(
                       controller: _passwordController,
+                      label: 'Password',
+                      hint: 'Enter your password',
+                      prefixIcon: Icons.lock_outline,
                       obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        hintText: 'Enter your password',
-                        prefixIcon: Icon(Icons.lock_outline,
-                            color: theme.primaryColor),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: theme.primaryColor,
-                          ),
-                          onPressed: () => setState(
-                              () => _obscurePassword = !_obscurePassword),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: theme.dividerColor),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: theme.dividerColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide:
-                              BorderSide(color: theme.primaryColor, width: 2),
-                        ),
-                      ),
+                      suffixIcon: _obscurePassword
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      onSuffixTap: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
                           return 'Password is required';
@@ -158,84 +113,17 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 28),
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
-                        final isLoading = state is AuthLoading;
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(54),
-                            backgroundColor: theme.primaryColor,
-                            foregroundColor: theme.colorScheme.onPrimary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          onPressed: isLoading ? null : _handleLogin,
-                          child: isLoading
-                              ? const SizedBox(
-                                  height: 24,
-                                  width: 24,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white),
-                                  ),
-                                )
-                              : Text(
-                                  'Log In',
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: theme.colorScheme.onPrimary,
-                                      ) ??
-                                      const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
+                        return AuthButton(
+                          text: 'Log In',
+                          isLoading: state is AuthLoading,
+                          onPressed: _handleLogin,
                         );
                       },
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Don\'t have an account? ',
-                          style: theme.textTheme.bodyMedium,
-                        ),
-                        GestureDetector(
-                          onTap: () => context.go('/signup'),
-                          child: Text(
-                            'Sign up',
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(54),
-                        side: BorderSide(
-                          color: theme.dividerColor,
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                      label: Text(
-                        'Back to Browse',
-                        style: TextStyle(color: theme.primaryColor),
-                      ),
-                      onPressed: () {
-                        context
-                            .read<AuthBloc>()
-                            .add(const ContinueAsGuestRequested());
-                        context.go('/');
-                      },
+                    AuthNavigationLinks(
+                      primaryText: 'Don\'t have an account? ',
+                      linkText: 'Sign up',
+                      linkRoute: '/signup',
                     ),
                   ],
                 ),
