@@ -20,25 +20,30 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
     emit(SearchLoading());
     try {
-      final data =
-          await apiClient.get('/search/movie', params: {'query': event.query});
+      String endpoint = '/search/multi';
+      if (event.filter == 'Movies') endpoint = '/search/movie';
+      if (event.filter == 'TV Shows') endpoint = '/search/tv';
+      if (event.filter == 'Actors') endpoint = '/search/person';
+
+      final data = await apiClient.get(endpoint, params: {'query': event.query});
       final results = data['results'] as List;
 
       final movies = results
+          .where((json) => json['media_type'] != 'person' || event.filter == 'Actors' || event.filter == 'All') // Quick filter if multi returns unwanted persons
           .map((json) => Movie(
-                id: json['id'],
-                title: json['title'] ?? '',
-                overview: json['overview'] ?? '',
-                posterPath: json['poster_path'] ?? '',
+                id: (json['id'] as num?)?.toInt() ?? 0,
+                title: json['title'] ?? json['name'] ?? '',
+                overview: json['overview'] ?? json['known_for_department'] ?? '',
+                posterPath: json['poster_path'] ?? json['profile_path'] ?? '',
                 backdropPath: json['backdrop_path'] ?? '',
-                releaseDate: json['release_date'] ?? '',
-                voteAverage: (json['vote_average'] as num).toDouble(),
+                releaseDate: json['release_date'] ?? json['first_air_date'] ?? '',
+                voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
               ))
           .toList();
 
       emit(SearchLoaded(movies));
     } catch (e) {
-      emit(SearchError('Failed to complete search query.'));
+      emit(SearchError('Failed to complete search query: ${e.toString()}'));
     }
   }
 }

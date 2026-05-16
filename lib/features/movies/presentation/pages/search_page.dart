@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // Import our active search logic layers
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/sea
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_state.dart';
 import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
 import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -50,9 +52,9 @@ class _SearchPageState extends State<SearchPage> {
                 style: TextStyle(color: theme.textTheme.bodyLarge?.color),
                 onChanged: (query) {
                   if (query.trim().length > 2) {
-                    context.read<SearchBloc>().add(ExecuteSearch(query: query));
+                    context.read<SearchBloc>().add(ExecuteSearch(query: query, filter: _selectedFilter));
                   } else if (query.trim().isEmpty) {
-                    context.read<SearchBloc>().add(ClearSearch());
+                    context.read<SearchBloc>().add(const ClearSearch());
                   }
                 },
                 decoration: InputDecoration(
@@ -99,7 +101,7 @@ class _SearchPageState extends State<SearchPage> {
                         if (_searchController.text.trim().isNotEmpty) {
                           // Trigger new search query using your filters if needed
                           context.read<SearchBloc>().add(
-                              ExecuteSearch(query: _searchController.text));
+                              ExecuteSearch(query: _searchController.text, filter: filter));
                         }
                       },
                     ),
@@ -125,9 +127,8 @@ class _SearchPageState extends State<SearchPage> {
                       title: 'Results',
                       movies: state.results,
                       cardHeight: 260,
-                      onMovieTap: (movie) {
-                        // Safe routing layer integration
-                        // context.push('/movie-detail', extra: movie);
+                      onMovieTap: (Movie movie) {
+                        context.push('/movie/${movie.id}', extra: movie);
                       },
                     );
                   } else if (state is SearchError) {

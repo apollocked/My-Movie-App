@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
 import 'movie_poster_card.dart';
 
 class MovieHorizontalList extends StatelessWidget {
   final String title;
-  final List<dynamic> movies;
+  final List<Movie> movies;
   final double cardHeight;
-  final ValueChanged<dynamic>? onMovieTap;
+  final ValueChanged<Movie>? onMovieTap;
 
   const MovieHorizontalList({
     super.key,

@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:my_movies_app/firebase_options.dart';
 import 'package:my_movies_app/core/routing/app_router.dart';
 import 'package:my_movies_app/core/network/api_client.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/movie_bloc/movie_bloc.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/search_bloc/search_bloc.dart';
 import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
+import 'package:my_movies_app/core/theme/app_theme.dart';
 import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_cubit.dart';
+import 'package:my_movies_app/features/movies/presentation/logic/settings_cubit/settings_state.dart';
 import 'package:my_movies_app/features/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movies_app/features/auth/domain/repositories/auth_repository.dart';
@@ -20,6 +23,8 @@ import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart'
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -93,13 +98,18 @@ class MyApp extends StatelessWidget {
           create: (context) => SettingsCubit(),
         ),
       ],
-      child: MaterialApp.router(
-        title: 'My Movies App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.light(useMaterial3: true),
-        darkTheme: ThemeData.dark(useMaterial3: true),
-        themeMode: ThemeMode.system,
-        routerConfig: AppRouter.router,
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, settingsState) {
+          return MaterialApp.router(
+            title: 'My Movies App',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: settingsState.themeMode,
+            locale: settingsState.locale,
+            routerConfig: AppRouter.router,
+          );
+        },
       ),
     );
   }

@@ -4,7 +4,8 @@ abstract class SearchEvent {
 
 class ExecuteSearch extends SearchEvent {
   final String query;
-  const ExecuteSearch({required this.query});
+  final String filter;
+  const ExecuteSearch({required this.query, this.filter = 'All'});
 }
 
 class ClearSearch extends SearchEvent {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/movie.dart';
 
 class MoviePosterCard extends StatelessWidget {
   final double height;
-  final dynamic
-      movie; // Structured dynamically to safely catch data properties later
+  final Movie? movie;
 
   const MoviePosterCard({super.key, this.height = 260, this.movie});
 
@@ -16,7 +16,7 @@ class MoviePosterCard extends StatelessWidget {
     // Read dynamic asset locations when data binding is ready
     final imageUrl = movie?.fullPosterUrl ??
         'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500';
-    final rating = movie?.voteAverage?.toStringAsFixed(1) ?? '8.4';
+    final rating = movie?.voteAverage.toStringAsFixed(1) ?? '8.4';
 
     return Container(
       width: width,
@@ -51,6 +51,37 @@ class MoviePosterCard extends StatelessWidget {
               ),
             ),
           ),
+          if (movie != null)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.7),
+                      Colors.black.withValues(alpha: 0.9),
+                    ],
+                  ),
+                ),
+                child: Text(
+                  movie!.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           _buildRatingBadge(theme, isDark, rating),
         ],
       ),

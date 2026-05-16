@@ -7,7 +7,7 @@ class ApiClient {
   final String _baseUrl = 'https://api.themoviedb.org/3';
 
   Map<String, String> get _headers => {
-        'Authorization': 'Bearer ${dotenv.env['TMDB_READ_ACCESS_TOKEN']}',
+        'Authorization': 'Bearer ${dotenv.env['TMDB_API_ACCESS_TOKEN']}',
         'Content-Type': 'application/json;charset=utf-8',
       };
 

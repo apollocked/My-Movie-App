@@ -10,7 +10,7 @@ class SettingsPage extends StatelessWidget {
     final theme = Theme.of(context);
     final settingsCubit = context.read<SettingsCubit>();
     final currentSettings = context.watch<SettingsCubit>().state;
-    final isDark = theme.brightness == Brightness.dark;
+    final isDark = currentSettings.themeMode == ThemeMode.dark;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -22,66 +22,58 @@ class SettingsPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w900,
-                    color: theme.textTheme.displayLarge?.color)),
+                    color: theme.textTheme.titleLarge?.color)),
             const SizedBox(height: 24),
-            _buildSettingsTile(
-              theme: theme,
-              icon: Icons.translate_rounded,
-              title: 'App Language',
-              value: currentSettings.locale.languageCode.toUpperCase(),
-              onTap: () {
-                final code = currentSettings.locale.languageCode;
-                settingsCubit.changeLanguage(
-                    code == 'en' ? 'ku' : (code == 'ku' ? 'ar' : 'en'));
-              },
+            
+            // Language Dropdown
+            Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                  color: theme.cardColor,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: theme.dividerColor)),
+              child: ListTile(
+                leading: Icon(Icons.translate_rounded, color: theme.primaryColor),
+                title: Text('App Language', style: TextStyle(color: theme.textTheme.titleLarge?.color, fontWeight: FontWeight.w600, fontSize: 16)),
+                trailing: DropdownButton<String>(
+                  value: currentSettings.locale.languageCode,
+                  underline: const SizedBox(),
+                  icon: Icon(Icons.keyboard_arrow_down_rounded, color: theme.hintColor),
+                  dropdownColor: theme.cardColor,
+                  items: const [
+                    DropdownMenuItem(value: 'en', child: Text('English')),
+                    DropdownMenuItem(value: 'ku', child: Text('Kurdish')),
+                    DropdownMenuItem(value: 'ar', child: Text('Arabic')),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      settingsCubit.changeLanguage(value);
+                    }
+                  },
+                ),
+              ),
             ),
-            _buildSettingsTile(
-              theme: theme,
-              icon: isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-              title: 'OLED Display Mode',
-              value: isDark ? 'Enabled' : 'Disabled',
-              onTap: () => settingsCubit.toggleTheme(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
-  Widget _buildSettingsTile({
-    required ThemeData theme,
-    required IconData icon,
-    required String title,
-    required String value,
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-          color: theme.cardColor,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: theme.dividerColor),
-          boxShadow: theme.brightness == Brightness.dark
-              ? []
-              : [
-                  BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2))
-                ]),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(icon, color: theme.primaryColor),
-        title: Text(title,
-            style: TextStyle(
-                color: theme.textTheme.displayLarge?.color,
-                fontWeight: FontWeight.w600,
-                fontSize: 14)),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(value, style: TextStyle(color: theme.hintColor, fontSize: 13)),
-            Icon(Icons.chevron_right_rounded, color: theme.hintColor, size: 20),
+            // Theme Toggle
+            Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                  color: theme.cardColor,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: theme.dividerColor)),
+              child: SwitchListTile(
+                value: isDark,
+                onChanged: (value) {
+                  // We just toggle it since the cubit has toggleTheme()
+                  // which switches between light and dark.
+                  settingsCubit.toggleTheme();
+                },
+                activeTrackColor: theme.primaryColor.withValues(alpha: 0.5),
+                activeThumbColor: theme.primaryColor,
+                title: Text('Dark Mode', style: TextStyle(color: theme.textTheme.titleLarge?.color, fontWeight: FontWeight.w600, fontSize: 16)),
+                secondary: Icon(isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: theme.primaryColor),
+              ),
+            ),
           ],
         ),
       ),
