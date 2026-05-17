@@ -32,3 +32,24 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+subprojects {
+    afterEvaluate {
+        if (project.hasProperty("android")) {
+            val androidExtension = project.extensions.getByName("android")
+            // Safely forces the compileSdkVersion to 36 to support BAKLAVA features
+            try {
+                androidExtension.javaClass.getMethod("setCompileSdkVersion", Object::class.java)
+                    .invoke(androidExtension, 36)
+            } catch (e: Exception) {
+                // Fallback for newer AGP structures if direct method signature differs
+                try {
+                    androidExtension.javaClass.getMethod("setCompileSdk", Integer::class.java)
+                        .invoke(androidExtension, 36)
+                } catch (ex: Exception) {
+                    // Fail silently
+                }
+            }
+        }
+    }
+}

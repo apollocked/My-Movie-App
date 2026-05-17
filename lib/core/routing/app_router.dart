@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/routing/movie_codec.dart';
 import '../../features/movies/domain/entities/movie.dart';
 import '../../features/movies/presentation/pages/main_navigation_shell.dart';
 import '../../features/movies/presentation/pages/home_page.dart';
@@ -23,6 +24,7 @@ class AppRouter {
   static GoRouter router(AuthBloc authBloc) {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
+      extraCodec: MovieCodec(),
       initialLocation: '/',
       debugLogDiagnostics: true,
       errorBuilder: (context, state) => const NotFoundPage(),

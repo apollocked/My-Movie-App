@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
@@ -21,10 +23,16 @@ class MovieDetailPage extends StatefulWidget {
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
   final ApiClient _apiClient = ApiClient();
-  late YoutubePlayerController _ytController;
+
+  YoutubePlayerController? _ytController;
+  StreamSubscription? _ytSubscription;
+  String? _trailerKey;
+
   bool _hasTrailer = false;
-  Map<String, dynamic>? _details;
+  bool _trailerBlocked = false;
   bool _isLoading = true;
+
+  Map<String, dynamic>? _details;
 
   @override
   void initState() {
@@ -40,43 +48,56 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         'language': getTmdbLanguageCode(locale),
       });
 
-      if (mounted) {
-        final videos = data['videos']?['results'] as List?;
-        String? trailerKey;
-        if (videos != null && videos.isNotEmpty) {
-          final t = videos.firstWhere(
-              (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
-              orElse: () => videos.firstWhere((v) => v['site'] == 'YouTube',
-                  orElse: () => null));
-          if (t != null) trailerKey = t['key'];
-        }
-        setState(() {
-          _details = data;
-          _isLoading = false;
-          if (trailerKey != null) {
-            _ytController = YoutubePlayerController.fromVideoId(
-              videoId: trailerKey,
-              autoPlay: false,
-              params: const YoutubePlayerParams(
-                showControls: true,
-                showFullscreenButton: true,
-              ),
-            );
-            setState(() {
-              _hasTrailer = true;
-              _details = data;
-              _isLoading = false;
-            });
+      if (!mounted) return;
+
+      String? trailerKey;
+      final videos = data['videos']?['results'] as List?;
+      if (videos != null && videos.isNotEmpty) {
+        final t = videos.firstWhere(
+          (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
+          orElse: () => videos.firstWhere(
+            (v) => v['site'] == 'YouTube',
+            orElse: () => null,
+          ),
+        );
+        if (t != null) trailerKey = t['key'];
+      }
+
+      if (trailerKey != null) {
+        _trailerKey = trailerKey;
+
+        _ytController = YoutubePlayerController(
+          params: const YoutubePlayerParams(
+            showControls: true,
+            showFullscreenButton: true,
+            mute: false,
+          ),
+        );
+
+        _ytController!.loadVideoById(videoId: trailerKey);
+
+        _ytSubscription = _ytController!.stream.listen((value) {
+          if (value.error != YoutubeError.none && mounted) {
+            setState(() => _trailerBlocked = true);
           }
         });
       }
-    } catch (_) {
+
+      setState(() {
+        _details = data;
+        _hasTrailer = trailerKey != null;
+        _isLoading = false;
+      });
+    } catch (e) {
+      debugPrint('MovieDetailPage error: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }
 
   @override
   void dispose() {
+    _ytSubscription?.cancel();
+    _ytController?.close();
     super.dispose();
   }
 
@@ -110,10 +131,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             expandedHeight: 240,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-                background: _hasTrailer
-                    ? YoutubePlayer(controller: _ytController)
-                    : Image.network(currentMovie.fullPosterUrl,
-                        fit: BoxFit.cover)),
+              background:
+                  _hasTrailer && !_trailerBlocked && _ytController != null
+                      ? YoutubePlayer(controller: _ytController!)
+                      : _TrailerFallback(
+                          posterUrl: currentMovie.fullPosterUrl,
+                          trailerKey: _trailerBlocked ? _trailerKey : null,
+                        ),
+            ),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -138,6 +163,54 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _TrailerFallback extends StatelessWidget {
+  final String posterUrl;
+  final String? trailerKey;
+
+  const _TrailerFallback({required this.posterUrl, this.trailerKey});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.network(
+          posterUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) => Container(color: Colors.black),
+        ),
+        if (trailerKey != null)
+          Center(
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.play_circle_fill),
+              label: const Text('Watch Trailer on YouTube'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () async {
+                final url = Uri.parse(
+                  'https://www.youtube.com/watch?v=$trailerKey',
+                );
+                try {
+                  await launchUrl(
+                    url,
+                    mode: LaunchMode.externalApplication,
+                  );
+                } catch (_) {
+                  await launchUrl(
+                    url,
+                    mode: LaunchMode.platformDefault,
+                  );
+                }
+              },
+            ),
+          ),
+      ],
     );
   }
 }
