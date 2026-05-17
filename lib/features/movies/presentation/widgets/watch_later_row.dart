@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_movies_app/core/localization/strings.g.dart';
-import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
-import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
 
 class WatchLaterRow extends StatelessWidget {
   const WatchLaterRow({super.key});

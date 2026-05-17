@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/core/localization/strings.g.dart';
-import 'package:my_movies_app/core/theme/app_colors.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 class AuthPromptSheet extends StatelessWidget {
   final String actionMsg;

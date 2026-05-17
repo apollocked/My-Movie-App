@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/movies/domain/entities/movie.dart';
 
 class MovieFirestoreDataSourceImpl {
   final _db = FirebaseFirestore.instance;

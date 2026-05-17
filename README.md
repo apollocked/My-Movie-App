@@ -112,7 +112,7 @@ flutter doctor
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd my_movies_app
+cd my_movie
 
 # Install dependencies
 flutter pub get

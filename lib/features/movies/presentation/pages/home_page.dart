@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/core/utils/locale_utils.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movies_app/core/localization/strings.g.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_event.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_state.dart';
-import 'package:my_movies_app/features/movies/presentation/widgets/featured_movie_hero.dart';
-import 'package:my_movies_app/features/movies/presentation/widgets/category_row.dart';
-import 'package:my_movies_app/features/movies/presentation/widgets/watch_later_row.dart';
-import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/hero_shimmer.dart';
+import 'package:my_movie/core/utils/locale_utils.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
+import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
+import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_event.dart';
+import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_state.dart';
+import 'package:my_movie/features/movies/presentation/widgets/featured_movie_hero.dart';
+import 'package:my_movie/features/movies/presentation/widgets/category_row.dart';
+import 'package:my_movie/features/movies/presentation/widgets/watch_later_row.dart';
+import 'package:my_movie/features/movies/presentation/pages/shimmer_pages/hero_shimmer.dart';
 
 class MovieHomePage extends StatefulWidget {
   const MovieHomePage({super.key});

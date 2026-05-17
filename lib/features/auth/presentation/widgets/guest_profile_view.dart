@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 
 class GuestProfileView extends StatelessWidget {
   const GuestProfileView({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:my_movies_app/core/theme/app_colors.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 class MovieShimmerList extends StatelessWidget {
   final double cardHeight;

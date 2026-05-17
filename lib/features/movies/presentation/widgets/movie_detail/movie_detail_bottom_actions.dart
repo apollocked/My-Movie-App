@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_movies_app/core/localization/strings.g.dart';
-import 'package:my_movies_app/core/theme/app_colors.dart';
-import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../../blocs/movie_bloc/movie_bloc.dart';
 import '../../blocs/movie_bloc/movie_event.dart';
 import 'rating_dialog.dart';
 import 'auth_prompt_sheet.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_state.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
 
 class MovieDetailBottomActions extends StatelessWidget {
   final Movie movie;

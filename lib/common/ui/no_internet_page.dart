@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_movies_app/core/network/connectivity_cubit/connectivity_cubit.dart';
-import 'package:my_movies_app/core/theme/app_colors.dart';
+import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 
 /// Screen displayed when user has no internet connection
 ///
@@ -49,7 +50,7 @@ class NoInternetPage extends StatelessWidget {
 
                   // Title - uses theme primary text color
                   Text(
-                    'No Internet Connection',
+                    t.connectivity.title,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -62,8 +63,7 @@ class NoInternetPage extends StatelessWidget {
 
                   // Description - uses theme secondary text color
                   Text(
-                    'Please check your internet connection and try again. '
-                    'MyMovies app requires an active internet connection to function properly.',
+                    t.connectivity.description,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: isDarkMode
@@ -88,7 +88,7 @@ class NoInternetPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Troubleshooting Tips:',
+                          t.connectivity.troubleshooting_title,
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontWeight: FontWeight.bold,
@@ -98,16 +98,17 @@ class NoInternetPage extends StatelessWidget {
                                   ),
                         ),
                         const SizedBox(height: 12),
-                        _buildTip(
-                            context, isDarkMode, '✓ Turn off airplane mode'),
-                        const SizedBox(height: 8),
-                        _buildTip(
-                            context, isDarkMode, '✓ Check WiFi or mobile data'),
+                        _buildTip(context, isDarkMode,
+                            t.connectivity.tips.airplane_mode),
                         const SizedBox(height: 8),
                         _buildTip(context, isDarkMode,
-                            '✓ Move closer to WiFi router'),
+                            t.connectivity.tips.check_data),
                         const SizedBox(height: 8),
-                        _buildTip(context, isDarkMode, '✓ Restart your device'),
+                        _buildTip(context, isDarkMode,
+                            t.connectivity.tips.move_closer),
+                        const SizedBox(height: 8),
+                        _buildTip(context, isDarkMode,
+                            t.connectivity.tips.restart_device),
                       ],
                     ),
                   ),
@@ -122,7 +123,7 @@ class NoInternetPage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              'Checking connection...',
+                              t.connectivity.check_connection,
                               style: TextStyle(
                                 color: isDarkMode
                                     ? AppColors.textPrimaryDark
@@ -137,7 +138,7 @@ class NoInternetPage extends StatelessWidget {
                         );
                       },
                       icon: const Icon(Icons.refresh_rounded),
-                      label: const Text('Retry'),
+                      label: Text(t.connectivity.retry),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryRed,
                         foregroundColor: AppColors.textPrimaryLight,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/core/utils/locale_utils.dart';
-import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
-import 'package:my_movies_app/features/movies/presentation/widgets/movie_horizontal_list.dart';
-import 'package:my_movies_app/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
+import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/core/utils/locale_utils.dart';
+import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
+import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
+import 'package:my_movie/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
 
 class CategoryRow extends StatefulWidget {
   final ApiClient apiClient;

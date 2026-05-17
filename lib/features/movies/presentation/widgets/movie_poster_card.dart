@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_movies_app/core/theme/app_colors.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import '../../domain/entities/movie.dart';
 import 'card_quick_actions.dart';
 import 'card_rating_badge.dart';

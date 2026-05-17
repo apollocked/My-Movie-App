@@ -3,23 +3,23 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Core & Network Imports
-import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/core/network/connectivity_cubit/connectivity_cubit.dart';
+import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
 
 // Features - Auth Imports
-import 'package:my_movies_app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:my_movies_app/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:my_movies_app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:my_movies_app/features/auth/domain/usecases/login_usecase.dart';
-import 'package:my_movies_app/features/auth/domain/usecases/signup_usecase.dart';
-import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:my_movie/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:my_movie/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:my_movie/features/auth/domain/repositories/auth_repository.dart';
+import 'package:my_movie/features/auth/domain/usecases/login_usecase.dart';
+import 'package:my_movie/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:my_movie/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 
 // Features - Movies & Settings Imports
-import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movie/features/movies/data/models/cached_movie.dart';
+import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
+import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 

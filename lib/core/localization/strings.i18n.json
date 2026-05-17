@@ -135,8 +135,14 @@
   },
   "connectivity": {
     "title": "No Internet Connection",
-    "description": "Please check your internet connection and try again. CineStream requires an active internet connection to function properly.",
+    "description": "Please check your internet connection and try again. My Movie app requires an active internet connection to function properly.",
     "troubleshooting_title": "Troubleshooting Tips:",
+    "tips": {
+      "airplane_mode": "✓ Turn off airplane mode",
+      "check_data": "✓ Check WiFi or mobile data",
+      "move_closer": "✓ Move closer to WiFi router",
+      "restart_device": "✓ Restart your device"
+    },
     "check_connection": "Checking connection...",
     "retry": "Retry"
   },

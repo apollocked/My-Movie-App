@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
-import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/features/movies/domain/entities/movie.dart';
-import 'package:my_movies_app/features/movies/data/models/cached_movie.dart';
+import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/movies/data/models/cached_movie.dart';
 
 class MovieLocalDataSource {
   final ApiClient apiClient;

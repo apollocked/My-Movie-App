@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isar/isar.dart';
-import 'package:my_movies_app/core/network/api_client.dart';
-import 'package:my_movies_app/features/movies/data/datasources/movie_firestore_data_source.dart';
-import 'package:my_movies_app/features/movies/data/datasources/movie_local_data_source.dart';
+import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/features/movies/data/datasources/movie_firestore_data_source.dart';
+import 'package:my_movie/features/movies/data/datasources/movie_local_data_source.dart';
 import 'movie_event.dart';
 import 'movie_state.dart';
 

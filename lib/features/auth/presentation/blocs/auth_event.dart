@@ -1,4 +1,4 @@
-import 'package:my_movies_app/features/auth/domain/entities/user_entity.dart';
+import 'package:my_movie/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthEvent {
   const AuthEvent();

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
-import 'package:my_movies_app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:my_movies_app/features/auth/domain/entities/user_entity.dart';
-import 'package:my_movies_app/features/auth/domain/usecases/login_usecase.dart';
-import 'package:my_movies_app/features/auth/domain/usecases/signup_usecase.dart';
-import 'package:my_movies_app/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:my_movie/features/auth/domain/repositories/auth_repository.dart';
+import 'package:my_movie/features/auth/domain/entities/user_entity.dart';
+import 'package:my_movie/features/auth/domain/usecases/login_usecase.dart';
+import 'package:my_movie/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:my_movie/features/auth/domain/usecases/logout_usecase.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;

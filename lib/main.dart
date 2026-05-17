@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movies_app/core/config/firebase_options.dart';
-import 'package:my_movies_app/core/routing/app_router.dart';
-import 'package:my_movies_app/core/di/injection.dart';
-import 'package:my_movies_app/core/theme/app_theme.dart';
-import 'package:my_movies_app/core/localization/fallback_delegates.dart';
-import 'package:my_movies_app/core/localization/strings.g.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
-import 'package:my_movies_app/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
-import 'package:my_movies_app/core/network/connectivity_cubit/connectivity_cubit.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:my_movies_app/features/auth/presentation/blocs/auth_event.dart';
+import 'package:my_movie/core/config/firebase_options.dart';
+import 'package:my_movie/core/routing/app_router.dart';
+import 'package:my_movie/core/di/injection.dart';
+import 'package:my_movie/core/theme/app_theme.dart';
+import 'package:my_movie/core/localization/fallback_delegates.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
+import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
+import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settingsState) {
           return MaterialApp.router(
-            title: 'My Movies App',
+            title: 'My Movie',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
