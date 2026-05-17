@@ -16,7 +16,7 @@ dependencies:
     sdk: flutter
 
   # State Management & DI
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.1.1
   get_it: ^7.6.0
 
   # Navigation & Network

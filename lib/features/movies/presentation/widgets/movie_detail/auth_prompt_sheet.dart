@@ -17,8 +17,8 @@ class AuthPromptSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.lock_person_rounded,
-              size: 64, color: AppColors.warningOrange),
+          Icon(Icons.lock_person_rounded,
+              size: 64, color: AppColors.warningAmber),
           const SizedBox(height: 16),
           Text(t.movie_detail.prompts.login_required,
               style: theme.textTheme.headlineSmall

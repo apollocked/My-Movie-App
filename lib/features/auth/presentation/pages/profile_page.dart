@@ -80,7 +80,7 @@ class ProfilePage extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                  colors: [theme.primaryColor, AppColors.secondaryAccent]),
+                  colors: [theme.primaryColor, AppColors.ratingGold]),
               boxShadow: [
                 BoxShadow(
                     color: theme.primaryColor.withValues(alpha: 0.3),

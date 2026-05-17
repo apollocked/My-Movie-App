@@ -139,7 +139,7 @@ class NoInternetPage extends StatelessWidget {
                       icon: const Icon(Icons.refresh_rounded),
                       label: const Text('Retry'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryGold,
+                        backgroundColor: AppColors.primaryRed,
                         foregroundColor: AppColors.textPrimaryLight,
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
@@ -161,7 +161,7 @@ class NoInternetPage extends StatelessWidget {
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              AppColors.primaryGold,
+                              AppColors.primaryRed,
                             ),
                           ),
                         ),
