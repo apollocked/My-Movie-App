@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +15,7 @@ import 'package:my_movie/features/movies/presentation/widgets/featured_movie_her
 import 'package:my_movie/features/movies/presentation/widgets/category_row.dart';
 import 'package:my_movie/features/movies/presentation/widgets/watch_later_row.dart';
 import 'package:my_movie/features/movies/presentation/pages/shimmer_pages/hero_shimmer.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 class MovieHomePage extends StatefulWidget {
   const MovieHomePage({super.key});
 
@@ -23,12 +24,48 @@ class MovieHomePage extends StatefulWidget {
 }
 
 class _MovieHomePageState extends State<MovieHomePage> {
+  final remoteConfig = FirebaseRemoteConfig.instance;
+  bool isloading = false;
   @override
   void initState() {
     super.initState();
     final locale = context.read<SettingsCubit>().state.locale;
     context.read<MovieBloc>().add(LoadMoviesByCategory('Trending',
         language: getTmdbLanguageCode(locale)));
+    initRemoteConfig();
+  }
+
+  Future<void> initRemoteConfig() async {
+    setState(() {
+      isloading = true;
+    });
+    // set up the default values fot remote configuration
+    await remoteConfig.setDefaults({
+      'name': 'My Movie',
+    });
+
+    // the configuration
+    await remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(seconds: 10),
+      minimumFetchInterval: Duration(seconds: 10),
+    ));
+
+    // fetch the configuration
+    await remoteConfig.fetchAndActivate();
+
+    remoteConfig.onConfigUpdated.listen((event) async {
+      await remoteConfig.activate();
+      setState(() {});
+    });
+
+    setState(() {
+      isloading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -39,40 +76,46 @@ class _MovieHomePageState extends State<MovieHomePage> {
     final locale = context.watch<SettingsCubit>().state.locale;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(remoteConfig.getString('name')),
+      ),
       backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<SettingsCubit, SettingsState>(
         listenWhen: (previous, current) => previous.locale != current.locale,
         listener: (context, state) => movieBloc.add(LoadMoviesByCategory(
             'Trending',
             language: getTmdbLanguageCode(state.locale))),
-        child: SafeArea(
-          top: false,
-          child: RefreshIndicator(
-            color: theme.primaryColor,
-            onRefresh: () async => movieBloc.add(LoadMoviesByCategory(
-                'Trending',
-                language: getTmdbLanguageCode(locale))),
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHero(),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-  onPressed: () {
-    FirebaseCrashlytics.instance.crash();
-  },
-  child: const Text("Crash Test"),
-),
-                  if (authState is Authenticated) const WatchLaterRow(),
-                  _buildCategories(movieBloc.apiClient),
-                  const SizedBox(height: 48),
-                ],
+        child: isloading
+            ? const Center(child: CircularProgressIndicator())
+            : SafeArea(
+                top: false,
+                child: RefreshIndicator(
+                  color: theme.primaryColor,
+                  onRefresh: () async => movieBloc.add(LoadMoviesByCategory(
+                      'Trending',
+                      language: getTmdbLanguageCode(locale))),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHero(),
+                        const SizedBox(height: 24),
+                        // testing the crashlytics
+//                   ElevatedButton(
+//   onPressed: () {
+//     FirebaseCrashlytics.instance.crash();
+//   },
+//   child: const Text("Crash Test"),
+// ),
+                        if (authState is Authenticated) const WatchLaterRow(),
+                        _buildCategories(movieBloc.apiClient),
+                        const SizedBox(height: 48),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

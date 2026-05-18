@@ -29,6 +29,7 @@ dependencies:
   cloud_firestore: ^5.6.0
   firebase_crashlytics:
   firebase_analytics:
+  firebase_remote_config:
 
   # Local Persistence
   isar: ^3.1.0+1
