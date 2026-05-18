@@ -14,7 +14,7 @@ import 'package:my_movie/features/movies/presentation/widgets/featured_movie_her
 import 'package:my_movie/features/movies/presentation/widgets/category_row.dart';
 import 'package:my_movie/features/movies/presentation/widgets/watch_later_row.dart';
 import 'package:my_movie/features/movies/presentation/pages/shimmer_pages/hero_shimmer.dart';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 class MovieHomePage extends StatefulWidget {
   const MovieHomePage({super.key});
 
@@ -59,6 +59,12 @@ class _MovieHomePageState extends State<MovieHomePage> {
                 children: [
                   _buildHero(),
                   const SizedBox(height: 24),
+                  ElevatedButton(
+  onPressed: () {
+    FirebaseCrashlytics.instance.crash();
+  },
+  child: const Text("Crash Test"),
+),
                   if (authState is Authenticated) const WatchLaterRow(),
                   _buildCategories(movieBloc.apiClient),
                   const SizedBox(height: 48),

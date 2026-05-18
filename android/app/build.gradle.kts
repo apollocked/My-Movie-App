@@ -3,6 +3,7 @@ plugins {
 
     // Firebase
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 
     id("kotlin-android")
 
@@ -26,7 +27,6 @@ android {
     }
 
     defaultConfig {
-
         applicationId = "com.example.my_movie"
 
         minSdk = flutter.minSdkVersion
@@ -37,11 +37,12 @@ android {
     }
 
     buildTypes {
-
         release {
-
             isMinifyEnabled = true
             isShrinkResources = true
+
+            // NOTE: When isMinifyEnabled is true, you usually need proguard rules defined here.
+            // proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             signingConfig = signingConfigs.getByName("debug")
         }

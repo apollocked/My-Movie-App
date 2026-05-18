@@ -17,15 +17,18 @@ import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/setti
 import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
   await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   runApp(
     TranslationProvider(
       child: const MyApp(),
