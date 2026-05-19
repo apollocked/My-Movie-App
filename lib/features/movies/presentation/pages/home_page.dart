@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,45 +28,48 @@ class MovieHomePage extends StatefulWidget {
 class _MovieHomePageState extends State<MovieHomePage> {
   final remoteConfig = FirebaseRemoteConfig.instance;
   bool isloading = false;
+
+  StreamSubscription<RemoteConfigUpdate>? _configSubscription;
+
   @override
   void initState() {
     super.initState();
     final locale = context.read<SettingsCubit>().state.locale;
     context.read<MovieBloc>().add(LoadMoviesByCategory('Trending',
         language: getTmdbLanguageCode(locale)));
+
     initRemoteConfig();
   }
 
   Future<void> initRemoteConfig() async {
+    if (!mounted) return; // Guard clause
+
     setState(() {
       isloading = true;
     });
-    // set up the default values fot remote configuration
-    await remoteConfig.setDefaults({
-      'name': 'My Movie',
-    });
 
-    // the configuration
+    await remoteConfig.setDefaults({'name': 'My Movie'});
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: Duration(seconds: 10),
+      minimumFetchInterval: const Duration(seconds: 10),
     ));
 
-    // fetch the configuration
     await remoteConfig.fetchAndActivate();
-
-    remoteConfig.onConfigUpdated.listen((event) async {
+    _configSubscription = remoteConfig.onConfigUpdated.listen((event) async {
       await remoteConfig.activate();
-      setState(() {});
+      if (mounted) setState(() {});
     });
 
-    setState(() {
-      isloading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isloading = false;
+      });
+    }
   }
 
   @override
   void dispose() {
+    _configSubscription?.cancel();
     super.dispose();
   }
 

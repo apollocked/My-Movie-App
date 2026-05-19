@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:my_movie/features/movies/presentation/widgets/trailer_feedback.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
@@ -134,7 +134,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               background:
                   _hasTrailer && !_trailerBlocked && _ytController != null
                       ? YoutubePlayer(controller: _ytController!)
-                      : _TrailerFallback(
+                      : TrailerFallback(
                           posterUrl: currentMovie.fullPosterUrl,
                           trailerKey: _trailerBlocked ? _trailerKey : null,
                         ),
@@ -163,54 +163,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _TrailerFallback extends StatelessWidget {
-  final String posterUrl;
-  final String? trailerKey;
-
-  const _TrailerFallback({required this.posterUrl, this.trailerKey});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.network(
-          posterUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => Container(color: Colors.black),
-        ),
-        if (trailerKey != null)
-          Center(
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.play_circle_fill),
-              label: const Text('Watch Trailer on YouTube'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-              ),
-              onPressed: () async {
-                final url = Uri.parse(
-                  'https://www.youtube.com/watch?v=$trailerKey',
-                );
-                try {
-                  await launchUrl(
-                    url,
-                    mode: LaunchMode.externalApplication,
-                  );
-                } catch (_) {
-                  await launchUrl(
-                    url,
-                    mode: LaunchMode.platformDefault,
-                  );
-                }
-              },
-            ),
-          ),
-      ],
     );
   }
 }
