@@ -77,7 +77,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         _ytController!.loadVideoById(videoId: trailerKey);
 
         _ytSubscription = _ytController!.stream.listen((value) {
-          if (value.error != YoutubeError.none && mounted) {
+          if (mounted && value.error != YoutubeError.none) {
             setState(() => _trailerBlocked = true);
           }
         });
@@ -97,7 +97,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void dispose() {
     _ytSubscription?.cancel();
-    _ytController?.close();
+    _ytSubscription = null;
     super.dispose();
   }
 
