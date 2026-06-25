@@ -9,9 +9,12 @@ import 'movie_state.dart';
 const _categoryEndpoints = {
   'Trending': '/trending/movie/day',
   'Top Rated': '/movie/top_rated',
-  'Action': '/movie/now_playing',
-  'Sci-Fi': '/movie/popular',
-  'Horror': '/movie/upcoming',
+  'Now Playing': '/movie/now_playing',
+  'Popular': '/movie/popular',
+  'Upcoming': '/movie/upcoming',
+  'Action': '/discover/movie?with_genres=28',
+  'Sci-Fi': '/discover/movie?with_genres=878',
+  'Horror': '/discover/movie?with_genres=27',
 };
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {

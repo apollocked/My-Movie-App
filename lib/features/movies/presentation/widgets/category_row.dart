@@ -111,7 +111,6 @@ class _CategoryRowState extends State<CategoryRow> {
           ),
         ),
         MovieHorizontalList(
-          title: widget.title,
           movies: _movies,
           cardHeight: 220,
           onMovieTap: (Movie movie) {

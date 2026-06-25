@@ -142,7 +142,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
   Widget _buildCategories(dynamic apiClient) {
     final titles = [
-      t.home.trending,
       t.home.top_rated,
       t.home.now_playing,
       t.home.popular,
@@ -159,7 +158,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
     ];
 
     final endpoints = [
-      '/trending/movie/day',
       '/movie/top_rated',
       '/movie/now_playing',
       '/movie/popular',

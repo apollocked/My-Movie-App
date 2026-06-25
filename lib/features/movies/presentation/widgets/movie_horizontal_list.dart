@@ -3,14 +3,14 @@ import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'movie_poster_card.dart';
 
 class MovieHorizontalList extends StatelessWidget {
-  final String title;
+  final String? title;
   final List<Movie> movies;
   final double cardHeight;
   final ValueChanged<Movie>? onMovieTap;
 
   const MovieHorizontalList({
     super.key,
-    required this.title,
+    this.title,
     required this.movies,
     this.cardHeight = 260,
     this.onMovieTap,
@@ -18,18 +18,21 @@ class MovieHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text(
-            title,
-            style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+        if (title != null)
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(
+              title!,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontSize: 18),
+            ),
           ),
-        ),
         SizedBox(
           height: cardHeight,
           child: ListView.builder(
