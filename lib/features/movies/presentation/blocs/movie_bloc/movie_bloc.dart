@@ -3,6 +3,7 @@ import 'package:isar/isar.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/features/movies/data/datasources/movie_firestore_data_source.dart';
 import 'package:my_movie/features/movies/data/datasources/movie_local_data_source.dart';
+import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'movie_event.dart';
 import 'movie_state.dart';
 
@@ -17,8 +18,7 @@ const _categoryEndpoints = {
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final ApiClient apiClient;
   final MovieLocalDataSource _dataService;
-  final MovieFirestoreDataSourceImpl movieFirestoreDataSourceImpl =
-      MovieFirestoreDataSourceImpl();
+  final CollectionService _collectionService = CollectionService();
 
   MovieBloc({required this.apiClient, required Isar isar})
       : _dataService = MovieLocalDataSource(apiClient: apiClient, isar: isar),
@@ -33,12 +33,11 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       await _load(event.category, endpoint, emit, event.language);
     });
     on<ToggleWatchLater>((event, emit) async =>
-        await movieFirestoreDataSourceImpl.toggleCollection(
-            event.movie, 'watch_later'));
-    on<ToggleFavorite>((event, emit) async => await movieFirestoreDataSourceImpl
-        .toggleCollection(event.movie, 'favorites'));
-    on<RateMovie>((event, emit) async => await movieFirestoreDataSourceImpl
-        .saveRating(event.movie, event.rating));
+        await _collectionService.toggleCollection(event.movie, 'watch_later'));
+    on<ToggleFavorite>((event, emit) async =>
+        await _collectionService.toggleCollection(event.movie, 'favorites'));
+    on<RateMovie>((event, emit) async =>
+        await _collectionService.saveRating(event.movie, event.rating));
   }
 
   Future<void> _load(

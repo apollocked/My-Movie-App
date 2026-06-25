@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import '../blocs/movie_bloc/movie_bloc.dart';
 import '../blocs/movie_bloc/movie_event.dart';
 
@@ -26,15 +26,12 @@ class HeroActionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection(collection)
-          .doc(movie.id.toString())
-          .snapshots(),
+    final service = CollectionService();
+    return StreamBuilder<bool>(
+      stream: service.isInCollectionStream(collection, movie.id),
+      initialData: false,
       builder: (context, snapshot) {
-        final isActive = snapshot.hasData && snapshot.data!.exists;
+        final isActive = snapshot.data ?? false;
         return ActionChip(
           onPressed: () {
             if (collection == 'favorites') {

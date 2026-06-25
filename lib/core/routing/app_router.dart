@@ -13,6 +13,7 @@ import '../../features/auth/presentation/pages/onboarding/onboarding_page.dart';
 import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
 import '../../features/movies/presentation/pages/actor_detail_page.dart';
+import '../../features/movies/presentation/pages/see_all_page.dart';
 import '../../features/movies/presentation/pages/collection_page.dart';
 import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../common/ui/no_internet_page.dart';
@@ -119,18 +120,39 @@ class AppRouter {
           name: 'movie_details',
           parentNavigatorKey: _rootNavigatorKey,
           builder: (context, state) {
-            // 1. Extract the ID safely from the path parameters
             final idString = state.pathParameters['id']!;
             final movieId = int.parse(idString);
-
-            // 2. Cast extra safely as NULLABLE (so it won't crash if dropped)
             final movie = state.extra is Movie ? state.extra as Movie : null;
-
-            return MovieDetailPage(
-              movieId: movieId,
-              movie: movie, // Pass it down as optional/initial data
-            );
+            return MovieDetailPage(movieId: movieId, movie: movie);
           },
+        ),
+        GoRoute(
+          path: '/see-all/:encodedEndpoint',
+          name: 'see_all',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final endpoint = state.pathParameters['encodedEndpoint']!;
+            final decoded = Uri.decodeComponent(endpoint);
+            final title = state.extra is String ? state.extra as String : 'Browse';
+            return SeeAllPage(title: title, endpoint: decoded);
+          },
+        ),
+        GoRoute(
+          path: '/person/:id',
+          name: 'actor_details',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) {
+            final idString = state.pathParameters['id']!;
+            final personId = int.parse(idString);
+            final data = state.extra is Map ? state.extra as Map<String, dynamic> : null;
+            return ActorDetailPage(personId: personId, data: data);
+          },
+        ),
+        GoRoute(
+          path: '/forgot-password',
+          name: 'forgot_password',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (context, state) => const ForgotPasswordPage(),
         ),
         GoRoute(
           path: '/collection/:type',

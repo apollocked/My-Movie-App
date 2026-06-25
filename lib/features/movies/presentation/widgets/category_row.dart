@@ -82,12 +82,6 @@ class _CategoryRowState extends State<CategoryRow> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(widget.title,
-                style: Theme.of(context).textTheme.titleLarge),
-          ),
           const MovieShimmerList(cardHeight: 220),
           const SizedBox(height: 24),
         ],
@@ -98,6 +92,24 @@ class _CategoryRowState extends State<CategoryRow> {
 
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.title,
+                  style: Theme.of(context).textTheme.titleLarge),
+              TextButton(
+                onPressed: () {
+                  final encoded = Uri.encodeComponent(widget.endpoint);
+                  context.push('/see-all/$encoded', extra: widget.title);
+                },
+                child: const Text('See All',
+                    style: const TextStyle(fontSize: 13)),
+              ),
+            ],
+          ),
+        ),
         MovieHorizontalList(
           title: widget.title,
           movies: _movies,

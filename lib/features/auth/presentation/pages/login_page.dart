@@ -9,6 +9,7 @@ import 'package:my_movie/features/auth/presentation/widgets/auth_button.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_header.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_input_field.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_navigation_links.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -112,7 +113,18 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () => context.push('/forgot-password'),
+                        child: Text('Forgot Password?',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 13)),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
                         return AuthButton(
