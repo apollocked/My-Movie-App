@@ -10,6 +10,8 @@ import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/setti
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/movie_detail/movie_detail_bottom_actions.dart';
 import '../widgets/movie_detail/movie_detail_info.dart';
+import '../widgets/movie_detail/cast_section.dart';
+import '../widgets/movie_detail/recommendations_section.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie? movie;
@@ -33,6 +35,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   bool _isLoading = true;
 
   Map<String, dynamic>? _details;
+  List<Movie> _recommendations = [];
+  List<dynamic> _cast = [];
+  List<dynamic> _crew = [];
 
   @override
   void initState() {
@@ -43,9 +48,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   Future<void> _fetchData() async {
     try {
       final locale = context.read<SettingsCubit>().state.locale;
+      final lang = getTmdbLanguageCode(locale);
+
       final data = await _apiClient.get('/movie/${widget.movieId}', params: {
-        'append_to_response': 'videos',
-        'language': getTmdbLanguageCode(locale),
+        'append_to_response': 'videos,credits',
+        'language': lang,
       });
 
       if (!mounted) return;
@@ -65,7 +72,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
       if (trailerKey != null) {
         _trailerKey = trailerKey;
-
         _ytController = YoutubePlayerController(
           params: const YoutubePlayerParams(
             showControls: true,
@@ -73,9 +79,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             mute: false,
           ),
         );
-
         _ytController!.loadVideoById(videoId: trailerKey);
-
         _ytSubscription = _ytController!.stream.listen((value) {
           if (mounted && value.error != YoutubeError.none) {
             setState(() => _trailerBlocked = true);
@@ -83,10 +87,36 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         });
       }
 
+      final credits = data['credits'] as Map<String, dynamic>?;
+      final castList = credits?['cast'] as List? ?? [];
+      final crewList = credits?['crew'] as List? ?? [];
+
+      List<Movie> recs = [];
+      try {
+        final recData = await _apiClient.get('/movie/${widget.movieId}/recommendations',
+            params: {'language': lang});
+        final recResults = recData['results'] as List? ?? [];
+        recs = recResults
+            .map((json) => Movie(
+                  id: (json['id'] as num?)?.toInt() ?? 0,
+                  title: json['title'] as String? ?? '',
+                  overview: json['overview'] as String? ?? '',
+                  posterPath: json['poster_path'] as String? ?? '',
+                  backdropPath: json['backdrop_path'] as String? ?? '',
+                  releaseDate: json['release_date'] as String? ?? '',
+                  voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+                ))
+            .toList();
+      } catch (_) {}
+
+      if (!mounted) return;
       setState(() {
         _details = data;
         _hasTrailer = trailerKey != null;
         _isLoading = false;
+        _cast = castList;
+        _crew = crewList;
+        _recommendations = recs;
       });
     } catch (e) {
       debugPrint('MovieDetailPage error: $e');
@@ -125,43 +155,51 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 240,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background:
-                  _hasTrailer && !_trailerBlocked && _ytController != null
-                      ? YoutubePlayer(controller: _ytController!)
-                      : TrailerFallback(
-                          posterUrl: currentMovie.fullPosterUrl,
-                          trailerKey: _trailerBlocked ? _trailerKey : null,
-                        ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MovieDetailInfo(
-                    movie: currentMovie,
-                    uid: uid,
-                    overview: _details?['overview'],
-                  ),
-                  const SizedBox(height: 32),
-                  MovieDetailBottomActions(
-                    movie: currentMovie,
-                    uid: uid,
-                  ),
-                  const SizedBox(height: 40),
-                ],
+      body: RefreshIndicator(
+        onRefresh: _fetchData,
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 240,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background:
+                    _hasTrailer && !_trailerBlocked && _ytController != null
+                        ? YoutubePlayer(controller: _ytController!)
+                        : TrailerFallback(
+                            posterUrl: currentMovie.fullPosterUrl,
+                            trailerKey: _trailerBlocked ? _trailerKey : null,
+                          ),
               ),
             ),
-          ),
-        ],
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MovieDetailInfo(
+                      movie: currentMovie,
+                      uid: uid,
+                      overview: _details?['overview'],
+                    ),
+                    const SizedBox(height: 24),
+                    CastSection(cast: _cast, crew: _crew),
+                    const SizedBox(height: 32),
+                    MovieDetailBottomActions(
+                      movie: currentMovie,
+                      uid: uid,
+                    ),
+                    const SizedBox(height: 32),
+                    RecommendationsSection(movies: _recommendations),
+                    const SizedBox(height: 40),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
