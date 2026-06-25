@@ -18,7 +18,7 @@ class HeroShimmer extends StatelessWidget {
       baseColor: baseColor,
       highlightColor: highlightColor,
       child: Container(
-        height: 480,
+        height: 500,
         width: double.infinity,
         color: baseColor,
         child: Stack(

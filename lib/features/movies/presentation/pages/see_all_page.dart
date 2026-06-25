@@ -111,7 +111,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
               controller: _scrollController,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               gridDelegate:
                   const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/collection_grid.dart';
 import '../widgets/collection_empty_state.dart';
@@ -25,8 +26,21 @@ class CollectionPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text(translatedTitle,
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Row(
+          children: [
+            Container(
+              width: 6,
+              height: 22,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(translatedTitle,
+                style: const TextStyle(fontWeight: FontWeight.w700)),
+          ],
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),

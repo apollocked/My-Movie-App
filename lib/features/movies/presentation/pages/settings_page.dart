@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -19,34 +20,52 @@ class SettingsPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            Text(t.settings.title,
-                style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w900,
-                    color: theme.textTheme.titleLarge?.color)),
-            const SizedBox(height: 24),
-            Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                  color: theme.cardColor,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: theme.dividerColor)),
+            Row(
+              children: [
+                Container(
+                  width: 6,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    gradient: AppColors.primaryGradient,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Text(t.settings.title,
+                    style: theme.textTheme.displayMedium),
+              ],
+            ),
+            const SizedBox(height: 32),
+            _buildGlassCard(
+              theme,
               child: ListTile(
-                leading:
-                    Icon(Icons.translate_rounded, color: theme.primaryColor),
+                leading: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(Icons.translate_rounded,
+                      color: theme.primaryColor, size: 22),
+                ),
                 title: Text(t.settings.language,
                     style: TextStyle(
                         color: theme.textTheme.titleLarge?.color,
                         fontWeight: FontWeight.w600,
                         fontSize: 16)),
-                trailing: SizedBox(
-                  width: 100,
+                trailing: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: theme.dividerColor),
+                  ),
                   child: DropdownButton<String>(
                     value: currentSettings.locale.languageCode,
                     underline: const SizedBox(),
-                    isExpanded: true,
+                    isDense: true,
                     icon: Icon(Icons.keyboard_arrow_down_rounded,
-                        color: theme.hintColor),
+                        color: theme.hintColor, size: 20),
                     dropdownColor: theme.cardColor,
                     items: const [
                       DropdownMenuItem(value: 'en', child: Text('English')),
@@ -62,32 +81,53 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                  color: theme.cardColor,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: theme.dividerColor)),
+            const SizedBox(height: 12),
+            _buildGlassCard(
+              theme,
               child: SwitchListTile(
                 value: isDark,
                 onChanged: (value) {
                   settingsCubit.toggleTheme();
                 },
-                activeTrackColor: theme.primaryColor.withValues(alpha: 0.5),
+                activeTrackColor: theme.primaryColor.withValues(alpha: 0.4),
                 activeThumbColor: theme.primaryColor,
+                inactiveTrackColor: AppColors.textTertiaryDark.withValues(alpha: 0.3),
+                inactiveThumbColor: AppColors.textTertiaryDark,
                 title: Text(t.settings.dark_mode,
                     style: TextStyle(
                         color: theme.textTheme.titleLarge?.color,
                         fontWeight: FontWeight.w600,
                         fontSize: 16)),
-                secondary: Icon(
-                    isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                    color: theme.primaryColor),
+                secondary: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                      isDark
+                          ? Icons.dark_mode_rounded
+                          : Icons.light_mode_rounded,
+                      color: theme.primaryColor,
+                      size: 22),
+                ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildGlassCard(ThemeData theme, {required Widget child}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+            color: theme.dividerColor.withValues(alpha: 0.5)),
+      ),
+      child: child,
     );
   }
 }
