@@ -22,6 +22,7 @@ class MovieDetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,30 +35,44 @@ class MovieDetailInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(movie.title,
-                      style: theme.textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 8),
+                      style: theme.textTheme.headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
-                      const Icon(Icons.star_rounded,
-                          color: AppColors.ratingYellow, size: 20),
-                      const SizedBox(width: 4),
-                      Text('${movie.voteAverage.toStringAsFixed(1)}/10',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          )),
-                      const SizedBox(width: 16),
-                      Icon(Icons.calendar_month,
-                          size: 18,
-                          color: theme.brightness == Brightness.dark
-                              ? AppColors.textSecondaryDark
-                              : AppColors.textSecondaryLight),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.ratingGold.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.star_rounded,
+                                color: AppColors.ratingGold, size: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                                '${movie.voteAverage.toStringAsFixed(1)}/10',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 13,
+                                    color: AppColors.ratingGold)),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Icon(Icons.calendar_month_rounded,
+                          size: 16,
+                          color: isDark
+                              ? AppColors.textTertiaryDark
+                              : AppColors.textTertiaryLight),
                       const SizedBox(width: 4),
                       Text(movie.releaseDate.split('-').first,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.brightness == Brightness.dark
-                                ? AppColors.textSecondaryDark
-                                : AppColors.textSecondaryLight,
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: isDark
+                                ? AppColors.textTertiaryDark
+                                : AppColors.textTertiaryLight,
                           )),
                     ],
                   ),
@@ -68,12 +83,18 @@ class MovieDetailInfo extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 24),
-        Text(t.movie_detail.overview,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
+        Container(
+          width: 4,
+          height: 18,
+          decoration: BoxDecoration(
+            gradient: AppColors.primaryGradient,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(height: 12),
         Text(overview ?? movie.overview,
             style: theme.textTheme.bodyLarge
-                ?.copyWith(height: 1.6, color: theme.hintColor)),
+                ?.copyWith(height: 1.7, color: theme.hintColor)),
       ],
     );
   }
@@ -85,19 +106,25 @@ class MovieDetailInfo extends StatelessWidget {
       initialData: false,
       builder: (context, snapshot) {
         final isFav = snapshot.data ?? false;
-        return IconButton(
-          icon: Icon(isFav ? Icons.favorite : Icons.favorite_border,
-              color: AppColors.favoriteRed, size: 32),
-          onPressed: () {
-            context.read<MovieBloc>().add(ToggleFavorite(movie));
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(isFav
-                  ? t.movie_detail.removed_from_favorites
-                  : t.movie_detail.added_to_favorites),
-              duration: const Duration(seconds: 1),
-              behavior: SnackBarBehavior.floating,
-            ));
-          },
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.favoriteRed.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: IconButton(
+            icon: Icon(isFav ? Icons.favorite : Icons.favorite_border,
+                color: AppColors.favoriteRed, size: 26),
+            onPressed: () {
+              context.read<MovieBloc>().add(ToggleFavorite(movie));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(isFav
+                    ? t.movie_detail.removed_from_favorites
+                    : t.movie_detail.added_to_favorites),
+                duration: const Duration(seconds: 1),
+                behavior: SnackBarBehavior.floating,
+              ));
+            },
+          ),
         );
       },
     );

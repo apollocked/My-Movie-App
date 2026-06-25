@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
@@ -78,10 +79,13 @@ class _CategoryRowState extends State<CategoryRow> {
   }
 
   Widget _buildContent(BuildContext context) {
+    final theme = Theme.of(context);
+
     if (_isLoading) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _buildHeader(theme, 0),
           const MovieShimmerList(cardHeight: 220),
           const SizedBox(height: 24),
         ],
@@ -92,24 +96,7 @@ class _CategoryRowState extends State<CategoryRow> {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(widget.title,
-                  style: Theme.of(context).textTheme.titleLarge),
-              TextButton(
-                onPressed: () {
-                  final encoded = Uri.encodeComponent(widget.endpoint);
-                  context.push('/see-all/$encoded', extra: widget.title);
-                },
-                child: const Text('See All',
-                    style: TextStyle(fontSize: 13)),
-              ),
-            ],
-          ),
-        ),
+        _buildHeader(theme, 1),
         MovieHorizontalList(
           movies: _movies,
           cardHeight: 220,
@@ -117,8 +104,57 @@ class _CategoryRowState extends State<CategoryRow> {
             context.push('/movie/${movie.id}', extra: movie);
           },
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
       ],
+    );
+  }
+
+  Widget _buildHeader(ThemeData theme, int variant) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 4,
+                height: 22,
+                decoration: BoxDecoration(
+                  gradient: AppColors.primaryGradient,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(widget.title,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontSize: 17,
+                  )),
+            ],
+          ),
+          TextButton(
+            onPressed: () {
+              final encoded = Uri.encodeComponent(widget.endpoint);
+              context.push('/see-all/$encoded', extra: widget.title);
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: theme.primaryColor,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('See All',
+                    style: TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.w600)),
+                const SizedBox(width: 2),
+                Icon(Icons.arrow_forward_ios_rounded,
+                    size: 10, color: theme.primaryColor),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

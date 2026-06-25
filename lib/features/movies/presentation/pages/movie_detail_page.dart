@@ -6,6 +6,7 @@ import 'package:my_movie/features/movies/presentation/widgets/trailer_feedback.d
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/movie_detail/movie_detail_bottom_actions.dart';
@@ -18,7 +19,8 @@ class MovieDetailPage extends StatefulWidget {
   final int movieId;
   final bool autoPlayTrailer;
 
-  const MovieDetailPage({super.key, this.movie, required this.movieId, this.autoPlayTrailer = false});
+  const MovieDetailPage(
+      {super.key, this.movie, required this.movieId, this.autoPlayTrailer = false});
 
   @override
   State<MovieDetailPage> createState() => _MovieDetailPageState();
@@ -97,7 +99,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
       List<Movie> recs = [];
       try {
-        final recData = await _apiClient.get('/movie/${widget.movieId}/recommendations',
+        final recData = await _apiClient.get(
+            '/movie/${widget.movieId}/recommendations',
             params: {'language': lang});
         final recResults = recData['results'] as List? ?? [];
         recs = recResults
@@ -165,21 +168,42 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              expandedHeight: 240,
+              expandedHeight: 260,
               pinned: true,
+              backgroundColor: theme.scaffoldBackgroundColor,
               flexibleSpace: FlexibleSpaceBar(
-                background:
-                    _hasTrailer && !_trailerBlocked && _ytController != null
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    _hasTrailer &&
+                            !_trailerBlocked &&
+                            _ytController != null
                         ? YoutubePlayer(controller: _ytController!)
                         : TrailerFallback(
                             posterUrl: currentMovie.fullPosterUrl,
                             trailerKey: _trailerBlocked ? _trailerKey : null,
                           ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Color(0xB007090F),
+                            Color(0xFF07090F),
+                          ],
+                          stops: [0.0, 0.5, 1.0],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -188,9 +212,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       uid: uid,
                       overview: _details?['overview'],
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 28),
                     CastSection(cast: _cast, crew: _crew),
                     const SizedBox(height: 32),
+                    _buildSectionDivider(theme),
+                    const SizedBox(height: 20),
                     MovieDetailBottomActions(
                       movie: currentMovie,
                       uid: uid,
@@ -203,6 +229,22 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionDivider(ThemeData theme) {
+    return Container(
+      height: 1,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.darkBorder.withValues(alpha: 0),
+            AppColors.darkBorder,
+            AppColors.darkBorder.withValues(alpha: 0),
+          ],
+          stops: const [0.0, 0.5, 1.0],
         ),
       ),
     );

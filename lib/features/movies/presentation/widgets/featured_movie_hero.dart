@@ -18,13 +18,13 @@ class FeaturedMovieHero extends StatelessWidget {
 
     if (movie == null) {
       return Container(
-          height: 450,
+          height: 480,
           color: theme.cardColor,
           child: const Center(child: CircularProgressIndicator()));
     }
 
     return SizedBox(
-      height: 480,
+      height: 500,
       width: double.infinity,
       child: Stack(
         fit: StackFit.expand,
@@ -39,132 +39,155 @@ class FeaturedMovieHero extends StatelessWidget {
               errorWidget: (_, __, ___) => Container(color: theme.cardColor),
             ),
           ),
-          _buildGradient(isDark, theme),
+          _buildGradient(isDark),
           _buildContent(context, theme, isDark),
         ],
       ),
     );
   }
 
-  Widget _buildGradient(bool isDark, ThemeData theme) {
-    final bg = isDark ? theme.scaffoldBackgroundColor : Colors.white;
+  Widget _buildGradient(bool isDark) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
               Colors.transparent,
-              bg.withValues(alpha: 0.3),
-              bg.withValues(alpha: 0.8),
-              bg
+              Colors.transparent,
+              Color(0xB007090F),
+              Color(0xFF07090F),
             ],
-            stops: const [
-              0.4,
-              0.7,
-              0.9,
-              1.0
-            ]),
+            stops: [0.0, 0.3, 0.75, 1.0]),
       ),
     );
   }
 
-  Widget _buildContent(
-      BuildContext context, ThemeData theme, bool isDark) {
+  Widget _buildContent(BuildContext context, ThemeData theme, bool isDark) {
     return Positioned(
       bottom: 0,
       left: 0,
       right: 0,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _buildRatingBadge(theme),
+            const SizedBox(height: 12),
             Text(movie!.title,
-                textAlign: TextAlign.center,
                 maxLines: 2,
-                style: theme.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
-                    color: isDark ? Colors.white : Colors.black87,
-                    letterSpacing: 1.2)),
-            const SizedBox(height: 8),
-            _buildMetaRow(theme, isDark),
-            const SizedBox(height: 16),
-            _buildQuickActions(),
-            const SizedBox(height: 16),
-            _buildMainButtons(theme),
-            const SizedBox(height: 16),
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.displayMedium?.copyWith(
+                    color: Colors.white, fontWeight: FontWeight.w900)),
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                _buildInfoChip(Icons.star_rounded, theme.colorScheme.secondary,
+                    movie!.voteAverage.toStringAsFixed(1)),
+                const SizedBox(width: 12),
+                _buildInfoChip(Icons.calendar_month_rounded,
+                    AppColors.textTertiaryDark,
+                    movie!.releaseDate.split('-').first),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                _buildActionChip(
+                    context, AppColors.favoriteRed, Icons.favorite_rounded,
+                    movie: movie!, collection: 'favorites'),
+                const SizedBox(width: 10),
+                _buildActionChip(
+                    context, AppColors.watchLaterGreen, Icons.bookmark_rounded,
+                    movie: movie!, collection: 'watch_later'),
+                const Spacer(),
+                _buildGradientPlayButton(theme),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildMetaRow(ThemeData theme, bool isDark) {
-    final textStyle = TextStyle(
-        color: isDark ? Colors.white70 : Colors.black54,
-        fontWeight: FontWeight.bold);
+  Widget _buildRatingBadge(ThemeData theme) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.secondary.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+            color: theme.colorScheme.secondary.withValues(alpha: 0.4)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.star_rounded,
+              color: theme.colorScheme.secondary, size: 14),
+          const SizedBox(width: 4),
+          Text('TOP RATED',
+              style: TextStyle(
+                  color: theme.colorScheme.secondary,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.2)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip(IconData icon, Color color, String text) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.star_rounded, color: theme.colorScheme.secondary, size: 18),
+        Icon(icon, color: color, size: 16),
         const SizedBox(width: 4),
-        Text(movie!.voteAverage.toStringAsFixed(1), style: textStyle),
-        const SizedBox(width: 16),
-        Text(movie!.releaseDate.split('-').first,
-            style: textStyle.copyWith(fontWeight: FontWeight.w600)),
+        Text(text,
+            style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.8),
+                fontWeight: FontWeight.w600,
+                fontSize: 13)),
       ],
     );
   }
 
-  Widget _buildQuickActions() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        HeroActionChip(
-            movie: movie!,
-            uid: '',
-            collection: 'favorites',
-            label: 'Favorite',
-            icon: Icons.favorite,
-            inactiveIcon: Icons.favorite_border,
-            activeColor: AppColors.favoriteRed),
-        const SizedBox(width: 12),
-        HeroActionChip(
-            movie: movie!,
-            uid: '',
-            collection: 'watch_later',
-            label: 'Watch Later',
-            icon: Icons.bookmark,
-            inactiveIcon: Icons.bookmark_add_outlined,
-            activeColor: AppColors.watchLaterGreen),
-      ],
-    );
+  Widget _buildActionChip(BuildContext context, Color activeColor,
+      IconData filledIcon, {required Movie movie, required String collection}) {
+    return HeroActionChip(
+        movie: movie,
+        uid: '',
+        collection: collection,
+        label: '',
+        icon: filledIcon,
+        inactiveIcon: Icons.add_circle_outline_rounded,
+        activeColor: activeColor);
   }
 
-  Widget _buildMainButtons(ThemeData theme) {
-    return Row(
-      children: [
-        Expanded(
-            child: ElevatedButton.icon(
-                onPressed: onPlayPressed,
-                icon: const Icon(Icons.play_arrow_rounded, size: 28),
-                label: const Text('Play Trailer',
-                    style: TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)))),
-        const SizedBox(width: 16),
-        Expanded(
-            child: OutlinedButton.icon(
-                style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
-                onPressed: onInfoPressed,
-                icon: const Icon(Icons.info_outline_rounded),
-                label: const Text('Details',
-                    style: TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)))),
-      ],
+  Widget _buildGradientPlayButton(ThemeData theme) {
+    return GestureDetector(
+      onTap: onPlayPressed,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          gradient: AppColors.primaryGradient,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: AppColors.glowShadow(AppColors.primaryRed, radius: 16),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 22),
+            const SizedBox(width: 6),
+            const Text('Play Trailer',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13)),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -40,7 +40,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
   }
 
   Future<void> initRemoteConfig() async {
-    if (!mounted) return; // Guard clause
+    if (!mounted) return;
 
     setState(() {
       isloading = true;
@@ -79,7 +79,30 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(remoteConfig.getString('name')),
+        title: Row(
+          children: [
+            Container(
+              width: 8,
+              height: 28,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFE8445A), Color(0xFFFF6B35)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(remoteConfig.getString('name')),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person_outline_rounded),
+            onPressed: () => context.push('/profile'),
+          ),
+        ],
       ),
       backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<SettingsCubit, SettingsState>(
@@ -102,14 +125,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildHero(),
-                        const SizedBox(height: 24),
-                        // testing the crashlytics
-//                   ElevatedButton(
-//   onPressed: () {
-//     FirebaseCrashlytics.instance.crash();
-//   },
-//   child: const Text("Crash Test"),
-// ),
+                        const SizedBox(height: 16),
                         const WatchLaterRow(),
                         _buildCategories(movieBloc.apiClient),
                         const SizedBox(height: 48),

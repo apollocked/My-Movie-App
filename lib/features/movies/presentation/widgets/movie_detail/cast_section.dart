@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 class CastSection extends StatelessWidget {
   final List<dynamic> cast;
@@ -17,26 +18,31 @@ class CastSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (crew.isNotEmpty) ...[
-          Text('Director',
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
+          _buildSectionHeader(theme, 'Director'),
+          const SizedBox(height: 12),
           ...crew
               .where((c) => c['job'] == 'Director')
-              .map((d) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
+              .map((d) => Container(
+                    margin: const EdgeInsets.only(bottom: 6),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: theme.cardColor,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                          color: theme.dividerColor.withValues(alpha: 0.5)),
+                    ),
                     child: Text(d['name'] ?? '',
-                        style: theme.textTheme.bodyMedium),
+                        style: theme.textTheme.titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w600)),
                   )),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
         ],
         if (cast.isNotEmpty) ...[
-          Text('Cast',
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
+          _buildSectionHeader(theme, 'Cast'),
+          const SizedBox(height: 14),
           SizedBox(
-            height: 120,
+            height: 130,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: cast.length > 10 ? 10 : cast.length,
@@ -51,26 +57,39 @@ class CastSection extends StatelessWidget {
                   onTap: () => context.push('/person/$personId',
                       extra: {'name': name, 'profilePath': profilePath}),
                   child: Container(
-                    width: 80,
-                    margin: const EdgeInsets.only(right: 12),
+                    width: 85,
+                    margin: const EdgeInsets.only(right: 14),
                     child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 32,
-                          backgroundImage: profilePath.isNotEmpty
-                              ? NetworkImage(
-                                  'https://image.tmdb.org/t/p/w185$profilePath')
-                              : null,
-                          child: profilePath.isEmpty
-                              ? const Icon(Icons.person, size: 28)
-                              : null,
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: AppColors.darkBorder
+                                    .withValues(alpha: 0.3),
+                                width: 2),
+                          ),
+                          child: CircleAvatar(
+                            radius: 34,
+                            backgroundColor: theme.cardColor,
+                            backgroundImage: profilePath.isNotEmpty
+                                ? NetworkImage(
+                                    'https://image.tmdb.org/t/p/w185$profilePath')
+                                : null,
+                            child: profilePath.isEmpty
+                                ? Icon(Icons.person_rounded,
+                                    size: 28, color: theme.hintColor)
+                                : null,
+                          ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 6),
                         Text(name,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 11)),
+                            style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600)),
                         if (character.isNotEmpty)
                           Text(character,
                               maxLines: 1,
@@ -78,7 +97,8 @@ class CastSection extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 10,
-                                  color: theme.hintColor)),
+                                  color: theme.hintColor,
+                                  fontWeight: FontWeight.w400)),
                       ],
                     ),
                   ),
@@ -87,6 +107,25 @@ class CastSection extends StatelessWidget {
             ),
           ),
         ],
+      ],
+    );
+  }
+
+  Widget _buildSectionHeader(ThemeData theme, String title) {
+    return Row(
+      children: [
+        Container(
+          width: 4,
+          height: 18,
+          decoration: BoxDecoration(
+            gradient: AppColors.primaryGradient,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Text(title,
+            style: theme.textTheme.titleMedium
+                ?.copyWith(fontWeight: FontWeight.w700)),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -25,12 +26,23 @@ class MoviePosterCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: theme.dividerColor),
+        border: Border.all(
+            color: isDark
+                ? AppColors.darkBorder.withValues(alpha: 0.6)
+                : AppColors.lightBorder),
         boxShadow: [
           BoxShadow(
-              color: isDark ? Colors.black54 : Colors.black12,
-              blurRadius: 12,
-              offset: const Offset(0, 6))
+              color: isDark
+                  ? Colors.black.withValues(alpha: 0.4)
+                  : Colors.black.withValues(alpha: 0.08),
+              blurRadius: 16,
+              offset: const Offset(0, 8)),
+          BoxShadow(
+              color: isDark
+                  ? AppColors.primaryRed.withValues(alpha: 0.05)
+                  : Colors.transparent,
+              blurRadius: 24,
+              offset: const Offset(0, 0)),
         ],
       ),
       clipBehavior: Clip.antiAlias,
@@ -38,7 +50,7 @@ class MoviePosterCard extends StatelessWidget {
         children: [
           Positioned.fill(child: _buildImage(isDark, theme)),
           if (movie != null) ...[
-            _buildBottomTitle(),
+            _buildGlassTitleOverlay(),
             if (uid != null) CardQuickActions(movie: movie!, uid: uid),
           ],
           CardRatingBadge(
@@ -74,27 +86,37 @@ class MoviePosterCard extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomTitle() {
+  Widget _buildGlassTitleOverlay() {
     return Positioned(
       bottom: 0,
       left: 0,
       right: 0,
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(8, 24, 8, 8),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.transparent, Colors.black87, Colors.black]),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 32, 10, 10),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.5),
+                    Colors.black.withValues(alpha: 0.85),
+                  ]),
+            ),
+            child: Text(movie!.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)),
+          ),
         ),
-        child: Text(movie!.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold)),
       ),
     );
   }
