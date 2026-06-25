@@ -23,12 +23,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
   await dotenv.load(fileName: ".env");
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
   runApp(
     TranslationProvider(
       child: const MyApp(),
@@ -38,20 +39,28 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   late final AuthBloc _authBloc;
+
   late final MovieBloc _movieBloc;
+
   late final SearchBloc _searchBloc;
+
   late final SettingsCubit _settingsCubit;
+
   late final ConnectivityCubit _connectivityCubit;
+
   late final GoRouter _router;
+
   @override
   void initState() {
     super.initState();
+
     _authBloc = getIt<AuthBloc>()..add(const AuthCheckRequested());
     _movieBloc = getIt<MovieBloc>();
     _searchBloc = getIt<SearchBloc>();

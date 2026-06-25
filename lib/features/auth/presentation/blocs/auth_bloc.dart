@@ -30,7 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final prefs = await SharedPreferences.getInstance();
       final isGuest = prefs.getBool('is_guest') ?? false;
       final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
-      
+
       final user = await authRepository.currentUser.first;
       if (user != null) {
         emit(Authenticated(user));
@@ -50,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final isGuest = prefs.getBool('is_guest') ?? false;
         final hasSeenOnboarding = prefs.getBool('has_seen_onboarding') ?? false;
 
-        // Only emit Unauthenticated if we are not in AuthGuest state 
+        // Only emit Unauthenticated if we are not in AuthGuest state
         // AND we haven't seen onboarding yet
         if (state is! AuthGuest && !isGuest && !hasSeenOnboarding) {
           emit(const Unauthenticated());
