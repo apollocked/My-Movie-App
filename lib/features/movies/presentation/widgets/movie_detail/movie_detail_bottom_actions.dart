@@ -19,10 +19,10 @@ class MovieDetailBottomActions extends StatelessWidget {
 
   void _execAction(BuildContext context, String msg, VoidCallback action) {
     final authState = context.read<AuthBloc>().state;
-    if (authState is! Authenticated) {
-      AuthPromptSheet.show(context, msg);
-    } else {
+    if (authState is Authenticated) {
       action();
+    } else {
+      AuthPromptSheet.show(context, msg);
     }
   }
 

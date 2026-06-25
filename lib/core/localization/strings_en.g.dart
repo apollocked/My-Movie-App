@@ -40,22 +40,22 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsHomeEn home = TranslationsHomeEn.internal(_root);
-	late final TranslationsSearchEn search = TranslationsSearchEn.internal(_root);
-	late final TranslationsProfileEn profile = TranslationsProfileEn.internal(_root);
-	late final TranslationsSettingsEn settings = TranslationsSettingsEn.internal(_root);
-	late final TranslationsAuthEn auth = TranslationsAuthEn.internal(_root);
-	late final TranslationsOnboardingEn onboarding = TranslationsOnboardingEn.internal(_root);
-	late final TranslationsGuestFeaturesEn guest_features = TranslationsGuestFeaturesEn.internal(_root);
-	late final TranslationsMovieDetailEn movie_detail = TranslationsMovieDetailEn.internal(_root);
-	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
-	late final TranslationsConnectivityEn connectivity = TranslationsConnectivityEn.internal(_root);
-	late final TranslationsNotFoundEn not_found = TranslationsNotFoundEn.internal(_root);
+	late final Translations$home$en home = Translations$home$en.internal(_root);
+	late final Translations$search$en search = Translations$search$en.internal(_root);
+	late final Translations$profile$en profile = Translations$profile$en.internal(_root);
+	late final Translations$settings$en settings = Translations$settings$en.internal(_root);
+	late final Translations$auth$en auth = Translations$auth$en.internal(_root);
+	late final Translations$onboarding$en onboarding = Translations$onboarding$en.internal(_root);
+	late final Translations$guest_features$en guest_features = Translations$guest_features$en.internal(_root);
+	late final Translations$movie_detail$en movie_detail = Translations$movie_detail$en.internal(_root);
+	late final Translations$common$en common = Translations$common$en.internal(_root);
+	late final Translations$connectivity$en connectivity = Translations$connectivity$en.internal(_root);
+	late final Translations$not_found$en not_found = Translations$not_found$en.internal(_root);
 }
 
 // Path: home
-class TranslationsHomeEn {
-	TranslationsHomeEn.internal(this._root);
+class Translations$home$en {
+	Translations$home$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -105,8 +105,8 @@ class TranslationsHomeEn {
 }
 
 // Path: search
-class TranslationsSearchEn {
-	TranslationsSearchEn.internal(this._root);
+class Translations$search$en {
+	Translations$search$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -124,7 +124,7 @@ class TranslationsSearchEn {
 	/// en: 'No results found.'
 	String get no_results => 'No results found.';
 
-	late final TranslationsSearchFiltersEn filters = TranslationsSearchFiltersEn.internal(_root);
+	late final Translations$search$filters$en filters = Translations$search$filters$en.internal(_root);
 
 	/// en: 'Try searching for something else'
 	String get no_results_subtitle => 'Try searching for something else';
@@ -137,8 +137,8 @@ class TranslationsSearchEn {
 }
 
 // Path: profile
-class TranslationsProfileEn {
-	TranslationsProfileEn.internal(this._root);
+class Translations$profile$en {
+	Translations$profile$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -173,8 +173,8 @@ class TranslationsProfileEn {
 }
 
 // Path: settings
-class TranslationsSettingsEn {
-	TranslationsSettingsEn.internal(this._root);
+class Translations$settings$en {
+	Translations$settings$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -191,8 +191,8 @@ class TranslationsSettingsEn {
 }
 
 // Path: auth
-class TranslationsAuthEn {
-	TranslationsAuthEn.internal(this._root);
+class Translations$auth$en {
+	Translations$auth$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -264,13 +264,28 @@ class TranslationsAuthEn {
 	/// en: 'Customize your experience'
 	String get onboarding_settings => 'Customize your experience';
 
-	late final TranslationsAuthErrorsEn errors = TranslationsAuthErrorsEn.internal(_root);
-	late final TranslationsAuthGuestEn guest = TranslationsAuthGuestEn.internal(_root);
+	late final Translations$auth$errors$en errors = Translations$auth$errors$en.internal(_root);
+	late final Translations$auth$guest$en guest = Translations$auth$guest$en.internal(_root);
+
+	/// en: 'Reset Password'
+	String get reset_password => 'Reset Password';
+
+	/// en: 'Enter your email address and we'll send you a link to reset your password.'
+	String get reset_subtitle => 'Enter your email address and we\'ll send you a link to reset your password.';
+
+	/// en: 'Send Reset Link'
+	String get send_reset_link => 'Send Reset Link';
+
+	/// en: 'Reset link sent! Check your email inbox.'
+	String get reset_sent => 'Reset link sent! Check your email inbox.';
+
+	/// en: 'Back to Login'
+	String get back_to_login => 'Back to Login';
 }
 
 // Path: onboarding
-class TranslationsOnboardingEn {
-	TranslationsOnboardingEn.internal(this._root);
+class Translations$onboarding$en {
+	Translations$onboarding$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -281,21 +296,21 @@ class TranslationsOnboardingEn {
 }
 
 // Path: guest_features
-class TranslationsGuestFeaturesEn {
-	TranslationsGuestFeaturesEn.internal(this._root);
+class Translations$guest_features$en {
+	Translations$guest_features$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsGuestFeaturesFavoritesEn favorites = TranslationsGuestFeaturesFavoritesEn.internal(_root);
-	late final TranslationsGuestFeaturesRateEn rate = TranslationsGuestFeaturesRateEn.internal(_root);
-	late final TranslationsGuestFeaturesWatchLaterEn watch_later = TranslationsGuestFeaturesWatchLaterEn.internal(_root);
-	late final TranslationsGuestFeaturesSyncEn sync = TranslationsGuestFeaturesSyncEn.internal(_root);
+	late final Translations$guest_features$favorites$en favorites = Translations$guest_features$favorites$en.internal(_root);
+	late final Translations$guest_features$rate$en rate = Translations$guest_features$rate$en.internal(_root);
+	late final Translations$guest_features$watch_later$en watch_later = Translations$guest_features$watch_later$en.internal(_root);
+	late final Translations$guest_features$sync$en sync = Translations$guest_features$sync$en.internal(_root);
 }
 
 // Path: movie_detail
-class TranslationsMovieDetailEn {
-	TranslationsMovieDetailEn.internal(this._root);
+class Translations$movie_detail$en {
+	Translations$movie_detail$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -322,13 +337,13 @@ class TranslationsMovieDetailEn {
 	/// en: 'Saved rating: '
 	String get saved_rating => 'Saved rating: ';
 
-	late final TranslationsMovieDetailPromptsEn prompts = TranslationsMovieDetailPromptsEn.internal(_root);
-	late final TranslationsMovieDetailActionsEn actions = TranslationsMovieDetailActionsEn.internal(_root);
+	late final Translations$movie_detail$prompts$en prompts = Translations$movie_detail$prompts$en.internal(_root);
+	late final Translations$movie_detail$actions$en actions = Translations$movie_detail$actions$en.internal(_root);
 }
 
 // Path: common
-class TranslationsCommonEn {
-	TranslationsCommonEn.internal(this._root);
+class Translations$common$en {
+	Translations$common$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -360,8 +375,8 @@ class TranslationsCommonEn {
 }
 
 // Path: connectivity
-class TranslationsConnectivityEn {
-	TranslationsConnectivityEn.internal(this._root);
+class Translations$connectivity$en {
+	Translations$connectivity$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -376,7 +391,7 @@ class TranslationsConnectivityEn {
 	/// en: 'Troubleshooting Tips:'
 	String get troubleshooting_title => 'Troubleshooting Tips:';
 
-	late final TranslationsConnectivityTipsEn tips = TranslationsConnectivityTipsEn.internal(_root);
+	late final Translations$connectivity$tips$en tips = Translations$connectivity$tips$en.internal(_root);
 
 	/// en: 'Checking connection...'
 	String get check_connection => 'Checking connection...';
@@ -386,8 +401,8 @@ class TranslationsConnectivityEn {
 }
 
 // Path: not_found
-class TranslationsNotFoundEn {
-	TranslationsNotFoundEn.internal(this._root);
+class Translations$not_found$en {
+	Translations$not_found$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -407,8 +422,8 @@ class TranslationsNotFoundEn {
 }
 
 // Path: search.filters
-class TranslationsSearchFiltersEn {
-	TranslationsSearchFiltersEn.internal(this._root);
+class Translations$search$filters$en {
+	Translations$search$filters$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -428,8 +443,8 @@ class TranslationsSearchFiltersEn {
 }
 
 // Path: auth.errors
-class TranslationsAuthErrorsEn {
-	TranslationsAuthErrorsEn.internal(this._root);
+class Translations$auth$errors$en {
+	Translations$auth$errors$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -455,8 +470,8 @@ class TranslationsAuthErrorsEn {
 }
 
 // Path: auth.guest
-class TranslationsAuthGuestEn {
-	TranslationsAuthGuestEn.internal(this._root);
+class Translations$auth$guest$en {
+	Translations$auth$guest$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -470,8 +485,8 @@ class TranslationsAuthGuestEn {
 }
 
 // Path: guest_features.favorites
-class TranslationsGuestFeaturesFavoritesEn {
-	TranslationsGuestFeaturesFavoritesEn.internal(this._root);
+class Translations$guest_features$favorites$en {
+	Translations$guest_features$favorites$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -485,8 +500,8 @@ class TranslationsGuestFeaturesFavoritesEn {
 }
 
 // Path: guest_features.rate
-class TranslationsGuestFeaturesRateEn {
-	TranslationsGuestFeaturesRateEn.internal(this._root);
+class Translations$guest_features$rate$en {
+	Translations$guest_features$rate$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -500,8 +515,8 @@ class TranslationsGuestFeaturesRateEn {
 }
 
 // Path: guest_features.watch_later
-class TranslationsGuestFeaturesWatchLaterEn {
-	TranslationsGuestFeaturesWatchLaterEn.internal(this._root);
+class Translations$guest_features$watch_later$en {
+	Translations$guest_features$watch_later$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -515,8 +530,8 @@ class TranslationsGuestFeaturesWatchLaterEn {
 }
 
 // Path: guest_features.sync
-class TranslationsGuestFeaturesSyncEn {
-	TranslationsGuestFeaturesSyncEn.internal(this._root);
+class Translations$guest_features$sync$en {
+	Translations$guest_features$sync$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -530,8 +545,8 @@ class TranslationsGuestFeaturesSyncEn {
 }
 
 // Path: movie_detail.prompts
-class TranslationsMovieDetailPromptsEn {
-	TranslationsMovieDetailPromptsEn.internal(this._root);
+class Translations$movie_detail$prompts$en {
+	Translations$movie_detail$prompts$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -554,8 +569,8 @@ class TranslationsMovieDetailPromptsEn {
 }
 
 // Path: movie_detail.actions
-class TranslationsMovieDetailActionsEn {
-	TranslationsMovieDetailActionsEn.internal(this._root);
+class Translations$movie_detail$actions$en {
+	Translations$movie_detail$actions$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -569,8 +584,8 @@ class TranslationsMovieDetailActionsEn {
 }
 
 // Path: connectivity.tips
-class TranslationsConnectivityTipsEn {
-	TranslationsConnectivityTipsEn.internal(this._root);
+class Translations$connectivity$tips$en {
+	Translations$connectivity$tips$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -664,6 +679,11 @@ extension on Translations {
 			'auth.errors.passwords_dont_match' => 'Passwords do not match',
 			'auth.guest.kContinue' => 'Continue as Guest',
 			'auth.guest.get_started' => 'Get Started / Log In',
+			'auth.reset_password' => 'Reset Password',
+			'auth.reset_subtitle' => 'Enter your email address and we\'ll send you a link to reset your password.',
+			'auth.send_reset_link' => 'Send Reset Link',
+			'auth.reset_sent' => 'Reset link sent! Check your email inbox.',
+			'auth.back_to_login' => 'Back to Login',
 			'onboarding.subtitle' => 'Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.',
 			'guest_features.favorites.title' => 'Curate Favorites',
 			'guest_features.favorites.desc' => 'Keep track of the movies you love most.',

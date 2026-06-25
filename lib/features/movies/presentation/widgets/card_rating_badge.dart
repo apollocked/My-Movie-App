@@ -4,13 +4,11 @@ import 'package:my_movie/features/movies/data/services/collection_service.dart';
 
 class CardRatingBadge extends StatelessWidget {
   final Movie movie;
-  final String? uid;
   final String rating;
 
   const CardRatingBadge({
     super.key,
     required this.movie,
-    required this.uid,
     required this.rating,
   });
 

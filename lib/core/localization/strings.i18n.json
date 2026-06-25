@@ -80,7 +80,12 @@
     "guest": {
       "continue": "Continue as Guest",
       "get_started": "Get Started / Log In"
-    }
+    },
+    "reset_password": "Reset Password",
+    "reset_subtitle": "Enter your email address and we'll send you a link to reset your password.",
+    "send_reset_link": "Send Reset Link",
+    "reset_sent": "Reset link sent! Check your email inbox.",
+    "back_to_login": "Back to Login"
   },
   "onboarding": {
     "subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily."

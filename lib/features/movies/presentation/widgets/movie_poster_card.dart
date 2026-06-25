@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import '../../domain/entities/movie.dart';
@@ -17,7 +16,6 @@ class MoviePosterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final uid = FirebaseAuth.instance.currentUser?.uid;
     final width = height * 0.68;
 
     return Container(
@@ -51,37 +49,31 @@ class MoviePosterCard extends StatelessWidget {
           Positioned.fill(child: _buildImage(isDark, theme)),
           if (movie != null) ...[
             _buildGlassTitleOverlay(),
-            if (uid != null) CardQuickActions(movie: movie!, uid: uid),
+            CardQuickActions(movie: movie!),
+            CardRatingBadge(
+                movie: movie!, rating: movie!.voteAverage.toStringAsFixed(1)),
           ],
-          CardRatingBadge(
-              movie: movie!,
-              uid: uid,
-              rating: movie?.voteAverage.toStringAsFixed(1) ?? '8.4'),
         ],
       ),
     );
   }
 
   Widget _buildImage(bool isDark, ThemeData theme) {
-    final posterUrl =
-        movie?.fullPosterUrl ??
+    final posterUrl = movie?.fullPosterUrl ??
         'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500';
-    return Hero(
-      tag: 'poster_${movie?.id ?? 0}',
-      child: CachedNetworkImage(
-        imageUrl: posterUrl,
-        fit: BoxFit.cover,
-        placeholder: (_, __) => Container(
-          color: isDark
-              ? AppColors.darkSurfaceVariant
-              : AppColors.lightSurfaceVariant,
-        ),
-        errorWidget: (_, __, ___) => Container(
-          color: isDark
-              ? AppColors.darkSurfaceVariant
-              : AppColors.lightSurfaceVariant,
-          child: Icon(Icons.movie_rounded, color: theme.hintColor, size: 32),
-        ),
+    return CachedNetworkImage(
+      imageUrl: posterUrl,
+      fit: BoxFit.cover,
+      placeholder: (_, __) => Container(
+        color: isDark
+            ? AppColors.darkSurfaceVariant
+            : AppColors.lightSurfaceVariant,
+      ),
+      errorWidget: (_, __, ___) => Container(
+        color: isDark
+            ? AppColors.darkSurfaceVariant
+            : AppColors.lightSurfaceVariant,
+        child: Icon(Icons.movie_rounded, color: theme.hintColor, size: 32),
       ),
     );
   }

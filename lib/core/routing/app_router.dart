@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/routing/movie_codec.dart';
@@ -29,7 +30,7 @@ class AppRouter {
       navigatorKey: _rootNavigatorKey,
       extraCodec: MovieCodec(),
       initialLocation: '/',
-      debugLogDiagnostics: true,
+      debugLogDiagnostics: !kReleaseMode,
       errorBuilder: (context, state) => const NotFoundPage(),
       refreshListenable: GoRouterRefreshStream(authBloc.stream),
       redirect: (context, state) {

@@ -30,7 +30,7 @@ class FeaturedMovieHero extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Hero(
-            tag: 'poster_${movie!.id}',
+            tag: 'featured_poster_${movie!.id}',
             child: CachedNetworkImage(
               imageUrl: movie!.fullPosterUrl,
               fit: BoxFit.cover,
@@ -95,13 +95,21 @@ class FeaturedMovieHero extends StatelessWidget {
             const SizedBox(height: 20),
             Row(
               children: [
-                _buildActionChip(
-                    context, AppColors.favoriteRed, Icons.favorite_rounded,
-                    movie: movie!, collection: 'favorites'),
+                HeroActionChip(
+                    movie: movie!,
+                    collection: 'favorites',
+                    label: 'Favorite',
+                    icon: Icons.favorite_rounded,
+                    inactiveIcon: Icons.favorite_border_rounded,
+                    activeColor: AppColors.favoriteRed),
                 const SizedBox(width: 10),
-                _buildActionChip(
-                    context, AppColors.watchLaterGreen, Icons.bookmark_rounded,
-                    movie: movie!, collection: 'watch_later'),
+                HeroActionChip(
+                    movie: movie!,
+                    collection: 'watch_later',
+                    label: 'Watch',
+                    icon: Icons.bookmark_rounded,
+                    inactiveIcon: Icons.bookmark_add_outlined,
+                    activeColor: AppColors.watchLaterGreen),
                 const Spacer(),
                 _buildGradientPlayButton(theme),
               ],
@@ -151,18 +159,6 @@ class FeaturedMovieHero extends StatelessWidget {
                 fontSize: 13)),
       ],
     );
-  }
-
-  Widget _buildActionChip(BuildContext context, Color activeColor,
-      IconData filledIcon, {required Movie movie, required String collection}) {
-    return HeroActionChip(
-        movie: movie,
-        uid: '',
-        collection: collection,
-        label: '',
-        icon: filledIcon,
-        inactiveIcon: Icons.add_circle_outline_rounded,
-        activeColor: activeColor);
   }
 
   Widget _buildGradientPlayButton(ThemeData theme) {

@@ -97,12 +97,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
             Text(remoteConfig.getString('name')),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_outline_rounded),
-            onPressed: () => context.push('/profile'),
-          ),
-        ],
       ),
       backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<SettingsCubit, SettingsState>(

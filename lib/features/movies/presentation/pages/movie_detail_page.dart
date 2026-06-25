@@ -6,7 +6,6 @@ import 'package:my_movie/features/movies/presentation/widgets/trailer_feedback.d
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
-import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/movie_detail/movie_detail_bottom_actions.dart';
@@ -235,14 +234,15 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   Widget _buildSectionDivider(ThemeData theme) {
+    final borderColor = theme.dividerColor;
     return Container(
       height: 1,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.darkBorder.withValues(alpha: 0),
-            AppColors.darkBorder,
-            AppColors.darkBorder.withValues(alpha: 0),
+            borderColor.withValues(alpha: 0),
+            borderColor,
+            borderColor.withValues(alpha: 0),
           ],
           stops: const [0.0, 0.5, 1.0],
         ),

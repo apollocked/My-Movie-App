@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -31,8 +33,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.message ?? 'Failed to send reset email'),
+        content: Text(e.message ?? t.common.error_title),
         backgroundColor: Theme.of(context).colorScheme.error,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ));
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -42,10 +46,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(title: const Text('Reset Password')),
+      appBar: AppBar(title: Text(t.auth.reset_password)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -55,29 +60,52 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 32),
-                Text('Forgot Password?',
-                    style: theme.textTheme.headlineMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Row(
+                  children: [
+                    Container(
+                      width: 6,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.primaryGradient,
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Text(t.auth.reset_password,
+                        style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: -0.5)),
+                  ],
+                ),
                 const SizedBox(height: 12),
-                Text(
-                    'Enter your email address and we\'ll send you a link to reset your password.',
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: theme.hintColor)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(t.auth.reset_subtitle,
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: isDark
+                              ? AppColors.textSecondaryDark
+                              : AppColors.textSecondaryLight)),
+                ),
                 const SizedBox(height: 32),
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Enter your email',
+                    labelText: t.auth.email,
+                    hintText: t.auth.email_hint,
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16)),
                   ),
                   validator: (value) {
-                    if (value?.isEmpty ?? true) return 'Email is required';
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                      return 'Invalid email format';
+                    if (value?.isEmpty ?? true) {
+                      return t.auth.errors.email_required;
+                    }
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                        .hasMatch(value!)) {
+                      return t.auth.errors.invalid_email;
                     }
                     return null;
                   },
@@ -85,7 +113,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
-                  height: 54,
+                  height: 56,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _sendResetEmail,
                     style: ElevatedButton.styleFrom(
@@ -98,9 +126,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             height: 24,
                             child: CircularProgressIndicator(
                                 strokeWidth: 2, color: Colors.white))
-                        : const Text('Send Reset Link',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        : Text(t.auth.send_reset_link,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold)),
                   ),
                 ),
                 if (_isSent) ...[
@@ -108,29 +137,37 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.green.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.successGreen.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                          color: AppColors.successGreen
+                              .withValues(alpha: 0.3)),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.check_circle, color: Colors.green),
-                        const SizedBox(width: 12),
+                        const Icon(Icons.check_circle_rounded,
+                            color: AppColors.successGreen),
+                        const SizedBox(width: 14),
                         Expanded(
-                          child: Text(
-                            'Reset link sent! Check your email inbox.',
-                            style: theme.textTheme.bodyMedium
-                                ?.copyWith(color: Colors.green.shade800),
-                          ),
+                          child: Text(t.auth.reset_sent,
+                              style: const TextStyle(
+                                  color: AppColors.successGreen,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14)),
                         ),
                       ],
                     ),
                   ),
                 ],
-                const SizedBox(height: 24),
+                const SizedBox(height: 32),
                 Center(
                   child: TextButton(
                     onPressed: () => context.pop(),
-                    child: const Text('Back to Login'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: theme.primaryColor,
+                    ),
+                    child: Text(t.auth.back_to_login,
+                        style: const TextStyle(fontWeight: FontWeight.w600)),
                   ),
                 ),
               ],

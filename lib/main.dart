@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
   Widget _buildConnectivityOverlay(BuildContext context, Widget? child) {
     return BlocListener<ConnectivityCubit, ConnectivityState>(
       listener: (context, state) {
-        if (state is ConnectivityOffline) {
+        if (state is ConnectivityOffline && _router.routerDelegate.currentConfiguration.uri.path != '/no-internet') {
           _router.push('/no-internet');
         }
       },

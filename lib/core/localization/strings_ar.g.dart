@@ -39,22 +39,22 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	TranslationsAr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsAr(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsHomeAr home = _TranslationsHomeAr._(_root);
-	@override late final _TranslationsSearchAr search = _TranslationsSearchAr._(_root);
-	@override late final _TranslationsProfileAr profile = _TranslationsProfileAr._(_root);
-	@override late final _TranslationsSettingsAr settings = _TranslationsSettingsAr._(_root);
-	@override late final _TranslationsAuthAr auth = _TranslationsAuthAr._(_root);
-	@override late final _TranslationsOnboardingAr onboarding = _TranslationsOnboardingAr._(_root);
-	@override late final _TranslationsGuestFeaturesAr guest_features = _TranslationsGuestFeaturesAr._(_root);
-	@override late final _TranslationsMovieDetailAr movie_detail = _TranslationsMovieDetailAr._(_root);
-	@override late final _TranslationsCommonAr common = _TranslationsCommonAr._(_root);
-	@override late final _TranslationsConnectivityAr connectivity = _TranslationsConnectivityAr._(_root);
-	@override late final _TranslationsNotFoundAr not_found = _TranslationsNotFoundAr._(_root);
+	@override late final _Translations$home$ar home = _Translations$home$ar._(_root);
+	@override late final _Translations$search$ar search = _Translations$search$ar._(_root);
+	@override late final _Translations$profile$ar profile = _Translations$profile$ar._(_root);
+	@override late final _Translations$settings$ar settings = _Translations$settings$ar._(_root);
+	@override late final _Translations$auth$ar auth = _Translations$auth$ar._(_root);
+	@override late final _Translations$onboarding$ar onboarding = _Translations$onboarding$ar._(_root);
+	@override late final _Translations$guest_features$ar guest_features = _Translations$guest_features$ar._(_root);
+	@override late final _Translations$movie_detail$ar movie_detail = _Translations$movie_detail$ar._(_root);
+	@override late final _Translations$common$ar common = _Translations$common$ar._(_root);
+	@override late final _Translations$connectivity$ar connectivity = _Translations$connectivity$ar._(_root);
+	@override late final _Translations$not_found$ar not_found = _Translations$not_found$ar._(_root);
 }
 
 // Path: home
-class _TranslationsHomeAr extends TranslationsHomeEn {
-	_TranslationsHomeAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$home$ar extends Translations$home$en {
+	_Translations$home$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -76,8 +76,8 @@ class _TranslationsHomeAr extends TranslationsHomeEn {
 }
 
 // Path: search
-class _TranslationsSearchAr extends TranslationsSearchEn {
-	_TranslationsSearchAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$search$ar extends Translations$search$en {
+	_Translations$search$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -86,15 +86,15 @@ class _TranslationsSearchAr extends TranslationsSearchEn {
 	@override String get explore_caps => 'استكشف';
 	@override String get hint => 'ابحث عن أفلام...';
 	@override String get no_results => 'لم يتم العثور على نتائج.';
-	@override late final _TranslationsSearchFiltersAr filters = _TranslationsSearchFiltersAr._(_root);
+	@override late final _Translations$search$filters$ar filters = _Translations$search$filters$ar._(_root);
 	@override String get no_results_subtitle => 'حاول البحث عن شيء آخر';
 	@override String get discover_title => 'اكتشف الأفلام';
 	@override String get discover_subtitle => 'ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية';
 }
 
 // Path: profile
-class _TranslationsProfileAr extends TranslationsProfileEn {
-	_TranslationsProfileAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$profile$ar extends Translations$profile$en {
+	_Translations$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -111,8 +111,8 @@ class _TranslationsProfileAr extends TranslationsProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsAr extends TranslationsSettingsEn {
-	_TranslationsSettingsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$settings$ar extends Translations$settings$en {
+	_Translations$settings$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -123,8 +123,8 @@ class _TranslationsSettingsAr extends TranslationsSettingsEn {
 }
 
 // Path: auth
-class _TranslationsAuthAr extends TranslationsAuthEn {
-	_TranslationsAuthAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$auth$ar extends Translations$auth$en {
+	_Translations$auth$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -151,13 +151,18 @@ class _TranslationsAuthAr extends TranslationsAuthEn {
 	@override String get login_required_desc => 'يرجى تسجيل الدخول لعرض مجموعتك';
 	@override String get welcome_title => 'مرحباً بك في CineStream';
 	@override String get onboarding_settings => 'خصص تجربتك';
-	@override late final _TranslationsAuthErrorsAr errors = _TranslationsAuthErrorsAr._(_root);
-	@override late final _TranslationsAuthGuestAr guest = _TranslationsAuthGuestAr._(_root);
+	@override late final _Translations$auth$errors$ar errors = _Translations$auth$errors$ar._(_root);
+	@override late final _Translations$auth$guest$ar guest = _Translations$auth$guest$ar._(_root);
+	@override String get reset_password => 'إعادة تعيين كلمة المرور';
+	@override String get reset_subtitle => 'أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.';
+	@override String get send_reset_link => 'إرسال رابط إعادة التعيين';
+	@override String get reset_sent => 'تم إرسال رابط إعادة التعيين! تحقق من بريدك الإلكتروني.';
+	@override String get back_to_login => 'العودة إلى تسجيل الدخول';
 }
 
 // Path: onboarding
-class _TranslationsOnboardingAr extends TranslationsOnboardingEn {
-	_TranslationsOnboardingAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$ar extends Translations$onboarding$en {
+	_Translations$onboarding$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -166,21 +171,21 @@ class _TranslationsOnboardingAr extends TranslationsOnboardingEn {
 }
 
 // Path: guest_features
-class _TranslationsGuestFeaturesAr extends TranslationsGuestFeaturesEn {
-	_TranslationsGuestFeaturesAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$guest_features$ar extends Translations$guest_features$en {
+	_Translations$guest_features$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsGuestFeaturesFavoritesAr favorites = _TranslationsGuestFeaturesFavoritesAr._(_root);
-	@override late final _TranslationsGuestFeaturesRateAr rate = _TranslationsGuestFeaturesRateAr._(_root);
-	@override late final _TranslationsGuestFeaturesWatchLaterAr watch_later = _TranslationsGuestFeaturesWatchLaterAr._(_root);
-	@override late final _TranslationsGuestFeaturesSyncAr sync = _TranslationsGuestFeaturesSyncAr._(_root);
+	@override late final _Translations$guest_features$favorites$ar favorites = _Translations$guest_features$favorites$ar._(_root);
+	@override late final _Translations$guest_features$rate$ar rate = _Translations$guest_features$rate$ar._(_root);
+	@override late final _Translations$guest_features$watch_later$ar watch_later = _Translations$guest_features$watch_later$ar._(_root);
+	@override late final _Translations$guest_features$sync$ar sync = _Translations$guest_features$sync$ar._(_root);
 }
 
 // Path: movie_detail
-class _TranslationsMovieDetailAr extends TranslationsMovieDetailEn {
-	_TranslationsMovieDetailAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$movie_detail$ar extends Translations$movie_detail$en {
+	_Translations$movie_detail$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -192,13 +197,13 @@ class _TranslationsMovieDetailAr extends TranslationsMovieDetailEn {
 	@override String get added_to_favorites => 'تمت الإضافة إلى المفضلات';
 	@override String get removed_from_favorites => 'تمت الإزالة من المفضلات';
 	@override String get saved_rating => 'تم حفظ التقييم: ';
-	@override late final _TranslationsMovieDetailPromptsAr prompts = _TranslationsMovieDetailPromptsAr._(_root);
-	@override late final _TranslationsMovieDetailActionsAr actions = _TranslationsMovieDetailActionsAr._(_root);
+	@override late final _Translations$movie_detail$prompts$ar prompts = _Translations$movie_detail$prompts$ar._(_root);
+	@override late final _Translations$movie_detail$actions$ar actions = _Translations$movie_detail$actions$ar._(_root);
 }
 
 // Path: common
-class _TranslationsCommonAr extends TranslationsCommonEn {
-	_TranslationsCommonAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$common$ar extends Translations$common$en {
+	_Translations$common$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -214,8 +219,8 @@ class _TranslationsCommonAr extends TranslationsCommonEn {
 }
 
 // Path: connectivity
-class _TranslationsConnectivityAr extends TranslationsConnectivityEn {
-	_TranslationsConnectivityAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$connectivity$ar extends Translations$connectivity$en {
+	_Translations$connectivity$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -223,14 +228,14 @@ class _TranslationsConnectivityAr extends TranslationsConnectivityEn {
 	@override String get title => 'لا يوجد اتصال بالإنترنت';
 	@override String get description => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movie يتطلب اتصالًا نشطًا بالإنترنت للعمل بشكل صحيح.';
 	@override String get troubleshooting_title => 'نصائح لاستكشاف الأخطاء وإصلاحها:';
-	@override late final _TranslationsConnectivityTipsAr tips = _TranslationsConnectivityTipsAr._(_root);
+	@override late final _Translations$connectivity$tips$ar tips = _Translations$connectivity$tips$ar._(_root);
 	@override String get check_connection => 'جارٍ التحقق من الاتصال...';
 	@override String get retry => 'إعادة المحاولة';
 }
 
 // Path: not_found
-class _TranslationsNotFoundAr extends TranslationsNotFoundEn {
-	_TranslationsNotFoundAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$not_found$ar extends Translations$not_found$en {
+	_Translations$not_found$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -242,8 +247,8 @@ class _TranslationsNotFoundAr extends TranslationsNotFoundEn {
 }
 
 // Path: search.filters
-class _TranslationsSearchFiltersAr extends TranslationsSearchFiltersEn {
-	_TranslationsSearchFiltersAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$search$filters$ar extends Translations$search$filters$en {
+	_Translations$search$filters$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -255,8 +260,8 @@ class _TranslationsSearchFiltersAr extends TranslationsSearchFiltersEn {
 }
 
 // Path: auth.errors
-class _TranslationsAuthErrorsAr extends TranslationsAuthErrorsEn {
-	_TranslationsAuthErrorsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$auth$errors$ar extends Translations$auth$errors$en {
+	_Translations$auth$errors$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -270,8 +275,8 @@ class _TranslationsAuthErrorsAr extends TranslationsAuthErrorsEn {
 }
 
 // Path: auth.guest
-class _TranslationsAuthGuestAr extends TranslationsAuthGuestEn {
-	_TranslationsAuthGuestAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$auth$guest$ar extends Translations$auth$guest$en {
+	_Translations$auth$guest$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -281,8 +286,8 @@ class _TranslationsAuthGuestAr extends TranslationsAuthGuestEn {
 }
 
 // Path: guest_features.favorites
-class _TranslationsGuestFeaturesFavoritesAr extends TranslationsGuestFeaturesFavoritesEn {
-	_TranslationsGuestFeaturesFavoritesAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$guest_features$favorites$ar extends Translations$guest_features$favorites$en {
+	_Translations$guest_features$favorites$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -292,8 +297,8 @@ class _TranslationsGuestFeaturesFavoritesAr extends TranslationsGuestFeaturesFav
 }
 
 // Path: guest_features.rate
-class _TranslationsGuestFeaturesRateAr extends TranslationsGuestFeaturesRateEn {
-	_TranslationsGuestFeaturesRateAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$guest_features$rate$ar extends Translations$guest_features$rate$en {
+	_Translations$guest_features$rate$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -303,8 +308,8 @@ class _TranslationsGuestFeaturesRateAr extends TranslationsGuestFeaturesRateEn {
 }
 
 // Path: guest_features.watch_later
-class _TranslationsGuestFeaturesWatchLaterAr extends TranslationsGuestFeaturesWatchLaterEn {
-	_TranslationsGuestFeaturesWatchLaterAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$guest_features$watch_later$ar extends Translations$guest_features$watch_later$en {
+	_Translations$guest_features$watch_later$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -314,8 +319,8 @@ class _TranslationsGuestFeaturesWatchLaterAr extends TranslationsGuestFeaturesWa
 }
 
 // Path: guest_features.sync
-class _TranslationsGuestFeaturesSyncAr extends TranslationsGuestFeaturesSyncEn {
-	_TranslationsGuestFeaturesSyncAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$guest_features$sync$ar extends Translations$guest_features$sync$en {
+	_Translations$guest_features$sync$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -325,8 +330,8 @@ class _TranslationsGuestFeaturesSyncAr extends TranslationsGuestFeaturesSyncEn {
 }
 
 // Path: movie_detail.prompts
-class _TranslationsMovieDetailPromptsAr extends TranslationsMovieDetailPromptsEn {
-	_TranslationsMovieDetailPromptsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$movie_detail$prompts$ar extends Translations$movie_detail$prompts$en {
+	_Translations$movie_detail$prompts$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -339,8 +344,8 @@ class _TranslationsMovieDetailPromptsAr extends TranslationsMovieDetailPromptsEn
 }
 
 // Path: movie_detail.actions
-class _TranslationsMovieDetailActionsAr extends TranslationsMovieDetailActionsEn {
-	_TranslationsMovieDetailActionsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$movie_detail$actions$ar extends Translations$movie_detail$actions$en {
+	_Translations$movie_detail$actions$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -350,8 +355,8 @@ class _TranslationsMovieDetailActionsAr extends TranslationsMovieDetailActionsEn
 }
 
 // Path: connectivity.tips
-class _TranslationsConnectivityTipsAr extends TranslationsConnectivityTipsEn {
-	_TranslationsConnectivityTipsAr._(TranslationsAr root) : this._root = root, super.internal(root);
+class _Translations$connectivity$tips$ar extends Translations$connectivity$tips$en {
+	_Translations$connectivity$tips$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -437,6 +442,11 @@ extension on TranslationsAr {
 			'auth.errors.passwords_dont_match' => 'كلمات المرور غير متطابقة',
 			'auth.guest.kContinue' => 'المتابعة كضيف',
 			'auth.guest.get_started' => 'ابدأ الآن / تسجيل الدخول',
+			'auth.reset_password' => 'إعادة تعيين كلمة المرور',
+			'auth.reset_subtitle' => 'أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.',
+			'auth.send_reset_link' => 'إرسال رابط إعادة التعيين',
+			'auth.reset_sent' => 'تم إرسال رابط إعادة التعيين! تحقق من بريدك الإلكتروني.',
+			'auth.back_to_login' => 'العودة إلى تسجيل الدخول',
 			'onboarding.subtitle' => 'اكتشف ملايين الأفلام، وأنشئ قوائم مخصصة، وقيم عناوينك المفضلة بسهولة.',
 			'guest_features.favorites.title' => 'قائمة المفضلات',
 			'guest_features.favorites.desc' => 'تتبع الأفلام التي تحبها أكثر.',

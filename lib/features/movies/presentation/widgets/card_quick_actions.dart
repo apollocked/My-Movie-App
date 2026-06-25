@@ -8,9 +8,8 @@ import '../blocs/movie_bloc/movie_event.dart';
 
 class CardQuickActions extends StatelessWidget {
   final Movie movie;
-  final String uid;
 
-  const CardQuickActions({super.key, required this.movie, required this.uid});
+  const CardQuickActions({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class CardQuickActions extends StatelessWidget {
             activeColor: AppColors.favoriteRed,
             onTap: () {
               context.read<MovieBloc>().add(ToggleFavorite(movie));
-              _showFeedback(context, 'Updated Favorites');
+              _showFeedback(context, 'Added to Favorites');
             },
           ),
           const SizedBox(height: 8),
@@ -39,7 +38,7 @@ class CardQuickActions extends StatelessWidget {
             activeColor: AppColors.watchLaterGreen,
             onTap: () {
               context.read<MovieBloc>().add(ToggleWatchLater(movie));
-              _showFeedback(context, 'Updated Watch Later');
+              _showFeedback(context, 'Added to Watch Later');
             },
           ),
         ],
