@@ -226,15 +226,18 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   }
 
-                  if (_showHistory && _searchHistory.isNotEmpty) {
-                    return _buildHistorySection(theme);
+                  if (_showHistory) {
+                    return ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                        if (_searchHistory.isNotEmpty)
+                          _buildHistorySection(theme),
+                        _buildCategoryBrowser(theme, isDark),
+                      ],
+                    );
                   }
 
-                  return EmptyStateWidget(
-                    icon: Icons.movie_filter_rounded,
-                    title: t.search.discover_title,
-                    subtitle: t.search.discover_subtitle,
-                  );
+                  return _buildCategoryBrowser(theme, isDark);
                 },
               ),
             ),
@@ -283,7 +286,8 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
         ),
-        Expanded(
+      SizedBox(
+          height: (_searchHistory.length * 56.0).clamp(0, 224),
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             itemCount: _searchHistory.length,
@@ -319,4 +323,92 @@ class _SearchPageState extends State<SearchPage> {
       ],
     );
   }
+
+  Widget _buildCategoryBrowser(ThemeData theme, bool isDark) {
+    final categories = [
+      _CategoryData(t.home.top_rated, '/movie/top_rated', Icons.trending_up_rounded),
+      _CategoryData(t.home.now_playing, '/movie/now_playing', Icons.play_circle_outline_rounded),
+      _CategoryData(t.home.popular, '/movie/popular', Icons.whatshot_rounded),
+      _CategoryData(t.home.upcoming, '/movie/upcoming', Icons.calendar_month_rounded),
+      _CategoryData(t.home.action, '/discover/movie?with_genres=28', Icons.flash_on_rounded),
+      _CategoryData(t.home.sci_fi, '/discover/movie?with_genres=878', Icons.rocket_launch_rounded),
+      _CategoryData(t.home.horror, '/discover/movie?with_genres=27', Icons.dangerous_rounded),
+      _CategoryData(t.home.drama, '/discover/movie?with_genres=18', Icons.theater_comedy_rounded),
+      _CategoryData(t.home.comedy, '/discover/movie?with_genres=35', Icons.sentiment_satisfied_rounded),
+      _CategoryData(t.home.romance, '/discover/movie?with_genres=10749', Icons.favorite_rounded),
+      _CategoryData(t.home.thriller, '/discover/movie?with_genres=53', Icons.visibility_rounded),
+      _CategoryData(t.home.animation, '/discover/movie?with_genres=16', Icons.animation_rounded),
+      _CategoryData(t.home.mystery, '/discover/movie?with_genres=9648', Icons.search_outlined),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 4,
+                height: 18,
+                decoration: BoxDecoration(
+                  gradient: AppColors.primaryGradient,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text('Browse Categories',
+                  style: theme.textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w600)),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: categories.map((cat) {
+              return GestureDetector(
+                onTap: () {
+                  final encoded = Uri.encodeComponent(cat.endpoint);
+                  context.push('/see-all/$encoded', extra: cat.title);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? AppColors.darkSurface.withValues(alpha: 0.6)
+                        : AppColors.lightSurface.withValues(alpha: 0.7),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: isDark
+                          ? AppColors.darkBorder.withValues(alpha: 0.4)
+                          : AppColors.lightBorder,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(cat.icon, size: 18, color: theme.primaryColor),
+                      const SizedBox(width: 8),
+                      Text(cat.title,
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CategoryData {
+  final String title;
+  final String endpoint;
+  final IconData icon;
+
+  const _CategoryData(this.title, this.endpoint, this.icon);
 }
