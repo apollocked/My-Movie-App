@@ -11,7 +11,7 @@ class GuestLocalDataSource {
 
   Future<List<Movie>> getCollection(String type) async {
     final prefs = await SharedPreferences.getInstance();
-    final data = prefs.getString('$_prefKey\_$type');
+    final data = prefs.getString('${_prefKey}_$type');
     if (data == null) return [];
     final list = json.decode(data) as List;
     return list.map((e) => Movie.fromJson(e as Map<String, dynamic>)).toList();
@@ -97,6 +97,6 @@ class GuestLocalDataSource {
   Future<void> _saveCollection(String type, List<Movie> items) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonStr = json.encode(items.map((m) => m.toJson()).toList());
-    await prefs.setString('$_prefKey\_$type', jsonStr);
+    await prefs.setString('${_prefKey}_$type', jsonStr);
   }
 }

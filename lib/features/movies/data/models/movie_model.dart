@@ -23,6 +23,7 @@ class MovieModel extends Movie {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,

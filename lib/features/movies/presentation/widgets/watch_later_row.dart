@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
@@ -11,33 +10,15 @@ class WatchLaterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return const SizedBox.shrink();
+    final service = CollectionService();
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('watch_later')
-          .snapshots(),
+    return StreamBuilder<List<Movie>>(
+      stream: service.watchCollection('watch_later'),
       builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const SizedBox.shrink();
         }
-
-        final movies = snapshot.data!.docs.map((doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          return Movie(
-            id: data['id'],
-            title: data['title'] ?? '',
-            overview: data['overview'] ?? '',
-            posterPath: data['posterPath'] ?? '',
-            backdropPath: data['backdropPath'] ?? '',
-            releaseDate: data['releaseDate'] ?? '',
-            voteAverage: (data['voteAverage'] as num?)?.toDouble() ?? 0.0,
-          );
-        }).toList();
-
+        final movies = snapshot.data!;
         return Column(
           children: [
             MovieHorizontalList(

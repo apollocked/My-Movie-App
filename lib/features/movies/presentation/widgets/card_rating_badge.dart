@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/movies/data/services/collection_service.dart';
 
 class CardRatingBadge extends StatelessWidget {
   final Movie movie;
@@ -18,34 +18,49 @@ class CardRatingBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final service = CollectionService();
 
     return Positioned(
-      top: 12, right: 12,
-      child: StreamBuilder<DocumentSnapshot>(
-        stream: uid == null
-            ? const Stream.empty()
-            : FirebaseFirestore.instance.collection('users').doc(uid)
-                .collection('ratings').doc(movie.id.toString()).snapshots(),
+      top: 12,
+      right: 12,
+      child: StreamBuilder<Map<String, dynamic>?>(
+        stream: service.getRatingStream(movie.id),
+        initialData: null,
         builder: (context, snapshot) {
-          final hasRated = snapshot.hasData && snapshot.data!.exists;
+          final data = snapshot.data;
+          final hasRated = data != null;
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: isDark
-                  ? (hasRated ? Colors.amber.withValues(alpha: 0.2) : Colors.black87)
+                  ? (hasRated
+                      ? Colors.amber.withValues(alpha: 0.2)
+                      : Colors.black87)
                   : Colors.white.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: hasRated ? Colors.amber : theme.dividerColor, width: 1),
+              border: Border.all(
+                  color: hasRated ? Colors.amber : theme.dividerColor,
+                  width: 1),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(hasRated ? Icons.star_rounded : Icons.star_outline_rounded,
-                    color: hasRated ? Colors.amber : theme.primaryColor, size: 14),
+                Icon(
+                    hasRated
+                        ? Icons.star_rounded
+                        : Icons.star_outline_rounded,
+                    color: hasRated ? Colors.amber : theme.primaryColor,
+                    size: 14),
                 const SizedBox(width: 2),
-                Text(rating, style: TextStyle(
-                  color: hasRated ? Colors.amber : theme.textTheme.bodyLarge?.color,
-                  fontSize: 11, fontWeight: FontWeight.bold)),
+                Text(rating,
+                    style: TextStyle(
+                      color: hasRated
+                          ? Colors.amber
+                          : theme.textTheme.bodyLarge?.color,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    )),
               ],
             ),
           );

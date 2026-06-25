@@ -123,7 +123,8 @@ class AppRouter {
             final idString = state.pathParameters['id']!;
             final movieId = int.parse(idString);
             final movie = state.extra is Movie ? state.extra as Movie : null;
-            return MovieDetailPage(movieId: movieId, movie: movie);
+            final autoPlay = state.uri.queryParameters['autoPlay'] == 'true';
+            return MovieDetailPage(movieId: movieId, movie: movie, autoPlayTrailer: autoPlay);
           },
         ),
         GoRoute(

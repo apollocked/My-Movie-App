@@ -9,7 +9,6 @@ import 'package:my_movie/features/auth/presentation/widgets/auth_button.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_header.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_input_field.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_navigation_links.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

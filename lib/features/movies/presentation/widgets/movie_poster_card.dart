@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import '../../domain/entities/movie.dart';
 import 'card_quick_actions.dart';
@@ -50,15 +51,25 @@ class MoviePosterCard extends StatelessWidget {
   }
 
   Widget _buildImage(bool isDark, ThemeData theme) {
-    return Image.network(
-      movie?.fullPosterUrl ??
-          'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500',
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => Container(
-        color: isDark
-            ? AppColors.darkSurfaceVariant
-            : AppColors.lightSurfaceVariant,
-        child: Icon(Icons.movie_rounded, color: theme.hintColor, size: 32),
+    final posterUrl =
+        movie?.fullPosterUrl ??
+        'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500';
+    return Hero(
+      tag: 'poster_${movie?.id ?? 0}',
+      child: CachedNetworkImage(
+        imageUrl: posterUrl,
+        fit: BoxFit.cover,
+        placeholder: (_, __) => Container(
+          color: isDark
+              ? AppColors.darkSurfaceVariant
+              : AppColors.lightSurfaceVariant,
+        ),
+        errorWidget: (_, __, ___) => Container(
+          color: isDark
+              ? AppColors.darkSurfaceVariant
+              : AppColors.lightSurfaceVariant,
+          child: Icon(Icons.movie_rounded, color: theme.hintColor, size: 32),
+        ),
       ),
     );
   }

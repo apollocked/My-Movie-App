@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
-import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
@@ -77,7 +75,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final movieBloc = context.read<MovieBloc>();
-    final authState = context.watch<AuthBloc>().state;
     final locale = context.watch<SettingsCubit>().state.locale;
 
     return Scaffold(
@@ -113,7 +110,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
 //   },
 //   child: const Text("Crash Test"),
 // ),
-                        if (authState is Authenticated) const WatchLaterRow(),
+                        const WatchLaterRow(),
                         _buildCategories(movieBloc.apiClient),
                         const SizedBox(height: 48),
                       ],
@@ -135,7 +132,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
           final m = state.movies.first;
           return FeaturedMovieHero(
               movie: m,
-              onPlayPressed: () => context.push('/movie/${m.id}', extra: m),
+              onPlayPressed: () => context.push('/movie/${m.id}?autoPlay=true', extra: m),
               onInfoPressed: () => context.push('/movie/${m.id}', extra: m));
         }
         return const SizedBox.shrink();

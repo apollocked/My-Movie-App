@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'hero_action_chip.dart';
 
 class FeaturedMovieHero extends StatelessWidget {
@@ -15,7 +15,6 @@ class FeaturedMovieHero extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final uid = FirebaseAuth.instance.currentUser?.uid;
 
     if (movie == null) {
       return Container(
@@ -30,12 +29,18 @@ class FeaturedMovieHero extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.network(movie!.fullPosterUrl,
+          Hero(
+            tag: 'poster_${movie!.id}',
+            child: CachedNetworkImage(
+              imageUrl: movie!.fullPosterUrl,
               fit: BoxFit.cover,
               alignment: Alignment.topCenter,
-              errorBuilder: (_, __, ___) => Container(color: theme.cardColor)),
+              placeholder: (_, __) => Container(color: theme.cardColor),
+              errorWidget: (_, __, ___) => Container(color: theme.cardColor),
+            ),
+          ),
           _buildGradient(isDark, theme),
-          _buildContent(context, theme, isDark, uid),
+          _buildContent(context, theme, isDark),
         ],
       ),
     );
@@ -65,7 +70,7 @@ class FeaturedMovieHero extends StatelessWidget {
   }
 
   Widget _buildContent(
-      BuildContext context, ThemeData theme, bool isDark, String? uid) {
+      BuildContext context, ThemeData theme, bool isDark) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -85,7 +90,7 @@ class FeaturedMovieHero extends StatelessWidget {
             const SizedBox(height: 8),
             _buildMetaRow(theme, isDark),
             const SizedBox(height: 16),
-            if (uid != null) _buildQuickActions(uid),
+            _buildQuickActions(),
             const SizedBox(height: 16),
             _buildMainButtons(theme),
             const SizedBox(height: 16),
@@ -112,13 +117,13 @@ class FeaturedMovieHero extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickActions(String uid) {
+  Widget _buildQuickActions() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         HeroActionChip(
             movie: movie!,
-            uid: uid,
+            uid: '',
             collection: 'favorites',
             label: 'Favorite',
             icon: Icons.favorite,
@@ -127,7 +132,7 @@ class FeaturedMovieHero extends StatelessWidget {
         const SizedBox(width: 12),
         HeroActionChip(
             movie: movie!,
-            uid: uid,
+            uid: '',
             collection: 'watch_later',
             label: 'Watch Later',
             icon: Icons.bookmark,
@@ -138,20 +143,15 @@ class FeaturedMovieHero extends StatelessWidget {
   }
 
   Widget _buildMainButtons(ThemeData theme) {
-    ElevatedButton.styleFrom(
-        backgroundColor: theme.primaryColor,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)));
     return Row(
       children: [
         Expanded(
             child: ElevatedButton.icon(
                 onPressed: onPlayPressed,
                 icon: const Icon(Icons.play_arrow_rounded, size: 28),
-                label: const Text('Play Now',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)))),
+                label: const Text('Play Trailer',
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold)))),
         const SizedBox(width: 16),
         Expanded(
             child: OutlinedButton.icon(
@@ -162,8 +162,8 @@ class FeaturedMovieHero extends StatelessWidget {
                 onPressed: onInfoPressed,
                 icon: const Icon(Icons.info_outline_rounded),
                 label: const Text('Details',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)))),
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold)))),
       ],
     );
   }

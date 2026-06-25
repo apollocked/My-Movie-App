@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/movies/data/services/search_history_service.dart';
 
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_event.dart';
@@ -21,12 +22,45 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
+  final SearchHistoryService _historyService = SearchHistoryService();
   String _selectedFilter = 'All';
+  List<String> _searchHistory = [];
+  bool _showHistory = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadHistory();
+  }
+
+  Future<void> _loadHistory() async {
+    final history = await _historyService.getHistory();
+    if (mounted) setState(() => _searchHistory = history);
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    setState(() => _showHistory = query.trim().isEmpty);
+    if (query.trim().length > 2) {
+      context.read<SearchBloc>().add(ExecuteSearch(
+          query: query,
+          filter: _selectedFilter,
+          language: getTmdbLanguageCode(
+              context.read<SettingsCubit>().state.locale)));
+    } else if (query.trim().isEmpty) {
+      context.read<SearchBloc>().add(const ClearSearch());
+    }
+  }
+
+  void _executeSearch(String query) {
+    _searchController.text = query;
+    _onSearchChanged(query);
+    _historyService.addQuery(query);
   }
 
   @override
@@ -44,23 +78,15 @@ class _SearchPageState extends State<SearchPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
               child: Text(t.search.explore,
-                  style: theme.textTheme.titleLarge?.copyWith(fontSize: 28)),
+                  style: theme.textTheme.titleLarge
+                      ?.copyWith(fontSize: 28)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: _searchController,
                 style: TextStyle(color: theme.textTheme.bodyLarge?.color),
-                onChanged: (query) {
-                  if (query.trim().length > 2) {
-                    context.read<SearchBloc>().add(ExecuteSearch(
-                        query: query,
-                        filter: _selectedFilter,
-                        language: getTmdbLanguageCode(locale)));
-                  } else if (query.trim().isEmpty) {
-                    context.read<SearchBloc>().add(const ClearSearch());
-                  }
-                },
+                onChanged: _onSearchChanged,
                 decoration: InputDecoration(
                   hintText: t.search.hint,
                   hintStyle: theme.inputDecorationTheme.hintStyle,
@@ -83,7 +109,8 @@ class _SearchPageState extends State<SearchPage> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: ['All', 'Movies', 'TV Shows', 'Actors'].map((filter) {
+                children: ['All', 'Movies', 'TV Shows', 'Actors']
+                    .map((filter) {
                   final isSelected = _selectedFilter == filter;
                   String label = filter;
                   if (filter == 'All') label = t.search.filters.all;
@@ -92,18 +119,22 @@ class _SearchPageState extends State<SearchPage> {
                   if (filter == 'Actors') label = t.search.filters.actors;
 
                   return Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 8.0),
+                    padding:
+                        const EdgeInsetsDirectional.only(end: 8.0),
                     child: FilterChip(
                       label: Text(label),
                       selected: isSelected,
-                      selectedColor: theme.primaryColor.withValues(alpha: 0.2),
+                      selectedColor:
+                          theme.primaryColor.withValues(alpha: 0.2),
                       checkmarkColor: theme.primaryColor,
                       backgroundColor: theme.cardColor,
                       labelStyle: TextStyle(
-                          color:
-                              isSelected ? theme.primaryColor : theme.hintColor,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal),
+                          color: isSelected
+                              ? theme.primaryColor
+                              : theme.hintColor,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal),
                       onSelected: (bool selected) {
                         setState(() => _selectedFilter = filter);
                         if (_searchController.text.trim().isNotEmpty) {
@@ -145,8 +176,8 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (context, index) {
                         final movie = state.results[index];
                         return InkWell(
-                          onTap: () =>
-                              context.push('/movie/${movie.id}', extra: movie),
+                          onTap: () => context.push('/movie/${movie.id}',
+                              extra: movie),
                           borderRadius: BorderRadius.circular(20),
                           child: MoviePosterCard(movie: movie),
                         );
@@ -169,6 +200,10 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   }
 
+                  if (_showHistory && _searchHistory.isNotEmpty) {
+                    return _buildHistorySection(theme);
+                  }
+
                   return EmptyStateWidget(
                     icon: Icons.movie_filter_rounded,
                     title: t.search.discover_title,
@@ -180,6 +215,53 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildHistorySection(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Recent Searches',
+                  style: theme.textTheme.titleMedium
+                      ?.copyWith(fontWeight: FontWeight.bold)),
+              TextButton(
+                onPressed: () async {
+                  await _historyService.clear();
+                  setState(() => _searchHistory.clear());
+                },
+                child: const Text('Clear'),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: _searchHistory.length,
+            itemBuilder: (context, index) {
+              final query = _searchHistory[index];
+              return ListTile(
+                leading: const Icon(Icons.history),
+                title: Text(query),
+                trailing: IconButton(
+                  icon: const Icon(Icons.close, size: 18),
+                  onPressed: () async {
+                    await _historyService.removeQuery(query);
+                    _loadHistory();
+                  },
+                ),
+                onTap: () => _executeSearch(query),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

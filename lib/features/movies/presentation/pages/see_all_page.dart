@@ -49,7 +49,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
     setState(() => _isLoading = true);
     try {
       final data = await _apiClient
-          .get('${widget.endpoint}', params: {'page': '1'});
+          .get(widget.endpoint, params: {'page': '1'});
       final results = data['results'] as List? ?? [];
       final movies = _parseMovies(results);
       final totalPages = data['total_pages'] as int? ?? 1;
@@ -70,7 +70,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
     _currentPage++;
     try {
       final data = await _apiClient
-          .get('${widget.endpoint}', params: {'page': '$_currentPage'});
+          .get(widget.endpoint, params: {'page': '$_currentPage'});
       final results = data['results'] as List? ?? [];
       final movies = _parseMovies(results);
       final totalPages = data['total_pages'] as int? ?? 1;

@@ -16,8 +16,9 @@ import '../widgets/movie_detail/recommendations_section.dart';
 class MovieDetailPage extends StatefulWidget {
   final Movie? movie;
   final int movieId;
+  final bool autoPlayTrailer;
 
-  const MovieDetailPage({super.key, this.movie, required this.movieId});
+  const MovieDetailPage({super.key, this.movie, required this.movieId, this.autoPlayTrailer = false});
 
   @override
   State<MovieDetailPage> createState() => _MovieDetailPageState();
@@ -80,6 +81,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           ),
         );
         _ytController!.loadVideoById(videoId: trailerKey);
+        if (widget.autoPlayTrailer) {
+          _ytController!.playVideo();
+        }
         _ytSubscription = _ytController!.stream.listen((value) {
           if (mounted && value.error != YoutubeError.none) {
             setState(() => _trailerBlocked = true);

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
@@ -52,9 +51,8 @@ class CollectionService {
           .collection(type)
           .orderBy('timestamp', descending: true)
           .snapshots()
-          .map((snap) => snap.docs
-              .map((doc) => _docToMovie(doc.data() as Map<String, dynamic>))
-              .toList());
+          .map((snap) =>
+              snap.docs.map((doc) => _docToMovie(doc.data())).toList());
     } else {
       return _local.watchCollection(type);
     }
@@ -116,7 +114,7 @@ class CollectionService {
           .doc(movieId.toString())
           .get();
       if (doc.exists) {
-        return (doc.data() as Map<String, dynamic>)['rating'] as double?;
+        return doc.data()!['rating'] as double?;
       }
       return null;
     } else {
@@ -132,9 +130,7 @@ class CollectionService {
           .collection(type)
           .orderBy('timestamp', descending: true)
           .get();
-      return snap.docs
-          .map((doc) => _docToMovie(doc.data() as Map<String, dynamic>))
-          .toList();
+      return snap.docs.map((doc) => _docToMovie(doc.data())).toList();
     } else {
       return _local.getCollection(type);
     }

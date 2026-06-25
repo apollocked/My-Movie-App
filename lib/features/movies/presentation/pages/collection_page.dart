@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/collection_grid.dart';
 import '../widgets/collection_empty_state.dart';
 
@@ -15,19 +15,12 @@ class CollectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final service = CollectionService();
 
     String translatedTitle = title;
     if (title == 'Watch Later') translatedTitle = t.profile.watch_later;
     if (title == 'My Favorites') translatedTitle = t.profile.my_favorites;
     if (title == 'My Ratings') translatedTitle = t.profile.my_ratings;
-
-    if (uid == null) {
-      return Scaffold(
-        appBar: AppBar(title: Text(translatedTitle)),
-        body: Center(child: Text(t.auth.login_required_desc)),
-      );
-    }
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -37,42 +30,21 @@ class CollectionPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .collection(collectionPath)
-            .orderBy('timestamp', descending: true)
-            .snapshots(),
+      body: StreamBuilder<List<Movie>>(
+        stream: service.watchCollection(collectionPath),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (snapshot.hasError) return _fallbackList(uid);
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return CollectionEmptyState();
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const CollectionEmptyState();
           }
           return CollectionGrid(
-              docs: snapshot.data!.docs, collectionPath: collectionPath);
+              movies: snapshot.data!,
+              collectionPath: collectionPath,
+              isRatings: collectionPath == 'ratings');
         },
       ),
-    );
-  }
-
-  Widget _fallbackList(String uid) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection(collectionPath)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return CollectionEmptyState();
-        }
-        return CollectionGrid(
-            docs: snapshot.data!.docs, collectionPath: collectionPath);
-      },
     );
   }
 }

@@ -105,7 +105,7 @@ class _CategoryRowState extends State<CategoryRow> {
                   context.push('/see-all/$encoded', extra: widget.title);
                 },
                 child: const Text('See All',
-                    style: const TextStyle(fontSize: 13)),
+                    style: TextStyle(fontSize: 13)),
               ),
             ],
           ),
