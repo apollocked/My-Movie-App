@@ -32,8 +32,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 14),
-                Text(t.settings.title,
-                    style: theme.textTheme.displayMedium),
+                Text(t.settings.title, style: theme.textTheme.displayMedium),
               ],
             ),
             const SizedBox(height: 32),
@@ -69,9 +68,12 @@ class SettingsPage extends StatelessWidget {
                         color: theme.hintColor, size: 20),
                     dropdownColor: theme.cardColor,
                     items: [
-                      DropdownMenuItem(value: 'en', child: Text(t.settings.lang_en)),
-                      DropdownMenuItem(value: 'ku', child: Text(t.settings.lang_ku)),
-                      DropdownMenuItem(value: 'ar', child: Text(t.settings.lang_ar)),
+                      DropdownMenuItem(
+                          value: 'en', child: Text(t.settings.lang_en)),
+                      DropdownMenuItem(
+                          value: 'ku', child: Text(t.settings.lang_ku)),
+                      DropdownMenuItem(
+                          value: 'ar', child: Text(t.settings.lang_ar)),
                     ],
                     onChanged: (value) {
                       if (value != null) {
@@ -92,7 +94,8 @@ class SettingsPage extends StatelessWidget {
                 },
                 activeTrackColor: theme.primaryColor.withValues(alpha: 0.4),
                 activeThumbColor: theme.primaryColor,
-                inactiveTrackColor: AppColors.textTertiaryDark.withValues(alpha: 0.3),
+                inactiveTrackColor:
+                    AppColors.textTertiaryDark.withValues(alpha: 0.3),
                 inactiveThumbColor: AppColors.textTertiaryDark,
                 title: Text(t.settings.dark_mode,
                     style: TextStyle(
@@ -115,6 +118,10 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
+            _buildSectionHeader(theme, t.settings.legal),
+            const SizedBox(height: 16),
+            PrivacyPolicyCard(theme: theme),
+            const SizedBox(height: 32),
             _buildSectionHeader(theme, t.settings.support),
             const SizedBox(height: 16),
             _buildGlassCard(
@@ -135,15 +142,10 @@ class SettingsPage extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 16)),
                 subtitle: Text(t.settings.email,
-                    style: TextStyle(
-                        color: theme.hintColor, fontSize: 13)),
+                    style: TextStyle(color: theme.hintColor, fontSize: 13)),
                 onTap: () {},
               ),
             ),
-            const SizedBox(height: 32),
-            _buildSectionHeader(theme, t.settings.legal),
-            const SizedBox(height: 16),
-            PrivacyPolicyCard(theme: theme),
           ],
         ),
       ),
@@ -174,8 +176,7 @@ class SettingsPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-            color: theme.dividerColor.withValues(alpha: 0.5)),
+        border: Border.all(color: theme.dividerColor.withValues(alpha: 0.5)),
       ),
       child: Material(
         color: Colors.transparent,

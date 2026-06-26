@@ -16,6 +16,7 @@ import '../../features/movies/presentation/pages/see_all_page.dart';
 import '../../features/movies/presentation/pages/collection_page.dart';
 import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../common/ui/no_internet_page.dart';
+import '../../features/recommendations/presentation/pages/filter_setup_page.dart';
 
 List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
   return [
@@ -59,6 +60,15 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
               path: '/search',
               name: 'search',
               builder: (context, state) => const SearchPage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/discover',
+              name: 'discover',
+              builder: (context, state) => const FilterSetupPage(),
             ),
           ],
         ),

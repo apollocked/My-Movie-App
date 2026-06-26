@@ -18,13 +18,11 @@ class MainNavigationShell extends StatelessWidget {
       extendBody: true,
       body: Stack(
         children: [
-          // The main content of your app
-          Padding(
-            padding: const EdgeInsets.only(bottom: 88),
-            child: navigationShell,
-          ),
+          // 1. Let the content take up the FULL screen height.
+          // Removed the Padding widget that was pushing this up.
+          navigationShell,
 
-          // The floating navigation bar
+          // 2. The floating navigation bar sits on top
           Align(
             alignment: Alignment.bottomCenter,
             child: SafeArea(
@@ -88,6 +86,11 @@ class MainNavigationShell extends StatelessWidget {
         icon: Icons.search_outlined,
         activeIcon: Icons.search_rounded,
         label: t.search.explore,
+      ),
+      _NavItemData(
+        icon: Icons.swipe_rounded,
+        activeIcon: Icons.swipe_rounded,
+        label: 'Browse',
       ),
       _NavItemData(
         icon: Icons.person_outline_rounded,

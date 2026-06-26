@@ -17,6 +17,7 @@ import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/setti
 import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
+import 'package:my_movie/features/recommendations/presentation/blocs/recommendation_bloc.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:my_movie/common/ui/offline_banner.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
@@ -52,6 +53,8 @@ class _MyAppState extends State<MyApp> {
 
   late final SearchBloc _searchBloc;
 
+  late final RecommendationBloc _recommendationBloc;
+
   late final SettingsCubit _settingsCubit;
 
   late final ConnectivityCubit _connectivityCubit;
@@ -65,6 +68,7 @@ class _MyAppState extends State<MyApp> {
     _authBloc = getIt<AuthBloc>()..add(const AuthCheckRequested());
     _movieBloc = getIt<MovieBloc>();
     _searchBloc = getIt<SearchBloc>();
+    _recommendationBloc = getIt<RecommendationBloc>();
     _settingsCubit = getIt<SettingsCubit>();
     _connectivityCubit = getIt<ConnectivityCubit>();
     _router = AppRouter.router(_authBloc);
@@ -75,6 +79,7 @@ class _MyAppState extends State<MyApp> {
     _authBloc.close();
     _movieBloc.close();
     _searchBloc.close();
+    _recommendationBloc.close();
     _settingsCubit.close();
     _connectivityCubit.close();
     super.dispose();
@@ -87,6 +92,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<MovieBloc>.value(value: _movieBloc),
         BlocProvider<SearchBloc>.value(value: _searchBloc),
         BlocProvider<AuthBloc>.value(value: _authBloc),
+        BlocProvider<RecommendationBloc>.value(value: _recommendationBloc),
         BlocProvider<SettingsCubit>.value(value: _settingsCubit),
         BlocProvider<ConnectivityCubit>.value(value: _connectivityCubit),
       ],

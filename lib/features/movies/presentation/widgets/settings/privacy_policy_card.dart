@@ -12,8 +12,7 @@ class PrivacyPolicyCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-            color: theme.dividerColor.withValues(alpha: 0.5)),
+        border: Border.all(color: theme.dividerColor.withValues(alpha: 0.5)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -42,8 +41,7 @@ class PrivacyPolicyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(t.privacy.last_updated,
-                      style: TextStyle(
-                          color: theme.hintColor, fontSize: 12)),
+                      style: TextStyle(color: theme.hintColor, fontSize: 12)),
                   const SizedBox(height: 16),
                   _section(t.privacy.introduction, false),
                   const SizedBox(height: 20),
@@ -59,9 +57,6 @@ class PrivacyPolicyCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   _section(t.privacy.data_security, false),
                   const SizedBox(height: 20),
-                  _section(t.privacy.contact_title, true),
-                  const SizedBox(height: 8),
-                  _section(t.privacy.contact, false),
                 ],
               ),
             ),

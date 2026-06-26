@@ -21,6 +21,12 @@ import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_blo
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 
+// Features - Recommendations Imports
+import 'package:my_movie/features/recommendations/data/datasources/recommendation_remote_data_source.dart';
+import 'package:my_movie/features/recommendations/data/repositories/recommendation_repository_impl.dart';
+import 'package:my_movie/features/recommendations/domain/repositories/recommendation_repository.dart';
+import 'package:my_movie/features/recommendations/presentation/blocs/recommendation_bloc.dart';
+
 final GetIt getIt = GetIt.instance;
 
 Future<void> configureDependencies() async {
@@ -39,10 +45,16 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(),
   );
+  getIt.registerLazySingleton<RecommendationRemoteDataSource>(
+    () => RecommendationRemoteDataSource(apiClient: getIt<ApiClient>()),
+  );
 
   //  Repositories (Injects the Data Source via GetIt)
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(getIt<AuthRemoteDataSource>()),
+  );
+  getIt.registerLazySingleton<RecommendationRepository>(
+    () => RecommendationRepositoryImpl(remoteDataSource: getIt<RecommendationRemoteDataSource>()),
   );
 
   //  Domain Use Cases (Inject the Repository via GetIt)
@@ -78,5 +90,9 @@ Future<void> configureDependencies() async {
     () => SearchBloc(
       apiClient: getIt<ApiClient>(),
     ),
+  );
+
+  getIt.registerFactory<RecommendationBloc>(
+    () => RecommendationBloc(repository: getIt<RecommendationRepository>()),
   );
 }
