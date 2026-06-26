@@ -18,11 +18,10 @@ class MainNavigationShell extends StatelessWidget {
       extendBody: true,
       body: Stack(
         children: [
-          // 1. Let the content take up the FULL screen height.
-          // Removed the Padding widget that was pushing this up.
+          // 1. Main app content layer
           navigationShell,
 
-          // 2. The floating navigation bar sits on top
+          // 2. The floating navigation bar sitting on top
           Align(
             alignment: Alignment.bottomCenter,
             child: SafeArea(
@@ -31,7 +30,10 @@ class MainNavigationShell extends StatelessWidget {
                 child: SizedBox(
                   height: 68,
                   child: Stack(
+                    clipBehavior: Clip
+                        .none, // Allows the center button to pop out slightly if needed
                     children: [
+                      // Glassmorphic Background
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: BackdropFilter(
@@ -60,6 +62,7 @@ class MainNavigationShell extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // Navigation Items
                       Row(
                         children: _buildNavItems(context, theme, isDark),
                       ),
@@ -87,10 +90,11 @@ class MainNavigationShell extends StatelessWidget {
         activeIcon: Icons.search_rounded,
         label: t.search.explore,
       ),
+      // Center Main Feature Button (Label omitted here as it becomes a standalone action FAB)
       _NavItemData(
         icon: Icons.swipe_rounded,
         activeIcon: Icons.swipe_rounded,
-        label: 'Browse',
+        label: '',
       ),
       _NavItemData(
         icon: Icons.person_outline_rounded,
@@ -109,6 +113,42 @@ class MainNavigationShell extends StatelessWidget {
       final item = items[index];
       final activeColor = theme.colorScheme.primary;
 
+      // --- SPECIAL STYLE FOR THE CENTER MAIN FEATURE BUTTON ---
+      if (index == 2) {
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => navigationShell.goBranch(index),
+            behavior: HitTestBehavior.opaque,
+            child: Center(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOutCubic,
+                // Scales up slightly when selected for a premium feel
+                height: isSelected ? 52 : 46,
+                width: isSelected ? 52 : 46,
+                decoration: BoxDecoration(
+                  color: activeColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: activeColor.withValues(alpha: isDark ? 0.4 : 0.3),
+                      blurRadius: isSelected ? 14 : 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  item.icon,
+                  color: theme.colorScheme.onPrimary,
+                  size: isSelected ? 26 : 22,
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+
+      // --- STANDARD STYLE FOR THE OTHER 4 BUTTONS ---
       return Expanded(
         child: GestureDetector(
           onTap: () => navigationShell.goBranch(index),
@@ -149,15 +189,26 @@ class MainNavigationShell extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 200),
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                  color: isSelected ? activeColor : inactiveColor(isDark),
-                  letterSpacing: 0.3,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 200),
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    color: isSelected ? activeColor : inactiveColor(isDark),
+                    letterSpacing: 0.1,
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    child: Text(
+                      item.label,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-                child: Text(item.label),
               ),
             ],
           ),

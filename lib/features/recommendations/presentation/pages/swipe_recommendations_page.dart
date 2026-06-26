@@ -50,7 +50,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
       appBar: AppBar(
-        title: const Text('Discover'),
+        title: const Text('Swipe Suggest'),
         centerTitle: true,
         actions: [
           BlocBuilder<RecommendationBloc, RecommendationState>(
@@ -90,7 +90,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
         const SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SizedBox(height: mq.size.height * 0.6, child: SwipeCardStack(movie: state.currentMovie!)),
+          child: SizedBox(height: mq.size.height * 0.6, child: SwipeCardStack(movie: state.currentMovie!, onSwipeLeft: _onSkip, onSwipeRight: _onSave)),
         ),
         const SizedBox(height: 20),
         Padding(

@@ -26,7 +26,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
   await dotenv.load(fileName: ".env");
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

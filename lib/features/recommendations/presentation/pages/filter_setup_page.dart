@@ -64,7 +64,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
     final t = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Discover Movies'), centerTitle: true),
+      appBar: AppBar(title: const Text('Swipe Suggest'), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
