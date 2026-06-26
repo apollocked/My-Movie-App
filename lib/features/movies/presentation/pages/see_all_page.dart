@@ -90,11 +90,11 @@ class _SeeAllPageState extends State<SeeAllPage> {
     return list
         .map((json) => Movie(
               id: (json['id'] as num?)?.toInt() ?? 0,
-              title: json['title'] as String? ?? '',
+              title: (json['title'] ?? json['name']) as String? ?? '',
               overview: json['overview'] as String? ?? '',
               posterPath: json['poster_path'] as String? ?? '',
               backdropPath: json['backdrop_path'] as String? ?? '',
-              releaseDate: json['release_date'] as String? ?? '',
+              releaseDate: (json['release_date'] ?? json['first_air_date']) as String? ?? '',
               voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
             ))
         .toList();
