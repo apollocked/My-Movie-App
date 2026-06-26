@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
 class SearchHistorySection extends StatelessWidget {
@@ -29,17 +30,24 @@ class SearchHistorySection extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: 4, height: 18,
-                    decoration: BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.circular(2)),
+                    width: 4,
+                    height: 18,
+                    decoration: BoxDecoration(
+                        gradient: AppColors.primaryGradient,
+                        borderRadius: BorderRadius.circular(2)),
                   ),
                   const SizedBox(width: 10),
-                  Text('Recent Searches', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+                  Text(t.search.recent_searches,
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.w600)),
                 ],
               ),
               TextButton(
                 onPressed: onClear,
-                style: TextButton.styleFrom(foregroundColor: AppColors.textTertiaryDark),
-                child: const Text('Clear', style: TextStyle(fontSize: 13)),
+                style: TextButton.styleFrom(
+                    foregroundColor: AppColors.textTertiaryDark),
+                child:
+                    Text(t.search.clear, style: const TextStyle(fontSize: 13)),
               ),
             ],
           ),
@@ -53,15 +61,19 @@ class SearchHistorySection extends StatelessWidget {
               final query = history[index];
               return ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                leading: Icon(Icons.history_rounded, color: AppColors.textTertiaryDark, size: 20),
-                title: Text(query, style: theme.textTheme.bodyMedium?.copyWith(color: theme.textTheme.bodyLarge?.color)),
+                leading: Icon(Icons.history_rounded,
+                    color: AppColors.textTertiaryDark, size: 20),
+                title: Text(query,
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.textTheme.bodyLarge?.color)),
                 trailing: IconButton(
                   icon: const Icon(Icons.close, size: 16),
                   color: AppColors.textTertiaryDark,
                   onPressed: () => onRemove(query),
                 ),
                 onTap: () => onTap(query),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
               );
             },
           ),

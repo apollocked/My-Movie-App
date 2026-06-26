@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
@@ -26,7 +27,7 @@ class CardQuickActions extends StatelessWidget {
             activeColor: AppColors.favoriteRed,
             onTap: () {
               context.read<MovieBloc>().add(ToggleFavorite(movie));
-              _showFeedback(context, 'Added to Favorites');
+              _showFeedback(context, t.movie_detail.added_to_favorites);
             },
           ),
           const SizedBox(height: 8),
@@ -38,7 +39,7 @@ class CardQuickActions extends StatelessWidget {
             activeColor: AppColors.watchLaterGreen,
             onTap: () {
               context.read<MovieBloc>().add(ToggleWatchLater(movie));
-              _showFeedback(context, 'Added to Watch Later');
+              _showFeedback(context, t.movie_detail.added_to_watch_later);
             },
           ),
         ],

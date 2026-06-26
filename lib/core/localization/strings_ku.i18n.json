@@ -28,7 +28,13 @@
     },
     "no_results_subtitle": "هەوڵی گەڕان بدە بۆ شتێکی تر",
     "discover_title": "فیلمەکان بدۆزەرەوە",
-    "discover_subtitle": "دەست بکە بە نووسین بۆ گەڕان لە ملیۆنان فیلم و زنجیرە"
+    "discover_subtitle": "دەست بکە بە نووسین بۆ گەڕان لە ملیۆنان فیلم و زنجیرە",
+    "recent_searches": "گەڕانەکانی پێشوو",
+    "clear": "سڕینەوە",
+    "browse_categories": "گەڕان بەپێی پۆلەکان",
+    "browse_all": "گەڕان بە هەمووی",
+    "top_rated_badge": "بەرزترین نمرە",
+    "browse": "گەڕان"
   },
   "profile": {
     "title": "پڕۆفایل",
@@ -39,12 +45,16 @@
     "ratings": "هەڵسەنگاندنەکانم",
     "my_ratings": "هەڵسەنگاندنەکانم",
     "account": "هەژمار",
-    "logout": "چوونەدەرەوە"
+    "logout": "چوونەدەرەوە",
+    "default_name": "بینەری CineVault"
   },
   "settings": {
     "title": "ڕێکخستن",
     "language": "زمان",
-    "dark_mode": "دۆخی تاریک"
+    "dark_mode": "دۆخی تاریک",
+    "lang_en": "ئینگلیزی",
+    "lang_ku": "کوردی",
+    "lang_ar": "عەرەبی"
   },
   "auth": {
     "login": "چوونەژوورەوە",
@@ -126,7 +136,34 @@
     "actions": {
       "add_watch_later": "زیادکردن بۆ سەیرکردنی دواتر",
       "rate_movies": "نمرەدان بە فیلمەکان"
-    }
+    },
+    "play_trailer": "پەخشکردنی ترەیلەر",
+    "watch_trailer": "سەیرکردنی ترەیلەر",
+    "on_youtube": "لە یوتیوب",
+    "favorite": "دڵخواز",
+    "watch": "سەیرکە",
+    "release_today": "ئەمڕۆ",
+    "release_1_day": "١ ڕۆژ",
+    "release_days": "ڕۆژ",
+    "added_to_watch_later": "بۆ سەیرکردنی دواتر زیادکرا",
+    "director": "دەرهێنەر",
+    "cast": "ئەکتەرەکان",
+    "you_might_also_like": "لەوانەیە ئەمانەشت بەدڵ بێت"
+  },
+  "actor": {
+    "born": "لەدایکبوون:",
+    "biography": "ژیاننامە",
+    "filmography": "فیلمۆگرافی"
+  },
+  "tv": {
+    "popular": "بەناوبانگ",
+    "top_rated": "بەرزترین نمرە",
+    "airing_today": "ئەمڕۆ پەخش دەکرێت",
+    "on_the_air": "ئێستا پەخش دەکرێت",
+    "action": "ئەکشن",
+    "comedy": "کۆمیدی",
+    "drama": "دراما",
+    "sci_fi_fantasy": "خەیاڵی زانستی و فەنتازیا"
   },
   "common": {
     "cancel": "هەڵوەشاندنەوە",
@@ -136,7 +173,11 @@
     "empty_list": "لیستەکەت لە ئێستادا بەتاڵە",
     "cine_stream": "CineStream",
     "retry": "دووبارە هەوڵبدەرەوە",
-    "error_title": "هەڵەیەک ڕوویدا"
+    "error_title": "هەڵەیەک ڕوویدا",
+    "see_all": "هەمووی ببینە",
+    "back_to_browse": "گەڕانەوە بۆ گەڕان",
+    "collection": "کۆمەڵە",
+    "my_movie": "My Movie"
   },
   "connectivity": {
     "title": "پەیوەندیدانی ئەنتەرنێت نییە",

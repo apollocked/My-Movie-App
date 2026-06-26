@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'category_browser_sheet.dart';
 
@@ -20,19 +21,21 @@ class CategoryBrowserButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               boxShadow: AppColors.glowShadow(AppColors.primaryRed, radius: 16),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.explore_rounded, color: Colors.white, size: 22),
-                SizedBox(width: 10),
-                Text('Browse Categories', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16)),
-                SizedBox(width: 8),
-                Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white, size: 20),
+                const Icon(Icons.explore_rounded, color: Colors.white, size: 22),
+                const SizedBox(width: 10),
+                Text(t.search.browse_categories, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16)),
+                const SizedBox(width: 8),
+                const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white, size: 20),
               ],
             ),
+            
           ),
         ),
       ),
     );
+
   }
 }

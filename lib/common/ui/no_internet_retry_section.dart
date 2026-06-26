@@ -61,7 +61,7 @@ class NoInternetRetrySection extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Checking connection...',
+                t.connectivity.check_connection,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       color: isDarkMode
                           ? AppColors.textTertiaryDark

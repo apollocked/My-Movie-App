@@ -67,10 +67,10 @@ class SettingsPage extends StatelessWidget {
                     icon: Icon(Icons.keyboard_arrow_down_rounded,
                         color: theme.hintColor, size: 20),
                     dropdownColor: theme.cardColor,
-                    items: const [
-                      DropdownMenuItem(value: 'en', child: Text('English')),
-                      DropdownMenuItem(value: 'ku', child: Text('Kurdish')),
-                      DropdownMenuItem(value: 'ar', child: Text('Arabic')),
+                    items: [
+                      DropdownMenuItem(value: 'en', child: Text(t.settings.lang_en)),
+                      DropdownMenuItem(value: 'ku', child: Text(t.settings.lang_ku)),
+                      DropdownMenuItem(value: 'ar', child: Text(t.settings.lang_ar)),
                     ],
                     onChanged: (value) {
                       if (value != null) {

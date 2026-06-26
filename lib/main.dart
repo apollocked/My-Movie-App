@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settingsState) {
           return MaterialApp.router(
-            title: 'My Movie',
+            title: t.common.my_movie,
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 
 class HeroRatingBadge extends StatelessWidget {
   const HeroRatingBadge({super.key});
@@ -20,7 +21,8 @@ class HeroRatingBadge extends StatelessWidget {
           Icon(Icons.star_rounded,
               color: theme.colorScheme.secondary, size: 14),
           const SizedBox(width: 4),
-          Text('TOP RATED',
+          Text(t.search.top_rated_badge,
+          
               style: TextStyle(
                   color: theme.colorScheme.secondary,
                   fontSize: 10,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
 class HeroGradientPlayButton extends StatelessWidget {
@@ -22,7 +23,8 @@ class HeroGradientPlayButton extends StatelessWidget {
           children: [
             const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 22),
             const SizedBox(width: 6),
-            const Text('Play Trailer',
+            Text(t.movie_detail.play_trailer,
+            
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,

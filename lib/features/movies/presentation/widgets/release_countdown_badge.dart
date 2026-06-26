@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 
@@ -13,14 +14,6 @@ class ReleaseCountdownBadge extends StatelessWidget {
     if (date == null) return null;
     final diff = date.difference(DateTime.now()).inDays;
     return diff >= 0 ? diff : null;
-  }
-
-  static String? countdownText(Movie movie) {
-    final days = _daysUntil(movie.releaseDate);
-    if (days == null) return null;
-    if (days == 0) return 'Today';
-    if (days == 1) return '1 day';
-    return '$days days';
   }
 
   static bool isUpcoming(Movie movie) => _daysUntil(movie.releaseDate) != null;
@@ -52,8 +45,9 @@ class ReleaseCountdownBadge extends StatelessWidget {
             Icon(Icons.schedule_rounded, color: iconColor, size: 12),
             const SizedBox(width: 4),
             Text(
-              days == 0 ? 'Today' : days == 1 ? '1 day' : '$days days',
+              days == 0 ? t.movie_detail.release_today : days == 1 ? t.movie_detail.release_1_day : '$days ${t.movie_detail.release_days}',
               style: TextStyle(
+                
                 color: iconColor,
                 fontSize: 10,
                 fontWeight: FontWeight.w800,
@@ -66,3 +60,4 @@ class ReleaseCountdownBadge extends StatelessWidget {
     );
   }
 }
+

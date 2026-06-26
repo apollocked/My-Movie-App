@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () => context.push('/forgot-password'),
-                        child: Text('Forgot Password?',
+                        child: Text(t.auth.reset_password,
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontSize: 13)),

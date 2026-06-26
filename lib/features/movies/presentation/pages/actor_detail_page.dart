@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/movie_poster_card.dart';
@@ -99,19 +100,19 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
             ],
             if (birthDay.isNotEmpty || placeOfBirth.isNotEmpty) ...[
               const SizedBox(height: 20),
-              if (birthDay.isNotEmpty) ActorInfoRow(icon: Icons.cake_outlined, text: 'Born: $birthDay'),
+              if (birthDay.isNotEmpty) ActorInfoRow(icon: Icons.cake_outlined, text: '${t.actor.born} $birthDay'),
               if (placeOfBirth.isNotEmpty) const SizedBox(height: 6),
               if (placeOfBirth.isNotEmpty) ActorInfoRow(icon: Icons.location_on_outlined, text: placeOfBirth),
             ],
             if (biography.isNotEmpty) ...[
               const SizedBox(height: 28),
-              const ActorSectionHeader(title: 'Biography'),
+              ActorSectionHeader(title: t.actor.biography),
               const SizedBox(height: 12),
               ActorBiographyCard(biography: biography),
             ],
             if (_filmography.isNotEmpty) ...[
               const SizedBox(height: 28),
-              ActorSectionHeader(title: 'Filmography (${_filmography.length})'),
+              ActorSectionHeader(title: '${t.actor.filmography} (${_filmography.length})'),
               const SizedBox(height: 16),
               SizedBox(
                 height: 200,

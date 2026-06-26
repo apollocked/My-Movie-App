@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'hero_action_chip.dart';
@@ -50,6 +51,7 @@ class FeaturedMovieHero extends StatelessWidget {
     );
   }
 
+
   Widget _buildContent(BuildContext context, ThemeData theme) {
     return Positioned(
       bottom: 0,
@@ -92,7 +94,8 @@ class FeaturedMovieHero extends StatelessWidget {
                 HeroActionChip(
                     movie: movie!,
                     collection: 'favorites',
-                    label: 'Favorite',
+                    label: t.movie_detail.favorite,
+                    
                     icon: Icons.favorite_rounded,
                     inactiveIcon: Icons.favorite_border_rounded,
                     activeColor: AppColors.favoriteRed),
@@ -100,7 +103,7 @@ class FeaturedMovieHero extends StatelessWidget {
                 HeroActionChip(
                     movie: movie!,
                     collection: 'watch_later',
-                    label: 'Watch',
+                    label: t.movie_detail.watch,
                     icon: Icons.bookmark_rounded,
                     inactiveIcon: Icons.bookmark_add_outlined,
                     activeColor: AppColors.watchLaterGreen),

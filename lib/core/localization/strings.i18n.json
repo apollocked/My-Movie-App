@@ -28,7 +28,13 @@
     },
     "no_results_subtitle": "Try searching for something else",
     "discover_title": "Discover Movies",
-    "discover_subtitle": "Start typing to explore millions of movies and TV shows"
+    "discover_subtitle": "Start typing to explore millions of movies and TV shows",
+    "recent_searches": "Recent Searches",
+    "clear": "Clear",
+    "browse_categories": "Browse Categories",
+    "browse_all": "Browse All",
+    "top_rated_badge": "TOP RATED",
+    "browse": "Browse"
   },
   "profile": {
     "title": "Profile",
@@ -39,12 +45,16 @@
     "ratings": "My Ratings",
     "my_ratings": "My Ratings",
     "account": "Account",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "default_name": "CineVault Moviegoer"
   },
   "settings": {
     "title": "Setup",
     "language": "Language",
-    "dark_mode": "Dark Mode"
+    "dark_mode": "Dark Mode",
+    "lang_en": "English",
+    "lang_ku": "Kurdish",
+    "lang_ar": "Arabic"
   },
   "auth": {
     "login": "Login",
@@ -126,7 +136,34 @@
     "actions": {
       "add_watch_later": "add to Watch Later",
       "rate_movies": "rate movies"
-    }
+    },
+    "play_trailer": "Play Trailer",
+    "watch_trailer": "Watch Trailer",
+    "on_youtube": "on YouTube",
+    "favorite": "Favorite",
+    "watch": "Watch",
+    "release_today": "Today",
+    "release_1_day": "1 day",
+    "release_days": "days",
+    "added_to_watch_later": "Added to Watch Later",
+    "director": "Director",
+    "cast": "Cast",
+    "you_might_also_like": "You Might Also Like"
+  },
+  "actor": {
+    "born": "Born:",
+    "biography": "Biography",
+    "filmography": "Filmography"
+  },
+  "tv": {
+    "popular": "Popular",
+    "top_rated": "Top Rated",
+    "airing_today": "Airing Today",
+    "on_the_air": "On The Air",
+    "action": "Action",
+    "comedy": "Comedy",
+    "drama": "Drama",
+    "sci_fi_fantasy": "Sci-Fi & Fantasy"
   },
   "common": {
     "cancel": "Cancel",
@@ -136,7 +173,11 @@
     "empty_list": "Your list is currently empty",
     "cine_stream": "CineStream",
     "retry": "Retry",
-    "error_title": "Something went wrong"
+    "error_title": "Something went wrong",
+    "see_all": "See All",
+    "back_to_browse": "Back to Browse",
+    "collection": "Collection",
+    "my_movie": "My Movie"
   },
   "connectivity": {
     "title": "No Internet Connection",

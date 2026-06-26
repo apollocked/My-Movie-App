@@ -47,6 +47,8 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$onboarding$ar onboarding = _Translations$onboarding$ar._(_root);
 	@override late final _Translations$guest_features$ar guest_features = _Translations$guest_features$ar._(_root);
 	@override late final _Translations$movie_detail$ar movie_detail = _Translations$movie_detail$ar._(_root);
+	@override late final _Translations$actor$ar actor = _Translations$actor$ar._(_root);
+	@override late final _Translations$tv$ar tv = _Translations$tv$ar._(_root);
 	@override late final _Translations$common$ar common = _Translations$common$ar._(_root);
 	@override late final _Translations$connectivity$ar connectivity = _Translations$connectivity$ar._(_root);
 	@override late final _Translations$not_found$ar not_found = _Translations$not_found$ar._(_root);
@@ -90,6 +92,12 @@ class _Translations$search$ar extends Translations$search$en {
 	@override String get no_results_subtitle => 'حاول البحث عن شيء آخر';
 	@override String get discover_title => 'اكتشف الأفلام';
 	@override String get discover_subtitle => 'ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية';
+	@override String get recent_searches => 'عمليات البحث الأخيرة';
+	@override String get clear => 'مسح';
+	@override String get browse_categories => 'تصفح الفئات';
+	@override String get browse_all => 'تصفح الكل';
+	@override String get top_rated_badge => 'الأعلى تقييماً';
+	@override String get browse => 'تصفح';
 }
 
 // Path: profile
@@ -108,6 +116,7 @@ class _Translations$profile$ar extends Translations$profile$en {
 	@override String get my_ratings => 'تقييماتي';
 	@override String get account => 'الحساب';
 	@override String get logout => 'تسجيل الخروج';
+	@override String get default_name => 'مشاهد CineVault';
 }
 
 // Path: settings
@@ -120,6 +129,9 @@ class _Translations$settings$ar extends Translations$settings$en {
 	@override String get title => 'الإعدادات';
 	@override String get language => 'اللغة';
 	@override String get dark_mode => 'الوضع الليلي';
+	@override String get lang_en => 'الإنجليزية';
+	@override String get lang_ku => 'الكردية';
+	@override String get lang_ar => 'العربية';
 }
 
 // Path: auth
@@ -199,6 +211,47 @@ class _Translations$movie_detail$ar extends Translations$movie_detail$en {
 	@override String get saved_rating => 'تم حفظ التقييم: ';
 	@override late final _Translations$movie_detail$prompts$ar prompts = _Translations$movie_detail$prompts$ar._(_root);
 	@override late final _Translations$movie_detail$actions$ar actions = _Translations$movie_detail$actions$ar._(_root);
+	@override String get play_trailer => 'تشغيل المقطع الدعائي';
+	@override String get watch_trailer => 'مشاهدة المقطع الدعائي';
+	@override String get on_youtube => 'على يوتيوب';
+	@override String get favorite => 'مفضلة';
+	@override String get watch => 'مشاهدة';
+	@override String get release_today => 'اليوم';
+	@override String get release_1_day => 'يوم واحد';
+	@override String get release_days => 'أيام';
+	@override String get added_to_watch_later => 'تمت الإضافة إلى شاهد لاحقاً';
+	@override String get director => 'المخرج';
+	@override String get cast => 'طاقم التمثيل';
+	@override String get you_might_also_like => 'قد يعجبك أيضاً';
+}
+
+// Path: actor
+class _Translations$actor$ar extends Translations$actor$en {
+	_Translations$actor$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get born => 'تاريخ الميلاد:';
+	@override String get biography => 'السيرة الذاتية';
+	@override String get filmography => 'قائمة الأفلام';
+}
+
+// Path: tv
+class _Translations$tv$ar extends Translations$tv$en {
+	_Translations$tv$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get popular => 'الشائع';
+	@override String get top_rated => 'الأعلى تقييماً';
+	@override String get airing_today => 'يُعرض اليوم';
+	@override String get on_the_air => 'يُعرض الآن';
+	@override String get action => 'أكشن';
+	@override String get comedy => 'كوميديا';
+	@override String get drama => 'دراما';
+	@override String get sci_fi_fantasy => 'خيال علمي وفانتازيا';
 }
 
 // Path: common
@@ -216,6 +269,10 @@ class _Translations$common$ar extends Translations$common$en {
 	@override String get cine_stream => 'CineStream';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get error_title => 'حدث خطأ ما';
+	@override String get see_all => 'عرض الكل';
+	@override String get back_to_browse => 'العودة للتصفح';
+	@override String get collection => 'المجموعة';
+	@override String get my_movie => 'My Movie';
 }
 
 // Path: connectivity
@@ -402,6 +459,12 @@ extension on TranslationsAr {
 			'search.no_results_subtitle' => 'حاول البحث عن شيء آخر',
 			'search.discover_title' => 'اكتشف الأفلام',
 			'search.discover_subtitle' => 'ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية',
+			'search.recent_searches' => 'عمليات البحث الأخيرة',
+			'search.clear' => 'مسح',
+			'search.browse_categories' => 'تصفح الفئات',
+			'search.browse_all' => 'تصفح الكل',
+			'search.top_rated_badge' => 'الأعلى تقييماً',
+			'search.browse' => 'تصفح',
 			'profile.title' => 'الملف الشخصي',
 			'profile.my_activity' => 'نشاطي',
 			'profile.watch_later' => 'شاهد لاحقاً',
@@ -411,9 +474,13 @@ extension on TranslationsAr {
 			'profile.my_ratings' => 'تقييماتي',
 			'profile.account' => 'الحساب',
 			'profile.logout' => 'تسجيل الخروج',
+			'profile.default_name' => 'مشاهد CineVault',
 			'settings.title' => 'الإعدادات',
 			'settings.language' => 'اللغة',
 			'settings.dark_mode' => 'الوضع الليلي',
+			'settings.lang_en' => 'الإنجليزية',
+			'settings.lang_ku' => 'الكردية',
+			'settings.lang_ar' => 'العربية',
 			'auth.login' => 'تسجيل الدخول',
 			'auth.signup' => 'إنشاء حساب',
 			'auth.create_account' => 'إنشاء حساب',
@@ -472,6 +539,29 @@ extension on TranslationsAr {
 			'movie_detail.prompts.slide_to_rate' => 'اسحب لتحديد تقييمك',
 			'movie_detail.actions.add_watch_later' => 'الإضافة إلى قائمة المشاهدة لاحقاً',
 			'movie_detail.actions.rate_movies' => 'تقييم الأفلام',
+			'movie_detail.play_trailer' => 'تشغيل المقطع الدعائي',
+			'movie_detail.watch_trailer' => 'مشاهدة المقطع الدعائي',
+			'movie_detail.on_youtube' => 'على يوتيوب',
+			'movie_detail.favorite' => 'مفضلة',
+			'movie_detail.watch' => 'مشاهدة',
+			'movie_detail.release_today' => 'اليوم',
+			'movie_detail.release_1_day' => 'يوم واحد',
+			'movie_detail.release_days' => 'أيام',
+			'movie_detail.added_to_watch_later' => 'تمت الإضافة إلى شاهد لاحقاً',
+			'movie_detail.director' => 'المخرج',
+			'movie_detail.cast' => 'طاقم التمثيل',
+			'movie_detail.you_might_also_like' => 'قد يعجبك أيضاً',
+			'actor.born' => 'تاريخ الميلاد:',
+			'actor.biography' => 'السيرة الذاتية',
+			'actor.filmography' => 'قائمة الأفلام',
+			'tv.popular' => 'الشائع',
+			'tv.top_rated' => 'الأعلى تقييماً',
+			'tv.airing_today' => 'يُعرض اليوم',
+			'tv.on_the_air' => 'يُعرض الآن',
+			'tv.action' => 'أكشن',
+			'tv.comedy' => 'كوميديا',
+			'tv.drama' => 'دراما',
+			'tv.sci_fi_fantasy' => 'خيال علمي وفانتازيا',
 			'common.cancel' => 'إلغاء',
 			'common.submit' => 'إرسال التقييم',
 			'common.cinema' => 'السينما',
@@ -480,6 +570,10 @@ extension on TranslationsAr {
 			'common.cine_stream' => 'CineStream',
 			'common.retry' => 'إعادة المحاولة',
 			'common.error_title' => 'حدث خطأ ما',
+			'common.see_all' => 'عرض الكل',
+			'common.back_to_browse' => 'العودة للتصفح',
+			'common.collection' => 'المجموعة',
+			'common.my_movie' => 'My Movie',
 			'connectivity.title' => 'لا يوجد اتصال بالإنترنت',
 			'connectivity.description' => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movie يتطلب اتصالًا نشطًا بالإنترنت للعمل بشكل صحيح.',
 			'connectivity.troubleshooting_title' => 'نصائح لاستكشاف الأخطاء وإصلاحها:',

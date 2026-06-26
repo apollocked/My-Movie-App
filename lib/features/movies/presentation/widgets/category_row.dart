@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
@@ -144,9 +145,9 @@ class _CategoryRowState extends State<CategoryRow> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('See All',
-                    style: TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.w600)),
+                Text(t.common.see_all,
+                    style:
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                 const SizedBox(width: 2),
                 Icon(Icons.arrow_forward_ios_rounded,
                     size: 10, color: theme.primaryColor),

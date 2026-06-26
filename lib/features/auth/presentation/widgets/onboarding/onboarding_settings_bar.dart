@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
 import 'dart:ui';
@@ -46,10 +47,10 @@ class OnboardingSettingsBar extends StatelessWidget {
                 icon: const Icon(Icons.language_rounded, size: 20, color: Colors.white),
                 dropdownColor: theme.cardColor,
                 style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                items: const [
-                  DropdownMenuItem(value: 'en', child: Text('EN')),
-                  DropdownMenuItem(value: 'ku', child: Text('KU')),
-                  DropdownMenuItem(value: 'ar', child: Text('AR')),
+                items: [
+                  DropdownMenuItem(value: 'en', child: Text(t.settings.lang_en)),
+                  DropdownMenuItem(value: 'ku', child: Text(t.settings.lang_ku)),
+                  DropdownMenuItem(value: 'ar', child: Text(t.settings.lang_ar)),
                 ],
                 onChanged: (value) {
                   if (value != null) {

@@ -91,7 +91,7 @@ class ProfilePage extends StatelessWidget {
             child: const Icon(Icons.person, size: 50, color: Colors.white),
           ),
           const SizedBox(height: 20),
-          Text(name ?? 'CineVault Moviegoer',
+          Text(name ?? t.profile.default_name,
               style: theme.textTheme.headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),

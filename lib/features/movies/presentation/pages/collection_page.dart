@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/collection_grid.dart';
@@ -18,11 +17,6 @@ class CollectionPage extends StatelessWidget {
     final theme = Theme.of(context);
     final service = CollectionService();
 
-    String translatedTitle = title;
-    if (title == 'Watch Later') translatedTitle = t.profile.watch_later;
-    if (title == 'My Favorites') translatedTitle = t.profile.my_favorites;
-    if (title == 'My Ratings') translatedTitle = t.profile.my_ratings;
-
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
@@ -37,7 +31,7 @@ class CollectionPage extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            Text(translatedTitle,
+            Text(title,
                 style: const TextStyle(fontWeight: FontWeight.w700)),
           ],
         ),

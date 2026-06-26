@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
 class CastSection extends StatelessWidget {
@@ -18,7 +19,7 @@ class CastSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (crew.isNotEmpty) ...[
-          _buildSectionHeader(theme, 'Director'),
+          _buildSectionHeader(theme, t.movie_detail.director),
           const SizedBox(height: 12),
           ...crew
               .where((c) => c['job'] == 'Director')
@@ -39,7 +40,7 @@ class CastSection extends StatelessWidget {
           const SizedBox(height: 20),
         ],
         if (cast.isNotEmpty) ...[
-          _buildSectionHeader(theme, 'Cast'),
+          _buildSectionHeader(theme, t.movie_detail.cast),
           const SizedBox(height: 14),
           SizedBox(
             height: 130,

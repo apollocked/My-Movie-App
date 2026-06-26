@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import '../../features/movies/domain/entities/movie.dart';
 import '../../features/movies/presentation/pages/main_navigation_shell.dart';
 import '../../features/movies/presentation/pages/home_page.dart';
@@ -100,7 +101,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       builder: (context, state) {
         final endpoint = state.pathParameters['encodedEndpoint']!;
         final decoded = Uri.decodeComponent(endpoint);
-        final title = state.extra is String ? state.extra as String : 'Browse';
+        final title = state.extra is String ? state.extra as String : t.search.browse;
         return SeeAllPage(title: title, endpoint: decoded);
       },
     ),
@@ -127,10 +128,10 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
         final type = state.pathParameters['type']!;
-        String title = 'Collection';
-        if (type == 'watch_later') title = 'Watch Later';
-        if (type == 'favorites') title = 'My Favorites';
-        if (type == 'ratings') title = 'My Ratings';
+        String title = t.common.collection;
+        if (type == 'watch_later') title = t.profile.watch_later;
+        if (type == 'favorites') title = t.profile.my_favorites;
+        if (type == 'ratings') title = t.profile.my_ratings;
         return CollectionPage(title: title, collectionPath: type);
       },
     ),

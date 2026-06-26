@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_poster_card.dart';
@@ -53,7 +54,7 @@ class RecommendationsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Text('You Might Also Like',
+        Text(t.movie_detail.you_might_also_like,
             style: theme.textTheme.titleMedium
                 ?.copyWith(fontWeight: FontWeight.w700)),
       ],

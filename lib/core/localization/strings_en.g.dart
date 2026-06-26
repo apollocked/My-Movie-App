@@ -48,6 +48,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$onboarding$en onboarding = Translations$onboarding$en.internal(_root);
 	late final Translations$guest_features$en guest_features = Translations$guest_features$en.internal(_root);
 	late final Translations$movie_detail$en movie_detail = Translations$movie_detail$en.internal(_root);
+	late final Translations$actor$en actor = Translations$actor$en.internal(_root);
+	late final Translations$tv$en tv = Translations$tv$en.internal(_root);
 	late final Translations$common$en common = Translations$common$en.internal(_root);
 	late final Translations$connectivity$en connectivity = Translations$connectivity$en.internal(_root);
 	late final Translations$not_found$en not_found = Translations$not_found$en.internal(_root);
@@ -134,6 +136,24 @@ class Translations$search$en {
 
 	/// en: 'Start typing to explore millions of movies and TV shows'
 	String get discover_subtitle => 'Start typing to explore millions of movies and TV shows';
+
+	/// en: 'Recent Searches'
+	String get recent_searches => 'Recent Searches';
+
+	/// en: 'Clear'
+	String get clear => 'Clear';
+
+	/// en: 'Browse Categories'
+	String get browse_categories => 'Browse Categories';
+
+	/// en: 'Browse All'
+	String get browse_all => 'Browse All';
+
+	/// en: 'TOP RATED'
+	String get top_rated_badge => 'TOP RATED';
+
+	/// en: 'Browse'
+	String get browse => 'Browse';
 }
 
 // Path: profile
@@ -170,6 +190,9 @@ class Translations$profile$en {
 
 	/// en: 'Log Out'
 	String get logout => 'Log Out';
+
+	/// en: 'CineVault Moviegoer'
+	String get default_name => 'CineVault Moviegoer';
 }
 
 // Path: settings
@@ -188,6 +211,15 @@ class Translations$settings$en {
 
 	/// en: 'Dark Mode'
 	String get dark_mode => 'Dark Mode';
+
+	/// en: 'English'
+	String get lang_en => 'English';
+
+	/// en: 'Kurdish'
+	String get lang_ku => 'Kurdish';
+
+	/// en: 'Arabic'
+	String get lang_ar => 'Arabic';
 }
 
 // Path: auth
@@ -339,6 +371,93 @@ class Translations$movie_detail$en {
 
 	late final Translations$movie_detail$prompts$en prompts = Translations$movie_detail$prompts$en.internal(_root);
 	late final Translations$movie_detail$actions$en actions = Translations$movie_detail$actions$en.internal(_root);
+
+	/// en: 'Play Trailer'
+	String get play_trailer => 'Play Trailer';
+
+	/// en: 'Watch Trailer'
+	String get watch_trailer => 'Watch Trailer';
+
+	/// en: 'on YouTube'
+	String get on_youtube => 'on YouTube';
+
+	/// en: 'Favorite'
+	String get favorite => 'Favorite';
+
+	/// en: 'Watch'
+	String get watch => 'Watch';
+
+	/// en: 'Today'
+	String get release_today => 'Today';
+
+	/// en: '1 day'
+	String get release_1_day => '1 day';
+
+	/// en: 'days'
+	String get release_days => 'days';
+
+	/// en: 'Added to Watch Later'
+	String get added_to_watch_later => 'Added to Watch Later';
+
+	/// en: 'Director'
+	String get director => 'Director';
+
+	/// en: 'Cast'
+	String get cast => 'Cast';
+
+	/// en: 'You Might Also Like'
+	String get you_might_also_like => 'You Might Also Like';
+}
+
+// Path: actor
+class Translations$actor$en {
+	Translations$actor$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Born:'
+	String get born => 'Born:';
+
+	/// en: 'Biography'
+	String get biography => 'Biography';
+
+	/// en: 'Filmography'
+	String get filmography => 'Filmography';
+}
+
+// Path: tv
+class Translations$tv$en {
+	Translations$tv$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Popular'
+	String get popular => 'Popular';
+
+	/// en: 'Top Rated'
+	String get top_rated => 'Top Rated';
+
+	/// en: 'Airing Today'
+	String get airing_today => 'Airing Today';
+
+	/// en: 'On The Air'
+	String get on_the_air => 'On The Air';
+
+	/// en: 'Action'
+	String get action => 'Action';
+
+	/// en: 'Comedy'
+	String get comedy => 'Comedy';
+
+	/// en: 'Drama'
+	String get drama => 'Drama';
+
+	/// en: 'Sci-Fi & Fantasy'
+	String get sci_fi_fantasy => 'Sci-Fi & Fantasy';
 }
 
 // Path: common
@@ -372,6 +491,18 @@ class Translations$common$en {
 
 	/// en: 'Something went wrong'
 	String get error_title => 'Something went wrong';
+
+	/// en: 'See All'
+	String get see_all => 'See All';
+
+	/// en: 'Back to Browse'
+	String get back_to_browse => 'Back to Browse';
+
+	/// en: 'Collection'
+	String get collection => 'Collection';
+
+	/// en: 'My Movie'
+	String get my_movie => 'My Movie';
 }
 
 // Path: connectivity
@@ -643,6 +774,12 @@ extension on Translations {
 			'search.no_results_subtitle' => 'Try searching for something else',
 			'search.discover_title' => 'Discover Movies',
 			'search.discover_subtitle' => 'Start typing to explore millions of movies and TV shows',
+			'search.recent_searches' => 'Recent Searches',
+			'search.clear' => 'Clear',
+			'search.browse_categories' => 'Browse Categories',
+			'search.browse_all' => 'Browse All',
+			'search.top_rated_badge' => 'TOP RATED',
+			'search.browse' => 'Browse',
 			'profile.title' => 'Profile',
 			'profile.my_activity' => 'My Activity',
 			'profile.watch_later' => 'Watch Later',
@@ -652,9 +789,13 @@ extension on Translations {
 			'profile.my_ratings' => 'My Ratings',
 			'profile.account' => 'Account',
 			'profile.logout' => 'Log Out',
+			'profile.default_name' => 'CineVault Moviegoer',
 			'settings.title' => 'Setup',
 			'settings.language' => 'Language',
 			'settings.dark_mode' => 'Dark Mode',
+			'settings.lang_en' => 'English',
+			'settings.lang_ku' => 'Kurdish',
+			'settings.lang_ar' => 'Arabic',
 			'auth.login' => 'Login',
 			'auth.signup' => 'Sign up',
 			'auth.create_account' => 'Create Account',
@@ -713,6 +854,29 @@ extension on Translations {
 			'movie_detail.prompts.slide_to_rate' => 'Slide to set your rating',
 			'movie_detail.actions.add_watch_later' => 'add to Watch Later',
 			'movie_detail.actions.rate_movies' => 'rate movies',
+			'movie_detail.play_trailer' => 'Play Trailer',
+			'movie_detail.watch_trailer' => 'Watch Trailer',
+			'movie_detail.on_youtube' => 'on YouTube',
+			'movie_detail.favorite' => 'Favorite',
+			'movie_detail.watch' => 'Watch',
+			'movie_detail.release_today' => 'Today',
+			'movie_detail.release_1_day' => '1 day',
+			'movie_detail.release_days' => 'days',
+			'movie_detail.added_to_watch_later' => 'Added to Watch Later',
+			'movie_detail.director' => 'Director',
+			'movie_detail.cast' => 'Cast',
+			'movie_detail.you_might_also_like' => 'You Might Also Like',
+			'actor.born' => 'Born:',
+			'actor.biography' => 'Biography',
+			'actor.filmography' => 'Filmography',
+			'tv.popular' => 'Popular',
+			'tv.top_rated' => 'Top Rated',
+			'tv.airing_today' => 'Airing Today',
+			'tv.on_the_air' => 'On The Air',
+			'tv.action' => 'Action',
+			'tv.comedy' => 'Comedy',
+			'tv.drama' => 'Drama',
+			'tv.sci_fi_fantasy' => 'Sci-Fi & Fantasy',
 			'common.cancel' => 'Cancel',
 			'common.submit' => 'Submit Rating',
 			'common.cinema' => 'Cinema',
@@ -721,6 +885,10 @@ extension on Translations {
 			'common.cine_stream' => 'CineStream',
 			'common.retry' => 'Retry',
 			'common.error_title' => 'Something went wrong',
+			'common.see_all' => 'See All',
+			'common.back_to_browse' => 'Back to Browse',
+			'common.collection' => 'Collection',
+			'common.my_movie' => 'My Movie',
 			'connectivity.title' => 'No Internet Connection',
 			'connectivity.description' => 'Please check your internet connection and try again. My Movie app requires an active internet connection to function properly.',
 			'connectivity.troubleshooting_title' => 'Troubleshooting Tips:',

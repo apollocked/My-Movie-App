@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import '../blocs/auth_bloc.dart';
 import '../blocs/auth_event.dart';
 
@@ -56,7 +57,7 @@ class AuthNavigationLinks extends StatelessWidget {
             ),
             icon: Icon(Icons.arrow_back, color: theme.primaryColor),
             label: Text(
-              'Back to Browse',
+              t.common.back_to_browse,
               style: TextStyle(color: theme.primaryColor),
             ),
             onPressed: () {

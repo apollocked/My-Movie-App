@@ -28,30 +28,30 @@ class _CategoryBrowserSheetState extends State<CategoryBrowserSheet> {
     final bottomPad = MediaQuery.of(context).padding.bottom;
 
     final movieCats = [
-      CategoryData(t.home.top_rated, '/movie/top_rated', Icons.trending_up_rounded, 'Movies'),
-      CategoryData(t.home.now_playing, '/movie/now_playing', Icons.play_circle_outline_rounded, 'Movies'),
-      CategoryData(t.home.popular, '/movie/popular', Icons.whatshot_rounded, 'Movies'),
-      CategoryData(t.home.upcoming, '/movie/upcoming', Icons.calendar_month_rounded, 'Movies'),
-      CategoryData(t.home.action, '/discover/movie?with_genres=28', Icons.flash_on_rounded, 'Movies'),
-      CategoryData(t.home.sci_fi, '/discover/movie?with_genres=878', Icons.rocket_launch_rounded, 'Movies'),
-      CategoryData(t.home.horror, '/discover/movie?with_genres=27', Icons.dangerous_rounded, 'Movies'),
-      CategoryData(t.home.drama, '/discover/movie?with_genres=18', Icons.theater_comedy_rounded, 'Movies'),
-      CategoryData(t.home.comedy, '/discover/movie?with_genres=35', Icons.sentiment_satisfied_rounded, 'Movies'),
-      CategoryData(t.home.romance, '/discover/movie?with_genres=10749', Icons.favorite_rounded, 'Movies'),
-      CategoryData(t.home.thriller, '/discover/movie?with_genres=53', Icons.visibility_rounded, 'Movies'),
-      CategoryData(t.home.animation, '/discover/movie?with_genres=16', Icons.animation_rounded, 'Movies'),
-      CategoryData(t.home.mystery, '/discover/movie?with_genres=9648', Icons.search_outlined, 'Movies'),
+      CategoryData(t.home.top_rated, '/movie/top_rated', Icons.trending_up_rounded, t.search.filters.movies),
+      CategoryData(t.home.now_playing, '/movie/now_playing', Icons.play_circle_outline_rounded, t.search.filters.movies),
+      CategoryData(t.home.popular, '/movie/popular', Icons.whatshot_rounded, t.search.filters.movies),
+      CategoryData(t.home.upcoming, '/movie/upcoming', Icons.calendar_month_rounded, t.search.filters.movies),
+      CategoryData(t.home.action, '/discover/movie?with_genres=28', Icons.flash_on_rounded, t.search.filters.movies),
+      CategoryData(t.home.sci_fi, '/discover/movie?with_genres=878', Icons.rocket_launch_rounded, t.search.filters.movies),
+      CategoryData(t.home.horror, '/discover/movie?with_genres=27', Icons.dangerous_rounded, t.search.filters.movies),
+      CategoryData(t.home.drama, '/discover/movie?with_genres=18', Icons.theater_comedy_rounded, t.search.filters.movies),
+      CategoryData(t.home.comedy, '/discover/movie?with_genres=35', Icons.sentiment_satisfied_rounded, t.search.filters.movies),
+      CategoryData(t.home.romance, '/discover/movie?with_genres=10749', Icons.favorite_rounded, t.search.filters.movies),
+      CategoryData(t.home.thriller, '/discover/movie?with_genres=53', Icons.visibility_rounded, t.search.filters.movies),
+      CategoryData(t.home.animation, '/discover/movie?with_genres=16', Icons.animation_rounded, t.search.filters.movies),
+      CategoryData(t.home.mystery, '/discover/movie?with_genres=9648', Icons.search_outlined, t.search.filters.movies),
     ];
 
     final tvCats = [
-      CategoryData('Popular', '/tv/popular', Icons.whatshot_rounded, 'TV Shows'),
-      CategoryData('Top Rated', '/tv/top_rated', Icons.trending_up_rounded, 'TV Shows'),
-      CategoryData('Airing Today', '/tv/airing_today', Icons.today_rounded, 'TV Shows'),
-      CategoryData('On The Air', '/tv/on_the_air', Icons.live_tv_rounded, 'TV Shows'),
-      CategoryData('Action', '/discover/tv?with_genres=10759', Icons.flash_on_rounded, 'TV Shows'),
-      CategoryData('Comedy', '/discover/tv?with_genres=35', Icons.sentiment_satisfied_rounded, 'TV Shows'),
-      CategoryData('Drama', '/discover/tv?with_genres=18', Icons.theater_comedy_rounded, 'TV Shows'),
-      CategoryData('Sci-Fi & Fantasy', '/discover/tv?with_genres=10765', Icons.rocket_launch_rounded, 'TV Shows'),
+      CategoryData(t.tv.popular, '/tv/popular', Icons.whatshot_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.top_rated, '/tv/top_rated', Icons.trending_up_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.airing_today, '/tv/airing_today', Icons.today_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.on_the_air, '/tv/on_the_air', Icons.live_tv_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.action, '/discover/tv?with_genres=10759', Icons.flash_on_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.comedy, '/discover/tv?with_genres=35', Icons.sentiment_satisfied_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.drama, '/discover/tv?with_genres=18', Icons.theater_comedy_rounded, t.search.filters.tv_shows),
+      CategoryData(t.tv.sci_fi_fantasy, '/discover/tv?with_genres=10765', Icons.rocket_launch_rounded, t.search.filters.tv_shows),
     ];
 
     return Container(
@@ -69,7 +69,7 @@ class _CategoryBrowserSheetState extends State<CategoryBrowserSheet> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Browse All', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
+                  Text(t.search.browse_all, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Container(
@@ -101,7 +101,7 @@ class _CategoryBrowserSheetState extends State<CategoryBrowserSheet> {
                   labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
                   unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                   dividerColor: Colors.transparent,
-                  tabs: const [Tab(text: 'Movies'), Tab(text: 'TV Shows')],
+                  tabs: [Tab(text: t.search.filters.movies), Tab(text: t.search.filters.tv_shows)],
                 ),
               ),
             ),

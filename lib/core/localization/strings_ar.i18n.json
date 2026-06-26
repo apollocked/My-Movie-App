@@ -28,7 +28,13 @@
     },
     "no_results_subtitle": "حاول البحث عن شيء آخر",
     "discover_title": "اكتشف الأفلام",
-    "discover_subtitle": "ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية"
+    "discover_subtitle": "ابدأ الكتابة لاستكشاف ملايين الأفلام والبرامج التلفزيونية",
+    "recent_searches": "عمليات البحث الأخيرة",
+    "clear": "مسح",
+    "browse_categories": "تصفح الفئات",
+    "browse_all": "تصفح الكل",
+    "top_rated_badge": "الأعلى تقييماً",
+    "browse": "تصفح"
   },
   "profile": {
     "title": "الملف الشخصي",
@@ -39,12 +45,16 @@
     "ratings": "تقييماتي",
     "my_ratings": "تقييماتي",
     "account": "الحساب",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "default_name": "مشاهد CineVault"
   },
   "settings": {
     "title": "الإعدادات",
     "language": "اللغة",
-    "dark_mode": "الوضع الليلي"
+    "dark_mode": "الوضع الليلي",
+    "lang_en": "الإنجليزية",
+    "lang_ku": "الكردية",
+    "lang_ar": "العربية"
   },
   "auth": {
     "login": "تسجيل الدخول",
@@ -126,7 +136,34 @@
     "actions": {
       "add_watch_later": "الإضافة إلى قائمة المشاهدة لاحقاً",
       "rate_movies": "تقييم الأفلام"
-    }
+    },
+    "play_trailer": "تشغيل المقطع الدعائي",
+    "watch_trailer": "مشاهدة المقطع الدعائي",
+    "on_youtube": "على يوتيوب",
+    "favorite": "مفضلة",
+    "watch": "مشاهدة",
+    "release_today": "اليوم",
+    "release_1_day": "يوم واحد",
+    "release_days": "أيام",
+    "added_to_watch_later": "تمت الإضافة إلى شاهد لاحقاً",
+    "director": "المخرج",
+    "cast": "طاقم التمثيل",
+    "you_might_also_like": "قد يعجبك أيضاً"
+  },
+  "actor": {
+    "born": "تاريخ الميلاد:",
+    "biography": "السيرة الذاتية",
+    "filmography": "قائمة الأفلام"
+  },
+  "tv": {
+    "popular": "الشائع",
+    "top_rated": "الأعلى تقييماً",
+    "airing_today": "يُعرض اليوم",
+    "on_the_air": "يُعرض الآن",
+    "action": "أكشن",
+    "comedy": "كوميديا",
+    "drama": "دراما",
+    "sci_fi_fantasy": "خيال علمي وفانتازيا"
   },
   "common": {
     "cancel": "إلغاء",
@@ -136,7 +173,11 @@
     "empty_list": "قائمتك فارغة حالياً",
     "cine_stream": "CineStream",
     "retry": "إعادة المحاولة",
-    "error_title": "حدث خطأ ما"
+    "error_title": "حدث خطأ ما",
+    "see_all": "عرض الكل",
+    "back_to_browse": "العودة للتصفح",
+    "collection": "المجموعة",
+    "my_movie": "My Movie"
   },
   "connectivity": {
     "title": "لا يوجد اتصال بالإنترنت",

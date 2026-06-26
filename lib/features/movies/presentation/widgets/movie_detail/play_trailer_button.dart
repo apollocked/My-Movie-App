@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlayTrailerButton extends StatelessWidget {
@@ -51,12 +52,14 @@ class PlayTrailerButton extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Watch Trailer',
+                  Text(t.movie_detail.watch_trailer,
+
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 15,
                           color: Colors.white)),
-                  Text('on YouTube',
+                  Text(t.movie_detail.on_youtube,
+                  
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
