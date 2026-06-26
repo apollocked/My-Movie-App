@@ -18,6 +18,8 @@ import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:my_movie/common/ui/offline_banner.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -107,21 +109,33 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
             builder: (context, child) =>
-                _buildConnectivityOverlay(context, child),
+                _buildOfflineWrapper(context, child),
           );
         },
       ),
     );
   }
 
-  Widget _buildConnectivityOverlay(BuildContext context, Widget? child) {
+  Widget _buildOfflineWrapper(BuildContext context, Widget? child) {
     return BlocListener<ConnectivityCubit, ConnectivityState>(
+      listenWhen: (prev, cur) => prev is ConnectivityOnline && cur is ConnectivityOffline,
       listener: (context, state) {
-        if (state is ConnectivityOffline && _router.routerDelegate.currentConfiguration.uri.path != '/no-internet') {
-          _router.push('/no-internet');
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(t.connectivity.offline_banner),
+            backgroundColor: AppColors.errorRed.withValues(alpha: 0.9),
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 3),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          ));
         }
       },
-      child: child ?? const SizedBox.shrink(),
+      child: Column(
+        children: [
+          const OfflineBanner(),
+          Expanded(child: child ?? const SizedBox.shrink()),
+        ],
+      ),
     );
   }
 }

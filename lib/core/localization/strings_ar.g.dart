@@ -231,6 +231,8 @@ class _Translations$connectivity$ar extends Translations$connectivity$en {
 	@override late final _Translations$connectivity$tips$ar tips = _Translations$connectivity$tips$ar._(_root);
 	@override String get check_connection => 'جارٍ التحقق من الاتصال...';
 	@override String get retry => 'إعادة المحاولة';
+	@override String get offline_banner => 'أنت غير متصل — قد تكون بعض الميزات محدودة';
+	@override String get browse_watch_later => 'تصفح شاهد لاحقاً';
 }
 
 // Path: not_found
@@ -487,6 +489,8 @@ extension on TranslationsAr {
 			'connectivity.tips.restart_device' => '✓ أعد تشغيل جهازك',
 			'connectivity.check_connection' => 'جارٍ التحقق من الاتصال...',
 			'connectivity.retry' => 'إعادة المحاولة',
+			'connectivity.offline_banner' => 'أنت غير متصل — قد تكون بعض الميزات محدودة',
+			'connectivity.browse_watch_later' => 'تصفح شاهد لاحقاً',
 			'not_found.title' => 'الصفحة غير موجودة',
 			'not_found.title_404' => '404 - الصفحة غير موجودة',
 			'not_found.subtitle' => 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',

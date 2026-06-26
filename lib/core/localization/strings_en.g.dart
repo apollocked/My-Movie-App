@@ -398,6 +398,12 @@ class Translations$connectivity$en {
 
 	/// en: 'Retry'
 	String get retry => 'Retry';
+
+	/// en: 'You're offline — some features may be limited'
+	String get offline_banner => 'You\'re offline — some features may be limited';
+
+	/// en: 'Browse Watch Later'
+	String get browse_watch_later => 'Browse Watch Later';
 }
 
 // Path: not_found
@@ -724,6 +730,8 @@ extension on Translations {
 			'connectivity.tips.restart_device' => '✓ Restart your device',
 			'connectivity.check_connection' => 'Checking connection...',
 			'connectivity.retry' => 'Retry',
+			'connectivity.offline_banner' => 'You\'re offline — some features may be limited',
+			'connectivity.browse_watch_later' => 'Browse Watch Later',
 			'not_found.title' => 'Page Not Found',
 			'not_found.title_404' => '404 - Page Not Found',
 			'not_found.subtitle' => 'The page you are looking for does not exist or has been moved.',

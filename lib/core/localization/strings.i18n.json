@@ -149,7 +149,9 @@
       "restart_device": "✓ Restart your device"
     },
     "check_connection": "Checking connection...",
-    "retry": "Retry"
+    "retry": "Retry",
+    "offline_banner": "You're offline — some features may be limited",
+    "browse_watch_later": "Browse Watch Later"
   },
   "not_found": {
     "title": "Page Not Found",

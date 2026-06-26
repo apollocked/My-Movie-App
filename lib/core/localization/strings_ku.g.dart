@@ -231,6 +231,8 @@ class _Translations$connectivity$ku extends Translations$connectivity$en {
 	@override late final _Translations$connectivity$tips$ku tips = _Translations$connectivity$tips$ku._(_root);
 	@override String get check_connection => 'پەیوەندیدان دابین دەکرێت...';
 	@override String get retry => 'دووبارە هەوڵبدەرەوە';
+	@override String get offline_banner => 'تۆ بە ئۆفلاینیت — هەندێک خزمەتگوزاری سنووردارن';
+	@override String get browse_watch_later => 'بگەڕێ بۆ دواتر سەیرکردن';
 }
 
 // Path: not_found
@@ -487,6 +489,8 @@ extension on TranslationsKu {
 			'connectivity.tips.restart_device' => '✓ دوبارە جیهانێت کار پێ بکە',
 			'connectivity.check_connection' => 'پەیوەندیدان دابین دەکرێت...',
 			'connectivity.retry' => 'دووبارە هەوڵبدەرەوە',
+			'connectivity.offline_banner' => 'تۆ بە ئۆفلاینیت — هەندێک خزمەتگوزاری سنووردارن',
+			'connectivity.browse_watch_later' => 'بگەڕێ بۆ دواتر سەیرکردن',
 			'not_found.title' => 'پەڕەکە نەدۆزرایەوە',
 			'not_found.title_404' => '404 - پەڕەکە نەدۆزرایەوە',
 			'not_found.subtitle' => 'ئەو پەڕەیەی بەدوایدا دەگەڕێیت بوونی نییە یان گواستراوەتەوە.',
