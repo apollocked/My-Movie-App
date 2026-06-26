@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'movie_network_image.dart';
@@ -47,12 +48,16 @@ class _MovieSwipeCardState extends State<MovieSwipeCard> with SingleTickerProvid
 
   void _animateBack() {
     final begin = _drag;
-    _snapCtrl.addListener(() {
+    void listener() {
       if (mounted) setState(() => _drag = Offset.lerp(begin, Offset.zero, _snapCtrl.value)!);
-    });
+    }
+    _snapCtrl.addListener(listener);
     _snapCtrl.forward(from: 0);
     _snapCtrl.addStatusListener((s) {
-      if (s == AnimationStatus.completed) { setState(() { _drag = Offset.zero; _isDragging = false; }); }
+      if (s == AnimationStatus.completed) {
+        _snapCtrl.removeListener(listener);
+        setState(() { _drag = Offset.zero; _isDragging = false; });
+      }
     });
   }
 
@@ -128,7 +133,7 @@ class _MovieSwipeCardState extends State<MovieSwipeCard> with SingleTickerProvid
                       color: Colors.black54,
                     ),
                     child: Text(
-                      _dragRatio > 0 ? 'SAVE' : 'SKIP',
+                      _dragRatio > 0 ? t.swipe.save_label : t.swipe.skip_label,
                       style: TextStyle(
                         color: _dragRatio > 0 ? AppColors.successGreen : AppColors.errorRed,
                         fontSize: 32, fontWeight: FontWeight.w900, letterSpacing: 4,

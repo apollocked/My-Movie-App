@@ -21,9 +21,5 @@ class RecommendationRemoteDataSource {
     return results.map((json) => Movie.fromJson(json as Map<String, dynamic>)).toList();
   }
 
-  Future<List<Movie>> fetchPage(String endpoint, String language, {int page = 1}) async {
-    final data = await apiClient.get(endpoint, params: {'language': language, 'page': page});
-    final results = data['results'] as List;
-    return results.map((json) => Movie.fromJson(json as Map<String, dynamic>)).toList();
-  }
+
 }

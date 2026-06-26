@@ -54,6 +54,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$common$en common = Translations$common$en.internal(_root);
 	late final Translations$connectivity$en connectivity = Translations$connectivity$en.internal(_root);
 	late final Translations$not_found$en not_found = Translations$not_found$en.internal(_root);
+	late final Translations$swipe$en swipe = Translations$swipe$en.internal(_root);
 }
 
 // Path: home
@@ -616,6 +617,92 @@ class Translations$not_found$en {
 	String get return_home => 'Return to Home';
 }
 
+// Path: swipe
+class Translations$swipe$en {
+	Translations$swipe$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Swipe Suggest'
+	String get title => 'Swipe Suggest';
+
+	/// en: 'SAVE'
+	String get save_label => 'SAVE';
+
+	/// en: 'SKIP'
+	String get skip_label => 'SKIP';
+
+	/// en: 'NOPE'
+	String get nope_label => 'NOPE';
+
+	/// en: 'WATCH LATER'
+	String get watch_later_label => 'WATCH LATER';
+
+	/// en: 'Swipe right to save'
+	String get hint => 'Swipe right to save';
+
+	/// en: 'Something went wrong'
+	String get error_title => 'Something went wrong';
+
+	/// en: 'Try Again'
+	String get retry => 'Try Again';
+
+	/// en: 'No movies found. Try different filters.'
+	String get empty_no_movies => 'No movies found. Try different filters.';
+
+	/// en: 'Change Filters'
+	String get change_filters => 'Change Filters';
+
+	/// en: 'You're all caught up!'
+	String get all_caught_up => 'You\'re all caught up!';
+
+	/// en: 'No movies were added to watch later.'
+	String get no_movies_added => 'No movies were added to watch later.';
+
+	/// en: 'movie added to watch later!'
+	String get movie_added => 'movie added to watch later!';
+
+	/// en: 'movies added to watch later!'
+	String get movies_added => 'movies added to watch later!';
+
+	/// en: 'View Watch Later'
+	String get view_watch_later => 'View Watch Later';
+
+	/// en: 'Skip'
+	String get skip => 'Skip';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Select Genres'
+	String get select_genres => 'Select Genres';
+
+	/// en: 'Minimum Rating'
+	String get minimum_rating => 'Minimum Rating';
+
+	/// en: 'Release Year'
+	String get release_year => 'Release Year';
+
+	/// en: 'Sort By'
+	String get sort_by => 'Sort By';
+
+	/// en: 'Start Swiping'
+	String get start_swiping => 'Start Swiping';
+
+	/// en: 'From'
+	String get year_from => 'From';
+
+	/// en: 'To'
+	String get year_to => 'To';
+
+	/// en: 'Any'
+	String get year_any => 'Any';
+
+	late final Translations$swipe$sort_options$en sort_options = Translations$swipe$sort_options$en.internal(_root);
+}
+
 // Path: search.filters
 class Translations$search$filters$en {
 	Translations$search$filters$en.internal(this._root);
@@ -799,6 +886,30 @@ class Translations$connectivity$tips$en {
 	String get restart_device => '✓ Restart your device';
 }
 
+// Path: swipe.sort_options
+class Translations$swipe$sort_options$en {
+	Translations$swipe$sort_options$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Most Popular'
+	String get most_popular => 'Most Popular';
+
+	/// en: 'Highest Rated'
+	String get highest_rated => 'Highest Rated';
+
+	/// en: 'Newest First'
+	String get newest_first => 'Newest First';
+
+	/// en: 'Oldest First'
+	String get oldest_first => 'Oldest First';
+
+	/// en: 'Highest Revenue'
+	String get highest_revenue => 'Highest Revenue';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -978,6 +1089,36 @@ extension on Translations {
 			'not_found.title_404' => '404 - Page Not Found',
 			'not_found.subtitle' => 'The page you are looking for does not exist or has been moved.',
 			'not_found.return_home' => 'Return to Home',
+			'swipe.title' => 'Swipe Suggest',
+			'swipe.save_label' => 'SAVE',
+			'swipe.skip_label' => 'SKIP',
+			'swipe.nope_label' => 'NOPE',
+			'swipe.watch_later_label' => 'WATCH LATER',
+			'swipe.hint' => 'Swipe right to save',
+			'swipe.error_title' => 'Something went wrong',
+			'swipe.retry' => 'Try Again',
+			'swipe.empty_no_movies' => 'No movies found. Try different filters.',
+			'swipe.change_filters' => 'Change Filters',
+			'swipe.all_caught_up' => 'You\'re all caught up!',
+			'swipe.no_movies_added' => 'No movies were added to watch later.',
+			'swipe.movie_added' => 'movie added to watch later!',
+			'swipe.movies_added' => 'movies added to watch later!',
+			'swipe.view_watch_later' => 'View Watch Later',
+			'swipe.skip' => 'Skip',
+			'swipe.save' => 'Save',
+			'swipe.select_genres' => 'Select Genres',
+			'swipe.minimum_rating' => 'Minimum Rating',
+			'swipe.release_year' => 'Release Year',
+			'swipe.sort_by' => 'Sort By',
+			'swipe.start_swiping' => 'Start Swiping',
+			'swipe.year_from' => 'From',
+			'swipe.year_to' => 'To',
+			'swipe.year_any' => 'Any',
+			'swipe.sort_options.most_popular' => 'Most Popular',
+			'swipe.sort_options.highest_rated' => 'Highest Rated',
+			'swipe.sort_options.newest_first' => 'Newest First',
+			'swipe.sort_options.oldest_first' => 'Oldest First',
+			'swipe.sort_options.highest_revenue' => 'Highest Revenue',
 			_ => null,
 		};
 	}

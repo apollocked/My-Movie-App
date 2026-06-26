@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import '../blocs/recommendation_bloc.dart';
 import '../blocs/recommendation_event.dart';
@@ -50,7 +51,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
       appBar: AppBar(
-        title: const Text('Swipe Suggest'),
+        title: Text(t.swipe.title),
         centerTitle: true,
         actions: [
           BlocBuilder<RecommendationBloc, RecommendationState>(
@@ -69,7 +70,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
         builder: (_, state) {
           if (state is RecommendationLoading) return const Center(child: CircularProgressIndicator());
           if (state is RecommendationError) return ErrorSwipeView(message: state.message, onRetry: () => bloc.add(LoadRecommendations(filter: widget.filter, language: widget.language)));
-          if (state is RecommendationEmpty) return EmptySwipeView(message: state.message, onChangeFilters: () => Navigator.of(context).pop());
+          if (state is RecommendationEmpty) return EmptySwipeView(message: state.message.isNotEmpty ? state.message : t.swipe.empty_no_movies, onChangeFilters: () => Navigator.of(context).pop());
           if (state is AllSwiped) return AllSwipedView(count: state.watchLaterIds.length, onTryAgain: () { Navigator.of(context).pop(); bloc.add(ResetRecommendations()); });
           if (state is RecommendationLoaded) return _buildContent(state);
           return const SizedBox.shrink();
@@ -99,7 +100,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
             children: [
               Expanded(child: OutlinedButton.icon(onPressed: _onSkip,
                 icon: const Icon(Icons.close_rounded, size: 22),
-                label: const Text('Skip', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                label: Text(t.swipe.skip, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 style: OutlinedButton.styleFrom(foregroundColor: AppColors.textSecondaryDark,
                   side: BorderSide(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
                   padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
@@ -110,7 +111,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
               const SizedBox(width: 16),
               Expanded(child: ElevatedButton.icon(onPressed: _onSave,
                 icon: const Icon(Icons.bookmark_rounded, size: 22),
-                label: const Text('Save', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                label: Text(t.swipe.save, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.successGreen, foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), elevation: 0),
               )),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
-import 'package:my_movie/core/theme/app_colors.dart';
 import '../widgets/guest_profile_view.dart';
 import '../widgets/profile_widgets.dart';
+import '../widgets/profile_movie_section.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -29,31 +29,36 @@ class ProfilePage extends StatelessWidget {
               if (state is Authenticated) {
                 final user = state.user;
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 32),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildUserHeader(theme, user.displayName, user.email),
                       const SizedBox(height: 48),
                       ProfileSectionHeader(title: t.profile.my_activity),
-                      const SizedBox(height: 16),
-                      ProfileTile(
+                      const SizedBox(height: 8),
+                      ProfileMovieSection(
                         icon: Icons.bookmark_outline_rounded,
                         title: t.profile.watch_later,
-                        onTap: () => context.push('/collection/watch_later'),
+                        collectionType: 'watch_later',
+                        iconColor: AppColors.watchLaterGreen,
                       ),
-                      ProfileTile(
+                      const SizedBox(height: 8),
+                      ProfileMovieSection(
                         icon: Icons.favorite_outline_rounded,
                         title: t.profile.my_favorites,
-                        onTap: () => context.push('/collection/favorites'),
+                        collectionType: 'favorites',
+                        iconColor: AppColors.favoriteRed,
                       ),
-                      ProfileTile(
+                      const SizedBox(height: 8),
+                      ProfileMovieSection(
                         icon: Icons.star_outline_rounded,
                         title: t.profile.my_ratings,
-                        onTap: () => context.push('/collection/ratings'),
+                        collectionType: 'ratings',
+                        iconColor: Colors.amber,
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 24),
                       ProfileSectionHeader(title: t.profile.account),
                       const SizedBox(height: 16),
                       ProfileTile(
@@ -102,8 +107,8 @@ class ProfilePage extends StatelessWidget {
                   ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           Text(email,
-              style:
-                  theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor)),
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(color: theme.hintColor)),
         ],
       ),
     );

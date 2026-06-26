@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
@@ -10,18 +9,18 @@ import 'release_countdown_badge.dart';
 class MoviePosterCard extends StatelessWidget {
   final double height;
   final Movie? movie;
+  final bool fillWidth;
 
-  const MoviePosterCard({super.key, this.height = 260, this.movie});
+  const MoviePosterCard({super.key, this.height = 260, this.movie, this.fillWidth = false});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final width = height * 0.68;
 
     return Container(
-      width: width,
-      margin: const EdgeInsetsDirectional.only(end: 16, bottom: 8),
+      width: fillWidth ? null : height * 0.68,
+      margin: fillWidth ? EdgeInsets.zero : const EdgeInsetsDirectional.only(end: 16, bottom: 8),
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(20),
@@ -85,32 +84,27 @@ class MoviePosterCard extends StatelessWidget {
       bottom: 0,
       left: 0,
       right: 0,
-      child: ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(10, 32, 10, 10),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withValues(alpha: 0.5),
-                    Colors.black.withValues(alpha: 0.85),
-                  ]),
-            ),
-            child: Text(movie!.title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
-          ),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(10, 32, 10, 10),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.transparent,
+                Colors.black.withValues(alpha: 0.5),
+                Colors.black.withValues(alpha: 0.85),
+              ]),
         ),
+        child: Text(movie!.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3)),
       ),
     );
   }

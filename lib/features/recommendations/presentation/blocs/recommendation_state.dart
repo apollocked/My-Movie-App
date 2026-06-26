@@ -35,7 +35,7 @@ class RecommendationLoaded extends RecommendationState {
 
 class RecommendationEmpty extends RecommendationState {
   final String message;
-  RecommendationEmpty({this.message = 'No movies found. Try different filters.'});
+  RecommendationEmpty({String? message}) : message = message ?? '';
 }
 
 class RecommendationError extends RecommendationState {

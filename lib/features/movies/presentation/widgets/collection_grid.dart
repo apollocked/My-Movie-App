@@ -35,7 +35,7 @@ class CollectionGrid extends StatelessWidget {
             InkWell(
               onTap: () => context.push('/movie/${movie.id}', extra: movie),
               borderRadius: BorderRadius.circular(20),
-              child: MoviePosterCard(movie: movie),
+              child: MoviePosterCard(movie: movie, fillWidth: true),
             ),
             if (isRatings) _buildRatingBadge(context, movie),
           ],

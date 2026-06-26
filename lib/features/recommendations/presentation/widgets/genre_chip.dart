@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
 class GenreChip extends StatelessWidget {
-  final int genreId;
   final String label;
   final IconData icon;
   final bool isSelected;
@@ -10,7 +9,6 @@ class GenreChip extends StatelessWidget {
 
   const GenreChip({
     super.key,
-    required this.genreId,
     required this.label,
     required this.icon,
     required this.isSelected,

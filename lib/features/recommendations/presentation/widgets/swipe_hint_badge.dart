@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 
 class SwipeHintBadge extends StatelessWidget {
   final bool visible;
@@ -23,7 +24,7 @@ class SwipeHintBadge extends StatelessWidget {
             children: [
               Icon(Icons.swipe_rounded, size: 14, color: Colors.white.withValues(alpha: 0.7)),
               const SizedBox(width: 4),
-              Text('Swipe right to save', style: TextStyle(
+              Text(t.swipe.hint, style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.7), fontSize: 11, fontWeight: FontWeight.w500,
               )),
             ],

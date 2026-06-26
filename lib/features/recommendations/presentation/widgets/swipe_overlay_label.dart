@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
 class SwipeOverlayLabel extends StatelessWidget {
@@ -16,7 +17,7 @@ class SwipeOverlayLabel extends StatelessWidget {
             top: 40, right: 30,
             child: Transform.rotate(
               angle: -0.3,
-              child: _stamp('WATCH LATER', AppColors.successGreen),
+              child: _stamp(t.swipe.watch_later_label, AppColors.successGreen),
             ),
           ),
         if (showNope)
@@ -24,7 +25,7 @@ class SwipeOverlayLabel extends StatelessWidget {
             top: 40, left: 30,
             child: Transform.rotate(
               angle: 0.3,
-              child: _stamp('NOPE', AppColors.errorRed),
+              child: _stamp(t.swipe.nope_label, AppColors.errorRed),
             ),
           ),
       ],

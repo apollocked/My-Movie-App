@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../datasources/guest_local_data_source.dart';
 
@@ -16,125 +17,155 @@ class CollectionService {
   String? get _uid => _user?.uid;
   bool get _isAuthenticated => _user != null;
 
-  Stream<bool> isInCollectionStream(String collection, int movieId) {
+  Stream<bool> isInCollectionStream(String collection, int movieId) async* {
     if (_isAuthenticated) {
-      return _db
-          .collection('users')
-          .doc(_uid)
-          .collection(collection)
-          .doc(movieId.toString())
-          .snapshots()
-          .map((doc) => doc.exists);
-    } else {
-      return _local.watchItem(collection, movieId);
+      try {
+        await for (final doc in _db
+            .collection('users')
+            .doc(_uid)
+            .collection(collection)
+            .doc(movieId.toString())
+            .snapshots()) {
+          yield doc.exists;
+        }
+        return;
+      } catch (e) {
+        debugPrint('CollectionService.isInCollectionStream error: $e');
+      }
     }
+    yield* _local.watchItem(collection, movieId);
   }
 
-  Stream<Map<String, dynamic>?> getRatingStream(int movieId) {
+  Stream<Map<String, dynamic>?> getRatingStream(int movieId) async* {
     if (_isAuthenticated) {
-      return _db
-          .collection('users')
-          .doc(_uid)
-          .collection('ratings')
-          .doc(movieId.toString())
-          .snapshots()
-          .map((doc) => doc.exists ? doc.data() : null);
-    } else {
-      return _local.watchRating(movieId);
+      try {
+        await for (final doc in _db
+            .collection('users')
+            .doc(_uid)
+            .collection('ratings')
+            .doc(movieId.toString())
+            .snapshots()) {
+          yield doc.exists ? doc.data() : null;
+        }
+        return;
+      } catch (e) {
+        debugPrint('CollectionService.getRatingStream error: $e');
+      }
     }
+    yield* _local.watchRating(movieId);
   }
 
-  Stream<List<Movie>> watchCollection(String type) {
+  Stream<List<Movie>> watchCollection(String type) async* {
     if (_isAuthenticated) {
-      return _db
-          .collection('users')
-          .doc(_uid)
-          .collection(type)
-          .orderBy('timestamp', descending: true)
-          .snapshots()
-          .map((snap) =>
-              snap.docs.map((doc) => _docToMovie(doc.data())).toList());
-    } else {
-      return _local.watchCollection(type);
+      try {
+        await for (final snap in _db
+            .collection('users')
+            .doc(_uid)
+            .collection(type)
+            .orderBy('timestamp', descending: true)
+            .snapshots()) {
+          yield snap.docs.map((doc) => _docToMovie(doc.data())).toList();
+        }
+        return;
+      } catch (e) {
+        debugPrint('CollectionService.watchCollection error: $e');
+      }
     }
+    yield* _local.watchCollection(type);
   }
 
   Future<void> toggleCollection(Movie movie, String type) async {
     if (_isAuthenticated) {
-      final docRef = _db
-          .collection('users')
-          .doc(_uid)
-          .collection(type)
-          .doc(movie.id.toString());
-      final doc = await docRef.get();
-      if (doc.exists) {
-        await docRef.delete();
-      } else {
-        await docRef.set(_movieToMap(movie));
+      try {
+        final docRef = _db
+            .collection('users')
+            .doc(_uid)
+            .collection(type)
+            .doc(movie.id.toString());
+        final doc = await docRef.get();
+        if (doc.exists) {
+          await docRef.delete();
+        } else {
+          await docRef.set(_movieToMap(movie));
+        }
+        return;
+      } catch (e) {
+        debugPrint('CollectionService.toggleCollection error: $e');
       }
-    } else {
-      await _local.toggleCollection(movie, type);
     }
+    await _local.toggleCollection(movie, type);
   }
 
   Future<bool> isInCollection(int movieId, String type) async {
     if (_isAuthenticated) {
-      final doc = await _db
-          .collection('users')
-          .doc(_uid)
-          .collection(type)
-          .doc(movieId.toString())
-          .get();
-      return doc.exists;
-    } else {
-      return _local.isInCollection(movieId, type);
+      try {
+        final doc = await _db
+            .collection('users')
+            .doc(_uid)
+            .collection(type)
+            .doc(movieId.toString())
+            .get();
+        return doc.exists;
+      } catch (e) {
+        debugPrint('CollectionService.isInCollection error: $e');
+      }
     }
+    return _local.isInCollection(movieId, type);
   }
 
   Future<void> saveRating(Movie movie, double rating) async {
     if (_isAuthenticated) {
-      final docRef = _db
-          .collection('users')
-          .doc(_uid)
-          .collection('ratings')
-          .doc(movie.id.toString());
-      final map = _movieToMap(movie);
-      map['rating'] = rating;
-      await docRef.set(map);
-    } else {
-      await _local.saveRating(movie, rating);
+      try {
+        final docRef = _db
+            .collection('users')
+            .doc(_uid)
+            .collection('ratings')
+            .doc(movie.id.toString());
+        final map = _movieToMap(movie);
+        map['rating'] = rating;
+        await docRef.set(map);
+        return;
+      } catch (e) {
+        debugPrint('CollectionService.saveRating error: $e');
+      }
     }
+    await _local.saveRating(movie, rating);
   }
 
   Future<double?> getRating(int movieId) async {
     if (_isAuthenticated) {
-      final doc = await _db
-          .collection('users')
-          .doc(_uid)
-          .collection('ratings')
-          .doc(movieId.toString())
-          .get();
-      if (doc.exists) {
-        return doc.data()!['rating'] as double?;
+      try {
+        final doc = await _db
+            .collection('users')
+            .doc(_uid)
+            .collection('ratings')
+            .doc(movieId.toString())
+            .get();
+        if (doc.exists) {
+          return doc.data()!['rating'] as double?;
+        }
+      } catch (e) {
+        debugPrint('CollectionService.getRating error: $e');
       }
-      return null;
-    } else {
-      return _local.getRating(movieId);
     }
+    return _local.getRating(movieId);
   }
 
   Future<List<Movie>> getCollection(String type) async {
     if (_isAuthenticated) {
-      final snap = await _db
-          .collection('users')
-          .doc(_uid)
-          .collection(type)
-          .orderBy('timestamp', descending: true)
-          .get();
-      return snap.docs.map((doc) => _docToMovie(doc.data())).toList();
-    } else {
-      return _local.getCollection(type);
+      try {
+        final snap = await _db
+            .collection('users')
+            .doc(_uid)
+            .collection(type)
+            .orderBy('timestamp', descending: true)
+            .get();
+        return snap.docs.map((doc) => _docToMovie(doc.data())).toList();
+      } catch (e) {
+        debugPrint('CollectionService.getCollection error: $e');
+      }
     }
+    return _local.getCollection(type);
   }
 
   Movie _docToMovie(Map<String, dynamic> data) {

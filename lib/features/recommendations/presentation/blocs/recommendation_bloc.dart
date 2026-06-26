@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
@@ -75,7 +76,8 @@ class RecommendationBloc
         final current = state as RecommendationLoaded;
         emit(current.copyWith(movies: _allMovies));
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint('RecommendationBloc loadMore error: $e');
       _hasReachedEnd = true;
     }
   }

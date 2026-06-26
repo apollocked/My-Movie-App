@@ -217,5 +217,39 @@
     "title_404": "404 - Page Not Found",
     "subtitle": "The page you are looking for does not exist or has been moved.",
     "return_home": "Return to Home"
+  },
+  "swipe": {
+    "title": "Swipe Suggest",
+    "save_label": "SAVE",
+    "skip_label": "SKIP",
+    "nope_label": "NOPE",
+    "watch_later_label": "WATCH LATER",
+    "hint": "Swipe right to save",
+    "error_title": "Something went wrong",
+    "retry": "Try Again",
+    "empty_no_movies": "No movies found. Try different filters.",
+    "change_filters": "Change Filters",
+    "all_caught_up": "You're all caught up!",
+    "no_movies_added": "No movies were added to watch later.",
+    "movie_added": "movie added to watch later!",
+    "movies_added": "movies added to watch later!",
+    "view_watch_later": "View Watch Later",
+    "skip": "Skip",
+    "save": "Save",
+    "select_genres": "Select Genres",
+    "minimum_rating": "Minimum Rating",
+    "release_year": "Release Year",
+    "sort_by": "Sort By",
+    "start_swiping": "Start Swiping",
+    "year_from": "From",
+    "year_to": "To",
+    "year_any": "Any",
+    "sort_options": {
+      "most_popular": "Most Popular",
+      "highest_rated": "Highest Rated",
+      "newest_first": "Newest First",
+      "oldest_first": "Oldest First",
+      "highest_revenue": "Highest Revenue"
+    }
   }
 }
