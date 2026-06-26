@@ -38,7 +38,8 @@ class AppRouter {
 
         final isOnAuthRoute = state.uri.path == '/onboarding' ||
             state.uri.path == '/login' ||
-            state.uri.path == '/signup';
+            state.uri.path == '/signup' ||
+            state.uri.path == '/forgot-password';
 
         if (authState is AuthInitial) return null;
 

@@ -293,29 +293,24 @@ class _SearchPageState extends State<SearchPage> {
             itemCount: _searchHistory.length,
             itemBuilder: (context, index) {
               final query = _searchHistory[index];
-              return Container(
-                margin: const EdgeInsets.only(bottom: 2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+              return ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                leading: Icon(Icons.history_rounded,
+                    color: AppColors.textTertiaryDark, size: 20),
+                title: Text(query,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.textTheme.bodyLarge?.color)),
+                trailing: IconButton(
+                  icon: const Icon(Icons.close, size: 16),
+                  color: AppColors.textTertiaryDark,
+                  onPressed: () async {
+                    await _historyService.removeQuery(query);
+                    _loadHistory();
+                  },
                 ),
-                child: ListTile(
-                  leading: Icon(Icons.history_rounded,
-                      color: AppColors.textTertiaryDark, size: 20),
-                  title: Text(query,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.textTheme.bodyLarge?.color)),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.close, size: 16),
-                    color: AppColors.textTertiaryDark,
-                    onPressed: () async {
-                      await _historyService.removeQuery(query);
-                      _loadHistory();
-                    },
-                  ),
-                  onTap: () => _executeSearch(query),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                ),
+                onTap: () => _executeSearch(query),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
               );
             },
           ),

@@ -56,160 +56,164 @@ class OnboardingPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 24.0, vertical: 16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // --- Top Settings Bar (Glassmorphism) ---
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: theme.cardColor.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.1)),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 8),
+                          // --- Top Settings Bar (Glassmorphism) ---
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: theme.cardColor.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                      color:
+                                          Colors.white.withValues(alpha: 0.1)),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () =>
+                                          settingsCubit.toggleTheme(),
+                                      icon: Icon(
+                                        isDark
+                                            ? Icons.dark_mode_rounded
+                                            : Icons.light_mode_rounded,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    DropdownButton<String>(
+                                      value: settingsState.locale.languageCode,
+                                      underline: const SizedBox(),
+                                      icon: const Icon(Icons.language_rounded,
+                                          size: 20, color: Colors.white),
+                                      dropdownColor: theme.cardColor,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      items: const [
+                                        DropdownMenuItem(
+                                            value: 'en', child: Text('EN')),
+                                        DropdownMenuItem(
+                                            value: 'ku', child: Text('KU')),
+                                        DropdownMenuItem(
+                                            value: 'ar', child: Text('AR')),
+                                      ],
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          settingsCubit.changeLanguage(value);
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // Theme Toggle
-                                IconButton(
-                                  onPressed: () => settingsCubit.toggleTheme(),
-                                  icon: Icon(
-                                    isDark
-                                        ? Icons.dark_mode_rounded
-                                        : Icons.light_mode_rounded,
+                          ),
+                          const Spacer(),
+                          // --- Center Text Content ---
+                          Column(
+                            children: [
+                              Icon(
+                                Icons.movie_creation_rounded,
+                                size: 80,
+                                color: theme.primaryColor,
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                t.auth.welcome_title,
+                                textAlign: TextAlign.center,
+                                style: theme.textTheme.headlineLarge?.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 36,
+                                  letterSpacing: 1.2,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Text(
+                                  t.auth.onboarding_subtitle,
+                                  textAlign: TextAlign.center,
+                                  style: theme.textTheme.bodyLarge?.copyWith(
+                                    color: Colors.white.withValues(alpha: 0.8),
+                                    height: 1.6,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          // --- Bottom Buttons ---
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size.fromHeight(60),
+                                  backgroundColor: theme.primaryColor,
+                                  foregroundColor: theme.colorScheme.onPrimary,
+                                  elevation: 8,
+                                  shadowColor:
+                                      theme.primaryColor.withValues(alpha: 0.5),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                onPressed: () => context.go('/login'),
+                                child: Text(
+                                  t.auth.get_started,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.1),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  minimumSize: const Size.fromHeight(60),
+                                  side: const BorderSide(
+                                      color: Colors.white, width: 1.5),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(const ContinueAsGuestRequested());
+                                  context.go('/');
+                                },
+                                child: Text(
+                                  t.auth.continue_guest,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white,
                                   ),
                                 ),
-
-                                // Language Dropdown
-                                DropdownButton<String>(
-                                  value: settingsState.locale.languageCode,
-                                  underline: const SizedBox(),
-                                  icon: const Icon(Icons.language_rounded,
-                                      size: 20, color: Colors.white),
-                                  dropdownColor: theme.cardColor,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                  items: const [
-                                    DropdownMenuItem(
-                                        value: 'en', child: Text('EN')),
-                                    DropdownMenuItem(
-                                        value: 'ku', child: Text('KU')),
-                                    DropdownMenuItem(
-                                        value: 'ar', child: Text('AR')),
-                                  ],
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      settingsCubit.changeLanguage(value);
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      // --- Center Text Content ---
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.movie_creation_rounded,
-                            size: 80,
-                            color: theme.primaryColor,
-                          ),
-                          const SizedBox(height: 24),
-                          Text(
-                            t.auth.welcome_title,
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.headlineLarge?.copyWith(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 36,
-                              letterSpacing: 1.2,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text(
-                              t.auth.onboarding_subtitle,
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyLarge?.copyWith(
-                                color: Colors.white.withValues(alpha: 0.8),
-                                height: 1.6,
-                                fontSize: 16,
                               ),
-                            ),
+                            ],
                           ),
-                          const SizedBox(height: 40), // Spacer before buttons
                         ],
                       ),
-
-                      // --- Bottom Buttons ---
-                      Column(
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(60),
-                              backgroundColor: theme.primaryColor,
-                              foregroundColor: theme.colorScheme.onPrimary,
-                              elevation: 8,
-                              shadowColor:
-                                  theme.primaryColor.withValues(alpha: 0.5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            onPressed: () => context.go('/login'),
-                            child: Text(
-                              t.auth.get_started,
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.1),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(60),
-                              side: const BorderSide(
-                                  color: Colors.white, width: 1.5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<AuthBloc>()
-                                  .add(const ContinueAsGuestRequested());
-                              context.go('/');
-                            },
-                            child: Text(
-                              t.auth.continue_guest,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         );
