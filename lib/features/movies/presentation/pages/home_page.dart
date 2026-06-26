@@ -90,7 +90,9 @@ class _MovieHomePageState extends State<MovieHomePage> {
               ),
             ),
             const SizedBox(width: 12),
-            Text(remoteConfig.getString('name')),
+            Text(remoteConfig.getString('name'),
+                style: theme.textTheme.titleLarge
+                    ?.copyWith(fontWeight: FontWeight.w700)),
           ],
         ),
       ),

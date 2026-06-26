@@ -12,7 +12,6 @@ import 'package:my_movie/features/auth/presentation/widgets/auth_navigation_link
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
-
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -24,7 +23,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -36,7 +34,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocListener<AuthBloc, AuthState>(
@@ -73,12 +70,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return t.auth.errors.email_required;
-                        }
-                        if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                          return t.auth.errors.invalid_email;
-                        }
+                        if (value?.isEmpty ?? true) return t.auth.errors.email_required;
+                        if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) return t.auth.errors.invalid_email;
                         return null;
                       },
                     ),
@@ -92,15 +85,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       suffixIcon: _obscurePassword
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      onSuffixTap: () =>
-                          setState(() => _obscurePassword = !_obscurePassword),
+                      onSuffixTap: () => setState(() => _obscurePassword = !_obscurePassword),
                       validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return t.auth.errors.password_required;
-                        }
-                        if (value!.length < 6) {
-                          return t.auth.errors.password_too_short;
-                        }
+                        if (value?.isEmpty ?? true) return t.auth.errors.password_required;
+                        if (value!.length < 6) return t.auth.errors.password_too_short;
                         return null;
                       },
                     ),
@@ -114,15 +102,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       suffixIcon: _obscureConfirmPassword
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      onSuffixTap: () => setState(() =>
-                          _obscureConfirmPassword = !_obscureConfirmPassword),
+                      onSuffixTap: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword),
                       validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return t.auth.errors.confirm_password_required;
-                        }
-                        if (value != _passwordController.text) {
-                          return t.auth.errors.passwords_dont_match;
-                        }
+                        if (value?.isEmpty ?? true) return t.auth.errors.confirm_password_required;
+                        if (value != _passwordController.text) return t.auth.errors.passwords_dont_match;
                         return null;
                       },
                     ),
@@ -139,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       _emailController.text.trim(),
                                       _passwordController.text,
                                     ),
-                                  );
+                              );
                             }
                           },
                         );

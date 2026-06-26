@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/auth/presentation/widgets/feature_item.dart';
 
 class GuestProfileView extends StatelessWidget {
   const GuestProfileView({super.key});
@@ -58,25 +59,25 @@ class GuestProfileView extends StatelessWidget {
   Widget _buildFeaturesList(ThemeData theme) {
     return Column(
       children: [
-        _FeatureItem(
+        FeatureItem(
           icon: Icons.favorite_rounded,
           title: t.guest_features.favorites.title,
           description: t.guest_features.favorites.desc,
         ),
         const SizedBox(height: 20),
-        _FeatureItem(
+        FeatureItem(
           icon: Icons.star_rounded,
           title: t.guest_features.rate.title,
           description: t.guest_features.rate.desc,
         ),
         const SizedBox(height: 20),
-        _FeatureItem(
+        FeatureItem(
           icon: Icons.bookmark_rounded,
           title: t.guest_features.watch_later.title,
           description: t.guest_features.watch_later.desc,
         ),
         const SizedBox(height: 20),
-        _FeatureItem(
+        FeatureItem(
           icon: Icons.cloud_sync_rounded,
           title: t.guest_features.sync.title,
           description: t.guest_features.sync.desc,
@@ -138,54 +139,6 @@ class GuestProfileView extends StatelessWidget {
           child: Text(t.auth.create_account,
               style:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        ),
-      ],
-    );
-  }
-}
-
-class _FeatureItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String description;
-
-  const _FeatureItem({
-    required this.icon,
-    required this.title,
-    required this.description,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: theme.primaryColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(icon, color: theme.primaryColor, size: 24),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: theme.textTheme.titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style:
-                    theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
-              ),
-            ],
-          ),
         ),
       ],
     );

@@ -20,10 +20,8 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
   Map<String, dynamic>? _person;
   List<Movie> _filmography = [];
   bool _isLoading = true;
-
   @override
   void initState() { super.initState(); _fetchData(); }
-
   Future<void> _fetchData() async {
     try {
       final person = await _apiClient.get('/person/${widget.personId}',
@@ -42,15 +40,17 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
       if (!mounted) return;
       setState(() { _person = person; _filmography = films; _isLoading = false; });
     } catch (e) {
-      if (mounted) setState(() => _isLoading = false);
+      if (mounted) { setState(() => _isLoading = false); }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    if (_isLoading) return Scaffold(
-      appBar: AppBar(), body: const Center(child: CircularProgressIndicator()));
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(), body: const Center(child: CircularProgressIndicator()));
+    }
 
     final name = _person?['name'] as String? ?? widget.data?['name'] as String? ?? '';
     final profilePath = _person?['profile_path'] as String? ?? widget.data?['profilePath'] as String? ?? '';

@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
+import 'package:my_movie/features/auth/presentation/widgets/onboarding/onboarding_buttons.dart';
+import 'package:my_movie/features/auth/presentation/widgets/onboarding/onboarding_settings_bar.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
-import 'dart:ui'; // Required for ImageFilter (Glassmorphism)
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -24,16 +25,12 @@ class OnboardingPage extends StatelessWidget {
           backgroundColor: theme.scaffoldBackgroundColor,
           body: Stack(
             children: [
-              // 1. Cinematic Background Image
               Positioned.fill(
                 child: Image.network(
-                  // A placeholder cinematic collage (you can replace with a local asset)
                   'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop',
                   fit: BoxFit.cover,
                 ),
               ),
-
-              // 2. Gradient Overlay (Darkens the bottom so text and buttons are readable)
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
@@ -50,12 +47,9 @@ class OnboardingPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // 3. Main Content
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 16),
@@ -63,72 +57,15 @@ class OnboardingPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const SizedBox(height: 8),
-                          // --- Top Settings Bar (Glassmorphism) ---
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: theme.cardColor.withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                      color:
-                                          Colors.white.withValues(alpha: 0.1)),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () =>
-                                          settingsCubit.toggleTheme(),
-                                      icon: Icon(
-                                        isDark
-                                            ? Icons.dark_mode_rounded
-                                            : Icons.light_mode_rounded,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    DropdownButton<String>(
-                                      value: settingsState.locale.languageCode,
-                                      underline: const SizedBox(),
-                                      icon: const Icon(Icons.language_rounded,
-                                          size: 20, color: Colors.white),
-                                      dropdownColor: theme.cardColor,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                      items: const [
-                                        DropdownMenuItem(
-                                            value: 'en', child: Text('EN')),
-                                        DropdownMenuItem(
-                                            value: 'ku', child: Text('KU')),
-                                        DropdownMenuItem(
-                                            value: 'ar', child: Text('AR')),
-                                      ],
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          settingsCubit.changeLanguage(value);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                          OnboardingSettingsBar(
+                            isDark: isDark,
+                            settingsState: settingsState,
+                            settingsCubit: settingsCubit,
                           ),
                           const Spacer(),
-                          // --- Center Text Content ---
                           Column(
                             children: [
-                              Icon(
-                                Icons.movie_creation_rounded,
-                                size: 80,
-                                color: theme.primaryColor,
-                              ),
+                              Icon(Icons.movie_creation_rounded, size: 80, color: theme.primaryColor),
                               const SizedBox(height: 24),
                               Text(
                                 t.auth.welcome_title,
@@ -142,8 +79,7 @@ class OnboardingPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 16),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                 child: Text(
                                   t.auth.onboarding_subtitle,
                                   textAlign: TextAlign.center,
@@ -157,63 +93,21 @@ class OnboardingPage extends StatelessWidget {
                             ],
                           ),
                           const Spacer(),
-                          // --- Bottom Buttons ---
-                          Column(
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size.fromHeight(60),
-                                  backgroundColor: theme.primaryColor,
-                                  foregroundColor: theme.colorScheme.onPrimary,
-                                  elevation: 8,
-                                  shadowColor:
-                                      theme.primaryColor.withValues(alpha: 0.5),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                onPressed: () => context.go('/login'),
-                                child: Text(
-                                  t.auth.get_started,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 1.1),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                  minimumSize: const Size.fromHeight(60),
-                                  side: const BorderSide(
-                                      color: Colors.white, width: 1.5),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  context
-                                      .read<AuthBloc>()
-                                      .add(const ContinueAsGuestRequested());
-                                  context.go('/');
-                                },
-                                child: Text(
-                                  t.auth.continue_guest,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          OnboardingButtons(
+                            onGetStarted: () => context.go('/login'),
+                            onContinueAsGuest: () {
+                              context.read<AuthBloc>().add(const ContinueAsGuestRequested());
+                              context.go('/');
+                            },
+                            getStartedText: t.auth.get_started,
+                            continueGuestText: t.auth.continue_guest,
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         );
