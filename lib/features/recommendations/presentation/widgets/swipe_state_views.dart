@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
@@ -66,12 +65,21 @@ class EmptySwipeView extends StatelessWidget {
 
 class AllSwipedView extends StatelessWidget {
   final int count;
-  final VoidCallback onTryAgain;
+  final VoidCallback onViewWatchLater;
+  final VoidCallback onRefine;
 
-  const AllSwipedView({super.key, required this.count, required this.onTryAgain});
+  const AllSwipedView({
+    super.key,
+    required this.count,
+    required this.onViewWatchLater,
+    required this.onRefine,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -86,17 +94,25 @@ class AllSwipedView extends StatelessWidget {
             const SizedBox(height: 8),
             Text(count == 0 ? t.swipe.no_movies_added
                 : '$count ${count == 1 ? t.swipe.movie_added : t.swipe.movies_added}',
-                style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
-            const SizedBox(height: 32),
-            ElevatedButton.icon(onPressed: onTryAgain,
-                icon: const Icon(Icons.refresh_rounded), label: Text(t.swipe.retry),
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14))),
+                style: TextStyle(color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
+            const SizedBox(height: 40),
+            SizedBox(
+              width: double.infinity, height: 50,
+              child: FilledButton.icon(
+                onPressed: onRefine,
+                icon: const Icon(Icons.tune_rounded, size: 18),
+                label: Text(t.swipe.change_filters),
+              ),
+            ),
             const SizedBox(height: 12),
-            TextButton.icon(onPressed: () => context.push('/collection/watch_later'),
+            SizedBox(
+              width: double.infinity, height: 50,
+              child: OutlinedButton.icon(
+                onPressed: onViewWatchLater,
                 icon: const Icon(Icons.watch_later_rounded, size: 18),
-                label: Text(t.swipe.view_watch_later)),
+                label: Text(t.swipe.view_watch_later),
+              ),
+            ),
           ],
         ),
       ),

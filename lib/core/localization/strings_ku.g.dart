@@ -117,6 +117,7 @@ class _Translations$profile$ku extends Translations$profile$en {
 	@override String get my_ratings => 'هەڵسەنگاندنەکانم';
 	@override String get account => 'هەژمار';
 	@override String get logout => 'چوونەدەرەوە';
+	@override String get logout_confirm => 'دڵنیای لە چوونەدەرەوە؟';
 	@override String get default_name => 'بینەری CineVault';
 }
 
@@ -497,6 +498,7 @@ extension on TranslationsKu {
 			'profile.my_ratings' => 'هەڵسەنگاندنەکانم',
 			'profile.account' => 'هەژمار',
 			'profile.logout' => 'چوونەدەرەوە',
+			'profile.logout_confirm' => 'دڵنیای لە چوونەدەرەوە؟',
 			'profile.default_name' => 'بینەری CineVault',
 			'settings.title' => 'ڕێکخستن',
 			'settings.language' => 'زمان',

@@ -117,6 +117,7 @@ class _Translations$profile$ar extends Translations$profile$en {
 	@override String get my_ratings => 'تقييماتي';
 	@override String get account => 'الحساب';
 	@override String get logout => 'تسجيل الخروج';
+	@override String get logout_confirm => 'هل أنت متأكد من تسجيل الخروج؟';
 	@override String get default_name => 'مشاهد CineVault';
 }
 
@@ -497,6 +498,7 @@ extension on TranslationsAr {
 			'profile.my_ratings' => 'تقييماتي',
 			'profile.account' => 'الحساب',
 			'profile.logout' => 'تسجيل الخروج',
+			'profile.logout_confirm' => 'هل أنت متأكد من تسجيل الخروج؟',
 			'profile.default_name' => 'مشاهد CineVault',
 			'settings.title' => 'الإعدادات',
 			'settings.language' => 'اللغة',

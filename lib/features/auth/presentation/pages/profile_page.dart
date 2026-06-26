@@ -65,10 +65,19 @@ class ProfilePage extends StatelessWidget {
                         icon: Icons.logout_rounded,
                         title: t.profile.logout,
                         isDestructive: true,
-                        onTap: () => context
-                            .read<AuthBloc>()
-                            .add(const LogoutRequested()),
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text(t.profile.logout),
+                            content: Text(t.profile.logout_confirm),
+                            actions: [
+                              TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(t.common.cancel)),
+                              FilledButton(onPressed: () { Navigator.of(ctx).pop(); context.read<AuthBloc>().add(const LogoutRequested()); }, child: Text(t.profile.logout)),
+                            ],
+                          ),
+                        ),
                       ),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 );

@@ -46,6 +46,7 @@
     "my_ratings": "هەڵسەنگاندنەکانم",
     "account": "هەژمار",
     "logout": "چوونەدەرەوە",
+    "logout_confirm": "دڵنیای لە چوونەدەرەوە؟",
     "default_name": "بینەری CineVault"
   },
   "settings": {

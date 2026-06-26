@@ -13,7 +13,6 @@ import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
 import '../../features/movies/presentation/pages/actor_detail_page.dart';
 import '../../features/movies/presentation/pages/see_all_page.dart';
-import '../../features/movies/presentation/pages/collection_page.dart';
 import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../common/ui/no_internet_page.dart';
 import '../../features/recommendations/presentation/pages/filter_setup_page.dart';
@@ -132,18 +131,6 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const ForgotPasswordPage(),
     ),
-    GoRoute(
-      path: '/collection/:type',
-      name: 'collection',
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) {
-        final type = state.pathParameters['type']!;
-        String title = t.common.collection;
-        if (type == 'watch_later') title = t.profile.watch_later;
-        if (type == 'favorites') title = t.profile.my_favorites;
-        if (type == 'ratings') title = t.profile.my_ratings;
-        return CollectionPage(title: title, collectionPath: type);
-      },
-    ),
+  
   ];
 }

@@ -193,6 +193,9 @@ class Translations$profile$en {
 	/// en: 'Log Out'
 	String get logout => 'Log Out';
 
+	/// en: 'Are you sure you want to log out?'
+	String get logout_confirm => 'Are you sure you want to log out?';
+
 	/// en: 'CineVault Moviegoer'
 	String get default_name => 'CineVault Moviegoer';
 }
@@ -676,6 +679,12 @@ class Translations$swipe$en {
 	/// en: 'Save'
 	String get save => 'Save';
 
+	/// en: 'Genres'
+	String get genres => 'Genres';
+
+	/// en: 'selected'
+	String get selected => 'selected';
+
 	/// en: 'Select Genres'
 	String get select_genres => 'Select Genres';
 
@@ -958,6 +967,7 @@ extension on Translations {
 			'profile.my_ratings' => 'My Ratings',
 			'profile.account' => 'Account',
 			'profile.logout' => 'Log Out',
+			'profile.logout_confirm' => 'Are you sure you want to log out?',
 			'profile.default_name' => 'CineVault Moviegoer',
 			'settings.title' => 'Setup',
 			'settings.language' => 'Language',
@@ -1106,6 +1116,8 @@ extension on Translations {
 			'swipe.view_watch_later' => 'View Watch Later',
 			'swipe.skip' => 'Skip',
 			'swipe.save' => 'Save',
+			'swipe.genres' => 'Genres',
+			'swipe.selected' => 'selected',
 			'swipe.select_genres' => 'Select Genres',
 			'swipe.minimum_rating' => 'Minimum Rating',
 			'swipe.release_year' => 'Release Year',

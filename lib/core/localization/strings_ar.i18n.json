@@ -46,6 +46,7 @@
     "my_ratings": "تقييماتي",
     "account": "الحساب",
     "logout": "تسجيل الخروج",
+    "logout_confirm": "هل أنت متأكد من تسجيل الخروج؟",
     "default_name": "مشاهد CineVault"
   },
   "settings": {

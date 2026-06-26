@@ -67,6 +67,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final bottom = MediaQuery.of(context).padding.bottom;
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
@@ -91,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                   return EmptyStateWidget(icon: Icons.search_off_rounded, title: t.search.no_results, subtitle: t.search.no_results_subtitle);
                 }
                 return GridView.builder(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.fromLTRB(20, 20, 20, bottom + 120),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.65, crossAxisSpacing: 16, mainAxisSpacing: 16),
                   itemCount: state.results.length,
                   itemBuilder: (context, index) {
@@ -109,7 +110,7 @@ class _SearchPageState extends State<SearchPage> {
               }
               if (_showHistory) {
                 return ListView(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, bottom + 120),
                   children: [
                     if (_searchHistory.isNotEmpty)
                       SearchHistorySection(

@@ -46,6 +46,7 @@
     "my_ratings": "My Ratings",
     "account": "Account",
     "logout": "Log Out",
+    "logout_confirm": "Are you sure you want to log out?",
     "default_name": "CineVault Moviegoer"
   },
   "settings": {
@@ -236,6 +237,8 @@
     "view_watch_later": "View Watch Later",
     "skip": "Skip",
     "save": "Save",
+    "genres": "Genres",
+    "selected": "selected",
     "select_genres": "Select Genres",
     "minimum_rating": "Minimum Rating",
     "release_year": "Release Year",

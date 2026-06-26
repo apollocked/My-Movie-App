@@ -67,6 +67,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
     final theme = Theme.of(context);
     final movieBloc = context.read<MovieBloc>();
     final locale = context.watch<SettingsCubit>().state.locale;
+    final bottom = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
       appBar: AppBar(
@@ -115,7 +116,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
                         const SizedBox(height: 16),
                         const WatchLaterRow(),
                         HomeCategoriesSection(apiClient: movieBloc.apiClient),
-                        const SizedBox(height: 48),
+                        SizedBox(height: bottom + 120),
                       ],
                     ),
                   ),

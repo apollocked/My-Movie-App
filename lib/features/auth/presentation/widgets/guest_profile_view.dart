@@ -12,7 +12,7 @@ class GuestProfileView extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 80),
+        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 120),
         child: Column(
           children: [
             const SizedBox(height: 40),

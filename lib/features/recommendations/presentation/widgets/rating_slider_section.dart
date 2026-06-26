@@ -13,17 +13,27 @@ class RatingSliderSection extends StatelessWidget {
 
     return Row(
       children: [
-        Text('${value.toStringAsFixed(0)}+', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.ratingGold)),
+        SizedBox(
+          width: 28,
+          child: Text('${value.toStringAsFixed(0)}+', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.ratingGold)),
+        ),
         Expanded(
-          child: Slider(
-            value: value,
-            min: 0,
-            max: 10,
-            divisions: 10,
-            activeColor: AppColors.ratingGold,
-            inactiveColor: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-            label: value.toStringAsFixed(0),
-            onChanged: onChanged,
+          child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 4,
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
+            ),
+            child: Slider(
+              value: value,
+              min: 0,
+              max: 10,
+              divisions: 10,
+              activeColor: AppColors.ratingGold,
+              inactiveColor: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+              label: value.toStringAsFixed(0),
+              onChanged: onChanged,
+            ),
           ),
         ),
       ],
