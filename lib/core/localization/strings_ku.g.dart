@@ -43,6 +43,7 @@ class TranslationsKu extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$search$ku search = _Translations$search$ku._(_root);
 	@override late final _Translations$profile$ku profile = _Translations$profile$ku._(_root);
 	@override late final _Translations$settings$ku settings = _Translations$settings$ku._(_root);
+	@override late final _Translations$privacy$ku privacy = _Translations$privacy$ku._(_root);
 	@override late final _Translations$auth$ku auth = _Translations$auth$ku._(_root);
 	@override late final _Translations$onboarding$ku onboarding = _Translations$onboarding$ku._(_root);
 	@override late final _Translations$guest_features$ku guest_features = _Translations$guest_features$ku._(_root);
@@ -132,6 +133,28 @@ class _Translations$settings$ku extends Translations$settings$en {
 	@override String get lang_en => 'ئینگلیزی';
 	@override String get lang_ku => 'کوردی';
 	@override String get lang_ar => 'عەرەبی';
+	@override String get privacy_policy => 'سیاسەی تایبەتی';
+	@override String get legal => 'یاسایی';
+}
+
+// Path: privacy
+class _Translations$privacy$ku extends Translations$privacy$en {
+	_Translations$privacy$ku._(TranslationsKu root) : this._root = root, super.internal(root);
+
+	final TranslationsKu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'سیاسەی تایبەتی';
+	@override String get last_updated => 'دوایین نوێکردنەوە: حوزەیرانی 26, 2026';
+	@override String get introduction => 'My Movies ڕێزی لە تایبەتی تۆ دەگرێت. ئەم سیاسەتە ڕوون دەکاتەوە کە چۆن زانیارییەکانی تۆ کۆدەکەینەوە، بەکاری دەهێنین، و پاراستنی دەکەین.';
+	@override String get info_collect_title => 'زانیارییەکانی کۆی دەکەینەوە';
+	@override String get info_collect => 'ئێمە کەمترین زانیاری پێویست کۆدەکەینەوە بۆ دابینکردنی خزمەتگوزارییەکانمان. ئەمە ڕەنگە ئیمەیڵەکەت لەخۆبگرێت ئەگەر هەژمارێک دروست بکەیت، و زانیاری بەکارهێنانی سادە وەک ئەو فیلمانەی کە دەیپارێزیت بۆ دواتر یان دڵخوازەکانت. ئێمە زانیاری تایبەتی هەستیار کۆناکەینەوە.';
+	@override String get how_use_title => 'چۆن زانیارییەکانی تۆ بەکار دەهێنین';
+	@override String get how_use => 'زانیارییەکانی تۆ تەنها بۆ تایبەتکردنی ئەزموونەکەت، پاراستنی هەڵبژاردنەکانت، و دابینکردنی بنەڕەتی کارەکانی ئەپەکە بەکار دەهێنرێت. ئێمە زانیارییەکانی تۆ بە لایەنی سێیەم نافرۆشین.';
+	@override String get data_security_title => 'پاراستنی زانیاری';
+	@override String get data_security => 'ئێمە پێوانەکانی ئاسایشی پیشەسازی جێبەجێ دەکەین بۆ پاراستنی زانیارییەکانت. بەڵام هیچ ڕێگەیەکی هەڵگرتنی ئەلیکترۆنی 100%% پارێزراو نییە.';
+	@override String get contact_title => 'پەیوەندیمان پێوە بکە';
+	@override String get contact => 'ئەگەر پرسیارت هەیە دەربارەی ئەم سیاسەتە، تکایە پەیوەندیمان پێوە بکە لە support@mymovies.app';
 }
 
 // Path: auth
@@ -481,6 +504,19 @@ extension on TranslationsKu {
 			'settings.lang_en' => 'ئینگلیزی',
 			'settings.lang_ku' => 'کوردی',
 			'settings.lang_ar' => 'عەرەبی',
+			'settings.privacy_policy' => 'سیاسەی تایبەتی',
+			'settings.legal' => 'یاسایی',
+			'privacy.title' => 'سیاسەی تایبەتی',
+			'privacy.last_updated' => 'دوایین نوێکردنەوە: حوزەیرانی 26, 2026',
+			'privacy.introduction' => 'My Movies ڕێزی لە تایبەتی تۆ دەگرێت. ئەم سیاسەتە ڕوون دەکاتەوە کە چۆن زانیارییەکانی تۆ کۆدەکەینەوە، بەکاری دەهێنین، و پاراستنی دەکەین.',
+			'privacy.info_collect_title' => 'زانیارییەکانی کۆی دەکەینەوە',
+			'privacy.info_collect' => 'ئێمە کەمترین زانیاری پێویست کۆدەکەینەوە بۆ دابینکردنی خزمەتگوزارییەکانمان. ئەمە ڕەنگە ئیمەیڵەکەت لەخۆبگرێت ئەگەر هەژمارێک دروست بکەیت، و زانیاری بەکارهێنانی سادە وەک ئەو فیلمانەی کە دەیپارێزیت بۆ دواتر یان دڵخوازەکانت. ئێمە زانیاری تایبەتی هەستیار کۆناکەینەوە.',
+			'privacy.how_use_title' => 'چۆن زانیارییەکانی تۆ بەکار دەهێنین',
+			'privacy.how_use' => 'زانیارییەکانی تۆ تەنها بۆ تایبەتکردنی ئەزموونەکەت، پاراستنی هەڵبژاردنەکانت، و دابینکردنی بنەڕەتی کارەکانی ئەپەکە بەکار دەهێنرێت. ئێمە زانیارییەکانی تۆ بە لایەنی سێیەم نافرۆشین.',
+			'privacy.data_security_title' => 'پاراستنی زانیاری',
+			'privacy.data_security' => 'ئێمە پێوانەکانی ئاسایشی پیشەسازی جێبەجێ دەکەین بۆ پاراستنی زانیارییەکانت. بەڵام هیچ ڕێگەیەکی هەڵگرتنی ئەلیکترۆنی 100%% پارێزراو نییە.',
+			'privacy.contact_title' => 'پەیوەندیمان پێوە بکە',
+			'privacy.contact' => 'ئەگەر پرسیارت هەیە دەربارەی ئەم سیاسەتە، تکایە پەیوەندیمان پێوە بکە لە support@mymovies.app',
 			'auth.login' => 'چوونەژوورەوە',
 			'auth.signup' => 'ناونووسین',
 			'auth.create_account' => 'دروستکردنی هەژمار',

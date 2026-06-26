@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
+import 'package:my_movie/features/movies/presentation/widgets/settings/privacy_policy_card.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -113,9 +114,58 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 32),
+            _buildSectionHeader(theme, t.settings.support),
+            const SizedBox(height: 16),
+            _buildGlassCard(
+              theme,
+              child: ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(Icons.mail_rounded,
+                      color: theme.primaryColor, size: 22),
+                ),
+                title: Text(t.settings.contact_us,
+                    style: TextStyle(
+                        color: theme.textTheme.titleLarge?.color,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16)),
+                subtitle: Text(t.settings.email,
+                    style: TextStyle(
+                        color: theme.hintColor, fontSize: 13)),
+                onTap: () {},
+              ),
+            ),
+            const SizedBox(height: 32),
+            _buildSectionHeader(theme, t.settings.legal),
+            const SizedBox(height: 16),
+            PrivacyPolicyCard(theme: theme),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSectionHeader(ThemeData theme, String title) {
+    return Row(
+      children: [
+        Container(
+          width: 4,
+          height: 18,
+          decoration: BoxDecoration(
+            gradient: AppColors.primaryGradient,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Text(title,
+            style: theme.textTheme.titleMedium
+                ?.copyWith(fontWeight: FontWeight.w600)),
+      ],
     );
   }
 

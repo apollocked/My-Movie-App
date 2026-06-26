@@ -54,7 +54,25 @@
     "dark_mode": "Dark Mode",
     "lang_en": "English",
     "lang_ku": "Kurdish",
-    "lang_ar": "Arabic"
+    "lang_ar": "Arabic",
+    "privacy_policy": "Privacy Policy",
+    "legal": "Legal",
+    "support": "Support",
+    "contact_us": "Contact Us",
+    "email": "mahamadbarznji712@gmail.com"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "last_updated": "Last updated: June 26, 2026",
+    "introduction": "My Movies respects your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our app.",
+    "info_collect_title": "Information We Collect",
+    "info_collect": "We collect minimal information necessary to provide our services. This may include your email address if you create an account, and basic usage data such as movies you save to your watch list or favorites. We do not collect sensitive personal information.",
+    "how_use_title": "How We Use Your Information",
+    "how_use": "Your information is used solely to personalize your experience, save your preferences, and provide the core functionality of the app. We do not sell your data to third parties.",
+    "data_security_title": "Data Security",
+    "data_security": "We implement industry-standard security measures to protect your information. However, no method of electronic storage is 100%% secure.",
+    "contact_title": "Contact Us",
+    "contact": "If you have questions about this Privacy Policy, please contact us at mahamadbarznji712@gmail.com"
   },
   "auth": {
     "login": "Login",

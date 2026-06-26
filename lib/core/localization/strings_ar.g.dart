@@ -43,6 +43,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$search$ar search = _Translations$search$ar._(_root);
 	@override late final _Translations$profile$ar profile = _Translations$profile$ar._(_root);
 	@override late final _Translations$settings$ar settings = _Translations$settings$ar._(_root);
+	@override late final _Translations$privacy$ar privacy = _Translations$privacy$ar._(_root);
 	@override late final _Translations$auth$ar auth = _Translations$auth$ar._(_root);
 	@override late final _Translations$onboarding$ar onboarding = _Translations$onboarding$ar._(_root);
 	@override late final _Translations$guest_features$ar guest_features = _Translations$guest_features$ar._(_root);
@@ -132,6 +133,28 @@ class _Translations$settings$ar extends Translations$settings$en {
 	@override String get lang_en => 'الإنجليزية';
 	@override String get lang_ku => 'الكردية';
 	@override String get lang_ar => 'العربية';
+	@override String get privacy_policy => 'سياسة الخصوصية';
+	@override String get legal => 'قانوني';
+}
+
+// Path: privacy
+class _Translations$privacy$ar extends Translations$privacy$en {
+	_Translations$privacy$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'سياسة الخصوصية';
+	@override String get last_updated => 'آخر تحديث: 26 يونيو 2026';
+	@override String get introduction => 'My Movies تحترم خصوصيتك. توضح سياسة الخصوصية هذه كيفية جمع وحماية واستخدام معلوماتك عند استخدام تطبيقنا.';
+	@override String get info_collect_title => 'المعلومات التي نجمعها';
+	@override String get info_collect => 'نجمع الحد الأدنى من المعلومات اللازمة لتقديم خدماتنا. قد يشمل ذلك عنوان بريدك الإلكتروني إذا قمت بإنشاء حساب، وبيانات الاستخدام الأساسية مثل الأفلام التي تحفظها في قائمة المشاهدة لاحقاً أو المفضلة. لا نجمع معلومات شخصية حساسة.';
+	@override String get how_use_title => 'كيف نستخدم معلوماتك';
+	@override String get how_use => 'تُستخدم معلوماتك فقط لتخصيص تجربتك وحفظ تفضيلاتك وتوفير الوظائف الأساسية للتطبيق. لا نبيع بياناتك لأطراف ثالثة.';
+	@override String get data_security_title => 'أمن البيانات';
+	@override String get data_security => 'نطبق معايير أمان على مستوى الصناعة لحماية معلوماتك. ومع ذلك، لا توجد طريقة تخزين إلكترونية آمنة بنسبة 100%.';
+	@override String get contact_title => 'اتصل بنا';
+	@override String get contact => 'إذا كانت لديك أسئلة حول سياسة الخصوصية هذه، يرجى الاتصال بنا على support@mymovies.app';
 }
 
 // Path: auth
@@ -481,6 +504,19 @@ extension on TranslationsAr {
 			'settings.lang_en' => 'الإنجليزية',
 			'settings.lang_ku' => 'الكردية',
 			'settings.lang_ar' => 'العربية',
+			'settings.privacy_policy' => 'سياسة الخصوصية',
+			'settings.legal' => 'قانوني',
+			'privacy.title' => 'سياسة الخصوصية',
+			'privacy.last_updated' => 'آخر تحديث: 26 يونيو 2026',
+			'privacy.introduction' => 'My Movies تحترم خصوصيتك. توضح سياسة الخصوصية هذه كيفية جمع وحماية واستخدام معلوماتك عند استخدام تطبيقنا.',
+			'privacy.info_collect_title' => 'المعلومات التي نجمعها',
+			'privacy.info_collect' => 'نجمع الحد الأدنى من المعلومات اللازمة لتقديم خدماتنا. قد يشمل ذلك عنوان بريدك الإلكتروني إذا قمت بإنشاء حساب، وبيانات الاستخدام الأساسية مثل الأفلام التي تحفظها في قائمة المشاهدة لاحقاً أو المفضلة. لا نجمع معلومات شخصية حساسة.',
+			'privacy.how_use_title' => 'كيف نستخدم معلوماتك',
+			'privacy.how_use' => 'تُستخدم معلوماتك فقط لتخصيص تجربتك وحفظ تفضيلاتك وتوفير الوظائف الأساسية للتطبيق. لا نبيع بياناتك لأطراف ثالثة.',
+			'privacy.data_security_title' => 'أمن البيانات',
+			'privacy.data_security' => 'نطبق معايير أمان على مستوى الصناعة لحماية معلوماتك. ومع ذلك، لا توجد طريقة تخزين إلكترونية آمنة بنسبة 100%.',
+			'privacy.contact_title' => 'اتصل بنا',
+			'privacy.contact' => 'إذا كانت لديك أسئلة حول سياسة الخصوصية هذه، يرجى الاتصال بنا على support@mymovies.app',
 			'auth.login' => 'تسجيل الدخول',
 			'auth.signup' => 'إنشاء حساب',
 			'auth.create_account' => 'إنشاء حساب',

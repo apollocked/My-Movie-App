@@ -44,6 +44,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$search$en search = Translations$search$en.internal(_root);
 	late final Translations$profile$en profile = Translations$profile$en.internal(_root);
 	late final Translations$settings$en settings = Translations$settings$en.internal(_root);
+	late final Translations$privacy$en privacy = Translations$privacy$en.internal(_root);
 	late final Translations$auth$en auth = Translations$auth$en.internal(_root);
 	late final Translations$onboarding$en onboarding = Translations$onboarding$en.internal(_root);
 	late final Translations$guest_features$en guest_features = Translations$guest_features$en.internal(_root);
@@ -220,6 +221,63 @@ class Translations$settings$en {
 
 	/// en: 'Arabic'
 	String get lang_ar => 'Arabic';
+
+	/// en: 'Privacy Policy'
+	String get privacy_policy => 'Privacy Policy';
+
+	/// en: 'Legal'
+	String get legal => 'Legal';
+
+	/// en: 'Support'
+	String get support => 'Support';
+
+	/// en: 'Contact Us'
+	String get contact_us => 'Contact Us';
+
+	/// en: 'mahamadbarznji712@gmail.com'
+	String get email => 'mahamadbarznji712@gmail.com';
+}
+
+// Path: privacy
+class Translations$privacy$en {
+	Translations$privacy$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Privacy Policy'
+	String get title => 'Privacy Policy';
+
+	/// en: 'Last updated: June 26, 2026'
+	String get last_updated => 'Last updated: June 26, 2026';
+
+	/// en: 'My Movies respects your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our app.'
+	String get introduction => 'My Movies respects your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our app.';
+
+	/// en: 'Information We Collect'
+	String get info_collect_title => 'Information We Collect';
+
+	/// en: 'We collect minimal information necessary to provide our services. This may include your email address if you create an account, and basic usage data such as movies you save to your watch list or favorites. We do not collect sensitive personal information.'
+	String get info_collect => 'We collect minimal information necessary to provide our services. This may include your email address if you create an account, and basic usage data such as movies you save to your watch list or favorites. We do not collect sensitive personal information.';
+
+	/// en: 'How We Use Your Information'
+	String get how_use_title => 'How We Use Your Information';
+
+	/// en: 'Your information is used solely to personalize your experience, save your preferences, and provide the core functionality of the app. We do not sell your data to third parties.'
+	String get how_use => 'Your information is used solely to personalize your experience, save your preferences, and provide the core functionality of the app. We do not sell your data to third parties.';
+
+	/// en: 'Data Security'
+	String get data_security_title => 'Data Security';
+
+	/// en: 'We implement industry-standard security measures to protect your information. However, no method of electronic storage is 100%% secure.'
+	String get data_security => 'We implement industry-standard security measures to protect your information. However, no method of electronic storage is 100%% secure.';
+
+	/// en: 'Contact Us'
+	String get contact_title => 'Contact Us';
+
+	/// en: 'If you have questions about this Privacy Policy, please contact us at mahamadbarznji712@gmail.com'
+	String get contact => 'If you have questions about this Privacy Policy, please contact us at mahamadbarznji712@gmail.com';
 }
 
 // Path: auth
@@ -796,6 +854,22 @@ extension on Translations {
 			'settings.lang_en' => 'English',
 			'settings.lang_ku' => 'Kurdish',
 			'settings.lang_ar' => 'Arabic',
+			'settings.privacy_policy' => 'Privacy Policy',
+			'settings.legal' => 'Legal',
+			'settings.support' => 'Support',
+			'settings.contact_us' => 'Contact Us',
+			'settings.email' => 'mahamadbarznji712@gmail.com',
+			'privacy.title' => 'Privacy Policy',
+			'privacy.last_updated' => 'Last updated: June 26, 2026',
+			'privacy.introduction' => 'My Movies respects your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our app.',
+			'privacy.info_collect_title' => 'Information We Collect',
+			'privacy.info_collect' => 'We collect minimal information necessary to provide our services. This may include your email address if you create an account, and basic usage data such as movies you save to your watch list or favorites. We do not collect sensitive personal information.',
+			'privacy.how_use_title' => 'How We Use Your Information',
+			'privacy.how_use' => 'Your information is used solely to personalize your experience, save your preferences, and provide the core functionality of the app. We do not sell your data to third parties.',
+			'privacy.data_security_title' => 'Data Security',
+			'privacy.data_security' => 'We implement industry-standard security measures to protect your information. However, no method of electronic storage is 100%% secure.',
+			'privacy.contact_title' => 'Contact Us',
+			'privacy.contact' => 'If you have questions about this Privacy Policy, please contact us at mahamadbarznji712@gmail.com',
 			'auth.login' => 'Login',
 			'auth.signup' => 'Sign up',
 			'auth.create_account' => 'Create Account',
