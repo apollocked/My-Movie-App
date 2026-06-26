@@ -17,7 +17,7 @@ class AuthHeader extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 48),
-        Icon(Icons.movie_creation_rounded, size: 64, color: theme.primaryColor),
+        Icon(Icons.account_circle_rounded, size: 64, color: theme.primaryColor),
         const SizedBox(height: 24),
         Text(
           title,

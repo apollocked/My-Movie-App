@@ -52,8 +52,10 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$actor$en actor = Translations$actor$en.internal(_root);
 	late final Translations$tv$en tv = Translations$tv$en.internal(_root);
 	late final Translations$common$en common = Translations$common$en.internal(_root);
+	late final Translations$genres$en genres = Translations$genres$en.internal(_root);
 	late final Translations$connectivity$en connectivity = Translations$connectivity$en.internal(_root);
 	late final Translations$not_found$en not_found = Translations$not_found$en.internal(_root);
+	late final Translations$what_to_watch_dialog$en what_to_watch_dialog = Translations$what_to_watch_dialog$en.internal(_root);
 	late final Translations$swipe$en swipe = Translations$swipe$en.internal(_root);
 }
 
@@ -387,6 +389,9 @@ class Translations$onboarding$en {
 
 	/// en: 'Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.'
 	String get subtitle => 'Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.';
+
+	late final Translations$onboarding$features$en features = Translations$onboarding$features$en.internal(_root);
+	late final Translations$onboarding$tooltips$en tooltips = Translations$onboarding$tooltips$en.internal(_root);
 }
 
 // Path: guest_features
@@ -567,6 +572,72 @@ class Translations$common$en {
 	String get my_movie => 'My Movie';
 }
 
+// Path: genres
+class Translations$genres$en {
+	Translations$genres$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Action'
+	String get g_28 => 'Action';
+
+	/// en: 'Adventure'
+	String get g_12 => 'Adventure';
+
+	/// en: 'Animation'
+	String get g_16 => 'Animation';
+
+	/// en: 'Comedy'
+	String get g_35 => 'Comedy';
+
+	/// en: 'Crime'
+	String get g_80 => 'Crime';
+
+	/// en: 'Documentary'
+	String get g_99 => 'Documentary';
+
+	/// en: 'Drama'
+	String get g_18 => 'Drama';
+
+	/// en: 'Family'
+	String get g_10751 => 'Family';
+
+	/// en: 'Fantasy'
+	String get g_14 => 'Fantasy';
+
+	/// en: 'History'
+	String get g_36 => 'History';
+
+	/// en: 'Horror'
+	String get g_27 => 'Horror';
+
+	/// en: 'Music'
+	String get g_10402 => 'Music';
+
+	/// en: 'Mystery'
+	String get g_9648 => 'Mystery';
+
+	/// en: 'Romance'
+	String get g_10749 => 'Romance';
+
+	/// en: 'Sci-Fi'
+	String get g_878 => 'Sci-Fi';
+
+	/// en: 'TV Movie'
+	String get g_10770 => 'TV Movie';
+
+	/// en: 'Thriller'
+	String get g_53 => 'Thriller';
+
+	/// en: 'War'
+	String get g_10752 => 'War';
+
+	/// en: 'Western'
+	String get g_37 => 'Western';
+}
+
 // Path: connectivity
 class Translations$connectivity$en {
 	Translations$connectivity$en.internal(this._root);
@@ -620,6 +691,39 @@ class Translations$not_found$en {
 	String get return_home => 'Return to Home';
 }
 
+// Path: what_to_watch_dialog
+class Translations$what_to_watch_dialog$en {
+	Translations$what_to_watch_dialog$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Welcome to What to Watch'
+	String get title => 'Welcome to What to Watch';
+
+	/// en: 'Set Your Preferences'
+	String get step1_title => 'Set Your Preferences';
+
+	/// en: 'Choose genres, rating range, release year, and sort order to find exactly what you're in the mood for.'
+	String get step1_desc => 'Choose genres, rating range, release year, and sort order to find exactly what you\'re in the mood for.';
+
+	/// en: 'Swipe Through Movies'
+	String get step2_title => 'Swipe Through Movies';
+
+	/// en: 'Swipe right to save a movie or swipe left to skip it. Tap a card for details.'
+	String get step2_desc => 'Swipe right to save a movie or swipe left to skip it. Tap a card for details.';
+
+	/// en: 'Watch Later'
+	String get step3_title => 'Watch Later';
+
+	/// en: 'All saved movies appear in your profile under Watch Later.'
+	String get step3_desc => 'All saved movies appear in your profile under Watch Later.';
+
+	/// en: 'Got it!'
+	String get got_it => 'Got it!';
+}
+
 // Path: swipe
 class Translations$swipe$en {
 	Translations$swipe$en.internal(this._root);
@@ -628,8 +732,8 @@ class Translations$swipe$en {
 
 	// Translations
 
-	/// en: 'Swipe Suggest'
-	String get title => 'Swipe Suggest';
+	/// en: 'What to Watch'
+	String get title => 'What to Watch';
 
 	/// en: 'SAVE'
 	String get save_label => 'SAVE';
@@ -773,6 +877,33 @@ class Translations$auth$guest$en {
 
 	/// en: 'Get Started / Log In'
 	String get get_started => 'Get Started / Log In';
+}
+
+// Path: onboarding.features
+class Translations$onboarding$features$en {
+	Translations$onboarding$features$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final Translations$onboarding$features$browse$en browse = Translations$onboarding$features$browse$en.internal(_root);
+	late final Translations$onboarding$features$recommend$en recommend = Translations$onboarding$features$recommend$en.internal(_root);
+	late final Translations$onboarding$features$favorites$en favorites = Translations$onboarding$features$favorites$en.internal(_root);
+	late final Translations$onboarding$features$watch_later$en watch_later = Translations$onboarding$features$watch_later$en.internal(_root);
+}
+
+// Path: onboarding.tooltips
+class Translations$onboarding$tooltips$en {
+	Translations$onboarding$tooltips$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final Translations$onboarding$tooltips$browse$en browse = Translations$onboarding$tooltips$browse$en.internal(_root);
+	late final Translations$onboarding$tooltips$recommend$en recommend = Translations$onboarding$tooltips$recommend$en.internal(_root);
+	late final Translations$onboarding$tooltips$search$en search = Translations$onboarding$tooltips$search$en.internal(_root);
+	late final Translations$onboarding$tooltips$settings$en settings = Translations$onboarding$tooltips$settings$en.internal(_root);
+	late final Translations$onboarding$tooltips$profile$en profile = Translations$onboarding$tooltips$profile$en.internal(_root);
 }
 
 // Path: guest_features.favorites
@@ -919,6 +1050,141 @@ class Translations$swipe$sort_options$en {
 	String get highest_revenue => 'Highest Revenue';
 }
 
+// Path: onboarding.features.browse
+class Translations$onboarding$features$browse$en {
+	Translations$onboarding$features$browse$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Browse & Discover'
+	String get title => 'Browse & Discover';
+
+	/// en: 'Explore trending, top-rated, and upcoming movies.'
+	String get desc => 'Explore trending, top-rated, and upcoming movies.';
+}
+
+// Path: onboarding.features.recommend
+class Translations$onboarding$features$recommend$en {
+	Translations$onboarding$features$recommend$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Smart Recommendations'
+	String get title => 'Smart Recommendations';
+
+	/// en: 'Swipe through personalized movie suggestions.'
+	String get desc => 'Swipe through personalized movie suggestions.';
+}
+
+// Path: onboarding.features.favorites
+class Translations$onboarding$features$favorites$en {
+	Translations$onboarding$features$favorites$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Favorites & Ratings'
+	String get title => 'Favorites & Ratings';
+
+	/// en: 'Save movies you love and share your ratings.'
+	String get desc => 'Save movies you love and share your ratings.';
+}
+
+// Path: onboarding.features.watch_later
+class Translations$onboarding$features$watch_later$en {
+	Translations$onboarding$features$watch_later$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Watch Later'
+	String get title => 'Watch Later';
+
+	/// en: 'Build your personal watchlist for later.'
+	String get desc => 'Build your personal watchlist for later.';
+}
+
+// Path: onboarding.tooltips.browse
+class Translations$onboarding$tooltips$browse$en {
+	Translations$onboarding$tooltips$browse$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Cinema'
+	String get title => 'Cinema';
+
+	/// en: 'Browse new movies and discover what's playing'
+	String get desc => 'Browse new movies and discover what\'s playing';
+}
+
+// Path: onboarding.tooltips.recommend
+class Translations$onboarding$tooltips$recommend$en {
+	Translations$onboarding$tooltips$recommend$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What to Watch'
+	String get title => 'What to Watch';
+
+	/// en: 'Swipe through personalized movie recommendations'
+	String get desc => 'Swipe through personalized movie recommendations';
+}
+
+// Path: onboarding.tooltips.search
+class Translations$onboarding$tooltips$search$en {
+	Translations$onboarding$tooltips$search$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Explore'
+	String get title => 'Explore';
+
+	/// en: 'Search for movies, TV shows and actors'
+	String get desc => 'Search for movies, TV shows and actors';
+}
+
+// Path: onboarding.tooltips.settings
+class Translations$onboarding$tooltips$settings$en {
+	Translations$onboarding$tooltips$settings$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Settings'
+	String get title => 'Settings';
+
+	/// en: 'Customize language, theme and app preferences'
+	String get desc => 'Customize language, theme and app preferences';
+}
+
+// Path: onboarding.tooltips.profile
+class Translations$onboarding$tooltips$profile$en {
+	Translations$onboarding$tooltips$profile$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Profile'
+	String get title => 'Profile';
+
+	/// en: 'Manage your watchlist, favorites and settings'
+	String get desc => 'Manage your watchlist, favorites and settings';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1027,6 +1293,24 @@ extension on Translations {
 			'auth.reset_sent' => 'Reset link sent! Check your email inbox.',
 			'auth.back_to_login' => 'Back to Login',
 			'onboarding.subtitle' => 'Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.',
+			'onboarding.features.browse.title' => 'Browse & Discover',
+			'onboarding.features.browse.desc' => 'Explore trending, top-rated, and upcoming movies.',
+			'onboarding.features.recommend.title' => 'Smart Recommendations',
+			'onboarding.features.recommend.desc' => 'Swipe through personalized movie suggestions.',
+			'onboarding.features.favorites.title' => 'Favorites & Ratings',
+			'onboarding.features.favorites.desc' => 'Save movies you love and share your ratings.',
+			'onboarding.features.watch_later.title' => 'Watch Later',
+			'onboarding.features.watch_later.desc' => 'Build your personal watchlist for later.',
+			'onboarding.tooltips.browse.title' => 'Cinema',
+			'onboarding.tooltips.browse.desc' => 'Browse new movies and discover what\'s playing',
+			'onboarding.tooltips.recommend.title' => 'What to Watch',
+			'onboarding.tooltips.recommend.desc' => 'Swipe through personalized movie recommendations',
+			'onboarding.tooltips.search.title' => 'Explore',
+			'onboarding.tooltips.search.desc' => 'Search for movies, TV shows and actors',
+			'onboarding.tooltips.settings.title' => 'Settings',
+			'onboarding.tooltips.settings.desc' => 'Customize language, theme and app preferences',
+			'onboarding.tooltips.profile.title' => 'Profile',
+			'onboarding.tooltips.profile.desc' => 'Manage your watchlist, favorites and settings',
 			'guest_features.favorites.title' => 'Curate Favorites',
 			'guest_features.favorites.desc' => 'Keep track of the movies you love most.',
 			'guest_features.rate.title' => 'Rate & Review',
@@ -1084,6 +1368,25 @@ extension on Translations {
 			'common.back_to_browse' => 'Back to Browse',
 			'common.collection' => 'Collection',
 			'common.my_movie' => 'My Movie',
+			'genres.g_28' => 'Action',
+			'genres.g_12' => 'Adventure',
+			'genres.g_16' => 'Animation',
+			'genres.g_35' => 'Comedy',
+			'genres.g_80' => 'Crime',
+			'genres.g_99' => 'Documentary',
+			'genres.g_18' => 'Drama',
+			'genres.g_10751' => 'Family',
+			'genres.g_14' => 'Fantasy',
+			'genres.g_36' => 'History',
+			'genres.g_27' => 'Horror',
+			'genres.g_10402' => 'Music',
+			'genres.g_9648' => 'Mystery',
+			'genres.g_10749' => 'Romance',
+			'genres.g_878' => 'Sci-Fi',
+			'genres.g_10770' => 'TV Movie',
+			'genres.g_53' => 'Thriller',
+			'genres.g_10752' => 'War',
+			'genres.g_37' => 'Western',
 			'connectivity.title' => 'No Internet Connection',
 			'connectivity.description' => 'Please check your internet connection and try again. My Movie app requires an active internet connection to function properly.',
 			'connectivity.troubleshooting_title' => 'Troubleshooting Tips:',
@@ -1099,7 +1402,15 @@ extension on Translations {
 			'not_found.title_404' => '404 - Page Not Found',
 			'not_found.subtitle' => 'The page you are looking for does not exist or has been moved.',
 			'not_found.return_home' => 'Return to Home',
-			'swipe.title' => 'Swipe Suggest',
+			'what_to_watch_dialog.title' => 'Welcome to What to Watch',
+			'what_to_watch_dialog.step1_title' => 'Set Your Preferences',
+			'what_to_watch_dialog.step1_desc' => 'Choose genres, rating range, release year, and sort order to find exactly what you\'re in the mood for.',
+			'what_to_watch_dialog.step2_title' => 'Swipe Through Movies',
+			'what_to_watch_dialog.step2_desc' => 'Swipe right to save a movie or swipe left to skip it. Tap a card for details.',
+			'what_to_watch_dialog.step3_title' => 'Watch Later',
+			'what_to_watch_dialog.step3_desc' => 'All saved movies appear in your profile under Watch Later.',
+			'what_to_watch_dialog.got_it' => 'Got it!',
+			'swipe.title' => 'What to Watch',
 			'swipe.save_label' => 'SAVE',
 			'swipe.skip_label' => 'SKIP',
 			'swipe.nope_label' => 'NOPE',

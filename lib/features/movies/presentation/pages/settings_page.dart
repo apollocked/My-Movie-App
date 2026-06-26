@@ -4,6 +4,8 @@ import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/widgets/settings/privacy_policy_card.dart';
+import 'package:my_movie/features/movies/presentation/widgets/settings/settings_glass_card.dart';
+import 'package:my_movie/features/movies/presentation/widgets/settings/settings_section_header.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -15,11 +17,13 @@ class SettingsPage extends StatelessWidget {
     final currentSettings = context.watch<SettingsCubit>().state;
     final isDark = currentSettings.themeMode == ThemeMode.dark;
 
+    final bottom = MediaQuery.of(context).padding.bottom;
+
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
+          padding: EdgeInsets.fromLTRB(24, 24, 24, bottom + 120),
           children: [
             Row(
               children: [
@@ -36,8 +40,7 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 32),
-            _buildGlassCard(
-              theme,
+            SettingsGlassCard(
               child: ListTile(
                 leading: Container(
                   padding: const EdgeInsets.all(10),
@@ -85,8 +88,7 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            _buildGlassCard(
-              theme,
+            SettingsGlassCard(
               child: SwitchListTile(
                 value: isDark,
                 onChanged: (value) {
@@ -118,14 +120,13 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            _buildSectionHeader(theme, t.settings.legal),
+            SettingsSectionHeader(title: t.settings.legal),
             const SizedBox(height: 16),
             PrivacyPolicyCard(theme: theme),
             const SizedBox(height: 32),
-            _buildSectionHeader(theme, t.settings.support),
+            SettingsSectionHeader(title: t.settings.support),
             const SizedBox(height: 16),
-            _buildGlassCard(
-              theme,
+            SettingsGlassCard(
               child: ListTile(
                 leading: Container(
                   padding: const EdgeInsets.all(10),
@@ -148,40 +149,6 @@ class SettingsPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(ThemeData theme, String title) {
-    return Row(
-      children: [
-        Container(
-          width: 4,
-          height: 18,
-          decoration: BoxDecoration(
-            gradient: AppColors.primaryGradient,
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Text(title,
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w600)),
-      ],
-    );
-  }
-
-  Widget _buildGlassCard(ThemeData theme, {required Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: theme.dividerColor.withValues(alpha: 0.5)),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-        child: child,
       ),
     );
   }

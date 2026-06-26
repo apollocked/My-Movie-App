@@ -9,10 +9,11 @@ class GuestProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final bottom = MediaQuery.of(context).padding.bottom;
 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 120),
+        padding: EdgeInsets.only(left: 24, right: 24, bottom: bottom + 120),
         child: Column(
           children: [
             const SizedBox(height: 40),

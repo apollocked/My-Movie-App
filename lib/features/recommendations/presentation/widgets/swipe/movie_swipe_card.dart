@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
-import 'movie_network_image.dart';
+import '../movie_network_image.dart';
 import 'swipe_card_info_panel.dart';
+
 
 class MovieSwipeCard extends StatefulWidget {
   final Movie movie;

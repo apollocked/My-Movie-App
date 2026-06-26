@@ -12,21 +12,25 @@ class OfflineBanner extends StatelessWidget {
     return BlocBuilder<ConnectivityCubit, ConnectivityState>(
       builder: (context, state) {
         if (state is ConnectivityOffline) {
-          return Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: AppColors.errorRed.withValues(alpha: 0.9),
-            child: Row(
-              children: [
-                const Icon(Icons.wifi_off_rounded, color: Colors.white, size: 16),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    t.connectivity.offline_banner,
-                    style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+          return SafeArea(
+            top: true,
+            bottom: false,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              color: AppColors.errorRed.withValues(alpha: 0.9),
+              child: Row(
+                children: [
+                  const Icon(Icons.wifi_off_rounded, color: Colors.white, size: 16),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      t.connectivity.offline_banner,
+                      style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }

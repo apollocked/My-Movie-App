@@ -31,21 +31,35 @@ class _SearchPageState extends State<SearchPage> {
   var _showHistory = true;
 
   @override
-  void initState() { super.initState(); _loadHistory(); }
+  void initState() {
+    super.initState();
+    _loadHistory();
+  }
 
   Future<void> _loadHistory() async {
     final h = await _historyService.getHistory();
-    if (mounted) setState(() => _searchHistory..clear()..addAll(h));
+    if (mounted) {
+      setState(() => _searchHistory
+        ..clear()
+        ..addAll(h));
+    }
   }
 
   @override
-  void dispose() { _searchController.dispose(); super.dispose(); }
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   void _onSearchChanged(String query) {
     setState(() => _showHistory = query.trim().isEmpty);
     final bloc = context.read<SearchBloc>();
     if (query.trim().length > 2) {
-      bloc.add(ExecuteSearch(query: query, filter: _selectedFilter, language: getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+      bloc.add(ExecuteSearch(
+          query: query,
+          filter: _selectedFilter,
+          language:
+              getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
     } else if (query.trim().isEmpty) {
       bloc.add(const ClearSearch());
     }
@@ -60,7 +74,11 @@ class _SearchPageState extends State<SearchPage> {
   void _onFilterChanged(String filter) {
     setState(() => _selectedFilter = filter);
     if (_searchController.text.trim().isNotEmpty) {
-      context.read<SearchBloc>().add(ExecuteSearch(query: _searchController.text, filter: filter, language: getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+      context.read<SearchBloc>().add(ExecuteSearch(
+          query: _searchController.text,
+          filter: filter,
+          language:
+              getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
     }
   }
 
@@ -76,37 +94,62 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-              child: Text(t.search.explore, style: theme.textTheme.displayMedium),
+              child:
+                  Text(t.search.explore, style: theme.textTheme.displayMedium),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SearchField(controller: _searchController, onChanged: _onSearchChanged),
+              child: SearchField(
+                  controller: _searchController, onChanged: _onSearchChanged),
             ),
             const SizedBox(height: 16),
-            SearchFilterChips(selectedFilter: _selectedFilter, onFilterChanged: _onFilterChanged),
+            SearchFilterChips(
+                selectedFilter: _selectedFilter,
+                onFilterChanged: _onFilterChanged),
             const SizedBox(height: 16),
-            Expanded(child: BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
+            Expanded(child:
+                BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
               if (state is SearchLoading) return const SearchShimmer();
               if (state is SearchLoaded) {
                 if (state.results.isEmpty) {
-                  return EmptyStateWidget(icon: Icons.search_off_rounded, title: t.search.no_results, subtitle: t.search.no_results_subtitle);
+                  return EmptyStateWidget(
+                      icon: Icons.search_off_rounded,
+                      title: t.search.no_results,
+                      subtitle: t.search.no_results_subtitle);
                 }
                 return GridView.builder(
                   padding: EdgeInsets.fromLTRB(20, 20, 20, bottom + 120),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.65, crossAxisSpacing: 16, mainAxisSpacing: 16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16),
                   itemCount: state.results.length,
                   itemBuilder: (context, index) {
                     final movie = state.results[index];
-                    return InkWell(onTap: () => context.push('/movie/${movie.id}', extra: movie), borderRadius: BorderRadius.circular(20), child: MoviePosterCard(movie: movie));
+                    return InkWell(
+                        onTap: () =>
+                            context.push('/movie/${movie.id}', extra: movie),
+                        borderRadius: BorderRadius.circular(20),
+                        child: MoviePosterCard(movie: movie));
                   },
                 );
               }
               if (state is SearchError) {
-                return EmptyStateWidget(icon: Icons.error_outline_rounded, title: t.common.error_title, subtitle: state.message, onAction: () {
-                  if (_searchController.text.isNotEmpty) {
-                    context.read<SearchBloc>().add(ExecuteSearch(query: _searchController.text, filter: _selectedFilter, language: getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
-                  }
-                }, actionLabel: t.common.retry);
+                return EmptyStateWidget(
+                    icon: Icons.error_outline_rounded,
+                    title: t.common.error_title,
+                    subtitle: state.message,
+                    onAction: () {
+                      if (_searchController.text.isNotEmpty) {
+                        context.read<SearchBloc>().add(ExecuteSearch(
+                            query: _searchController.text,
+                            filter: _selectedFilter,
+                            language: getTmdbLanguageCode(
+                                context.read<SettingsCubit>().state.locale)));
+                      }
+                    },
+                    actionLabel: t.common.retry);
               }
               if (_showHistory) {
                 return ListView(
@@ -115,8 +158,15 @@ class _SearchPageState extends State<SearchPage> {
                     if (_searchHistory.isNotEmpty)
                       SearchHistorySection(
                         history: _searchHistory,
-                        onClear: () async { await _historyService.clear(); _searchHistory.clear(); if (mounted) setState(() {}); },
-                        onRemove: (q) async { await _historyService.removeQuery(q); _loadHistory(); },
+                        onClear: () async {
+                          await _historyService.clear();
+                          _searchHistory.clear();
+                          if (mounted) setState(() {});
+                        },
+                        onRemove: (q) async {
+                          await _historyService.removeQuery(q);
+                          _loadHistory();
+                        },
                         onTap: _executeSearch,
                       ),
                     const CategoryBrowserButton(),

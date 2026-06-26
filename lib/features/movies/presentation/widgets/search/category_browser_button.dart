@@ -10,7 +10,7 @@ class CategoryBrowserButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
+        padding: const EdgeInsets.fromLTRB(20, 24, 20, 45),
         child: GestureDetector(
           onTap: () => CategoryBrowserSheet.show(context),
           child: Container(
@@ -24,18 +24,22 @@ class CategoryBrowserButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.explore_rounded, color: Colors.white, size: 22),
+                const Icon(Icons.explore_rounded,
+                    color: Colors.white, size: 22),
                 const SizedBox(width: 10),
-                Text(t.search.browse_categories, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16)),
+                Text(t.search.browse_categories,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16)),
                 const SizedBox(width: 8),
-                const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white, size: 20),
+                const Icon(Icons.keyboard_arrow_down_rounded,
+                    color: Colors.white, size: 20),
               ],
             ),
-            
           ),
         ),
       ),
     );
-
   }
 }

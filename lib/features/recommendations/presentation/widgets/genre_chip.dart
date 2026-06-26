@@ -24,12 +24,12 @@ class GenreChip extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           color: isSelected
               ? theme.colorScheme.primary.withValues(alpha: 0.2)
               : (isDark ? AppColors.darkSurface : AppColors.lightSurface),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected
                 ? theme.colorScheme.primary
@@ -40,13 +40,13 @@ class GenreChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 14,
+            Icon(icon, size: 12,
                 color: isSelected ? theme.colorScheme.primary : (isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
-            const SizedBox(width: 4),
+            const SizedBox(width: 3),
             Text(label, style: TextStyle(
               color: isSelected ? theme.colorScheme.primary : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight),
               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              fontSize: 12,
+              fontSize: 11,
             )),
           ],
         ),

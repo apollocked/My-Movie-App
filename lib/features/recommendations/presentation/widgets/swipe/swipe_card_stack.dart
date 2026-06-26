@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'movie_swipe_card.dart';
 
+
 class SwipeCardStack extends StatefulWidget {
   final Movie movie;
   final VoidCallback? onSwipeLeft;

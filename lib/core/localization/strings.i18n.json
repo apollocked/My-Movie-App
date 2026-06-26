@@ -117,7 +117,47 @@
     "back_to_login": "Back to Login"
   },
   "onboarding": {
-    "subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily."
+    "subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.",
+    "features": {
+      "browse": {
+        "title": "Browse & Discover",
+        "desc": "Explore trending, top-rated, and upcoming movies."
+      },
+      "recommend": {
+        "title": "Smart Recommendations",
+        "desc": "Swipe through personalized movie suggestions."
+      },
+      "favorites": {
+        "title": "Favorites & Ratings",
+        "desc": "Save movies you love and share your ratings."
+      },
+      "watch_later": {
+        "title": "Watch Later",
+        "desc": "Build your personal watchlist for later."
+      }
+    },
+    "tooltips": {
+      "browse": {
+        "title": "Cinema",
+        "desc": "Browse new movies and discover what's playing"
+      },
+      "recommend": {
+        "title": "What to Watch",
+        "desc": "Swipe through personalized movie recommendations"
+      },
+      "search": {
+        "title": "Explore",
+        "desc": "Search for movies, TV shows and actors"
+      },
+      "settings": {
+        "title": "Settings",
+        "desc": "Customize language, theme and app preferences"
+      },
+      "profile": {
+        "title": "Profile",
+        "desc": "Manage your watchlist, favorites and settings"
+      }
+    }
   },
   "guest_features": {
     "favorites": {
@@ -198,6 +238,27 @@
     "collection": "Collection",
     "my_movie": "My Movie"
   },
+  "genres": {
+    "g_28": "Action",
+    "g_12": "Adventure",
+    "g_16": "Animation",
+    "g_35": "Comedy",
+    "g_80": "Crime",
+    "g_99": "Documentary",
+    "g_18": "Drama",
+    "g_10751": "Family",
+    "g_14": "Fantasy",
+    "g_36": "History",
+    "g_27": "Horror",
+    "g_10402": "Music",
+    "g_9648": "Mystery",
+    "g_10749": "Romance",
+    "g_878": "Sci-Fi",
+    "g_10770": "TV Movie",
+    "g_53": "Thriller",
+    "g_10752": "War",
+    "g_37": "Western"
+  },
   "connectivity": {
     "title": "No Internet Connection",
     "description": "Please check your internet connection and try again. My Movie app requires an active internet connection to function properly.",
@@ -219,8 +280,18 @@
     "subtitle": "The page you are looking for does not exist or has been moved.",
     "return_home": "Return to Home"
   },
+  "what_to_watch_dialog": {
+    "title": "Welcome to What to Watch",
+    "step1_title": "Set Your Preferences",
+    "step1_desc": "Choose genres, rating range, release year, and sort order to find exactly what you're in the mood for.",
+    "step2_title": "Swipe Through Movies",
+    "step2_desc": "Swipe right to save a movie or swipe left to skip it. Tap a card for details.",
+    "step3_title": "Watch Later",
+    "step3_desc": "All saved movies appear in your profile under Watch Later.",
+    "got_it": "Got it!"
+  },
   "swipe": {
-    "title": "Swipe Suggest",
+    "title": "What to Watch",
     "save_label": "SAVE",
     "skip_label": "SKIP",
     "nope_label": "NOPE",

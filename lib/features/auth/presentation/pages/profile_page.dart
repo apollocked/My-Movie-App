@@ -6,6 +6,7 @@ import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import '../widgets/guest_profile_view.dart';
+import '../widgets/profile_user_header.dart';
 import '../widgets/profile_widgets.dart';
 import '../widgets/profile_movie_section.dart';
 
@@ -15,6 +16,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    final bottom = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -34,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildUserHeader(theme, user.displayName, user.email),
+                      ProfileUserHeader(theme: theme, email: user.email),
                       const SizedBox(height: 48),
                       ProfileSectionHeader(title: t.profile.my_activity),
                       const SizedBox(height: 8),
@@ -71,13 +74,22 @@ class ProfilePage extends StatelessWidget {
                             title: Text(t.profile.logout),
                             content: Text(t.profile.logout_confirm),
                             actions: [
-                              TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(t.common.cancel)),
-                              FilledButton(onPressed: () { Navigator.of(ctx).pop(); context.read<AuthBloc>().add(const LogoutRequested()); }, child: Text(t.profile.logout)),
+                              TextButton(
+                                  onPressed: () => Navigator.of(ctx).pop(),
+                                  child: Text(t.common.cancel)),
+                              FilledButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(const LogoutRequested());
+                                  },
+                                  child: Text(t.profile.logout)),
                             ],
                           ),
                         ),
                       ),
-                      const SizedBox(height: 100),
+                      SizedBox(height: bottom + 120),
                     ],
                   ),
                 );
@@ -90,36 +102,4 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserHeader(ThemeData theme, String? name, String email) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                  colors: [theme.primaryColor, AppColors.ratingGold]),
-              boxShadow: [
-                BoxShadow(
-                    color: theme.primaryColor.withValues(alpha: 0.3),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10))
-              ],
-            ),
-            child: const Icon(Icons.person, size: 50, color: Colors.white),
-          ),
-          const SizedBox(height: 20),
-          Text(name ?? t.profile.default_name,
-              style: theme.textTheme.headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 4),
-          Text(email,
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: theme.hintColor)),
-        ],
-      ),
-    );
-  }
 }

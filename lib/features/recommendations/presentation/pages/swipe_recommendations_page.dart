@@ -6,9 +6,9 @@ import 'package:my_movie/core/theme/app_colors.dart';
 import '../blocs/recommendation_bloc.dart';
 import '../blocs/recommendation_event.dart';
 import '../blocs/recommendation_state.dart';
-import '../widgets/swipe_card_stack.dart';
-import '../widgets/swipe_action_button.dart';
-import '../widgets/swipe_state_views.dart';
+import '../widgets/swipe/swipe_card_stack.dart';
+import '../widgets/swipe/swipe_action_button.dart';
+import '../widgets/swipe/swipe_state_views.dart';
 
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
 

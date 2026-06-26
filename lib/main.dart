@@ -19,8 +19,7 @@ import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/recommendations/presentation/blocs/recommendation_bloc.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:my_movie/common/ui/offline_banner.dart';
-import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/common/widgets/offline_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -113,7 +112,7 @@ class _MyAppState extends State<MyApp> {
             ],
             supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
-            builder: (context, child) => _buildOfflineWrapper(context, child),
+            builder: (context, child) => OfflineWrapper(child: child),
           );
         },
       ),
