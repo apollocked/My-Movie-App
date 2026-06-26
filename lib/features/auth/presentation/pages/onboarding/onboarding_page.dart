@@ -19,96 +19,142 @@ class OnboardingPage extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, settingsState) {
         final isDark = settingsState.themeMode == ThemeMode.dark;
-        final settingsCubit = context.read<SettingsCubit>();
 
         return Scaffold(
-          backgroundColor: theme.scaffoldBackgroundColor,
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        theme.scaffoldBackgroundColor.withValues(alpha: 0.3),
-                        theme.scaffoldBackgroundColor.withValues(alpha: 0.8),
-                        theme.scaffoldBackgroundColor,
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: isDark
+                    ? [
+                        const Color(0xFF0A0A0F),
+                        const Color(0xFF0F0F1A),
+                        const Color(0xFF1A0A1A),
+                      ]
+                    : [
+                        const Color(0xFFF8F8FF),
+                        const Color(0xFFF0F0FF),
+                        const Color(0xFFFFF0F8),
                       ],
-                      stops: const [0.0, 0.5, 1.0],
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: -100,
+                  right: -80,
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.primaryColor.withValues(alpha: isDark ? 0.08 : 0.06),
                     ),
                   ),
                 ),
-              ),
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 8),
-                          OnboardingSettingsBar(
-                            isDark: isDark,
-                            settingsState: settingsState,
-                            settingsCubit: settingsCubit,
-                          ),
-                          const Spacer(),
-                          Column(
-                            children: [
-                              Icon(Icons.movie_creation_rounded, size: 80, color: theme.primaryColor),
-                              const SizedBox(height: 24),
-                              Text(
+                Positioned(
+                  bottom: -60,
+                  left: -60,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: theme.primaryColor.withValues(alpha: isDark ? 0.05 : 0.04),
+                    ),
+                  ),
+                ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        OnboardingSettingsBar(isDark: isDark),
+                        const Spacer(),
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    theme.primaryColor,
+                                    theme.primaryColor.withValues(alpha: 0.6),
+                                  ],
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: theme.primaryColor.withValues(alpha: 0.25),
+                                    blurRadius: 40,
+                                    spreadRadius: 10,
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.play_circle_rounded,
+                                size: 56,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 48),
+                            ShaderMask(
+                              shaderCallback: (bounds) => LinearGradient(
+                                colors: [
+                                  theme.primaryColor,
+                                  theme.primaryColor.withValues(alpha: 0.7),
+                                ],
+                              ).createShader(
+                                Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                              ),
+                              child: Text(
                                 t.auth.welcome_title,
                                 textAlign: TextAlign.center,
-                                style: theme.textTheme.headlineLarge?.copyWith(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 36,
-                                  letterSpacing: 1.2,
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 44,
+                                  letterSpacing: -1,
+                                  color: isDark ? Colors.white : Colors.black,
+                                  height: 1.1,
                                 ),
                               ),
-                              const SizedBox(height: 16),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                child: Text(
-                                  t.auth.onboarding_subtitle,
-                                  textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyLarge?.copyWith(
-                                    color: Colors.white.withValues(alpha: 0.8),
-                                    height: 1.6,
-                                    fontSize: 16,
-                                  ),
-                                ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              t.auth.onboarding_subtitle,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: isDark
+                                    ? Colors.white.withValues(alpha: 0.5)
+                                    : Colors.black.withValues(alpha: 0.45),
+                                height: 1.5,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0.2,
                               ),
-                            ],
-                          ),
-                          const Spacer(),
-                          OnboardingButtons(
-                            onGetStarted: () => context.go('/login'),
-                            onContinueAsGuest: () {
-                              context.read<AuthBloc>().add(const ContinueAsGuestRequested());
-                              context.go('/');
-                            },
-                            getStartedText: t.auth.get_started,
-                            continueGuestText: t.auth.continue_guest,
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        OnboardingButtons(
+                          isDark: isDark,
+                          onGetStarted: () => context.go('/login'),
+                          onContinueAsGuest: () {
+                            context.read<AuthBloc>().add(const ContinueAsGuestRequested());
+                            context.go('/');
+                          },
+                          getStartedText: t.auth.get_started,
+                          continueGuestText: t.auth.continue_guest,
+                        ),
+                        const SizedBox(height: 32),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

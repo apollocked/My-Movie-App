@@ -1,6 +1,6 @@
 {
-    "name": "my_movie",
-    "short_name": "my_movie",
+    "name": "My Movies",
+    "short_name": "My Movies",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

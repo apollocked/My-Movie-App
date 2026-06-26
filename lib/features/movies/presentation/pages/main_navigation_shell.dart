@@ -16,35 +16,62 @@ class MainNavigationShell extends StatelessWidget {
 
     return Scaffold(
       extendBody: true,
-      body: navigationShell,
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-              child: Container(
-                height: 68,
-                decoration: BoxDecoration(
-                  color: isDark
-                      ? Colors.black.withValues(alpha: 0.6)
-                      : Colors.white.withValues(alpha: 0.8),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: isDark
-                        ? Colors.white.withValues(alpha: 0.08)
-                        : Colors.black.withValues(alpha: 0.06),
-                    width: 1,
+      body: Stack(
+        children: [
+          // The main content of your app
+          Padding(
+            padding: const EdgeInsets.only(bottom: 88),
+            child: navigationShell,
+          ),
+
+          // The floating navigation bar
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: SizedBox(
+                  height: 68,
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? Colors.black.withValues(alpha: 0.6)
+                                  : Colors.white.withValues(alpha: 0.85),
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: isDark
+                                    ? Colors.white.withValues(alpha: 0.08)
+                                    : Colors.black.withValues(alpha: 0.06),
+                                width: 1,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black
+                                      .withValues(alpha: isDark ? 0.3 : 0.08),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 8),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: _buildNavItems(context, theme, isDark),
+                      ),
+                    ],
                   ),
-                ),
-                child: Row(
-                  children: _buildNavItems(context, theme, isDark),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -83,50 +110,53 @@ class MainNavigationShell extends StatelessWidget {
         child: GestureDetector(
           onTap: () => navigationShell.goBranch(index),
           behavior: HitTestBehavior.opaque,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.easeOutCubic,
-            margin: EdgeInsets.only(
-              top: 8,
-              bottom: 8,
-              left: index > 0 ? 2 : 8,
-              right: index < items.length - 1 ? 2 : 8,
-            ),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? activeColor.withValues(alpha: isDark ? 0.2 : 0.12)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  transitionBuilder: (child, animation) => ScaleTransition(
-                    scale: animation,
-                    child: child,
-                  ),
-                  child: Icon(
-                    isSelected ? item.activeIcon : item.icon,
-                    key: ValueKey('${isSelected}_$index'),
-                    color: isSelected ? activeColor : inactiveColor(isDark),
-                    size: isSelected ? 24 : 21,
-                  ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 36,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeOutCubic,
+                      width: isSelected ? 48 : 0,
+                      height: isSelected ? 36 : 0,
+                      decoration: BoxDecoration(
+                        color:
+                            activeColor.withValues(alpha: isDark ? 0.2 : 0.12),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      transitionBuilder: (child, animation) => ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      ),
+                      child: Icon(
+                        isSelected ? item.activeIcon : item.icon,
+                        key: ValueKey('${isSelected}_$index'),
+                        color: isSelected ? activeColor : inactiveColor(isDark),
+                        size: isSelected ? 24 : 22,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 2),
-                AnimatedDefaultTextStyle(
-                  duration: const Duration(milliseconds: 200),
-                  style: TextStyle(
-                    fontSize: isSelected ? 10 : 9,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    color: isSelected ? activeColor : inactiveColor(isDark),
-                    letterSpacing: 0.3,
-                  ),
-                  child: Text(item.label),
+              ),
+              const SizedBox(height: 4),
+              AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                  color: isSelected ? activeColor : inactiveColor(isDark),
+                  letterSpacing: 0.3,
                 ),
-              ],
-            ),
+                child: Text(item.label),
+              ),
+            ],
           ),
         ),
       );

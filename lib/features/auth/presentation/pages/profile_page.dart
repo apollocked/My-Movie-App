@@ -19,52 +19,58 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
-        child: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state is AuthLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (state is AuthGuest) return const GuestProfileView();
-            if (state is Authenticated) {
-              final user = state.user;
-              return ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                children: [
-                  _buildUserHeader(theme, user.displayName, user.email),
-                  const SizedBox(height: 48),
-                  ProfileSectionHeader(title: t.profile.my_activity),
-                  const SizedBox(height: 16),
-                  ProfileTile(
-                    icon: Icons.bookmark_outline_rounded,
-                    title: t.profile.watch_later,
-                    onTap: () => context.push('/collection/watch_later'),
+        child: SingleChildScrollView(
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state is AuthGuest) return const GuestProfileView();
+              if (state is Authenticated) {
+                final user = state.user;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24, vertical: 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildUserHeader(theme, user.displayName, user.email),
+                      const SizedBox(height: 48),
+                      ProfileSectionHeader(title: t.profile.my_activity),
+                      const SizedBox(height: 16),
+                      ProfileTile(
+                        icon: Icons.bookmark_outline_rounded,
+                        title: t.profile.watch_later,
+                        onTap: () => context.push('/collection/watch_later'),
+                      ),
+                      ProfileTile(
+                        icon: Icons.favorite_outline_rounded,
+                        title: t.profile.my_favorites,
+                        onTap: () => context.push('/collection/favorites'),
+                      ),
+                      ProfileTile(
+                        icon: Icons.star_outline_rounded,
+                        title: t.profile.my_ratings,
+                        onTap: () => context.push('/collection/ratings'),
+                      ),
+                      const SizedBox(height: 32),
+                      ProfileSectionHeader(title: t.profile.account),
+                      const SizedBox(height: 16),
+                      ProfileTile(
+                        icon: Icons.logout_rounded,
+                        title: t.profile.logout,
+                        isDestructive: true,
+                        onTap: () => context
+                            .read<AuthBloc>()
+                            .add(const LogoutRequested()),
+                      ),
+                    ],
                   ),
-                  ProfileTile(
-                    icon: Icons.favorite_outline_rounded,
-                    title: t.profile.my_favorites,
-                    onTap: () => context.push('/collection/favorites'),
-                  ),
-                  ProfileTile(
-                    icon: Icons.star_outline_rounded,
-                    title: t.profile.my_ratings,
-                    onTap: () => context.push('/collection/ratings'),
-                  ),
-                  const SizedBox(height: 32),
-                  ProfileSectionHeader(title: t.profile.account),
-                  const SizedBox(height: 16),
-                  ProfileTile(
-                    icon: Icons.logout_rounded,
-                    title: t.profile.logout,
-                    isDestructive: true,
-                    onTap: () =>
-                        context.read<AuthBloc>().add(const LogoutRequested()),
-                  ),
-                ],
-              );
-            }
-            return const SizedBox.shrink();
-          },
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );

@@ -37,27 +37,22 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
   Future<void> initRemoteConfig() async {
     if (!mounted) return;
-
-    setState(() {
-      isloading = true;
-    });
-
-    await remoteConfig.setDefaults({'name': 'My Movie'});
-    await remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(seconds: 10),
-      minimumFetchInterval: const Duration(seconds: 10),
-    ));
-
-    await remoteConfig.fetchAndActivate();
-    _configSubscription = remoteConfig.onConfigUpdated.listen((event) async {
-      await remoteConfig.activate();
-      if (mounted) setState(() {});
-    });
-
-    if (mounted) {
-      setState(() {
-        isloading = false;
+    setState(() => isloading = true);
+    try {
+      await remoteConfig.setDefaults({'name': 'My Movie'});
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(seconds: 10),
+      ));
+      await remoteConfig.fetchAndActivate();
+      _configSubscription = remoteConfig.onConfigUpdated.listen((event) async {
+        await remoteConfig.activate();
+        if (mounted) setState(() {});
       });
+    } catch (_) {
+      // Remote Config failure is non-critical; fall back to defaults.
+    } finally {
+      if (mounted) setState(() => isloading = false);
     }
   }
 

@@ -25,6 +25,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
   await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -108,8 +109,7 @@ class _MyAppState extends State<MyApp> {
             ],
             supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
-            builder: (context, child) =>
-                _buildOfflineWrapper(context, child),
+            builder: (context, child) => _buildOfflineWrapper(context, child),
           );
         },
       ),
@@ -118,7 +118,8 @@ class _MyAppState extends State<MyApp> {
 
   Widget _buildOfflineWrapper(BuildContext context, Widget? child) {
     return BlocListener<ConnectivityCubit, ConnectivityState>(
-      listenWhen: (prev, cur) => prev is ConnectivityOnline && cur is ConnectivityOffline,
+      listenWhen: (prev, cur) =>
+          prev is ConnectivityOnline && cur is ConnectivityOffline,
       listener: (context, state) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -126,7 +127,8 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: AppColors.errorRed.withValues(alpha: 0.9),
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 3),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           ));
         }
       },

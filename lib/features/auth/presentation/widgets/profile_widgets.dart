@@ -28,17 +28,21 @@ class ProfileTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: theme.dividerColor),
       ),
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(icon,
-            color:
-                isDestructive ? theme.colorScheme.error : theme.primaryColor),
-        title: Text(
-          title,
-          style: TextStyle(
-              color: color, fontWeight: FontWeight.w600, fontSize: 16),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: ListTile(
+          onTap: onTap,
+          leading: Icon(icon,
+              color:
+                  isDestructive ? theme.colorScheme.error : theme.primaryColor),
+          title: Text(
+            title,
+            style: TextStyle(
+                color: color, fontWeight: FontWeight.w600, fontSize: 16),
+          ),
+          trailing: Icon(Icons.chevron_right_rounded, color: theme.hintColor),
         ),
-        trailing: Icon(Icons.chevron_right_rounded, color: theme.hintColor),
       ),
     );
   }

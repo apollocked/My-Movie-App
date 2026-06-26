@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import '../widgets/collection_grid.dart';
 import '../widgets/collection_empty_state.dart';
 
@@ -43,6 +44,19 @@ class CollectionPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  '${t.common.error_title}:\n${snapshot.error}',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(color: theme.colorScheme.error),
+                ),
+              ),
+            );
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const CollectionEmptyState();

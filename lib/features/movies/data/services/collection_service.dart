@@ -12,8 +12,9 @@ class CollectionService {
   final _db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
-  String? get _uid => _auth.currentUser?.uid;
-  bool get _isAuthenticated => _uid != null;
+  User? get _user => _auth.currentUser;
+  String? get _uid => _user?.uid;
+  bool get _isAuthenticated => _user != null;
 
   Stream<bool> isInCollectionStream(String collection, int movieId) {
     if (_isAuthenticated) {

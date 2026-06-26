@@ -127,7 +127,11 @@ class SettingsPage extends StatelessWidget {
         border: Border.all(
             color: theme.dividerColor.withValues(alpha: 0.5)),
       ),
-      child: child,
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        child: child,
+      ),
     );
   }
 }

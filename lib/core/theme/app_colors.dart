@@ -8,12 +8,12 @@ class AppColors {
   static const Color darkBorder = Color(0xFF1F2535);
   static const Color darkElevated = Color(0xFF1C2335);
 
-  // Light theme surfaces
-  static const Color lightBackground = Color(0xFFF2F4F8);
-  static const Color lightSurface = Color(0xFFFFFFFF);
-  static const Color lightSurfaceVariant = Color(0xFFE8ECEF);
-  static const Color lightBorder = Color(0xFFD5DAE6);
-  static const Color lightElevated = Color(0xFFFFFFFF);
+  // Light theme surfaces — cool white tones
+  static const Color lightBackground = Color.fromARGB(255, 248, 240, 240);
+  static const Color lightSurface = Color.fromARGB(255, 252, 247, 245);
+  static const Color lightSurfaceVariant = Color.fromARGB(255, 244, 232, 232);
+  static const Color lightBorder = Color.fromARGB(255, 230, 213, 213);
+  static const Color lightElevated = Color.fromARGB(255, 253, 250, 250);
 
   // Brand — cinematic red as hero accent + gradient companion
   static const Color primaryRed = Color(0xFFE8445A);
@@ -56,8 +56,14 @@ class AppColors {
 
   // Glow shadows
   static List<BoxShadow> glowShadow(Color color, {double radius = 12}) => [
-        BoxShadow(color: color.withValues(alpha: 0.3), blurRadius: radius, offset: const Offset(0, 4)),
-        BoxShadow(color: color.withValues(alpha: 0.15), blurRadius: radius * 2, offset: const Offset(0, 0)),
+        BoxShadow(
+            color: color.withValues(alpha: 0.3),
+            blurRadius: radius,
+            offset: const Offset(0, 4)),
+        BoxShadow(
+            color: color.withValues(alpha: 0.15),
+            blurRadius: radius * 2,
+            offset: const Offset(0, 0)),
       ];
 
   // Status helpers
