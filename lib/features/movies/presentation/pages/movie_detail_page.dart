@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:my_movie/features/movies/presentation/widgets/trailer_feedback.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:my_movie/core/network/api_client.dart';
@@ -19,7 +20,10 @@ class MovieDetailPage extends StatefulWidget {
   final bool autoPlayTrailer;
 
   const MovieDetailPage(
-      {super.key, this.movie, required this.movieId, this.autoPlayTrailer = false});
+      {super.key,
+      this.movie,
+      required this.movieId,
+      this.autoPlayTrailer = false});
 
   @override
   State<MovieDetailPage> createState() => _MovieDetailPageState();
@@ -110,7 +114,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   posterPath: json['poster_path'] as String? ?? '',
                   backdropPath: json['backdrop_path'] as String? ?? '',
                   releaseDate: json['release_date'] as String? ?? '',
-                  voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+                  voteAverage:
+                      (json['vote_average'] as num?)?.toDouble() ?? 0.0,
                 ))
             .toList();
       } catch (_) {}
@@ -174,25 +179,24 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 background: Stack(
                   fit: StackFit.expand,
                   children: [
-                    _hasTrailer &&
-                            !_trailerBlocked &&
-                            _ytController != null
+                    _hasTrailer && !_trailerBlocked && _ytController != null
                         ? YoutubePlayer(controller: _ytController!)
                         : TrailerFallback(
                             posterUrl: currentMovie.fullPosterUrl,
-                            trailerKey: _trailerBlocked ? _trailerKey : null,
                           ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Color(0xB007090F),
-                            Color(0xFF07090F),
-                          ],
-                          stops: [0.0, 0.5, 1.0],
+                    IgnorePointer(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Color(0xB007090F),
+                              Color(0xFF07090F),
+                            ],
+                            stops: [0.0, 0.5, 1.0],
+                          ),
                         ),
                       ),
                     ),
@@ -206,12 +210,16 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (_hasTrailer) ...[
+                      const SizedBox(height: 20),
+                      _buildPlayTrailerButton(),
+                    ],
+                    const SizedBox(height: 28),
                     MovieDetailInfo(
                       movie: currentMovie,
                       uid: uid,
                       overview: _details?['overview'],
                     ),
-                    const SizedBox(height: 28),
                     CastSection(cast: _cast, crew: _crew),
                     const SizedBox(height: 32),
                     _buildSectionDivider(theme),
@@ -227,6 +235,70 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlayTrailerButton() {
+    return GestureDetector(
+      onTap: () async {
+        final url = Uri.parse('https://www.youtube.com/watch?v=$_trailerKey');
+        try {
+          await launchUrl(url, mode: LaunchMode.externalApplication);
+        } catch (_) {
+          await launchUrl(url, mode: LaunchMode.platformDefault);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.red.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(20),
+          border:
+              Border.all(color: Colors.red.withValues(alpha: 0.25), width: 1),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(14),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.red.withValues(alpha: 0.4),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: const Icon(Icons.play_arrow_rounded,
+                  color: Colors.white, size: 28),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Watch Trailer',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          color: Colors.white)),
+                  Text('on YouTube',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                          color: Colors.white.withValues(alpha: 0.6))),
+                ],
+              ),
+            ),
+            Icon(Icons.open_in_new_rounded,
+                color: Colors.white.withValues(alpha: 0.4), size: 18),
           ],
         ),
       ),
