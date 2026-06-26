@@ -5,6 +5,7 @@ import 'package:my_movie/core/theme/app_colors.dart';
 import '../../domain/entities/movie.dart';
 import 'card_quick_actions.dart';
 import 'card_rating_badge.dart';
+import 'release_countdown_badge.dart';
 
 class MoviePosterCard extends StatelessWidget {
   final double height;
@@ -48,6 +49,7 @@ class MoviePosterCard extends StatelessWidget {
         children: [
           Positioned.fill(child: _buildImage(isDark, theme)),
           if (movie != null) ...[
+            ReleaseCountdownBadge(movie: movie!),
             _buildGlassTitleOverlay(),
             CardQuickActions(movie: movie!),
             CardRatingBadge(

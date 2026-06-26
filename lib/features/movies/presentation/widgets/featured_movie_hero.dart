@@ -7,6 +7,7 @@ import 'hero/hero_gradient_overlay.dart';
 import 'hero/hero_rating_badge.dart';
 import 'hero/hero_info_chip.dart';
 import 'hero/hero_gradient_play_button.dart';
+import 'release_countdown_badge.dart';
 
 class FeaturedMovieHero extends StatelessWidget {
   final Movie? movie;
@@ -81,6 +82,10 @@ class FeaturedMovieHero extends StatelessWidget {
                     text: movie!.releaseDate.split('-').first),
               ],
             ),
+            if (ReleaseCountdownBadge.isUpcoming(movie!)) ...[
+              const SizedBox(height: 10),
+              ReleaseCountdownBadge(movie: movie!),
+            ],
             const SizedBox(height: 20),
             Row(
               children: [
