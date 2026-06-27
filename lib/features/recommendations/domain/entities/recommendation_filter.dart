@@ -1,3 +1,5 @@
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
+
 class RecommendationFilter {
   final List<int> genreIds;
   final double minRating;
@@ -7,6 +9,7 @@ class RecommendationFilter {
   final String sortBy;
   final int minVotes;
   final bool isShuffled;
+  final ContentType contentType;
 
   const RecommendationFilter({
     this.genreIds = const [],
@@ -17,7 +20,10 @@ class RecommendationFilter {
     this.sortBy = 'popularity.desc',
     this.minVotes = 50,
     this.isShuffled = true,
+    this.contentType = ContentType.movies,
   });
+
+  bool get isForShows => contentType == ContentType.shows;
 
   Map<String, dynamic> toQueryParams(String language) {
     final params = <String, dynamic>{
@@ -38,10 +44,12 @@ class RecommendationFilter {
       params['vote_average.lte'] = mr;
     }
     if (yearFrom > 1900) {
-      params['primary_release_date.gte'] = '$yearFrom-01-01';
+      params[isForShows ? 'first_air_date.gte' : 'primary_release_date.gte'] =
+          '$yearFrom-01-01';
     }
     if (yearTo != null) {
-      params['primary_release_date.lte'] = '$yearTo-12-31';
+      params[isForShows ? 'first_air_date.lte' : 'primary_release_date.lte'] =
+          '$yearTo-12-31';
     }
 
     return params;
@@ -56,6 +64,7 @@ class RecommendationFilter {
     String? sortBy,
     int? minVotes,
     bool? isShuffled,
+    ContentType? contentType,
   }) {
     return RecommendationFilter(
       genreIds: genreIds ?? this.genreIds,
@@ -66,6 +75,7 @@ class RecommendationFilter {
       sortBy: sortBy ?? this.sortBy,
       minVotes: minVotes ?? this.minVotes,
       isShuffled: isShuffled ?? this.isShuffled,
+      contentType: contentType ?? this.contentType,
     );
   }
 }

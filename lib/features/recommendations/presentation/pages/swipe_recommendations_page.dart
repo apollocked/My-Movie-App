@@ -48,6 +48,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final bloc = context.read<RecommendationBloc>();
+    final isTv = widget.filter.isForShows;
 
     return Scaffold(
       appBar: AppBar(
@@ -86,14 +87,14 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
               onViewWatchLater: () => context.go('/profile'),
             );
           }
-          if (state is RecommendationLoaded) return _buildContent(state);
+          if (state is RecommendationLoaded) return _buildContent(state, isTv);
           return const SizedBox.shrink();
         },
       ),
     );
   }
 
-  Widget _buildContent(RecommendationLoaded state) {
+  Widget _buildContent(RecommendationLoaded state, bool isTv) {
     if (state.currentMovie == null) {
       return AllSwipedView(
         count: state.watchLaterIds.length,
@@ -134,7 +135,15 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
               SizedBox(
                 height: 52,
                 child: SwipeActionButton(icon: Icons.info_outline_rounded, color: AppColors.infoCyan, size: 52,
-                  onTap: () { if (state.currentMovie != null) context.push('/movie/${state.currentMovie!.id}', extra: state.currentMovie); }),
+                  onTap: () {
+                    if (state.currentMovie != null) {
+                      if (isTv) {
+                        context.push('/show/${state.currentMovie!.id}', extra: state.currentMovie);
+                      } else {
+                        context.push('/movie/${state.currentMovie!.id}', extra: state.currentMovie);
+                      }
+                    }
+                  }),
               ),
               const SizedBox(width: 16),
               Expanded(

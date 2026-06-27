@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/shows/data/models/show_model.dart';
 import '../widgets/movie_poster_card.dart';
 import '../widgets/actor_detail/actor_section_header.dart';
 import '../widgets/actor_detail/actor_info_row.dart';
@@ -19,16 +20,18 @@ class ActorDetailPage extends StatefulWidget {
 class _ActorDetailPageState extends State<ActorDetailPage> {
   final ApiClient _apiClient = ApiClient();
   Map<String, dynamic>? _person;
-  List<Movie> _filmography = [];
+  List<Movie> _movieCredits = [];
+  List<Movie> _tvCredits = [];
   bool _isLoading = true;
   @override
   void initState() { super.initState(); _fetchData(); }
   Future<void> _fetchData() async {
     try {
       final person = await _apiClient.get('/person/${widget.personId}',
-          params: {'append_to_response': 'movie_credits'});
-      final cast = (person['movie_credits'] as Map<String, dynamic>?)?['cast'] as List? ?? [];
-      final films = cast.map((j) => Movie(
+          params: {'append_to_response': 'movie_credits,tv_credits'});
+      final movieCast = (person['movie_credits'] as Map<String, dynamic>?)?['cast'] as List? ?? [];
+      final tvCast = (person['tv_credits'] as Map<String, dynamic>?)?['cast'] as List? ?? [];
+      final movies = movieCast.map((j) => Movie(
         id: (j['id'] as num?)?.toInt() ?? 0,
         title: j['title'] as String? ?? '',
         overview: j['overview'] as String? ?? '',
@@ -37,9 +40,12 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
         releaseDate: j['release_date'] as String? ?? '',
         voteAverage: (j['vote_average'] as num?)?.toDouble() ?? 0.0,
       )).toList();
-      films.sort((a, b) => b.releaseDate.compareTo(a.releaseDate));
+      final tvShows = tvCast.map((j) =>
+          ShowModel.fromJson(j as Map<String, dynamic>).toMovie()).toList();
+      movies.sort((a, b) => b.releaseDate.compareTo(a.releaseDate));
+      tvShows.sort((a, b) => b.releaseDate.compareTo(a.releaseDate));
       if (!mounted) return;
-      setState(() { _person = person; _filmography = films; _isLoading = false; });
+      setState(() { _person = person; _movieCredits = movies; _tvCredits = tvShows; _isLoading = false; });
     } catch (e) {
       if (mounted) { setState(() => _isLoading = false); }
     }
@@ -110,41 +116,52 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
               const SizedBox(height: 12),
               ActorBiographyCard(biography: biography),
             ],
-            if (_filmography.isNotEmpty) ...[
-              const SizedBox(height: 28),
-              ActorSectionHeader(title: '${t.actor.filmography} (${_filmography.length})'),
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _filmography.length,
-                  itemBuilder: (context, index) {
-                    final movie = _filmography[index];
-                    return GestureDetector(
-                      onTap: () => context.push('/movie/${movie.id}', extra: movie),
-                      child: SizedBox(
-                        width: 130,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 14),
-                          child: Column(children: [
-                            Expanded(child: MoviePosterCard(height: 200, movie: movie)),
-                            const SizedBox(height: 6),
-                            Text(movie.title, maxLines: 2, overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
-                          ]),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+            if (_movieCredits.isNotEmpty) ..._buildCreditSection(theme, t.search.filters.movies, _movieCredits, false),
+            if (_tvCredits.isNotEmpty) ..._buildCreditSection(theme, t.search.filters.tv_shows, _tvCredits, true),
             const SizedBox(height: 40),
           ],
         ),
       ),
     );
+  }
+
+  List<Widget> _buildCreditSection(ThemeData theme, String label, List<Movie> items, bool isTv) {
+    return [
+      const SizedBox(height: 28),
+      ActorSectionHeader(title: '$label (${items.length})'),
+      const SizedBox(height: 16),
+      SizedBox(
+        height: 200,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final movie = items[index];
+            return GestureDetector(
+              onTap: () {
+                if (isTv) {
+                  context.push('/show/${movie.id}', extra: movie);
+                } else {
+                  context.push('/movie/${movie.id}', extra: movie);
+                }
+              },
+              child: SizedBox(
+                width: 130,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 14),
+                  child: Column(children: [
+                    Expanded(child: MoviePosterCard(height: 200, movie: movie)),
+                    const SizedBox(height: 6),
+                    Text(movie.title, maxLines: 2, overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+                  ]),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    ];
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_poster_card.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 class ProfileMovieSection extends StatelessWidget {
   final IconData icon;
@@ -22,6 +24,7 @@ class ProfileMovieSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final service = CollectionService();
+    final isTv = context.watch<ContentTypeCubit>().state == ContentType.shows;
 
     return StreamBuilder<List<Movie>>(
       stream: service.watchCollection(collectionType),
@@ -57,7 +60,13 @@ class ProfileMovieSection extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: GestureDetector(
-                      onTap: () => context.push('/movie/${movie.id}', extra: movie),
+                      onTap: () {
+                        if (isTv) {
+                          context.push('/show/${movie.id}', extra: movie);
+                        } else {
+                          context.push('/movie/${movie.id}', extra: movie);
+                        }
+                      },
                       child: MoviePosterCard(movie: movie, height: 170),
                     ),
                   );

@@ -6,6 +6,7 @@ import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/setti
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_genre_section.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_rating_card.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_year_card.dart';
 import '../blocs/recommendation_bloc.dart';
@@ -27,12 +28,14 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   double _yearTo = DateTime.now().year.toDouble();
 
   void _startSwiping() {
+    final contentType = context.read<ContentTypeCubit>().state;
     final filter = RecommendationFilter(
       genreIds: _selectedGenreIds.toList(),
       minRating: _minRating,
       maxRating: _maxRating,
       yearFrom: _yearFrom.round(),
       yearTo: _yearTo.round(),
+      contentType: contentType,
     );
     final locale = context.read<SettingsCubit>().state.locale;
     final lang = locale.languageCode == 'en'
@@ -53,6 +56,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).padding.bottom;
+    final isTv = context.watch<ContentTypeCubit>().state == ContentType.shows;
 
     return Scaffold(
       appBar: AppBar(title: Text(t.swipe.title), centerTitle: true),
@@ -76,6 +80,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                   _selectedGenreIds.contains(id)
                       ? _selectedGenreIds.remove(id)
                       : _selectedGenreIds.add(id)),
+              isTv: isTv,
             ),
             const SizedBox(height: 12),
             FilterYearCard(

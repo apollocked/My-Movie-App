@@ -19,7 +19,11 @@ import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/recommendations/presentation/blocs/recommendation_bloc.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:my_movie/common/pages/content_type_selection_screen.dart';
 import 'package:my_movie/common/widgets/offline_wrapper.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
+import 'package:my_movie/features/shows/presentation/blocs/search_bloc/search_bloc.dart' as show_search;
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +60,14 @@ class _MyAppState extends State<MyApp> {
 
   late final ConnectivityCubit _connectivityCubit;
 
+  late final ShowBloc _showBloc;
+
+  late final show_search.ShowSearchBloc _showSearchBloc;
+
+  final ValueNotifier<bool> _showSelection = ValueNotifier(true);
+
+  late final ContentTypeCubit _contentTypeCubit;
+
   late final GoRouter _router;
 
   @override
@@ -68,6 +80,9 @@ class _MyAppState extends State<MyApp> {
     _recommendationBloc = getIt<RecommendationBloc>();
     _settingsCubit = getIt<SettingsCubit>();
     _connectivityCubit = getIt<ConnectivityCubit>();
+    _showBloc = getIt<ShowBloc>();
+    _showSearchBloc = getIt<show_search.ShowSearchBloc>();
+    _contentTypeCubit = getIt<ContentTypeCubit>();
     _router = AppRouter.router(_authBloc);
   }
 
@@ -79,6 +94,9 @@ class _MyAppState extends State<MyApp> {
     _recommendationBloc.close();
     _settingsCubit.close();
     _connectivityCubit.close();
+    _showBloc.close();
+    _showSearchBloc.close();
+    _contentTypeCubit.close();
     super.dispose();
   }
 
@@ -92,6 +110,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<RecommendationBloc>.value(value: _recommendationBloc),
         BlocProvider<SettingsCubit>.value(value: _settingsCubit),
         BlocProvider<ConnectivityCubit>.value(value: _connectivityCubit),
+        BlocProvider<ShowBloc>.value(value: _showBloc),
+        BlocProvider<show_search.ShowSearchBloc>.value(value: _showSearchBloc),
+        BlocProvider<ContentTypeCubit>.value(value: _contentTypeCubit),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, settingsState) {
@@ -112,7 +133,17 @@ class _MyAppState extends State<MyApp> {
             ],
             supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
-            builder: (context, child) => OfflineWrapper(child: child),
+            builder: (context, child) => ValueListenableBuilder<bool>(
+              valueListenable: _showSelection,
+              builder: (context, showSelection, _) {
+                if (showSelection) {
+                  return ContentTypeSelectionScreen(
+                    onComplete: () => _showSelection.value = false,
+                  );
+                }
+                return OfflineWrapper(child: child);
+              },
+            ),
           );
         },
       ),

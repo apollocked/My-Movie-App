@@ -11,6 +11,7 @@ import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/setti
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
 import 'package:my_movie/features/movies/presentation/pages/shimmer_pages/movie_shimmer_list.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 class CategoryRow extends StatefulWidget {
   final ApiClient apiClient;
@@ -103,7 +104,12 @@ class _CategoryRowState extends State<CategoryRow> {
           movies: _movies,
           cardHeight: 220,
           onMovieTap: (Movie movie) {
-            context.push('/movie/${movie.id}', extra: movie);
+            final isMovies = context.read<ContentTypeCubit>().state == ContentType.movies;
+            if (isMovies) {
+              context.push('/movie/${movie.id}', extra: movie);
+            } else {
+              context.push('/show/${movie.id}', extra: movie);
+            }
           },
         ),
         const SizedBox(height: 20),
@@ -138,7 +144,12 @@ class _CategoryRowState extends State<CategoryRow> {
             text: t.common.see_all,
             onPressed: () {
               final encoded = Uri.encodeComponent(widget.endpoint);
-              context.push('/see-all/$encoded', extra: widget.title);
+              final isMovies = context.read<ContentTypeCubit>().state == ContentType.movies;
+              if (isMovies) {
+                context.push('/see-all/$encoded', extra: widget.title);
+              } else {
+                context.push('/see-all-shows/$encoded', extra: widget.title);
+              }
             },
             foregroundColor: theme.primaryColor,
             icon: Icons.arrow_forward_ios_rounded,

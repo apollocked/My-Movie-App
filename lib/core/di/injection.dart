@@ -21,6 +21,14 @@ import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_blo
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 
+// Features - Shows Imports
+import 'package:my_movie/features/shows/data/datasources/show_remote_data_source.dart';
+import 'package:my_movie/features/shows/data/repositories/show_repository_impl.dart';
+import 'package:my_movie/features/shows/domain/repositories/show_repository.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
+import 'package:my_movie/features/shows/presentation/blocs/search_bloc/search_bloc.dart' as show_search;
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
+
 // Features - Recommendations Imports
 import 'package:my_movie/features/recommendations/data/datasources/recommendation_remote_data_source.dart';
 import 'package:my_movie/features/recommendations/data/repositories/recommendation_repository_impl.dart';
@@ -48,6 +56,9 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<RecommendationRemoteDataSource>(
     () => RecommendationRemoteDataSource(apiClient: getIt<ApiClient>()),
   );
+  getIt.registerLazySingleton<ShowRemoteDataSource>(
+    () => ShowRemoteDataSourceImpl(apiClient: getIt<ApiClient>()),
+  );
 
   //  Repositories (Injects the Data Source via GetIt)
   getIt.registerLazySingleton<AuthRepository>(
@@ -55,6 +66,9 @@ Future<void> configureDependencies() async {
   );
   getIt.registerLazySingleton<RecommendationRepository>(
     () => RecommendationRepositoryImpl(remoteDataSource: getIt<RecommendationRemoteDataSource>()),
+  );
+  getIt.registerLazySingleton<ShowRepository>(
+    () => ShowRepositoryImpl(remoteDataSource: getIt<ShowRemoteDataSource>()),
   );
 
   //  Domain Use Cases (Inject the Repository via GetIt)
@@ -68,6 +82,7 @@ Future<void> configureDependencies() async {
   //  Cubits (Singletons to manage app-wide structural states)
   getIt.registerLazySingleton<SettingsCubit>(() => SettingsCubit());
   getIt.registerLazySingleton<ConnectivityCubit>(() => ConnectivityCubit());
+  getIt.registerLazySingleton<ContentTypeCubit>(() => ContentTypeCubit());
 
   //  Blocs (Registered as Factories to generate fresh lifecycle instances per view mount)
   getIt.registerFactory<AuthBloc>(
@@ -94,5 +109,17 @@ Future<void> configureDependencies() async {
 
   getIt.registerFactory<RecommendationBloc>(
     () => RecommendationBloc(repository: getIt<RecommendationRepository>()),
+  );
+
+  getIt.registerFactory<ShowBloc>(
+    () => ShowBloc(
+      repository: getIt<ShowRepository>(),
+    ),
+  );
+
+  getIt.registerFactory<show_search.ShowSearchBloc>(
+    () => show_search.ShowSearchBloc(
+      repository: getIt<ShowRepository>(),
+    ),
   );
 }

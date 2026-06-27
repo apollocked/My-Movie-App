@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/genre_chip.dart';
 
-
 class FilterGenreSection extends StatelessWidget {
   final Set<int> selectedGenreIds;
   final ValueChanged<int> onGenreToggled;
+  final bool isTv;
 
   const FilterGenreSection({
     super.key,
     required this.selectedGenreIds,
     required this.onGenreToggled,
+    this.isTv = false,
   });
 
-  static const _genres = [
+  static const _movieGenres = [
     (28, 'g_28', Icons.flash_on_rounded),
     (12, 'g_12', Icons.explore_rounded),
     (16, 'g_16', Icons.animation_rounded),
@@ -32,6 +33,27 @@ class FilterGenreSection extends StatelessWidget {
     (10752, 'g_10752', Icons.shield_rounded),
     (37, 'g_37', Icons.landscape_rounded),
   ];
+
+  static const _tvGenres = [
+    (10759, 'g_10759', Icons.flash_on_rounded),
+    (16, 'g_16', Icons.animation_rounded),
+    (35, 'g_35', Icons.sentiment_satisfied_rounded),
+    (80, 'g_80', Icons.local_police_rounded),
+    (99, 'g_99', Icons.description_rounded),
+    (18, 'g_18', Icons.theater_comedy_rounded),
+    (10751, 'g_10751', Icons.family_restroom_rounded),
+    (10762, 'g_10762', Icons.child_care_rounded),
+    (9648, 'g_9648', Icons.search_rounded),
+    (10763, 'g_10763', Icons.newspaper_rounded),
+    (10764, 'g_10764', Icons.videocam_rounded),
+    (10765, 'g_10765', Icons.rocket_launch_rounded),
+    (10766, 'g_10766', Icons.water_drop_rounded),
+    (10767, 'g_10767', Icons.chat_rounded),
+    (10768, 'g_10768', Icons.shield_rounded),
+    (37, 'g_37', Icons.landscape_rounded),
+  ];
+
+  List<(int, String, IconData)> get _genres => isTv ? _tvGenres : _movieGenres;
 
   String _genreLabel((int, String, IconData) g) {
     switch (g.$2) {
@@ -52,6 +74,15 @@ class FilterGenreSection extends StatelessWidget {
       case 'g_53': return t.genres.g_53;
       case 'g_10752': return t.genres.g_10752;
       case 'g_37': return t.genres.g_37;
+      case 'g_10759': return 'Action & Adventure';
+      case 'g_10751': return 'Family';
+      case 'g_10762': return 'Kids';
+      case 'g_10763': return 'News';
+      case 'g_10764': return 'Reality';
+      case 'g_10765': return 'Sci-Fi & Fantasy';
+      case 'g_10766': return 'Soap';
+      case 'g_10767': return 'Talk';
+      case 'g_10768': return 'War & Politics';
       default: return '';
     }
   }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 class WatchLaterRow extends StatelessWidget {
   const WatchLaterRow({super.key});
@@ -11,6 +13,7 @@ class WatchLaterRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final service = CollectionService();
+    final isTv = context.watch<ContentTypeCubit>().state == ContentType.shows;
 
     return StreamBuilder<List<Movie>>(
       stream: service.watchCollection('watch_later'),
@@ -26,7 +29,11 @@ class WatchLaterRow extends StatelessWidget {
               movies: movies,
               cardHeight: 220,
               onMovieTap: (Movie movie) {
-                context.push('/movie/${movie.id}', extra: movie);
+                if (isTv) {
+                  context.push('/show/${movie.id}', extra: movie);
+                } else {
+                  context.push('/movie/${movie.id}', extra: movie);
+                }
               },
             ),
             const SizedBox(height: 16),

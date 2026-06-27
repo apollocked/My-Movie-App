@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_event.dart';
 import '../blocs/movie_bloc/movie_bloc.dart';
 import '../blocs/movie_bloc/movie_event.dart';
 
@@ -32,10 +35,19 @@ class HeroActionChip extends StatelessWidget {
         final isActive = snapshot.data ?? false;
         return GestureDetector(
           onTap: () {
-            if (collection == 'favorites') {
-              context.read<MovieBloc>().add(ToggleFavorite(movie));
+            final isMovies = context.read<ContentTypeCubit>().state == ContentType.movies;
+            if (isMovies) {
+              if (collection == 'favorites') {
+                context.read<MovieBloc>().add(ToggleFavorite(movie));
+              } else {
+                context.read<MovieBloc>().add(ToggleWatchLater(movie));
+              }
             } else {
-              context.read<MovieBloc>().add(ToggleWatchLater(movie));
+              if (collection == 'favorites') {
+                context.read<ShowBloc>().add(ToggleShowFavorite(movie));
+              } else {
+                context.read<ShowBloc>().add(ToggleShowWatchLater(movie));
+              }
             }
           },
           child: Container(

@@ -17,6 +17,8 @@ import '../../features/movies/presentation/pages/see_all_page.dart';
 import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../common/ui/no_internet_page.dart';
 import '../../features/recommendations/presentation/pages/filter_setup_page.dart';
+import '../../features/shows/presentation/pages/show_detail_page.dart';
+import '../../features/shows/presentation/pages/see_all_page.dart' as show_see_all;
 
 List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
   return [
@@ -142,6 +144,29 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'forgot_password',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const ForgotPasswordPage(),
+    ),
+    GoRoute(
+      path: '/show/:id',
+      name: 'show_details',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        final idString = state.pathParameters['id']!;
+        final showId = int.parse(idString);
+        final show = state.extra is Movie ? state.extra as Movie : null;
+        final autoPlay = state.uri.queryParameters['autoPlay'] == 'true';
+        return ShowDetailPage(showId: showId, show: show, autoPlayTrailer: autoPlay);
+      },
+    ),
+    GoRoute(
+      path: '/see-all-shows/:encodedEndpoint',
+      name: 'see_all_shows',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        final endpoint = state.pathParameters['encodedEndpoint']!;
+        final decoded = Uri.decodeComponent(endpoint);
+        final title = state.extra is String ? state.extra as String : t.search.browse;
+        return show_see_all.ShowSeeAllPage(title: title, endpoint: decoded);
+      },
     ),
   
   ];

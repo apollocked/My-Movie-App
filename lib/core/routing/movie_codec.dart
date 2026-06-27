@@ -37,7 +37,7 @@ class _MovieDecoder extends Converter<Object?, Object?> {
 
   @override
   Object? convert(Object? input) {
-    if (input is Map<String, dynamic> && input['type'] == 'Movie') {
+    if (input is Map<String, dynamic> && (input['type'] == 'Movie' || input['type'] == 'Show')) {
       return Movie(
         id: input['id'] as int,
         title: input['title'] as String,

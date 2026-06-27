@@ -4,6 +4,9 @@ import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_event.dart';
 import '../blocs/movie_bloc/movie_bloc.dart';
 import '../blocs/movie_bloc/movie_event.dart';
 
@@ -26,7 +29,7 @@ class CardQuickActions extends StatelessWidget {
             inactiveIcon: Icons.favorite_border,
             activeColor: AppColors.favoriteRed,
             onTap: () {
-              context.read<MovieBloc>().add(ToggleFavorite(movie));
+              _toggleFavorite(context, movie);
               _showFeedback(context, t.movie_detail.added_to_favorites);
             },
           ),
@@ -38,13 +41,31 @@ class CardQuickActions extends StatelessWidget {
             inactiveIcon: Icons.bookmark_add_outlined,
             activeColor: AppColors.watchLaterGreen,
             onTap: () {
-              context.read<MovieBloc>().add(ToggleWatchLater(movie));
+              _toggleWatchLater(context, movie);
               _showFeedback(context, t.movie_detail.added_to_watch_later);
             },
           ),
         ],
       ),
     );
+  }
+
+  void _toggleFavorite(BuildContext ctx, Movie movie) {
+    final ct = ctx.read<ContentTypeCubit>().state;
+    if (ct == ContentType.movies) {
+      ctx.read<MovieBloc>().add(ToggleFavorite(movie));
+    } else {
+      ctx.read<ShowBloc>().add(ToggleShowFavorite(movie));
+    }
+  }
+
+  void _toggleWatchLater(BuildContext ctx, Movie movie) {
+    final ct = ctx.read<ContentTypeCubit>().state;
+    if (ct == ContentType.movies) {
+      ctx.read<MovieBloc>().add(ToggleWatchLater(movie));
+    } else {
+      ctx.read<ShowBloc>().add(ToggleShowWatchLater(movie));
+    }
   }
 
   void _showFeedback(BuildContext context, String msg) {

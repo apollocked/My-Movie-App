@@ -5,6 +5,9 @@ import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
+import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_event.dart';
 import '../../blocs/movie_bloc/movie_bloc.dart';
 import '../../blocs/movie_bloc/movie_event.dart';
 import 'rating_dialog.dart';
@@ -24,6 +27,15 @@ class MovieDetailBottomActions extends StatelessWidget {
       action();
     } else {
       AuthPromptSheet.show(context, msg);
+    }
+  }
+
+  void _toggleWatchLater(BuildContext ctx, Movie movie) {
+    final ct = ctx.read<ContentTypeCubit>().state;
+    if (ct == ContentType.movies) {
+      ctx.read<MovieBloc>().add(ToggleWatchLater(movie));
+    } else {
+      ctx.read<ShowBloc>().add(ToggleShowWatchLater(movie));
     }
   }
 
@@ -48,7 +60,7 @@ class MovieDetailBottomActions extends StatelessWidget {
                   context,
                   t.movie_detail.actions.add_watch_later,
                   () {
-                    context.read<MovieBloc>().add(ToggleWatchLater(movie));
+                    _toggleWatchLater(context, movie);
                   },
                 ),
                 icon: isAdded ? Icons.check_circle : Icons.add_circle_outline,
