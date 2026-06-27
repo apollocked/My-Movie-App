@@ -198,8 +198,8 @@ class Translations$profile$en {
 	/// en: 'Are you sure you want to log out?'
 	String get logout_confirm => 'Are you sure you want to log out?';
 
-	/// en: 'CineVault Moviegoer'
-	String get default_name => 'CineVault Moviegoer';
+	/// en: 'Movie Lover'
+	String get default_name => 'Movie Lover';
 }
 
 // Path: settings
@@ -312,8 +312,8 @@ class Translations$auth$en {
 	/// en: 'Join the Community'
 	String get join_community => 'Join the Community';
 
-	/// en: 'Sign in to unlock the full potential of CineStream and personalize your movie experience.'
-	String get join_subtitle => 'Sign in to unlock the full potential of CineStream and personalize your movie experience.';
+	/// en: 'Sign in to unlock the full potential of My Movies and personalize your movie experience.'
+	String get join_subtitle => 'Sign in to unlock the full potential of My Movies and personalize your movie experience.';
 
 	/// en: 'Email'
 	String get email => 'Email';
@@ -354,8 +354,8 @@ class Translations$auth$en {
 	/// en: 'Please log in to view your collection'
 	String get login_required_desc => 'Please log in to view your collection';
 
-	/// en: 'Welcome to CineStream'
-	String get welcome_title => 'Welcome to CineStream';
+	/// en: 'Welcome to My Movies'
+	String get welcome_title => 'Welcome to My Movies';
 
 	/// en: 'Customize your experience'
 	String get onboarding_settings => 'Customize your experience';
@@ -544,14 +544,14 @@ class Translations$common$en {
 	/// en: 'Cinema'
 	String get cinema => 'Cinema';
 
-	/// en: 'CineStream'
-	String get app_name => 'CineStream';
+	/// en: 'My Movies'
+	String get app_name => 'My Movies';
 
 	/// en: 'Your list is currently empty'
 	String get empty_list => 'Your list is currently empty';
 
-	/// en: 'CineStream'
-	String get cine_stream => 'CineStream';
+	/// en: 'My Movies'
+	String get cine_stream => 'My Movies';
 
 	/// en: 'Retry'
 	String get retry => 'Retry';
@@ -568,8 +568,8 @@ class Translations$common$en {
 	/// en: 'Collection'
 	String get collection => 'Collection';
 
-	/// en: 'My Movie'
-	String get my_movie => 'My Movie';
+	/// en: 'My Movies'
+	String get my_movie => 'My Movies';
 }
 
 // Path: genres
@@ -1237,7 +1237,7 @@ extension on Translations {
 			'profile.account' => 'Account',
 			'profile.logout' => 'Log Out',
 			'profile.logout_confirm' => 'Are you sure you want to log out?',
-			'profile.default_name' => 'CineVault Moviegoer',
+			'profile.default_name' => 'Movie Lover',
 			'settings.title' => 'Setup',
 			'settings.language' => 'Language',
 			'settings.dark_mode' => 'Dark Mode',
@@ -1266,7 +1266,7 @@ extension on Translations {
 			'auth.welcome_back' => 'Welcome Back',
 			'auth.login_subtitle' => 'Log in to your account',
 			'auth.join_community' => 'Join the Community',
-			'auth.join_subtitle' => 'Sign in to unlock the full potential of CineStream and personalize your movie experience.',
+			'auth.join_subtitle' => 'Sign in to unlock the full potential of My Movies and personalize your movie experience.',
 			'auth.email' => 'Email',
 			'auth.email_hint' => 'Enter your email',
 			'auth.password' => 'Password',
@@ -1280,7 +1280,7 @@ extension on Translations {
 			'auth.get_started' => 'Get Started',
 			'auth.continue_guest' => 'Continue as Guest',
 			'auth.login_required_desc' => 'Please log in to view your collection',
-			'auth.welcome_title' => 'Welcome to CineStream',
+			'auth.welcome_title' => 'Welcome to My Movies',
 			'auth.onboarding_settings' => 'Customize your experience',
 			'auth.errors.email_required' => 'Email is required',
 			'auth.errors.invalid_email' => 'Enter a valid email',
@@ -1362,15 +1362,15 @@ extension on Translations {
 			'common.cancel' => 'Cancel',
 			'common.submit' => 'Submit Rating',
 			'common.cinema' => 'Cinema',
-			'common.app_name' => 'CineStream',
+			'common.app_name' => 'My Movies',
 			'common.empty_list' => 'Your list is currently empty',
-			'common.cine_stream' => 'CineStream',
+			'common.cine_stream' => 'My Movies',
 			'common.retry' => 'Retry',
 			'common.error_title' => 'Something went wrong',
 			'common.see_all' => 'See All',
 			'common.back_to_browse' => 'Back to Browse',
 			'common.collection' => 'Collection',
-			'common.my_movie' => 'My Movie',
+			'common.my_movie' => 'My Movies',
 			'genres.g_28' => 'Action',
 			'genres.g_12' => 'Adventure',
 			'genres.g_16' => 'Animation',

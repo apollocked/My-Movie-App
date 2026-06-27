@@ -47,7 +47,7 @@
     "account": "هەژمار",
     "logout": "چوونەدەرەوە",
     "logout_confirm": "دڵنیای لە چوونەدەرەوە؟",
-    "default_name": "بینەری CineVault"
+    "default_name": "خۆشەویستی فیلم"
   },
   "settings": {
     "title": "ڕێکخستن",
@@ -82,7 +82,7 @@
     "welcome_back": "بەخێربێیتەوە",
     "login_subtitle": "بچۆ ناو هەژمارەکەت",
     "join_community": "ببە بە ئەندام",
-    "join_subtitle": "بچۆ ژوورەوە بۆ دەستگەیشتن بە هەموو تایبەتمەندییەکانی سینەستریم.",
+    "join_subtitle": "بچۆ ژوورەوە بۆ دەستگەیشتن بە هەموو تایبەتمەندییەکانی My Movies.",
     "email": "ئیمەیڵ",
     "email_hint": "ئیمەیڵەکەت بنووسە",
     "password": "وشەی نهێنی",
@@ -96,7 +96,7 @@
     "get_started": "دەستپێبکە",
     "continue_guest": "بەردەوامبە وەک میوان",
     "login_required_desc": "تکایە بچۆ ژوورەوە بۆ بینینی لیستەکانت",
-    "welcome_title": "بەخێربێیت بۆ CineStream",
+    "welcome_title": "بەخێربێیت بۆ My Movies",
     "onboarding_settings": "ئەزموونەکەت بگونجێنە",
     "errors": {
       "email_required": "ئیمەیڵ پێویستە",
@@ -228,15 +228,15 @@
     "cancel": "هەڵوەشاندنەوە",
     "submit": "نمرەکە بنێرە",
     "cinema": "سینەما",
-    "app_name": "CineStream",
+    "app_name": "My Movies",
     "empty_list": "لیستەکەت لە ئێستادا بەتاڵە",
-    "cine_stream": "CineStream",
+    "cine_stream": "My Movies",
     "retry": "دووبارە هەوڵبدەرەوە",
     "error_title": "هەڵەیەک ڕوویدا",
     "see_all": "هەمووی ببینە",
     "back_to_browse": "گەڕانەوە بۆ گەڕان",
     "collection": "کۆمەڵە",
-    "my_movie": "My Movie"
+    "my_movie": "My Movies"
   },
   "genres": {
     "g_28": "ئەکشن",
@@ -261,7 +261,7 @@
   },
   "connectivity": {
     "title": "پەیوەندیدانی ئەنتەرنێت نییە",
-    "description": "تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movie پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.",
+    "description": "تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movies پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.",
     "troubleshooting_title": "ڕاهێنان بۆ چارەسەرکردنی کێشه:",
     "tips": {
       "airplane_mode": "✓ مۆدی هەوڵیهۆڕ دەستپێببکە",

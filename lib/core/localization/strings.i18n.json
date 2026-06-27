@@ -47,7 +47,7 @@
     "account": "Account",
     "logout": "Log Out",
     "logout_confirm": "Are you sure you want to log out?",
-    "default_name": "CineVault Moviegoer"
+    "default_name": "Movie Lover"
   },
   "settings": {
     "title": "Setup",
@@ -82,7 +82,7 @@
     "welcome_back": "Welcome Back",
     "login_subtitle": "Log in to your account",
     "join_community": "Join the Community",
-    "join_subtitle": "Sign in to unlock the full potential of CineStream and personalize your movie experience.",
+    "join_subtitle": "Sign in to unlock the full potential of My Movies and personalize your movie experience.",
     "email": "Email",
     "email_hint": "Enter your email",
     "password": "Password",
@@ -96,7 +96,7 @@
     "get_started": "Get Started",
     "continue_guest": "Continue as Guest",
     "login_required_desc": "Please log in to view your collection",
-    "welcome_title": "Welcome to CineStream",
+    "welcome_title": "Welcome to My Movies",
     "onboarding_settings": "Customize your experience",
     "errors": {
       "email_required": "Email is required",
@@ -228,15 +228,15 @@
     "cancel": "Cancel",
     "submit": "Submit Rating",
     "cinema": "Cinema",
-    "app_name": "CineStream",
+    "app_name": "My Movies",
     "empty_list": "Your list is currently empty",
-    "cine_stream": "CineStream",
+    "cine_stream": "My Movies",
     "retry": "Retry",
     "error_title": "Something went wrong",
     "see_all": "See All",
     "back_to_browse": "Back to Browse",
     "collection": "Collection",
-    "my_movie": "My Movie"
+    "my_movie": "My Movies"
   },
   "genres": {
     "g_28": "Action",

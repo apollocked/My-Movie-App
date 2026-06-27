@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
@@ -74,17 +75,21 @@ class ProfilePage extends StatelessWidget {
                             title: Text(t.profile.logout),
                             content: Text(t.profile.logout_confirm),
                             actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.of(ctx).pop(),
-                                  child: Text(t.common.cancel)),
-                              FilledButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                    context
-                                        .read<AuthBloc>()
-                                        .add(const LogoutRequested());
-                                  },
-                                  child: Text(t.profile.logout)),
+                              AnimatedButton.text(
+                                text: t.common.cancel,
+                                onPressed: () => Navigator.of(ctx).pop(),
+                                foregroundColor: theme.hintColor,
+                              ),
+                              AnimatedButton(
+                                text: t.profile.logout,
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(const LogoutRequested());
+                                },
+                                height: 40,
+                              ),
                             ],
                           ),
                         ),

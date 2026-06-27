@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 
 class WhatToWatchDialog extends StatelessWidget {
@@ -28,14 +29,10 @@ class WhatToWatchDialog extends StatelessWidget {
             const SizedBox(height: 16),
             _StepIndicator(number: '3', title: t.what_to_watch_dialog.step3_title, desc: t.what_to_watch_dialog.step3_desc),
             const SizedBox(height: 28),
-            SizedBox(
-              width: double.infinity,
+            AnimatedButton(
+              text: t.what_to_watch_dialog.got_it,
+              onPressed: () => Navigator.of(context).pop(),
               height: 50,
-              child: FilledButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text(t.what_to_watch_dialog.got_it,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-              ),
             ),
           ],
         ),

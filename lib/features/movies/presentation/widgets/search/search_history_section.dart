@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
@@ -42,12 +43,11 @@ class SearchHistorySection extends StatelessWidget {
                           ?.copyWith(fontWeight: FontWeight.w600)),
                 ],
               ),
-              TextButton(
+              AnimatedButton.text(
+                text: t.search.clear,
                 onPressed: onClear,
-                style: TextButton.styleFrom(
-                    foregroundColor: AppColors.textTertiaryDark),
-                child:
-                    Text(t.search.clear, style: const TextStyle(fontSize: 13)),
+                foregroundColor: AppColors.textTertiaryDark,
+                fontSize: 13,
               ),
             ],
           ),

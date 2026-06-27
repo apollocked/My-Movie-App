@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
@@ -24,8 +25,8 @@ class ErrorSwipeView extends StatelessWidget {
                 style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
                     ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
             const SizedBox(height: 24),
-            ElevatedButton.icon(onPressed: onRetry,
-                icon: const Icon(Icons.refresh_rounded), label: Text(t.swipe.retry)),
+            AnimatedButton(text: t.swipe.retry, onPressed: onRetry,
+                icon: Icons.refresh_rounded),
           ],
         ),
       ),
@@ -54,8 +55,8 @@ class EmptySwipeView extends StatelessWidget {
             Text(message, textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 24),
-            ElevatedButton.icon(onPressed: onChangeFilters,
-                icon: const Icon(Icons.tune_rounded), label: Text(t.swipe.change_filters)),
+            AnimatedButton(text: t.swipe.change_filters, onPressed: onChangeFilters,
+                icon: Icons.tune_rounded),
           ],
         ),
       ),
@@ -96,22 +97,18 @@ class AllSwipedView extends StatelessWidget {
                 : '$count ${count == 1 ? t.swipe.movie_added : t.swipe.movies_added}',
                 style: TextStyle(color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
             const SizedBox(height: 40),
-            SizedBox(
-              width: double.infinity, height: 50,
-              child: FilledButton.icon(
-                onPressed: onRefine,
-                icon: const Icon(Icons.tune_rounded, size: 18),
-                label: Text(t.swipe.change_filters),
-              ),
+            AnimatedButton(
+              text: t.swipe.change_filters,
+              onPressed: onRefine,
+              icon: Icons.tune_rounded,
+              height: 50,
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity, height: 50,
-              child: OutlinedButton.icon(
-                onPressed: onViewWatchLater,
-                icon: const Icon(Icons.watch_later_rounded, size: 18),
-                label: Text(t.swipe.view_watch_later),
-              ),
+            AnimatedButton(
+              text: t.swipe.view_watch_later,
+              onPressed: onViewWatchLater,
+              icon: Icons.watch_later_rounded,
+              height: 50,
             ),
           ],
         ),

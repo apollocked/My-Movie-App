@@ -5,7 +5,7 @@ import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movie/features/auth/presentation/widgets/auth_button.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_header.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_input_field.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_navigation_links.dart';
@@ -112,7 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 28),
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
-                        return AuthButton(
+                        return AnimatedButton(
                           text: t.auth.create_account,
                           isLoading: state is AuthLoading,
                           onPressed: () {

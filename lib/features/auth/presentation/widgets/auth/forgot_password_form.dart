@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 
 import 'forgot_password_header.dart';
@@ -71,22 +72,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           },
         ),
         const SizedBox(height: 24),
-        SizedBox(
-          width: double.infinity,
+        AnimatedButton(
+          text: t.auth.send_reset_link,
+          onPressed: _isLoading ? null : _sendResetEmail,
+          isLoading: _isLoading,
           height: 56,
-          child: ElevatedButton(
-            onPressed: _isLoading ? null : _sendResetEmail,
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            ),
-            child: _isLoading
-                ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                : Text(t.auth.send_reset_link,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ),
         ),
         if (_isSent) ...[
           const SizedBox(height: 24),
@@ -94,13 +84,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         ],
         const SizedBox(height: 32),
         Center(
-          child: TextButton(
+          child: AnimatedButton.text(
+            text: t.auth.back_to_login,
             onPressed: () => context.pop(),
-            style: TextButton.styleFrom(
-              foregroundColor: theme.primaryColor,
-            ),
-            child: Text(t.auth.back_to_login,
-                style: const TextStyle(fontWeight: FontWeight.w600)),
+            foregroundColor: theme.primaryColor,
+            fontSize: 16,
           ),
         ),
       ],

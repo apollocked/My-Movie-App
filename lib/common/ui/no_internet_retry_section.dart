@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
@@ -11,38 +12,30 @@ class NoInternetRetrySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    t.connectivity.check_connection,
-                    style: TextStyle(
-                      color: isDarkMode
-                          ? AppColors.textPrimaryDark
-                          : AppColors.textPrimaryLight,
-                    ),
+        AnimatedButton(
+          text: t.connectivity.retry,
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  t.connectivity.check_connection,
+                  style: TextStyle(
+                    color: isDarkMode
+                        ? AppColors.textPrimaryDark
+                        : AppColors.textPrimaryLight,
                   ),
-                  backgroundColor: isDarkMode
-                      ? AppColors.darkSurfaceVariant
-                      : AppColors.lightSurfaceVariant,
-                  duration: const Duration(seconds: 2),
                 ),
-              );
-            },
-            icon: const Icon(Icons.refresh_rounded),
-            label: Text(t.connectivity.retry),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryRed,
-              foregroundColor: AppColors.textPrimaryLight,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                backgroundColor: isDarkMode
+                    ? AppColors.darkSurfaceVariant
+                    : AppColors.lightSurfaceVariant,
+                duration: const Duration(seconds: 2),
               ),
-            ),
-          ),
+            );
+          },
+          icon: Icons.refresh_rounded,
+          backgroundColor: AppColors.primaryRed,
+          foregroundColor: AppColors.textPrimaryLight,
+          borderRadius: 8,
         ),
         const SizedBox(height: 16),
         Padding(

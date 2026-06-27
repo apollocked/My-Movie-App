@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
@@ -89,14 +90,11 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
-                width: double.infinity,
+              child: AnimatedButton(
+                text: t.swipe.start_swiping,
+                onPressed: _startSwiping,
+                icon: Icons.swap_vert_rounded,
                 height: 48,
-                child: FilledButton.icon(
-                  onPressed: _startSwiping,
-                  icon: const Icon(Icons.swap_vert_rounded, size: 20),
-                  label: Text(t.swipe.start_swiping),
-                ),
               ),
             ),
             const SizedBox(height: 16),

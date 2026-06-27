@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
@@ -57,13 +58,13 @@ class _RatingDialogState extends State<RatingDialog> {
         ],
       ),
       actions: [
-        TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(t.common.cancel)),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12))),
+        AnimatedButton.text(
+          text: t.common.cancel,
+          onPressed: () => Navigator.pop(context),
+          foregroundColor: Theme.of(context).hintColor,
+        ),
+        AnimatedButton(
+          text: t.common.submit,
           onPressed: () {
             context
                 .read<MovieBloc>()
@@ -74,7 +75,6 @@ class _RatingDialogState extends State<RatingDialog> {
                     '${t.movie_detail.saved_rating} ${_selectedRating.toInt()}/10'),
                 behavior: SnackBarBehavior.floating));
           },
-          child: Text(t.common.submit),
         ),
       ],
     );

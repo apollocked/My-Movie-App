@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
@@ -133,26 +134,15 @@ class _CategoryRowState extends State<CategoryRow> {
                   )),
             ],
           ),
-          TextButton(
+          AnimatedButton.text(
+            text: t.common.see_all,
             onPressed: () {
               final encoded = Uri.encodeComponent(widget.endpoint);
               context.push('/see-all/$encoded', extra: widget.title);
             },
-            style: TextButton.styleFrom(
-              foregroundColor: theme.primaryColor,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(t.common.see_all,
-                    style:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                const SizedBox(width: 2),
-                Icon(Icons.arrow_forward_ios_rounded,
-                    size: 10, color: theme.primaryColor),
-              ],
-            ),
+            foregroundColor: theme.primaryColor,
+            icon: Icons.arrow_forward_ios_rounded,
+            fontSize: 13,
           ),
         ],
       ),

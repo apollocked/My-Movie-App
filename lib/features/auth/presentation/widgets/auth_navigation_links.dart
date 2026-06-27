@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import '../blocs/auth_bloc.dart';
 import '../blocs/auth_event.dart';
@@ -44,26 +45,15 @@ class AuthNavigationLinks extends StatelessWidget {
         ),
         if (showBackButton) ...[
           const SizedBox(height: 24),
-          OutlinedButton.icon(
-            style: OutlinedButton.styleFrom(
-              minimumSize: const Size.fromHeight(54),
-              side: BorderSide(
-                color: theme.dividerColor,
-                width: 1.5,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-            icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-            label: Text(
-              t.common.back_to_browse,
-              style: TextStyle(color: theme.primaryColor),
-            ),
+          AnimatedButton(
+            text: t.common.back_to_browse,
             onPressed: () {
               context.read<AuthBloc>().add(const ContinueAsGuestRequested());
               context.go('/');
             },
+            foregroundColor: theme.primaryColor,
+            borderColor: theme.dividerColor,
+            icon: Icons.arrow_back,
           ),
         ],
       ],

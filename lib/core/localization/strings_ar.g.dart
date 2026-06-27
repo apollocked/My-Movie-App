@@ -121,7 +121,7 @@ class _Translations$profile$ar extends Translations$profile$en {
 	@override String get account => 'الحساب';
 	@override String get logout => 'تسجيل الخروج';
 	@override String get logout_confirm => 'هل أنت متأكد من تسجيل الخروج؟';
-	@override String get default_name => 'مشاهد CineVault';
+	@override String get default_name => 'عاشق الأفلام';
 }
 
 // Path: settings
@@ -177,7 +177,7 @@ class _Translations$auth$ar extends Translations$auth$en {
 	@override String get welcome_back => 'مرحباً بعودتك';
 	@override String get login_subtitle => 'سجل الدخول إلى حسابك';
 	@override String get join_community => 'انضم إلى المجتمع';
-	@override String get join_subtitle => 'سجل الدخول للوصول إلى جميع ميزات CineStream.';
+	@override String get join_subtitle => 'سجل الدخول للوصول إلى جميع ميزات My Movies.';
 	@override String get email => 'البريد الإلكتروني';
 	@override String get email_hint => 'أدخل بريدك الإلكتروني';
 	@override String get password => 'كلمة المرور';
@@ -191,7 +191,7 @@ class _Translations$auth$ar extends Translations$auth$en {
 	@override String get get_started => 'ابدأ';
 	@override String get continue_guest => 'المتابعة كضيف';
 	@override String get login_required_desc => 'يرجى تسجيل الدخول لعرض قوائمك';
-	@override String get welcome_title => 'مرحباً بك في CineStream';
+	@override String get welcome_title => 'مرحباً بك في My Movies';
 	@override String get onboarding_settings => 'خصص تجربتك';
 	@override late final _Translations$auth$errors$ar errors = _Translations$auth$errors$ar._(_root);
 	@override late final _Translations$auth$guest$ar guest = _Translations$auth$guest$ar._(_root);
@@ -296,15 +296,15 @@ class _Translations$common$ar extends Translations$common$en {
 	@override String get cancel => 'إلغاء';
 	@override String get submit => 'إرسال التقييم';
 	@override String get cinema => 'السينما';
-	@override String get app_name => 'CineStream';
+	@override String get app_name => 'My Movies';
 	@override String get empty_list => 'قائمتك فارغة حالياً';
-	@override String get cine_stream => 'CineStream';
+	@override String get cine_stream => 'My Movies';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get error_title => 'حدث خطأ';
 	@override String get see_all => 'عرض الكل';
 	@override String get back_to_browse => 'العودة إلى التصفح';
 	@override String get collection => 'المجموعة';
-	@override String get my_movie => 'My Movie';
+	@override String get my_movie => 'My Movies';
 }
 
 // Path: genres
@@ -343,7 +343,7 @@ class _Translations$connectivity$ar extends Translations$connectivity$en {
 
 	// Translations
 	@override String get title => 'لا يوجد اتصال بالإنترنت';
-	@override String get description => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movie يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.';
+	@override String get description => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movies يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.';
 	@override String get troubleshooting_title => 'نصائح لاستكشاف الأخطاء وإصلاحها:';
 	@override late final _Translations$connectivity$tips$ar tips = _Translations$connectivity$tips$ar._(_root);
 	@override String get check_connection => 'جارٍ التحقق من الاتصال...';
@@ -730,7 +730,7 @@ extension on TranslationsAr {
 			'profile.account' => 'الحساب',
 			'profile.logout' => 'تسجيل الخروج',
 			'profile.logout_confirm' => 'هل أنت متأكد من تسجيل الخروج؟',
-			'profile.default_name' => 'مشاهد CineVault',
+			'profile.default_name' => 'عاشق الأفلام',
 			'settings.title' => 'الإعدادات',
 			'settings.language' => 'اللغة',
 			'settings.dark_mode' => 'الوضع المظلم',
@@ -759,7 +759,7 @@ extension on TranslationsAr {
 			'auth.welcome_back' => 'مرحباً بعودتك',
 			'auth.login_subtitle' => 'سجل الدخول إلى حسابك',
 			'auth.join_community' => 'انضم إلى المجتمع',
-			'auth.join_subtitle' => 'سجل الدخول للوصول إلى جميع ميزات CineStream.',
+			'auth.join_subtitle' => 'سجل الدخول للوصول إلى جميع ميزات My Movies.',
 			'auth.email' => 'البريد الإلكتروني',
 			'auth.email_hint' => 'أدخل بريدك الإلكتروني',
 			'auth.password' => 'كلمة المرور',
@@ -773,7 +773,7 @@ extension on TranslationsAr {
 			'auth.get_started' => 'ابدأ',
 			'auth.continue_guest' => 'المتابعة كضيف',
 			'auth.login_required_desc' => 'يرجى تسجيل الدخول لعرض قوائمك',
-			'auth.welcome_title' => 'مرحباً بك في CineStream',
+			'auth.welcome_title' => 'مرحباً بك في My Movies',
 			'auth.onboarding_settings' => 'خصص تجربتك',
 			'auth.errors.email_required' => 'البريد الإلكتروني مطلوب',
 			'auth.errors.invalid_email' => 'أدخل بريداً إلكترونياً صحيحاً',
@@ -855,15 +855,15 @@ extension on TranslationsAr {
 			'common.cancel' => 'إلغاء',
 			'common.submit' => 'إرسال التقييم',
 			'common.cinema' => 'السينما',
-			'common.app_name' => 'CineStream',
+			'common.app_name' => 'My Movies',
 			'common.empty_list' => 'قائمتك فارغة حالياً',
-			'common.cine_stream' => 'CineStream',
+			'common.cine_stream' => 'My Movies',
 			'common.retry' => 'إعادة المحاولة',
 			'common.error_title' => 'حدث خطأ',
 			'common.see_all' => 'عرض الكل',
 			'common.back_to_browse' => 'العودة إلى التصفح',
 			'common.collection' => 'المجموعة',
-			'common.my_movie' => 'My Movie',
+			'common.my_movie' => 'My Movies',
 			'genres.g_28' => 'أكشن',
 			'genres.g_12' => 'مغامرة',
 			'genres.g_16' => 'رسوم متحركة',
@@ -884,7 +884,7 @@ extension on TranslationsAr {
 			'genres.g_10752' => 'حرب',
 			'genres.g_37' => 'غربي',
 			'connectivity.title' => 'لا يوجد اتصال بالإنترنت',
-			'connectivity.description' => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movie يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.',
+			'connectivity.description' => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movies يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.',
 			'connectivity.troubleshooting_title' => 'نصائح لاستكشاف الأخطاء وإصلاحها:',
 			'connectivity.tips.airplane_mode' => '✓ تحقق من وضع الطائرة',
 			'connectivity.tips.check_data' => '✓ تحقق من اتصال WiFi أو بيانات الجوال',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/auth/presentation/widgets/feature_item.dart';
 
@@ -90,56 +91,18 @@ class GuestProfileView extends StatelessWidget {
   Widget _buildAuthButtons(BuildContext context, ThemeData theme) {
     return Column(
       children: [
-        Container(
-          width: double.infinity,
+        AnimatedButton(
+          text: t.auth.login,
+          onPressed: () => context.go('/login'),
           height: 56,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                theme.primaryColor,
-                theme.primaryColor.withValues(alpha: 0.8),
-                theme.colorScheme.secondary
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: theme.primaryColor.withValues(alpha: 0.3),
-                blurRadius: 12,
-                offset: const Offset(0, 6),
-              ),
-            ],
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              foregroundColor: Colors.white,
-              shadowColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
-            ),
-            onPressed: () => context.go('/login'),
-            child: Text(t.auth.login,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ),
         ),
         const SizedBox(height: 16),
-        OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            minimumSize: const Size.fromHeight(56),
-            side: BorderSide(
-                color: theme.primaryColor.withValues(alpha: 0.5), width: 1.5),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            foregroundColor: theme.primaryColor,
-          ),
+        AnimatedButton(
+          text: t.auth.create_account,
           onPressed: () => context.go('/signup'),
-          child: Text(t.auth.create_account,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          foregroundColor: theme.primaryColor,
+          borderColor: theme.primaryColor.withValues(alpha: 0.5),
+          height: 56,
         ),
       ],
     );

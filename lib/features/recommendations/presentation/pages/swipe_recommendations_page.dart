@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import '../blocs/recommendation_bloc.dart';
@@ -122,13 +123,11 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
           child: Row(
             children: [
               Expanded(
-                child: SizedBox(
+                child: AnimatedButton(
+                  text: t.swipe.skip,
+                  onPressed: _onSkip,
+                  icon: Icons.close_rounded,
                   height: 52,
-                  child: OutlinedButton.icon(
-                    onPressed: _onSkip,
-                    icon: const Icon(Icons.close_rounded, size: 20),
-                    label: Text(t.swipe.skip),
-                  ),
                 ),
               ),
               const SizedBox(width: 16),
@@ -139,14 +138,13 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: SizedBox(
+                child: AnimatedButton(
+                  text: t.swipe.save,
+                  onPressed: _onSave,
+                  icon: Icons.bookmark_rounded,
                   height: 52,
-                  child: FilledButton.icon(
-                    onPressed: _onSave,
-                    icon: const Icon(Icons.bookmark_rounded, size: 20),
-                    label: Text(t.swipe.save),
-                    style: FilledButton.styleFrom(backgroundColor: AppColors.successGreen),
-                  ),
+                  backgroundColor: AppColors.successGreen,
+                  foregroundColor: Colors.white,
                 ),
               ),
             ],

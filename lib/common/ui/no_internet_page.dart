@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
@@ -67,19 +68,13 @@ class NoInternetPage extends StatelessWidget {
                   const SizedBox(height: 32),
                   NoInternetTipsCard(isDarkMode: isDarkMode),
                   const SizedBox(height: 28),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: () => context.go('/collection/watch_later'),
-                      icon: const Icon(Icons.bookmark_outline_rounded, size: 20),
-                      label: Text(t.connectivity.browse_watch_later),
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                        side: BorderSide(color: AppColors.infoCyan.withValues(alpha: 0.5), width: 1.5),
-                        foregroundColor: AppColors.infoCyan,
-                      ),
-                    ),
+                  AnimatedButton(
+                    text: t.connectivity.browse_watch_later,
+                    onPressed: () => context.go('/collection/watch_later'),
+                    icon: Icons.bookmark_outline_rounded,
+                    foregroundColor: AppColors.infoCyan,
+                    borderColor: AppColors.infoCyan.withValues(alpha: 0.5),
+                    borderRadius: 14,
                   ),
                   const SizedBox(height: 16),
                   NoInternetRetrySection(isDarkMode: isDarkMode),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 
@@ -27,18 +28,13 @@ class AuthPromptSheet extends StatelessWidget {
           Text('${t.movie_detail.prompts.please_sign_in} $actionMsg.',
               textAlign: TextAlign.center),
           const SizedBox(height: 24),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(56),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16))),
+          AnimatedButton(
+            text: t.movie_detail.prompts.go_to_login,
             onPressed: () {
               Navigator.pop(context);
               context.go('/login');
             },
-            child: Text(t.movie_detail.prompts.go_to_login,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            height: 56,
           ),
           const SizedBox(height: 12),
         ],

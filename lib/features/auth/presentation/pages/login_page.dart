@@ -5,7 +5,7 @@ import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movie/features/auth/presentation/widgets/auth_button.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_header.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_input_field.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth_navigation_links.dart';
@@ -115,18 +115,17 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 8),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () => context.push('/forgot-password'),
-                        child: Text(t.auth.reset_password,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 13)),
-                      ),
+                    child: AnimatedButton.text(
+                      text: t.auth.reset_password,
+                      onPressed: () => context.push('/forgot-password'),
+                      foregroundColor: Theme.of(context).primaryColor,
+                      fontSize: 13,
+                    ),
                     ),
                     const SizedBox(height: 8),
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
-                        return AuthButton(
+                        return AnimatedButton(
                           text: t.auth.login,
                           isLoading: state is AuthLoading,
                           onPressed: _handleLogin,

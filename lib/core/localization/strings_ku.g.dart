@@ -121,7 +121,7 @@ class _Translations$profile$ku extends Translations$profile$en {
 	@override String get account => 'هەژمار';
 	@override String get logout => 'چوونەدەرەوە';
 	@override String get logout_confirm => 'دڵنیای لە چوونەدەرەوە؟';
-	@override String get default_name => 'بینەری CineVault';
+	@override String get default_name => 'خۆشەویستی فیلم';
 }
 
 // Path: settings
@@ -177,7 +177,7 @@ class _Translations$auth$ku extends Translations$auth$en {
 	@override String get welcome_back => 'بەخێربێیتەوە';
 	@override String get login_subtitle => 'بچۆ ناو هەژمارەکەت';
 	@override String get join_community => 'ببە بە ئەندام';
-	@override String get join_subtitle => 'بچۆ ژوورەوە بۆ دەستگەیشتن بە هەموو تایبەتمەندییەکانی سینەستریم.';
+	@override String get join_subtitle => 'بچۆ ژوورەوە بۆ دەستگەیشتن بە هەموو تایبەتمەندییەکانی My Movies.';
 	@override String get email => 'ئیمەیڵ';
 	@override String get email_hint => 'ئیمەیڵەکەت بنووسە';
 	@override String get password => 'وشەی نهێنی';
@@ -191,7 +191,7 @@ class _Translations$auth$ku extends Translations$auth$en {
 	@override String get get_started => 'دەستپێبکە';
 	@override String get continue_guest => 'بەردەوامبە وەک میوان';
 	@override String get login_required_desc => 'تکایە بچۆ ژوورەوە بۆ بینینی لیستەکانت';
-	@override String get welcome_title => 'بەخێربێیت بۆ CineStream';
+	@override String get welcome_title => 'بەخێربێیت بۆ My Movies';
 	@override String get onboarding_settings => 'ئەزموونەکەت بگونجێنە';
 	@override late final _Translations$auth$errors$ku errors = _Translations$auth$errors$ku._(_root);
 	@override late final _Translations$auth$guest$ku guest = _Translations$auth$guest$ku._(_root);
@@ -296,15 +296,15 @@ class _Translations$common$ku extends Translations$common$en {
 	@override String get cancel => 'هەڵوەشاندنەوە';
 	@override String get submit => 'نمرەکە بنێرە';
 	@override String get cinema => 'سینەما';
-	@override String get app_name => 'CineStream';
+	@override String get app_name => 'My Movies';
 	@override String get empty_list => 'لیستەکەت لە ئێستادا بەتاڵە';
-	@override String get cine_stream => 'CineStream';
+	@override String get cine_stream => 'My Movies';
 	@override String get retry => 'دووبارە هەوڵبدەرەوە';
 	@override String get error_title => 'هەڵەیەک ڕوویدا';
 	@override String get see_all => 'هەمووی ببینە';
 	@override String get back_to_browse => 'گەڕانەوە بۆ گەڕان';
 	@override String get collection => 'کۆمەڵە';
-	@override String get my_movie => 'My Movie';
+	@override String get my_movie => 'My Movies';
 }
 
 // Path: genres
@@ -343,7 +343,7 @@ class _Translations$connectivity$ku extends Translations$connectivity$en {
 
 	// Translations
 	@override String get title => 'پەیوەندیدانی ئەنتەرنێت نییە';
-	@override String get description => 'تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movie پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.';
+	@override String get description => 'تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movies پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.';
 	@override String get troubleshooting_title => 'ڕاهێنان بۆ چارەسەرکردنی کێشه:';
 	@override late final _Translations$connectivity$tips$ku tips = _Translations$connectivity$tips$ku._(_root);
 	@override String get check_connection => 'پەیوەندیدان دابین دەکرێت...';
@@ -730,7 +730,7 @@ extension on TranslationsKu {
 			'profile.account' => 'هەژمار',
 			'profile.logout' => 'چوونەدەرەوە',
 			'profile.logout_confirm' => 'دڵنیای لە چوونەدەرەوە؟',
-			'profile.default_name' => 'بینەری CineVault',
+			'profile.default_name' => 'خۆشەویستی فیلم',
 			'settings.title' => 'ڕێکخستن',
 			'settings.language' => 'زمان',
 			'settings.dark_mode' => 'دۆخی تاریک',
@@ -759,7 +759,7 @@ extension on TranslationsKu {
 			'auth.welcome_back' => 'بەخێربێیتەوە',
 			'auth.login_subtitle' => 'بچۆ ناو هەژمارەکەت',
 			'auth.join_community' => 'ببە بە ئەندام',
-			'auth.join_subtitle' => 'بچۆ ژوورەوە بۆ دەستگەیشتن بە هەموو تایبەتمەندییەکانی سینەستریم.',
+			'auth.join_subtitle' => 'بچۆ ژوورەوە بۆ دەستگەیشتن بە هەموو تایبەتمەندییەکانی My Movies.',
 			'auth.email' => 'ئیمەیڵ',
 			'auth.email_hint' => 'ئیمەیڵەکەت بنووسە',
 			'auth.password' => 'وشەی نهێنی',
@@ -773,7 +773,7 @@ extension on TranslationsKu {
 			'auth.get_started' => 'دەستپێبکە',
 			'auth.continue_guest' => 'بەردەوامبە وەک میوان',
 			'auth.login_required_desc' => 'تکایە بچۆ ژوورەوە بۆ بینینی لیستەکانت',
-			'auth.welcome_title' => 'بەخێربێیت بۆ CineStream',
+			'auth.welcome_title' => 'بەخێربێیت بۆ My Movies',
 			'auth.onboarding_settings' => 'ئەزموونەکەت بگونجێنە',
 			'auth.errors.email_required' => 'ئیمەیڵ پێویستە',
 			'auth.errors.invalid_email' => 'ئیمەیڵێکی دروست بنووسە',
@@ -855,15 +855,15 @@ extension on TranslationsKu {
 			'common.cancel' => 'هەڵوەشاندنەوە',
 			'common.submit' => 'نمرەکە بنێرە',
 			'common.cinema' => 'سینەما',
-			'common.app_name' => 'CineStream',
+			'common.app_name' => 'My Movies',
 			'common.empty_list' => 'لیستەکەت لە ئێستادا بەتاڵە',
-			'common.cine_stream' => 'CineStream',
+			'common.cine_stream' => 'My Movies',
 			'common.retry' => 'دووبارە هەوڵبدەرەوە',
 			'common.error_title' => 'هەڵەیەک ڕوویدا',
 			'common.see_all' => 'هەمووی ببینە',
 			'common.back_to_browse' => 'گەڕانەوە بۆ گەڕان',
 			'common.collection' => 'کۆمەڵە',
-			'common.my_movie' => 'My Movie',
+			'common.my_movie' => 'My Movies',
 			'genres.g_28' => 'ئەکشن',
 			'genres.g_12' => 'سەرگەرمی',
 			'genres.g_16' => 'ئەنیمەیشن',
@@ -884,7 +884,7 @@ extension on TranslationsKu {
 			'genres.g_10752' => 'جەنگ',
 			'genres.g_37' => 'ڕۆژئاوایی',
 			'connectivity.title' => 'پەیوەندیدانی ئەنتەرنێت نییە',
-			'connectivity.description' => 'تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movie پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.',
+			'connectivity.description' => 'تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movies پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.',
 			'connectivity.troubleshooting_title' => 'ڕاهێنان بۆ چارەسەرکردنی کێشه:',
 			'connectivity.tips.airplane_mode' => '✓ مۆدی هەوڵیهۆڕ دەستپێببکە',
 			'connectivity.tips.check_data' => '✓ WiFi یان داتای مۆبایل بپشک کن',

@@ -47,7 +47,7 @@
     "account": "الحساب",
     "logout": "تسجيل الخروج",
     "logout_confirm": "هل أنت متأكد من تسجيل الخروج؟",
-    "default_name": "مشاهد CineVault"
+    "default_name": "عاشق الأفلام"
   },
   "settings": {
     "title": "الإعدادات",
@@ -82,7 +82,7 @@
     "welcome_back": "مرحباً بعودتك",
     "login_subtitle": "سجل الدخول إلى حسابك",
     "join_community": "انضم إلى المجتمع",
-    "join_subtitle": "سجل الدخول للوصول إلى جميع ميزات CineStream.",
+    "join_subtitle": "سجل الدخول للوصول إلى جميع ميزات My Movies.",
     "email": "البريد الإلكتروني",
     "email_hint": "أدخل بريدك الإلكتروني",
     "password": "كلمة المرور",
@@ -96,7 +96,7 @@
     "get_started": "ابدأ",
     "continue_guest": "المتابعة كضيف",
     "login_required_desc": "يرجى تسجيل الدخول لعرض قوائمك",
-    "welcome_title": "مرحباً بك في CineStream",
+    "welcome_title": "مرحباً بك في My Movies",
     "onboarding_settings": "خصص تجربتك",
     "errors": {
       "email_required": "البريد الإلكتروني مطلوب",
@@ -228,15 +228,15 @@
     "cancel": "إلغاء",
     "submit": "إرسال التقييم",
     "cinema": "السينما",
-    "app_name": "CineStream",
+    "app_name": "My Movies",
     "empty_list": "قائمتك فارغة حالياً",
-    "cine_stream": "CineStream",
+    "cine_stream": "My Movies",
     "retry": "إعادة المحاولة",
     "error_title": "حدث خطأ",
     "see_all": "عرض الكل",
     "back_to_browse": "العودة إلى التصفح",
     "collection": "المجموعة",
-    "my_movie": "My Movie"
+    "my_movie": "My Movies"
   },
   "genres": {
     "g_28": "أكشن",
@@ -261,7 +261,7 @@
   },
   "connectivity": {
     "title": "لا يوجد اتصال بالإنترنت",
-    "description": "يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movie يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.",
+    "description": "يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movies يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.",
     "troubleshooting_title": "نصائح لاستكشاف الأخطاء وإصلاحها:",
     "tips": {
       "airplane_mode": "✓ تحقق من وضع الطائرة",

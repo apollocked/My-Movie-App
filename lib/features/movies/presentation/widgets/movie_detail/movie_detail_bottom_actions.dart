@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
@@ -39,7 +40,10 @@ class MovieDetailBottomActions extends StatelessWidget {
             initialData: false,
             builder: (context, snapshot) {
               final isAdded = snapshot.data ?? false;
-              return ElevatedButton.icon(
+              return AnimatedButton(
+                text: isAdded
+                    ? t.movie_detail.saved
+                    : t.movie_detail.watch_later,
                 onPressed: () => _execAction(
                   context,
                   t.movie_detail.actions.add_watch_later,
@@ -47,19 +51,10 @@ class MovieDetailBottomActions extends StatelessWidget {
                     context.read<MovieBloc>().add(ToggleWatchLater(movie));
                   },
                 ),
-                icon: Icon(
-                    isAdded ? Icons.check_circle : Icons.add_circle_outline),
-                label: Text(isAdded
-                    ? t.movie_detail.saved
-                    : t.movie_detail.watch_later),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor:
-                      isAdded ? AppColors.watchLaterGreen : theme.primaryColor,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                ),
+                icon: isAdded ? Icons.check_circle : Icons.add_circle_outline,
+                backgroundColor:
+                    isAdded ? AppColors.watchLaterGreen : theme.primaryColor,
+                foregroundColor: Colors.white,
               );
             },
           ),
@@ -75,7 +70,10 @@ class MovieDetailBottomActions extends StatelessWidget {
               final rating = hasRated
                   ? (data['rating'] as num?)?.toDouble()
                   : null;
-              return OutlinedButton.icon(
+              return AnimatedButton(
+                text: hasRated && rating != null
+                    ? '${rating.toInt()}/10'
+                    : t.movie_detail.rate_movie,
                 onPressed: () => _execAction(
                   context,
                   t.movie_detail.actions.rate_movies,
@@ -83,15 +81,9 @@ class MovieDetailBottomActions extends StatelessWidget {
                     RatingDialog.show(context, movie);
                   },
                 ),
-                icon: Icon(hasRated ? Icons.star : Icons.star_border,
-                    color: Colors.amber),
-                label: Text(hasRated && rating != null
-                    ? '${rating.toInt()}/10'
-                    : t.movie_detail.rate_movie),
-                style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16))),
+                icon: hasRated ? Icons.star : Icons.star_border,
+                foregroundColor: Colors.amber,
+                borderColor: theme.dividerColor,
               );
             },
           ),

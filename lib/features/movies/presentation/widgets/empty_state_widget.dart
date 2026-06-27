@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 
 class EmptyStateWidget extends StatelessWidget {
   final IconData icon;
@@ -61,21 +62,11 @@ class EmptyStateWidget extends StatelessWidget {
             ],
             if (onAction != null && actionLabel != null) ...[
               const SizedBox(height: 32),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.primaryColor,
-                  foregroundColor: theme.colorScheme.onPrimary,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
+              AnimatedButton(
+                text: actionLabel!,
                 onPressed: onAction,
-                child: Text(
-                  actionLabel!,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                backgroundColor: theme.primaryColor,
+                foregroundColor: theme.colorScheme.onPrimary,
               ),
             ],
           ],

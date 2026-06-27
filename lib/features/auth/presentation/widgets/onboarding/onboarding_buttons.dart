@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/animated_button.dart';
 
 class OnboardingButtons extends StatelessWidget {
   final VoidCallback? onGetStarted;
@@ -21,52 +22,25 @@ class OnboardingButtons extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
-          width: double.infinity,
+        AnimatedButton(
+          text: getStartedText,
+          onPressed: onGetStarted,
+          backgroundColor: isDark ? Colors.white : Colors.black,
+          foregroundColor: isDark ? Colors.black : Colors.white,
           height: 56,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: isDark ? Colors.white : Colors.black,
-              foregroundColor: isDark ? Colors.black : Colors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(28),
-              ),
-            ),
-            onPressed: onGetStarted,
-            child: Text(
-              getStartedText,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.3,
-              ),
-            ),
-          ),
+          borderRadius: 28,
+          fontSize: 17,
         ),
         const SizedBox(height: 12),
-        SizedBox(
-          width: double.infinity,
+        AnimatedButton.text(
+          text: continueGuestText,
+          onPressed: onContinueAsGuest,
+          foregroundColor: isDark
+              ? Colors.white.withValues(alpha: 0.55)
+              : Colors.black.withValues(alpha: 0.55),
           height: 44,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              foregroundColor: isDark
-                  ? Colors.white.withValues(alpha: 0.55)
-                  : Colors.black.withValues(alpha: 0.55),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(22),
-              ),
-            ),
-            onPressed: onContinueAsGuest,
-            child: Text(
-              continueGuestText,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 0.3,
-              ),
-            ),
-          ),
+          borderRadius: 22,
+          fontSize: 15,
         ),
       ],
     );
