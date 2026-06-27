@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
@@ -45,6 +46,9 @@ class RecommendationBloc
       }
 
       _allMovies = List.from(movies);
+      if (event.filter.isShuffled) {
+        _allMovies.shuffle(Random());
+      }
       emit(RecommendationLoaded(movies: _allMovies));
     } catch (e) {
       emit(RecommendationError(e.toString()));

@@ -801,6 +801,9 @@ class Translations$swipe$en {
 	/// en: 'Sort By'
 	String get sort_by => 'Sort By';
 
+	/// en: 'Shuffle'
+	String get shuffle => 'Shuffle';
+
 	/// en: 'Start Swiping'
 	String get start_swiping => 'Start Swiping';
 
@@ -1433,6 +1436,7 @@ extension on Translations {
 			'swipe.minimum_rating' => 'Minimum Rating',
 			'swipe.release_year' => 'Release Year',
 			'swipe.sort_by' => 'Sort By',
+			'swipe.shuffle' => 'Shuffle',
 			'swipe.start_swiping' => 'Start Swiping',
 			'swipe.year_from' => 'From',
 			'swipe.year_to' => 'To',

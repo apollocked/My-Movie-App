@@ -412,6 +412,7 @@ class _Translations$swipe$ku extends Translations$swipe$en {
 	@override String get minimum_rating => 'کەمترین نمرە';
 	@override String get release_year => 'ساڵی بڵاوکردنەوە';
 	@override String get sort_by => 'ڕێکخستن بەپێی';
+	@override String get shuffle => 'هەڕەمەکی کردن';
 	@override String get start_swiping => ' دەستپێبکە بە سوایپکردن';
 	@override String get year_from => 'لە';
 	@override String get year_to => 'بۆ';
@@ -928,6 +929,7 @@ extension on TranslationsKu {
 			'swipe.minimum_rating' => 'کەمترین نمرە',
 			'swipe.release_year' => 'ساڵی بڵاوکردنەوە',
 			'swipe.sort_by' => 'ڕێکخستن بەپێی',
+			'swipe.shuffle' => 'هەڕەمەکی کردن',
 			'swipe.start_swiping' => ' دەستپێبکە بە سوایپکردن',
 			'swipe.year_from' => 'لە',
 			'swipe.year_to' => 'بۆ',

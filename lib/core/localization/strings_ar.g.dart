@@ -412,6 +412,7 @@ class _Translations$swipe$ar extends Translations$swipe$en {
 	@override String get minimum_rating => 'الحد الأدنى للتقييم';
 	@override String get release_year => 'سنة الإصدار';
 	@override String get sort_by => 'ترتيب حسب';
+	@override String get shuffle => 'عشوائي';
 	@override String get start_swiping => 'ابدأ التصفح';
 	@override String get year_from => 'من';
 	@override String get year_to => 'إلى';
@@ -928,6 +929,7 @@ extension on TranslationsAr {
 			'swipe.minimum_rating' => 'الحد الأدنى للتقييم',
 			'swipe.release_year' => 'سنة الإصدار',
 			'swipe.sort_by' => 'ترتيب حسب',
+			'swipe.shuffle' => 'عشوائي',
 			'swipe.start_swiping' => 'ابدأ التصفح',
 			'swipe.year_from' => 'من',
 			'swipe.year_to' => 'إلى',

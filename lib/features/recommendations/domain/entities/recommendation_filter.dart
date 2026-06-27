@@ -6,6 +6,7 @@ class RecommendationFilter {
   final int? yearTo;
   final String sortBy;
   final int minVotes;
+  final bool isShuffled;
 
   const RecommendationFilter({
     this.genreIds = const [],
@@ -15,6 +16,7 @@ class RecommendationFilter {
     this.yearTo,
     this.sortBy = 'popularity.desc',
     this.minVotes = 50,
+    this.isShuffled = true,
   });
 
   Map<String, dynamic> toQueryParams(String language) {
@@ -53,6 +55,7 @@ class RecommendationFilter {
     int? yearTo,
     String? sortBy,
     int? minVotes,
+    bool? isShuffled,
   }) {
     return RecommendationFilter(
       genreIds: genreIds ?? this.genreIds,
@@ -62,6 +65,7 @@ class RecommendationFilter {
       yearTo: yearTo ?? this.yearTo,
       sortBy: sortBy ?? this.sortBy,
       minVotes: minVotes ?? this.minVotes,
+      isShuffled: isShuffled ?? this.isShuffled,
     );
   }
 }

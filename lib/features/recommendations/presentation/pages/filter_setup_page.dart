@@ -5,7 +5,7 @@ import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/setti
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_genre_section.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_rating_card.dart';
-import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_sort_card.dart';
+
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_year_card.dart';
 import '../blocs/recommendation_bloc.dart';
 import '../blocs/recommendation_event.dart';
@@ -24,7 +24,6 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   double _maxRating = 10.0;
   double _yearFrom = 2000;
   double _yearTo = DateTime.now().year.toDouble();
-  String _sortBy = 'popularity.desc';
 
   void _startSwiping() {
     final filter = RecommendationFilter(
@@ -33,7 +32,6 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
       maxRating: _maxRating,
       yearFrom: _yearFrom.round(),
       yearTo: _yearTo.round(),
-      sortBy: _sortBy,
     );
     final locale = context.read<SettingsCubit>().state.locale;
     final lang = locale.languageCode == 'en'
@@ -88,10 +86,6 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
               }),
             ),
             const SizedBox(height: 12),
-            FilterSortCard(
-              sortBy: _sortBy,
-              onChanged: (s) => setState(() => _sortBy = s),
-            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
