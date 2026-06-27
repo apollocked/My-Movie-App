@@ -31,8 +31,9 @@ class RecommendationFilter {
     if (minRating > 0) {
       params['vote_average.gte'] = minRating;
     }
-    if (maxRating != null) {
-      params['vote_average.lte'] = maxRating;
+    final mr = maxRating;
+    if (mr != null && mr < 10.0) {
+      params['vote_average.lte'] = mr;
     }
     if (yearFrom > 1900) {
       params['primary_release_date.gte'] = '$yearFrom-01-01';

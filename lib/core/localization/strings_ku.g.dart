@@ -375,8 +375,8 @@ class _Translations$what_to_watch_dialog$ku extends Translations$what_to_watch_d
 	@override String get title => 'بەخێربێیت بۆ چی سەیر بکەم';
 	@override String get step1_title => 'ڕێکخستنەکانت دیاری بکە';
 	@override String get step1_desc => 'جۆر، مەودای نمرە، ساڵی بڵاوکردنەوە، و ڕێکخستنی ڕیزکردن هەڵبژێرە بۆ دۆزینەوەی ئەوەی کە حەزت پێیەتی.';
-	@override String get step2_title => 'بەناو فیلمەکاندا بخلیسکێنە';
-	@override String get step2_desc => 'بە ڕاستدا بخلیسکێنە بۆ پاشەکەوتکردنی فیلم یان بە چەپدا بۆ پەڕاندنی. لەسەر کارتەکە بدا بۆ وردەکاری.';
+	@override String get step2_title => 'بەناو فیلمەکاندا سوایپ بکە';
+	@override String get step2_desc => 'بە ڕاستدا سوایپ بکە بۆ پاشەکەوتکردنی فیلم یان بە چەپدا بۆ پەڕاندنی. لەسەر کارتەکە بدا بۆ وردەکاری.';
 	@override String get step3_title => 'سەیرکردنی دواتر';
 	@override String get step3_desc => 'هەموو فیلمە پاشەکەوتکراوەکان لە پڕۆفایلەکەتدا دەردەکەون لەژێر سەیرکردنی دواتر.';
 	@override String get got_it => 'باشە!';
@@ -394,7 +394,7 @@ class _Translations$swipe$ku extends Translations$swipe$en {
 	@override String get skip_label => 'پەڕاندن';
 	@override String get nope_label => 'نەخێر';
 	@override String get watch_later_label => 'سەیرکردنی دواتر';
-	@override String get hint => 'بۆ پاشەکەوتکردن بە ڕاستدا بخلیسکێنە';
+	@override String get hint => 'بۆ پاشەکەوتکردن بە ڕاستدا سوایپ بکە';
 	@override String get error_title => 'هەڵەیەک ڕوویدا';
 	@override String get retry => 'دووبارە هەوڵبدەرەوە';
 	@override String get empty_no_movies => 'هیچ فیلمێک نەدۆزرایەوە. فیلتەری جیاواز تاقی بکەرەوە.';
@@ -412,7 +412,7 @@ class _Translations$swipe$ku extends Translations$swipe$en {
 	@override String get minimum_rating => 'کەمترین نمرە';
 	@override String get release_year => 'ساڵی بڵاوکردنەوە';
 	@override String get sort_by => 'ڕێکخستن بەپێی';
-	@override String get start_swiping => 'خلیسکاندن دەستپێبکە';
+	@override String get start_swiping => ' دەستپێبکە بە سوایپکردن';
 	@override String get year_from => 'لە';
 	@override String get year_to => 'بۆ';
 	@override String get year_any => 'هەر';
@@ -600,7 +600,7 @@ class _Translations$onboarding$features$recommend$ku extends Translations$onboar
 
 	// Translations
 	@override String get title => 'پێشنیاری زیرەک';
-	@override String get desc => 'بە خلیسکاندن بەدوای پێشنیاری فیلمی تایبەت بەخۆتدا بگەڕێ.';
+	@override String get desc => 'بە سوایپ بەدوای پێشنیاری فیلمی تایبەت بەخۆتدا بگەڕێ.';
 }
 
 // Path: onboarding.features.favorites
@@ -644,7 +644,7 @@ class _Translations$onboarding$tooltips$recommend$ku extends Translations$onboar
 
 	// Translations
 	@override String get title => 'چی سەیر بکەم';
-	@override String get desc => 'بە خلیسکاندن بەدوای پێشنیاری فیلمی تایبەتدا بگەڕێ';
+	@override String get desc => 'بە سوایپ بەدوای پێشنیاری فیلمی تایبەتدا بگەڕێ';
 }
 
 // Path: onboarding.tooltips.search
@@ -791,7 +791,7 @@ extension on TranslationsKu {
 			'onboarding.features.browse.title' => 'گەڕان و دۆزینەوە',
 			'onboarding.features.browse.desc' => 'فیلمە باو و بەرزترین نمرەکان و داهاتووکان ببینە.',
 			'onboarding.features.recommend.title' => 'پێشنیاری زیرەک',
-			'onboarding.features.recommend.desc' => 'بە خلیسکاندن بەدوای پێشنیاری فیلمی تایبەت بەخۆتدا بگەڕێ.',
+			'onboarding.features.recommend.desc' => 'بە سوایپ بەدوای پێشنیاری فیلمی تایبەت بەخۆتدا بگەڕێ.',
 			'onboarding.features.favorites.title' => 'دڵخوازەکان و نمرەکان',
 			'onboarding.features.favorites.desc' => 'ئەو فیلمانەی خۆشت دەوێت بیپارێزە و نمرەکانی خۆت تۆمار بکە.',
 			'onboarding.features.watch_later.title' => 'سەیرکردنی دواتر',
@@ -799,7 +799,7 @@ extension on TranslationsKu {
 			'onboarding.tooltips.browse.title' => 'سینەما',
 			'onboarding.tooltips.browse.desc' => 'فیلمە نوێکان ببینە و ئەوەی ئێستا پەخش دەکرێت بدۆزەرەوە',
 			'onboarding.tooltips.recommend.title' => 'چی سەیر بکەم',
-			'onboarding.tooltips.recommend.desc' => 'بە خلیسکاندن بەدوای پێشنیاری فیلمی تایبەتدا بگەڕێ',
+			'onboarding.tooltips.recommend.desc' => 'بە سوایپ بەدوای پێشنیاری فیلمی تایبەتدا بگەڕێ',
 			'onboarding.tooltips.search.title' => 'دۆزینەوە',
 			'onboarding.tooltips.search.desc' => 'بگەڕێ بۆ فیلم و زنجیرە و ئەکتەرەکان',
 			'onboarding.tooltips.settings.title' => 'ڕێکخستن',
@@ -900,8 +900,8 @@ extension on TranslationsKu {
 			'what_to_watch_dialog.title' => 'بەخێربێیت بۆ چی سەیر بکەم',
 			'what_to_watch_dialog.step1_title' => 'ڕێکخستنەکانت دیاری بکە',
 			'what_to_watch_dialog.step1_desc' => 'جۆر، مەودای نمرە، ساڵی بڵاوکردنەوە، و ڕێکخستنی ڕیزکردن هەڵبژێرە بۆ دۆزینەوەی ئەوەی کە حەزت پێیەتی.',
-			'what_to_watch_dialog.step2_title' => 'بەناو فیلمەکاندا بخلیسکێنە',
-			'what_to_watch_dialog.step2_desc' => 'بە ڕاستدا بخلیسکێنە بۆ پاشەکەوتکردنی فیلم یان بە چەپدا بۆ پەڕاندنی. لەسەر کارتەکە بدا بۆ وردەکاری.',
+			'what_to_watch_dialog.step2_title' => 'بەناو فیلمەکاندا سوایپ بکە',
+			'what_to_watch_dialog.step2_desc' => 'بە ڕاستدا سوایپ بکە بۆ پاشەکەوتکردنی فیلم یان بە چەپدا بۆ پەڕاندنی. لەسەر کارتەکە بدا بۆ وردەکاری.',
 			'what_to_watch_dialog.step3_title' => 'سەیرکردنی دواتر',
 			'what_to_watch_dialog.step3_desc' => 'هەموو فیلمە پاشەکەوتکراوەکان لە پڕۆفایلەکەتدا دەردەکەون لەژێر سەیرکردنی دواتر.',
 			'what_to_watch_dialog.got_it' => 'باشە!',
@@ -910,7 +910,7 @@ extension on TranslationsKu {
 			'swipe.skip_label' => 'پەڕاندن',
 			'swipe.nope_label' => 'نەخێر',
 			'swipe.watch_later_label' => 'سەیرکردنی دواتر',
-			'swipe.hint' => 'بۆ پاشەکەوتکردن بە ڕاستدا بخلیسکێنە',
+			'swipe.hint' => 'بۆ پاشەکەوتکردن بە ڕاستدا سوایپ بکە',
 			'swipe.error_title' => 'هەڵەیەک ڕوویدا',
 			'swipe.retry' => 'دووبارە هەوڵبدەرەوە',
 			'swipe.empty_no_movies' => 'هیچ فیلمێک نەدۆزرایەوە. فیلتەری جیاواز تاقی بکەرەوە.',
@@ -928,7 +928,7 @@ extension on TranslationsKu {
 			'swipe.minimum_rating' => 'کەمترین نمرە',
 			'swipe.release_year' => 'ساڵی بڵاوکردنەوە',
 			'swipe.sort_by' => 'ڕێکخستن بەپێی',
-			'swipe.start_swiping' => 'خلیسکاندن دەستپێبکە',
+			'swipe.start_swiping' => ' دەستپێبکە بە سوایپکردن',
 			'swipe.year_from' => 'لە',
 			'swipe.year_to' => 'بۆ',
 			'swipe.year_any' => 'هەر',
