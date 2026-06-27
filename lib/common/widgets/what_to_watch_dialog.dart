@@ -11,23 +11,35 @@ class WhatToWatchDialog extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Dialog(
-      backgroundColor: isDark ? const Color(0xFF1A1A2E) : const Color(0xFFF8F9FA),
+      backgroundColor:
+          isDark ? const Color(0xFF1A1A2E) : const Color(0xFFF8F9FA),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(28, 32, 28, 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.lightbulb_rounded, size: 48, color: theme.colorScheme.primary),
+            Icon(Icons.lightbulb_rounded,
+                size: 48, color: theme.colorScheme.primary),
             const SizedBox(height: 16),
             Text(t.what_to_watch_dialog.title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.w800)),
             const SizedBox(height: 24),
-            _StepIndicator(number: '1', title: t.what_to_watch_dialog.step1_title, desc: t.what_to_watch_dialog.step1_desc),
+            _StepIndicator(
+                number: '1',
+                title: t.what_to_watch_dialog.step1_title,
+                desc: t.what_to_watch_dialog.step1_desc),
             const SizedBox(height: 16),
-            _StepIndicator(number: '2', title: t.what_to_watch_dialog.step2_title, desc: t.what_to_watch_dialog.step2_desc),
+            _StepIndicator(
+                number: '2',
+                title: t.what_to_watch_dialog.step2_title,
+                desc: t.what_to_watch_dialog.step2_desc),
             const SizedBox(height: 16),
-            _StepIndicator(number: '3', title: t.what_to_watch_dialog.step3_title, desc: t.what_to_watch_dialog.step3_desc),
+            _StepIndicator(
+                number: '3',
+                title: t.what_to_watch_dialog.step3_title,
+                desc: t.what_to_watch_dialog.step3_desc),
             const SizedBox(height: 28),
             AnimatedButton(
               text: t.what_to_watch_dialog.got_it,
@@ -46,7 +58,8 @@ class _StepIndicator extends StatelessWidget {
   final String title;
   final String desc;
 
-  const _StepIndicator({required this.number, required this.title, required this.desc});
+  const _StepIndicator(
+      {required this.number, required this.title, required this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +73,15 @@ class _StepIndicator extends StatelessWidget {
           height: 28,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: LinearGradient(colors: [theme.primaryColor, theme.colorScheme.secondary]),
+            gradient: LinearGradient(
+                colors: [theme.primaryColor, theme.colorScheme.secondary]),
           ),
           child: Center(
             child: Text(number,
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14)),
           ),
         ),
         const SizedBox(width: 14),
@@ -72,10 +89,13 @@ class _StepIndicator extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+              Text(title,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w700, fontSize: 15)),
               const SizedBox(height: 4),
               Text(desc,
-                  style: TextStyle(fontSize: 13, color: theme.hintColor, height: 1.4)),
+                  style: TextStyle(
+                      fontSize: 13, color: theme.hintColor, height: 1.4)),
             ],
           ),
         ),

@@ -19,7 +19,6 @@ import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/recommendations/presentation/blocs/recommendation_bloc.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:my_movie/common/pages/content_type_selection_screen.dart';
 import 'package:my_movie/common/widgets/offline_wrapper.dart';
 import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
 import 'package:my_movie/features/shows/presentation/blocs/search_bloc/search_bloc.dart' as show_search;
@@ -63,8 +62,6 @@ class _MyAppState extends State<MyApp> {
   late final ShowBloc _showBloc;
 
   late final show_search.ShowSearchBloc _showSearchBloc;
-
-  final ValueNotifier<bool> _showSelection = ValueNotifier(true);
 
   late final ContentTypeCubit _contentTypeCubit;
 
@@ -133,17 +130,7 @@ class _MyAppState extends State<MyApp> {
             ],
             supportedLocales: AppLocaleUtils.instance.supportedLocales,
             routerConfig: _router,
-            builder: (context, child) => ValueListenableBuilder<bool>(
-              valueListenable: _showSelection,
-              builder: (context, showSelection, _) {
-                if (showSelection) {
-                  return ContentTypeSelectionScreen(
-                    onComplete: () => _showSelection.value = false,
-                  );
-                }
-                return OfflineWrapper(child: child);
-              },
-            ),
+            builder: (context, child) => OfflineWrapper(child: child),
           );
         },
       ),

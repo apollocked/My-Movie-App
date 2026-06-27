@@ -82,24 +82,29 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 8,
-              height: 28,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFE8445A), Color(0xFFFF6B35)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+            Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFE8445A), Color(0xFFFF6B35)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(4),
-              ),
+                const SizedBox(width: 12),
+                Text(remoteConfig.getString('name'),
+                    style: theme.textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w700)),
+              ],
             ),
-            const SizedBox(width: 12),
-            Text(remoteConfig.getString('name'),
-                style: theme.textTheme.titleLarge
-                    ?.copyWith(fontWeight: FontWeight.w700)),
           ],
         ),
       ),
@@ -109,27 +114,34 @@ class _MovieHomePageState extends State<MovieHomePage> {
         listener: (context, state) {
           final lang = getTmdbLanguageCode(state.locale);
           movieBloc.add(LoadMoviesByCategory('Trending', language: lang));
-          showBloc.add(LoadShowsByCategory('Trending', language: lang));
+          context.read<ShowBloc>().add(LoadShowsByCategory('Trending', language: lang));
         },
-        child: isloading
-            ? const Center(child: CircularProgressIndicator())
-            : SafeArea(
-                top: false,
-                child: RefreshIndicator(
-                  color: theme.primaryColor,
-                  onRefresh: () async {
-                    final lang = getTmdbLanguageCode(locale);
-                    movieBloc.add(LoadMoviesByCategory('Trending', language: lang));
-                    showBloc.add(LoadShowsByCategory('Trending', language: lang));
-                  },
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: isMovies
-                        ? _buildMovieContent(theme, movieBloc, bottom)
-                        : _buildShowContent(theme, showBloc, bottom),
-                  ),
-                ),
-              ),
+        child: Column(
+          children: [
+            _ContentTypePill(),
+            Expanded(
+              child: isloading
+                  ? const Center(child: CircularProgressIndicator())
+                  : SafeArea(
+                      top: false,
+                      child: RefreshIndicator(
+                        color: theme.primaryColor,
+                        onRefresh: () async {
+                          final lang = getTmdbLanguageCode(locale);
+                          movieBloc.add(LoadMoviesByCategory('Trending', language: lang));
+                          showBloc.add(LoadShowsByCategory('Trending', language: lang));
+                        },
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: isMovies
+                              ? _buildMovieContent(theme, movieBloc, bottom)
+                              : _buildShowContent(theme, showBloc, bottom),
+                        ),
+                      ),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -157,6 +169,76 @@ class _MovieHomePageState extends State<MovieHomePage> {
         show_widgets.ShowHomeCategoriesSection(apiClient: getIt<ApiClient>()),
         SizedBox(height: bottom + 120),
       ],
+    );
+  }
+}
+
+class _ContentTypePill extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final current = context.watch<ContentTypeCubit>().state;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: Row(
+        children: [
+          _PillTab(
+            label: 'Movies',
+            isSelected: current == ContentType.movies,
+            onTap: () => context.read<ContentTypeCubit>().select(ContentType.movies),
+          ),
+          const SizedBox(width: 10),
+          _PillTab(
+            label: 'TV Shows',
+            isSelected: current == ContentType.shows,
+            onTap: () => context.read<ContentTypeCubit>().select(ContentType.shows),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PillTab extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _PillTab({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? theme.colorScheme.primary
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.dividerColor,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            fontSize: 14,
+          ),
+        ),
+      ),
     );
   }
 }

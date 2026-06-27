@@ -26,9 +26,10 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   double _maxRating = 10.0;
   double _yearFrom = 2000;
   double _yearTo = DateTime.now().year.toDouble();
+  var _isTv = false;
 
   void _startSwiping() {
-    final contentType = context.read<ContentTypeCubit>().state;
+    final contentType = _isTv ? ContentType.shows : ContentType.movies;
     final filter = RecommendationFilter(
       genreIds: _selectedGenreIds.toList(),
       minRating: _minRating,
@@ -56,7 +57,6 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).padding.bottom;
-    final isTv = context.watch<ContentTypeCubit>().state == ContentType.shows;
 
     return Scaffold(
       appBar: AppBar(title: Text(t.swipe.title), centerTitle: true),
@@ -65,6 +65,32 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  _FilterTypePill(
+                    label: t.search.filters.movies,
+                    isSelected: !_isTv,
+                    onTap: () => setState(() {
+                      _isTv = false;
+                      _selectedGenreIds.clear();
+                    }),
+                  ),
+                  const SizedBox(width: 12),
+                  _FilterTypePill(
+                    label: t.search.filters.tv_shows,
+                    isSelected: _isTv,
+                    onTap: () => setState(() {
+                      _isTv = true;
+                      _selectedGenreIds.clear();
+                    }),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
             FilterRatingCard(
               minRating: _minRating,
               maxRating: _maxRating,
@@ -80,7 +106,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                   _selectedGenreIds.contains(id)
                       ? _selectedGenreIds.remove(id)
                       : _selectedGenreIds.add(id)),
-              isTv: isTv,
+              isTv: _isTv,
             ),
             const SizedBox(height: 12),
             FilterYearCard(
@@ -104,6 +130,50 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
             ),
             const SizedBox(height: 16),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FilterTypePill extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FilterTypePill({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? theme.colorScheme.primary
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.dividerColor,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            fontSize: 14,
+          ),
         ),
       ),
     );
