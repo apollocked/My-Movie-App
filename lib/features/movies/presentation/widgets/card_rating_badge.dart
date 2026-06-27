@@ -25,6 +25,9 @@ class CardRatingBadge extends StatelessWidget {
         builder: (context, snapshot) {
           final data = snapshot.data;
           final hasRated = data != null;
+          final displayRating = hasRated
+              ? (data['rating'] as num?)?.toStringAsFixed(1) ?? rating
+              : rating;
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
@@ -45,7 +48,7 @@ class CardRatingBadge extends StatelessWidget {
                 ),
                 const SizedBox(width: 2),
                 Text(
-                  rating,
+                  displayRating,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 11,

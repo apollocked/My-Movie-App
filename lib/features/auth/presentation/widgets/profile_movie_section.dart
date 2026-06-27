@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_poster_card.dart';
@@ -55,7 +56,10 @@ class ProfileMovieSection extends StatelessWidget {
                   final movie = movies[index];
                   return Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: MoviePosterCard(movie: movie, height: 170),
+                    child: GestureDetector(
+                      onTap: () => context.push('/movie/${movie.id}', extra: movie),
+                      child: MoviePosterCard(movie: movie, height: 170),
+                    ),
                   );
                 },
               ),
