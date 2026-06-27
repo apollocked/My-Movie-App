@@ -13,14 +13,18 @@ class ShowcaseHandler extends StatefulWidget {
   });
 
   @override
-  State<ShowcaseHandler> createState() => _ShowcaseHandlerState();
+  State<ShowcaseHandler> createState() => ShowcaseHandlerState();
 }
 
-class _ShowcaseHandlerState extends State<ShowcaseHandler> {
+class ShowcaseHandlerState extends State<ShowcaseHandler> {
   @override
   void initState() {
     super.initState();
     ShowcaseView.register();
+  }
+
+  void tryShowcase() {
+    if (!mounted) return;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final seen = await FirstOpenService.hasSeenTooltips();
       if (!seen && mounted) {

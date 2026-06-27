@@ -118,29 +118,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
-  Widget _buildOfflineWrapper(BuildContext context, Widget? child) {
-    return BlocListener<ConnectivityCubit, ConnectivityState>(
-      listenWhen: (prev, cur) =>
-          prev is ConnectivityOnline && cur is ConnectivityOffline,
-      listener: (context, state) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(t.connectivity.offline_banner),
-            backgroundColor: AppColors.errorRed.withValues(alpha: 0.9),
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 3),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-          ));
-        }
-      },
-      child: Column(
-        children: [
-          const OfflineBanner(),
-          Expanded(child: child ?? const SizedBox.shrink()),
-        ],
-      ),
-    );
-  }
 }
