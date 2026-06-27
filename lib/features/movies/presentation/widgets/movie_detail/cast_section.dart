@@ -23,20 +23,50 @@ class CastSection extends StatelessWidget {
           const SizedBox(height: 12),
           ...crew
               .where((c) => c['job'] == 'Director')
-              .map((d) => Container(
-                    margin: const EdgeInsets.only(bottom: 6),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: theme.cardColor,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                          color: theme.dividerColor.withValues(alpha: 0.5)),
+              .map((d) {
+            final name = d['name'] as String? ?? '';
+            final personId = d['id'] as int;
+            final profilePath = d['profile_path'] as String? ?? '';
+            return GestureDetector(
+              onTap: () => context.push('/director/$personId',
+                  extra: {'name': name, 'profilePath': profilePath}),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 6),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: theme.cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      color: theme.dividerColor.withValues(alpha: 0.5)),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 16,
+                      backgroundColor: theme.disabledColor.withValues(alpha: 0.2),
+                      backgroundImage: profilePath.isNotEmpty
+                          ? NetworkImage(
+                              'https://image.tmdb.org/t/p/w185$profilePath')
+                          : null,
+                      child: profilePath.isEmpty
+                          ? Icon(Icons.person_rounded,
+                              size: 16, color: theme.hintColor)
+                          : null,
                     ),
-                    child: Text(d['name'] ?? '',
-                        style: theme.textTheme.titleSmall
-                            ?.copyWith(fontWeight: FontWeight.w600)),
-                  )),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(name,
+                          style: theme.textTheme.titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w600)),
+                    ),
+                    Icon(Icons.chevron_right_rounded,
+                        size: 18, color: theme.hintColor),
+                  ],
+                ),
+              ),
+            );
+          }),
           const SizedBox(height: 20),
         ],
         if (cast.isNotEmpty) ...[

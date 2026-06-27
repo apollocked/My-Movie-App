@@ -214,6 +214,11 @@
     "biography": "السيرة الذاتية",
     "filmography": "قائمة الأفلام"
   },
+  "director": {
+    "born": "تاريخ الميلاد:",
+    "biography": "السيرة الذاتية",
+    "filmography": "قائمة الأفلام"
+  },
   "tv": {
     "popular": "شائع",
     "top_rated": "الأعلى تقييماً",

@@ -49,6 +49,7 @@ class TranslationsKu extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$guest_features$ku guest_features = _Translations$guest_features$ku._(_root);
 	@override late final _Translations$movie_detail$ku movie_detail = _Translations$movie_detail$ku._(_root);
 	@override late final _Translations$actor$ku actor = _Translations$actor$ku._(_root);
+	@override late final _Translations$director$ku director = _Translations$director$ku._(_root);
 	@override late final _Translations$tv$ku tv = _Translations$tv$ku._(_root);
 	@override late final _Translations$common$ku common = _Translations$common$ku._(_root);
 	@override late final _Translations$genres$ku genres = _Translations$genres$ku._(_root);
@@ -260,6 +261,18 @@ class _Translations$movie_detail$ku extends Translations$movie_detail$en {
 // Path: actor
 class _Translations$actor$ku extends Translations$actor$en {
 	_Translations$actor$ku._(TranslationsKu root) : this._root = root, super.internal(root);
+
+	final TranslationsKu _root; // ignore: unused_field
+
+	// Translations
+	@override String get born => 'لەدایکبوون:';
+	@override String get biography => 'ژیاننامە';
+	@override String get filmography => 'فیلمۆگرافی';
+}
+
+// Path: director
+class _Translations$director$ku extends Translations$director$en {
+	_Translations$director$ku._(TranslationsKu root) : this._root = root, super.internal(root);
 
 	final TranslationsKu _root; // ignore: unused_field
 
@@ -844,6 +857,9 @@ extension on TranslationsKu {
 			'actor.born' => 'لەدایکبوون:',
 			'actor.biography' => 'ژیاننامە',
 			'actor.filmography' => 'فیلمۆگرافی',
+			'director.born' => 'لەدایکبوون:',
+			'director.biography' => 'ژیاننامە',
+			'director.filmography' => 'فیلمۆگرافی',
 			'tv.popular' => 'بەناوبانگ',
 			'tv.top_rated' => 'بەرزترین نمرە',
 			'tv.airing_today' => 'ئەمڕۆ پەخش دەکرێت',

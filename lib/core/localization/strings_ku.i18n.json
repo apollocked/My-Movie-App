@@ -214,6 +214,11 @@
     "biography": "ژیاننامە",
     "filmography": "فیلمۆگرافی"
   },
+  "director": {
+    "born": "لەدایکبوون:",
+    "biography": "ژیاننامە",
+    "filmography": "فیلمۆگرافی"
+  },
   "tv": {
     "popular": "بەناوبانگ",
     "top_rated": "بەرزترین نمرە",

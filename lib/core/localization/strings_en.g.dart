@@ -50,6 +50,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$guest_features$en guest_features = Translations$guest_features$en.internal(_root);
 	late final Translations$movie_detail$en movie_detail = Translations$movie_detail$en.internal(_root);
 	late final Translations$actor$en actor = Translations$actor$en.internal(_root);
+	late final Translations$director$en director = Translations$director$en.internal(_root);
 	late final Translations$tv$en tv = Translations$tv$en.internal(_root);
 	late final Translations$common$en common = Translations$common$en.internal(_root);
 	late final Translations$genres$en genres = Translations$genres$en.internal(_root);
@@ -479,6 +480,24 @@ class Translations$movie_detail$en {
 // Path: actor
 class Translations$actor$en {
 	Translations$actor$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Born:'
+	String get born => 'Born:';
+
+	/// en: 'Biography'
+	String get biography => 'Biography';
+
+	/// en: 'Filmography'
+	String get filmography => 'Filmography';
+}
+
+// Path: director
+class Translations$director$en {
+	Translations$director$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1351,6 +1370,9 @@ extension on Translations {
 			'actor.born' => 'Born:',
 			'actor.biography' => 'Biography',
 			'actor.filmography' => 'Filmography',
+			'director.born' => 'Born:',
+			'director.biography' => 'Biography',
+			'director.filmography' => 'Filmography',
 			'tv.popular' => 'Popular',
 			'tv.top_rated' => 'Top Rated',
 			'tv.airing_today' => 'Airing Today',

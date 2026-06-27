@@ -12,6 +12,7 @@ import '../../features/auth/presentation/pages/onboarding/onboarding_page.dart';
 import '../../features/movies/presentation/pages/settings_page.dart';
 import '../../features/movies/presentation/pages/movie_detail_page.dart';
 import '../../features/movies/presentation/pages/actor_detail_page.dart';
+import '../../features/movies/presentation/pages/director_detail_page.dart';
 import '../../features/movies/presentation/pages/see_all_page.dart';
 import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../common/ui/no_internet_page.dart';
@@ -123,6 +124,17 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
         final personId = int.parse(idString);
         final data = state.extra is Map ? state.extra as Map<String, dynamic> : null;
         return ActorDetailPage(personId: personId, data: data);
+      },
+    ),
+    GoRoute(
+      path: '/director/:id',
+      name: 'director_details',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        final idString = state.pathParameters['id']!;
+        final personId = int.parse(idString);
+        final data = state.extra is Map ? state.extra as Map<String, dynamic> : null;
+        return DirectorDetailPage(personId: personId, data: data);
       },
     ),
     GoRoute(

@@ -49,6 +49,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$guest_features$ar guest_features = _Translations$guest_features$ar._(_root);
 	@override late final _Translations$movie_detail$ar movie_detail = _Translations$movie_detail$ar._(_root);
 	@override late final _Translations$actor$ar actor = _Translations$actor$ar._(_root);
+	@override late final _Translations$director$ar director = _Translations$director$ar._(_root);
 	@override late final _Translations$tv$ar tv = _Translations$tv$ar._(_root);
 	@override late final _Translations$common$ar common = _Translations$common$ar._(_root);
 	@override late final _Translations$genres$ar genres = _Translations$genres$ar._(_root);
@@ -260,6 +261,18 @@ class _Translations$movie_detail$ar extends Translations$movie_detail$en {
 // Path: actor
 class _Translations$actor$ar extends Translations$actor$en {
 	_Translations$actor$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get born => 'تاريخ الميلاد:';
+	@override String get biography => 'السيرة الذاتية';
+	@override String get filmography => 'قائمة الأفلام';
+}
+
+// Path: director
+class _Translations$director$ar extends Translations$director$en {
+	_Translations$director$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
 	final TranslationsAr _root; // ignore: unused_field
 
@@ -844,6 +857,9 @@ extension on TranslationsAr {
 			'actor.born' => 'تاريخ الميلاد:',
 			'actor.biography' => 'السيرة الذاتية',
 			'actor.filmography' => 'قائمة الأفلام',
+			'director.born' => 'تاريخ الميلاد:',
+			'director.biography' => 'السيرة الذاتية',
+			'director.filmography' => 'قائمة الأفلام',
 			'tv.popular' => 'شائع',
 			'tv.top_rated' => 'الأعلى تقييماً',
 			'tv.airing_today' => 'يُعرض اليوم',
