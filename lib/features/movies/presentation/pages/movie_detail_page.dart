@@ -114,7 +114,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 background: Stack(fit: StackFit.expand, children: [
                   _hasTrailer && !_trailerBlocked && _ytController != null
                       ? YoutubePlayer(controller: _ytController!)
-                      : TrailerFallback(posterUrl: currentMovie.fullPosterUrl),
+                      : TrailerFallback(imageUrl: currentMovie.fullBackdropUrl),
                   IgnorePointer(child: Container(decoration: const BoxDecoration(
                     gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
                       colors: [Colors.transparent, Color(0xB007090F), Color(0xFF07090F)], stops: [0.0, 0.5, 1.0]),

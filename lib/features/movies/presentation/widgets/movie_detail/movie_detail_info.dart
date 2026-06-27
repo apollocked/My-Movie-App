@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'favorite_button.dart';
@@ -26,6 +27,32 @@ class MovieDetailInfo extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: CachedNetworkImage(
+                imageUrl: movie.fullPosterUrl,
+                width: 100,
+                height: 150,
+                fit: BoxFit.cover,
+                placeholder: (_, __) => Container(
+                  width: 100,
+                  height: 150,
+                  color: isDark
+                      ? AppColors.darkSurfaceVariant
+                      : AppColors.lightSurfaceVariant,
+                ),
+                errorWidget: (_, __, ___) => Container(
+                  width: 100,
+                  height: 150,
+                  color: isDark
+                      ? AppColors.darkSurfaceVariant
+                      : AppColors.lightSurfaceVariant,
+                  child: Icon(Icons.movie_rounded,
+                      color: theme.hintColor, size: 32),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
