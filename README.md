@@ -9,7 +9,10 @@ A modern, feature-rich Flutter application for discovering and managing movies. 
 - **Browse Movies**: Discover movies across various categories with an elegant, intuitive interface
 - **Advanced Search**: Powerful search functionality to find movies by title and metadata
 - **Movie Details**: Comprehensive movie information including ratings, descriptions, and cast details
-- **Collections**: Create and manage personalized movie collections for easy organization
+- **Swipe Recommendations**: Filter-based movie discovery with Tinder-style card swiping — set genre, rating, and year preferences, then swipe right to save or left to skip
+- **Shuffle Mode**: Movies appear in random order by default, keeping recommendations fresh
+- **Collections**: Create and manage personalized movie collections (Watch Later, Favorites) for easy organization
+- **Personal Ratings**: Rate movies and view your ratings directly in your profile
 - **Cached Movie Data**: Offline movie browsing with intelligent caching system
 
 ### 👤 User Authentication & Profile
@@ -33,15 +36,19 @@ The app follows **Clean Architecture** principles with clear separation of conce
 
 ```
 lib/
-├── features/           # Feature modules (Auth, Movies)
+├── features/           # Feature modules (Auth, Movies, Recommendations)
 │   ├── auth/          # Authentication feature
 │   │   ├── data/      # Data sources, repositories
 │   │   ├── domain/    # Entities, use cases, contracts
 │   │   └── presentation/ # UI, BLoCs, pages
-│   └── movies/        # Movies feature
-│       ├── data/      # API clients, local cache
-│       ├── domain/    # Movie entities, repositories
-│       └── presentation/ # UI components, BLoCs
+│   ├── movies/        # Movies feature
+│   │   ├── data/      # API clients, local cache
+│   │   ├── domain/    # Movie entities, repositories
+│   │   └── presentation/ # UI components, BLoCs
+│   └── recommendations/ # Swipe recommendations feature
+│       ├── data/      # TMDB discover data source
+│       ├── domain/    # Recommendation filter, repository
+│       └── presentation/ # Filter UI, swipe cards, BLoC
 ├── core/              # Shared & core utilities
 │   ├── config/        # Firebase & app configuration
 │   ├── localization/  # i18n & translations
@@ -163,13 +170,13 @@ Internet Check ← If offline, show network status screen
 Firebase Initialization
     ↓
 Check Auth State
-    ├→ Not Authenticated → Onboarding/Login
-    └→ Authenticated → Main App
-         ├→ Home (Browse Movies)
-         ├→ Search (Find Movies)
-         ├→ Collections (Saved)
-         ├→ Settings (Preferences)
-         └→ Profile (User Info)
+     ├→ Not Authenticated → Onboarding/Login
+     └→ Authenticated → Main App
+          ├→ Home (Browse Movies)
+          ├→ Search (Find Movies)
+          ├→ Recommendations (Swipe Cards)
+          ├→ Settings (Preferences)
+          └→ Profile (User Info, Collections, Ratings)
 ```
 
 ## 🔐 Authentication Flow
@@ -274,9 +281,7 @@ For issues, feature requests, or questions:
 
 ## 🔄 Future Enhancements
 
-- [ ] Offline-first architecture improvements
 - [ ] Advanced analytics integration
-- [ ] Machine learning recommendations
 - [ ] Social features (sharing, ratings)
 - [ ] Premium subscription model
 - [ ] Real-time notifications
