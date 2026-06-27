@@ -4,6 +4,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/di/injection.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
@@ -183,13 +184,13 @@ class _ContentTypePill extends StatelessWidget {
       child: Row(
         children: [
           _PillTab(
-            label: 'Movies',
+            label: t.search.filters.movies,
             isSelected: current == ContentType.movies,
             onTap: () => context.read<ContentTypeCubit>().select(ContentType.movies),
           ),
           const SizedBox(width: 10),
           _PillTab(
-            label: 'TV Shows',
+            label: t.search.filters.tv_shows,
             isSelected: current == ContentType.shows,
             onTap: () => context.read<ContentTypeCubit>().select(ContentType.shows),
           ),

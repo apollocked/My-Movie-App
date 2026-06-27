@@ -32,7 +32,9 @@ class ProfileMovieSection extends StatelessWidget {
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const SizedBox.shrink();
         }
-        final movies = snapshot.data!;
+        final allMovies = snapshot.data!;
+        final movies = allMovies.where((m) => m.isShow == isTv).toList();
+        if (movies.isEmpty) return const SizedBox.shrink();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

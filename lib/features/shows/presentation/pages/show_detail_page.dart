@@ -77,6 +77,7 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
           backdropPath: json['backdrop_path'] as String? ?? '',
           releaseDate: json['first_air_date'] as String? ?? '',
           voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+          isShow: true,
         )).toList();
       } catch (_) {}
       if (!mounted) return;
@@ -106,6 +107,7 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
       backdropPath: _details?['backdrop_path'] as String? ?? '',
       releaseDate: _details?['first_air_date'] as String? ?? '',
       voteAverage: (_details?['vote_average'] as num?)?.toDouble() ?? 0.0,
+      isShow: true,
     );
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,

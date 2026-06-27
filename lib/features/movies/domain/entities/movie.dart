@@ -6,6 +6,7 @@ class Movie {
   final String backdropPath;
   final String releaseDate;
   final double voteAverage;
+  final bool isShow;
 
   const Movie({
     required this.id,
@@ -15,6 +16,7 @@ class Movie {
     required this.backdropPath,
     required this.releaseDate,
     required this.voteAverage,
+    this.isShow = false,
   });
 
   String get fullPosterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';

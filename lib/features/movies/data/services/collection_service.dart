@@ -177,6 +177,7 @@ class CollectionService {
       backdropPath: data['backdropPath'] ?? '',
       releaseDate: data['releaseDate'] ?? '',
       voteAverage: (data['voteAverage'] as num?)?.toDouble() ?? 0.0,
+      isShow: data['isShow'] as bool? ?? false,
     );
   }
 
@@ -189,6 +190,7 @@ class CollectionService {
       'overview': m.overview,
       'voteAverage': m.voteAverage,
       'releaseDate': m.releaseDate,
+      'isShow': m.isShow,
       'timestamp': FieldValue.serverTimestamp(),
     };
   }

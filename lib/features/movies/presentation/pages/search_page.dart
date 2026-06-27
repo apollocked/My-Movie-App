@@ -57,8 +57,8 @@ class _SearchPageState extends State<SearchPage> {
       context.read<SearchBloc>().add(ExecuteSearch(
           query: query,
           filter: _selectedFilter,
-          language: getTmdbLanguageCode(
-              context.read<SettingsCubit>().state.locale)));
+          language:
+              getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
     } else if (query.trim().isEmpty) {
       context.read<SearchBloc>().add(const ClearSearch());
     }
@@ -76,8 +76,8 @@ class _SearchPageState extends State<SearchPage> {
       context.read<SearchBloc>().add(ExecuteSearch(
           query: _searchController.text,
           filter: filter,
-          language: getTmdbLanguageCode(
-              context.read<SettingsCubit>().state.locale)));
+          language:
+              getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
     }
   }
 
@@ -181,5 +181,4 @@ class _SearchPageState extends State<SearchPage> {
       return const CategoryBrowserButton();
     });
   }
-
 }

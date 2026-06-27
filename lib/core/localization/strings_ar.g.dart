@@ -53,6 +53,8 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$tv$ar tv = _Translations$tv$ar._(_root);
 	@override late final _Translations$common$ar common = _Translations$common$ar._(_root);
 	@override late final _Translations$genres$ar genres = _Translations$genres$ar._(_root);
+	@override late final _Translations$genres_tv$ar genres_tv = _Translations$genres_tv$ar._(_root);
+	@override late final _Translations$errors$ar errors = _Translations$errors$ar._(_root);
 	@override late final _Translations$connectivity$ar connectivity = _Translations$connectivity$ar._(_root);
 	@override late final _Translations$not_found$ar not_found = _Translations$not_found$ar._(_root);
 	@override late final _Translations$what_to_watch_dialog$ar what_to_watch_dialog = _Translations$what_to_watch_dialog$ar._(_root);
@@ -289,14 +291,18 @@ class _Translations$tv$ar extends Translations$tv$en {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get popular => 'شائع';
-	@override String get top_rated => 'الأعلى تقييماً';
+	@override String get popular => 'مسلسلات شائعة';
+	@override String get top_rated => 'مسلسلات الأعلى تقييماً';
 	@override String get airing_today => 'يُعرض اليوم';
 	@override String get on_the_air => 'يُعرض الآن';
-	@override String get action => 'أكشن';
-	@override String get comedy => 'كوميديا';
-	@override String get drama => 'دراما';
+	@override String get action => 'مسلسلات أكشن';
+	@override String get comedy => 'مسلسلات كوميديا';
+	@override String get drama => 'مسلسلات دراما';
 	@override String get sci_fi_fantasy => 'خيال علمي وفانتازيا';
+	@override String get mystery => 'مسلسلات غموض';
+	@override String get animation => 'مسلسلات رسوم متحركة';
+	@override String get reality => 'مسلسلات واقعية';
+	@override String get horror => 'مسلسلات رعب';
 }
 
 // Path: common
@@ -346,6 +352,41 @@ class _Translations$genres$ar extends Translations$genres$en {
 	@override String get g_53 => 'إثارة';
 	@override String get g_10752 => 'حرب';
 	@override String get g_37 => 'غربي';
+}
+
+// Path: genres_tv
+class _Translations$genres_tv$ar extends Translations$genres_tv$en {
+	_Translations$genres_tv$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get g_10759 => 'أكشن ومغامرة';
+	@override String get g_10762 => 'أطفال';
+	@override String get g_10763 => 'أخبار';
+	@override String get g_10764 => 'واقعي';
+	@override String get g_10765 => 'خيال علمي وفانتازيا';
+	@override String get g_10766 => 'مسلسلات يومية';
+	@override String get g_10767 => 'حوارية';
+	@override String get g_10768 => 'حرب وسياسة';
+}
+
+// Path: errors
+class _Translations$errors$ar extends Translations$errors$en {
+	_Translations$errors$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get search_failed => 'فشل البحث. حاول مرة أخرى.';
+	@override String get search_tv_failed => 'فشل البحث عن المسلسلات. حاول مرة أخرى.';
+	@override String get load_failed => 'فشل تحميل المحتوى.';
+	@override String get network_timeout => 'انتهت مهلة الاتصال. تحقق من اتصالك.';
+	@override String get server_error => 'خطأ في الخادم. حاول مرة أخرى.';
+	@override String get network_error => 'خطأ غير متوقع في الشبكة.';
+	@override String get request_failed => 'فشل الطلب.';
+	@override String get sign_up_failed => 'فشل إنشاء الحساب.';
+	@override String get auth_failed => 'فشل تسجيل الدخول.';
 }
 
 // Path: connectivity
@@ -860,14 +901,18 @@ extension on TranslationsAr {
 			'director.born' => 'تاريخ الميلاد:',
 			'director.biography' => 'السيرة الذاتية',
 			'director.filmography' => 'قائمة الأفلام',
-			'tv.popular' => 'شائع',
-			'tv.top_rated' => 'الأعلى تقييماً',
+			'tv.popular' => 'مسلسلات شائعة',
+			'tv.top_rated' => 'مسلسلات الأعلى تقييماً',
 			'tv.airing_today' => 'يُعرض اليوم',
 			'tv.on_the_air' => 'يُعرض الآن',
-			'tv.action' => 'أكشن',
-			'tv.comedy' => 'كوميديا',
-			'tv.drama' => 'دراما',
+			'tv.action' => 'مسلسلات أكشن',
+			'tv.comedy' => 'مسلسلات كوميديا',
+			'tv.drama' => 'مسلسلات دراما',
 			'tv.sci_fi_fantasy' => 'خيال علمي وفانتازيا',
+			'tv.mystery' => 'مسلسلات غموض',
+			'tv.animation' => 'مسلسلات رسوم متحركة',
+			'tv.reality' => 'مسلسلات واقعية',
+			'tv.horror' => 'مسلسلات رعب',
 			'common.cancel' => 'إلغاء',
 			'common.submit' => 'إرسال التقييم',
 			'common.cinema' => 'السينما',
@@ -899,6 +944,23 @@ extension on TranslationsAr {
 			'genres.g_53' => 'إثارة',
 			'genres.g_10752' => 'حرب',
 			'genres.g_37' => 'غربي',
+			'genres_tv.g_10759' => 'أكشن ومغامرة',
+			'genres_tv.g_10762' => 'أطفال',
+			'genres_tv.g_10763' => 'أخبار',
+			'genres_tv.g_10764' => 'واقعي',
+			'genres_tv.g_10765' => 'خيال علمي وفانتازيا',
+			'genres_tv.g_10766' => 'مسلسلات يومية',
+			'genres_tv.g_10767' => 'حوارية',
+			'genres_tv.g_10768' => 'حرب وسياسة',
+			'errors.search_failed' => 'فشل البحث. حاول مرة أخرى.',
+			'errors.search_tv_failed' => 'فشل البحث عن المسلسلات. حاول مرة أخرى.',
+			'errors.load_failed' => 'فشل تحميل المحتوى.',
+			'errors.network_timeout' => 'انتهت مهلة الاتصال. تحقق من اتصالك.',
+			'errors.server_error' => 'خطأ في الخادم. حاول مرة أخرى.',
+			'errors.network_error' => 'خطأ غير متوقع في الشبكة.',
+			'errors.request_failed' => 'فشل الطلب.',
+			'errors.sign_up_failed' => 'فشل إنشاء الحساب.',
+			'errors.auth_failed' => 'فشل تسجيل الدخول.',
 			'connectivity.title' => 'لا يوجد اتصال بالإنترنت',
 			'connectivity.description' => 'يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى. تطبيق My Movies يتطلب اتصال إنترنت نشط للعمل بشكل صحيح.',
 			'connectivity.troubleshooting_title' => 'نصائح لاستكشاف الأخطاء وإصلاحها:',

@@ -74,15 +74,15 @@ class FilterGenreSection extends StatelessWidget {
       case 'g_53': return t.genres.g_53;
       case 'g_10752': return t.genres.g_10752;
       case 'g_37': return t.genres.g_37;
-      case 'g_10759': return 'Action & Adventure';
-      case 'g_10751': return 'Family';
-      case 'g_10762': return 'Kids';
-      case 'g_10763': return 'News';
-      case 'g_10764': return 'Reality';
-      case 'g_10765': return 'Sci-Fi & Fantasy';
-      case 'g_10766': return 'Soap';
-      case 'g_10767': return 'Talk';
-      case 'g_10768': return 'War & Politics';
+      case 'g_10759': return t.genres_tv.g_10759;
+      case 'g_10751': return t.genres.g_10751;
+      case 'g_10762': return t.genres_tv.g_10762;
+      case 'g_10763': return t.genres_tv.g_10763;
+      case 'g_10764': return t.genres_tv.g_10764;
+      case 'g_10765': return t.genres_tv.g_10765;
+      case 'g_10766': return t.genres_tv.g_10766;
+      case 'g_10767': return t.genres_tv.g_10767;
+      case 'g_10768': return t.genres_tv.g_10768;
       default: return '';
     }
   }

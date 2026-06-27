@@ -47,6 +47,7 @@ class _CategoryRowState extends State<CategoryRow> {
       final data = await widget.apiClient
           .get(widget.endpoint, params: {'language': language});
       final rawList = data['results'] as List;
+      final isTvEndpoint = widget.endpoint.startsWith('/tv/') || widget.endpoint.startsWith('/discover/tv');
       final movies = rawList
           .map((json) => Movie(
                 id: (json['id'] as num?)?.toInt() ?? 0,
@@ -56,6 +57,7 @@ class _CategoryRowState extends State<CategoryRow> {
                 backdropPath: json['backdrop_path'] as String? ?? '',
                 releaseDate: (json['release_date'] ?? json['first_air_date']) as String? ?? '',
                 voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+                isShow: isTvEndpoint,
               ))
           .toList();
 

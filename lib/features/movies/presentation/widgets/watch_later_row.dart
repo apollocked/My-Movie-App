@@ -18,10 +18,12 @@ class WatchLaterRow extends StatelessWidget {
     return StreamBuilder<List<Movie>>(
       stream: service.watchCollection('watch_later'),
       builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const SizedBox.shrink();
-        }
-        final movies = snapshot.data!;
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const SizedBox.shrink();
+          }
+          final allMovies = snapshot.data!;
+          final movies = allMovies.where((m) => m.isShow == isTv).toList();
+          if (movies.isEmpty) return const SizedBox.shrink();
         return Column(
           children: [
             MovieHorizontalList(

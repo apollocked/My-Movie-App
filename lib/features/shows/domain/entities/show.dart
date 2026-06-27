@@ -55,6 +55,7 @@ class Show {
       backdropPath: backdropPath,
       releaseDate: firstAirDate,
       voteAverage: voteAverage,
+      isShow: true,
     );
   }
 

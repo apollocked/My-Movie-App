@@ -220,14 +220,18 @@
     "filmography": "Filmography"
   },
   "tv": {
-    "popular": "Popular",
-    "top_rated": "Top Rated",
+    "popular": "Popular TV Shows",
+    "top_rated": "Top Rated TV Shows",
     "airing_today": "Airing Today",
     "on_the_air": "On The Air",
-    "action": "Action",
-    "comedy": "Comedy",
-    "drama": "Drama",
-    "sci_fi_fantasy": "Sci-Fi & Fantasy"
+    "action": "Action TV",
+    "comedy": "Comedy TV",
+    "drama": "Drama TV",
+    "sci_fi_fantasy": "Sci-Fi & Fantasy",
+    "mystery": "Mystery TV",
+    "animation": "Animation TV",
+    "reality": "Reality TV",
+    "horror": "Horror TV"
   },
   "common": {
     "cancel": "Cancel",
@@ -263,6 +267,27 @@
     "g_53": "Thriller",
     "g_10752": "War",
     "g_37": "Western"
+  },
+  "genres_tv": {
+    "g_10759": "Action & Adventure",
+    "g_10762": "Kids",
+    "g_10763": "News",
+    "g_10764": "Reality",
+    "g_10765": "Sci-Fi & Fantasy",
+    "g_10766": "Soap",
+    "g_10767": "Talk",
+    "g_10768": "War & Politics"
+  },
+  "errors": {
+    "search_failed": "Search failed. Please try again.",
+    "search_tv_failed": "TV show search failed. Please try again.",
+    "load_failed": "Failed to load content.",
+    "network_timeout": "Network timeout. Please check your connection.",
+    "server_error": "Server error. Please try again.",
+    "network_error": "Unexpected network error.",
+    "request_failed": "Request failed.",
+    "sign_up_failed": "Sign up failed.",
+    "auth_failed": "Authentication failed."
   },
   "connectivity": {
     "title": "No Internet Connection",

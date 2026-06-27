@@ -54,6 +54,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$tv$en tv = Translations$tv$en.internal(_root);
 	late final Translations$common$en common = Translations$common$en.internal(_root);
 	late final Translations$genres$en genres = Translations$genres$en.internal(_root);
+	late final Translations$genres_tv$en genres_tv = Translations$genres_tv$en.internal(_root);
+	late final Translations$errors$en errors = Translations$errors$en.internal(_root);
 	late final Translations$connectivity$en connectivity = Translations$connectivity$en.internal(_root);
 	late final Translations$not_found$en not_found = Translations$not_found$en.internal(_root);
 	late final Translations$what_to_watch_dialog$en what_to_watch_dialog = Translations$what_to_watch_dialog$en.internal(_root);
@@ -125,8 +127,8 @@ class Translations$search$en {
 	/// en: 'EXPLORE'
 	String get explore_caps => 'EXPLORE';
 
-	/// en: 'Search movies...'
-	String get hint => 'Search movies...';
+	/// en: 'Search ...'
+	String get hint => 'Search ...';
 
 	/// en: 'No results found.'
 	String get no_results => 'No results found.';
@@ -521,11 +523,11 @@ class Translations$tv$en {
 
 	// Translations
 
-	/// en: 'Popular'
-	String get popular => 'Popular';
+	/// en: 'Popular TV Shows'
+	String get popular => 'Popular TV Shows';
 
-	/// en: 'Top Rated'
-	String get top_rated => 'Top Rated';
+	/// en: 'Top Rated TV Shows'
+	String get top_rated => 'Top Rated TV Shows';
 
 	/// en: 'Airing Today'
 	String get airing_today => 'Airing Today';
@@ -533,17 +535,29 @@ class Translations$tv$en {
 	/// en: 'On The Air'
 	String get on_the_air => 'On The Air';
 
-	/// en: 'Action'
-	String get action => 'Action';
+	/// en: 'Action TV'
+	String get action => 'Action TV';
 
-	/// en: 'Comedy'
-	String get comedy => 'Comedy';
+	/// en: 'Comedy TV'
+	String get comedy => 'Comedy TV';
 
-	/// en: 'Drama'
-	String get drama => 'Drama';
+	/// en: 'Drama TV'
+	String get drama => 'Drama TV';
 
 	/// en: 'Sci-Fi & Fantasy'
 	String get sci_fi_fantasy => 'Sci-Fi & Fantasy';
+
+	/// en: 'Mystery TV'
+	String get mystery => 'Mystery TV';
+
+	/// en: 'Animation TV'
+	String get animation => 'Animation TV';
+
+	/// en: 'Reality TV'
+	String get reality => 'Reality TV';
+
+	/// en: 'Horror TV'
+	String get horror => 'Horror TV';
 }
 
 // Path: common
@@ -655,6 +669,75 @@ class Translations$genres$en {
 
 	/// en: 'Western'
 	String get g_37 => 'Western';
+}
+
+// Path: genres_tv
+class Translations$genres_tv$en {
+	Translations$genres_tv$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Action & Adventure'
+	String get g_10759 => 'Action & Adventure';
+
+	/// en: 'Kids'
+	String get g_10762 => 'Kids';
+
+	/// en: 'News'
+	String get g_10763 => 'News';
+
+	/// en: 'Reality'
+	String get g_10764 => 'Reality';
+
+	/// en: 'Sci-Fi & Fantasy'
+	String get g_10765 => 'Sci-Fi & Fantasy';
+
+	/// en: 'Soap'
+	String get g_10766 => 'Soap';
+
+	/// en: 'Talk'
+	String get g_10767 => 'Talk';
+
+	/// en: 'War & Politics'
+	String get g_10768 => 'War & Politics';
+}
+
+// Path: errors
+class Translations$errors$en {
+	Translations$errors$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Search failed. Please try again.'
+	String get search_failed => 'Search failed. Please try again.';
+
+	/// en: 'TV show search failed. Please try again.'
+	String get search_tv_failed => 'TV show search failed. Please try again.';
+
+	/// en: 'Failed to load content.'
+	String get load_failed => 'Failed to load content.';
+
+	/// en: 'Network timeout. Please check your connection.'
+	String get network_timeout => 'Network timeout. Please check your connection.';
+
+	/// en: 'Server error. Please try again.'
+	String get server_error => 'Server error. Please try again.';
+
+	/// en: 'Unexpected network error.'
+	String get network_error => 'Unexpected network error.';
+
+	/// en: 'Request failed.'
+	String get request_failed => 'Request failed.';
+
+	/// en: 'Sign up failed.'
+	String get sign_up_failed => 'Sign up failed.';
+
+	/// en: 'Authentication failed.'
+	String get auth_failed => 'Authentication failed.';
 }
 
 // Path: connectivity
@@ -1231,7 +1314,7 @@ extension on Translations {
 			'home.mystery' => 'Mystery & Detective',
 			'search.explore' => 'Explore',
 			'search.explore_caps' => 'EXPLORE',
-			'search.hint' => 'Search movies...',
+			'search.hint' => 'Search ...',
 			'search.no_results' => 'No results found.',
 			'search.filters.all' => 'All',
 			'search.filters.movies' => 'Movies',
@@ -1373,14 +1456,18 @@ extension on Translations {
 			'director.born' => 'Born:',
 			'director.biography' => 'Biography',
 			'director.filmography' => 'Filmography',
-			'tv.popular' => 'Popular',
-			'tv.top_rated' => 'Top Rated',
+			'tv.popular' => 'Popular TV Shows',
+			'tv.top_rated' => 'Top Rated TV Shows',
 			'tv.airing_today' => 'Airing Today',
 			'tv.on_the_air' => 'On The Air',
-			'tv.action' => 'Action',
-			'tv.comedy' => 'Comedy',
-			'tv.drama' => 'Drama',
+			'tv.action' => 'Action TV',
+			'tv.comedy' => 'Comedy TV',
+			'tv.drama' => 'Drama TV',
 			'tv.sci_fi_fantasy' => 'Sci-Fi & Fantasy',
+			'tv.mystery' => 'Mystery TV',
+			'tv.animation' => 'Animation TV',
+			'tv.reality' => 'Reality TV',
+			'tv.horror' => 'Horror TV',
 			'common.cancel' => 'Cancel',
 			'common.submit' => 'Submit Rating',
 			'common.cinema' => 'Cinema',
@@ -1412,6 +1499,23 @@ extension on Translations {
 			'genres.g_53' => 'Thriller',
 			'genres.g_10752' => 'War',
 			'genres.g_37' => 'Western',
+			'genres_tv.g_10759' => 'Action & Adventure',
+			'genres_tv.g_10762' => 'Kids',
+			'genres_tv.g_10763' => 'News',
+			'genres_tv.g_10764' => 'Reality',
+			'genres_tv.g_10765' => 'Sci-Fi & Fantasy',
+			'genres_tv.g_10766' => 'Soap',
+			'genres_tv.g_10767' => 'Talk',
+			'genres_tv.g_10768' => 'War & Politics',
+			'errors.search_failed' => 'Search failed. Please try again.',
+			'errors.search_tv_failed' => 'TV show search failed. Please try again.',
+			'errors.load_failed' => 'Failed to load content.',
+			'errors.network_timeout' => 'Network timeout. Please check your connection.',
+			'errors.server_error' => 'Server error. Please try again.',
+			'errors.network_error' => 'Unexpected network error.',
+			'errors.request_failed' => 'Request failed.',
+			'errors.sign_up_failed' => 'Sign up failed.',
+			'errors.auth_failed' => 'Authentication failed.',
 			'connectivity.title' => 'No Internet Connection',
 			'connectivity.description' => 'Please check your internet connection and try again. My Movie app requires an active internet connection to function properly.',
 			'connectivity.troubleshooting_title' => 'Troubleshooting Tips:',

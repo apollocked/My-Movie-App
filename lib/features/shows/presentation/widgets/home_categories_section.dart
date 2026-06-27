@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/features/movies/presentation/widgets/category_row.dart';
 
@@ -10,17 +11,17 @@ class ShowHomeCategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titles = [
-      'Top Rated',
-      'Popular',
-      'Airing Today',
-      'On The Air',
-      'Action',
-      'Sci-Fi',
-      'Drama',
-      'Comedy',
-      'Mystery',
-      'Animation',
-      'Reality',
+      t.tv.top_rated,
+      t.tv.popular,
+      t.tv.airing_today,
+      t.tv.on_the_air,
+      t.tv.action,
+      t.tv.sci_fi_fantasy,
+      t.tv.drama,
+      t.tv.comedy,
+      t.tv.mystery,
+      t.tv.animation,
+      t.tv.reality,
     ];
 
     final endpoints = [

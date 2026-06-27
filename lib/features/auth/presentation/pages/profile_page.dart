@@ -6,6 +6,7 @@ import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 import '../widgets/guest_profile_view.dart';
 import '../widgets/profile_user_header.dart';
 import '../widgets/profile_widgets.dart';
@@ -39,7 +40,9 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ProfileUserHeader(theme: theme, email: user.email),
-                      const SizedBox(height: 48),
+                      const SizedBox(height: 16),
+                      _ProfileContentTypePill(),
+                      const SizedBox(height: 24),
                       ProfileSectionHeader(title: t.profile.my_activity),
                       const SizedBox(height: 8),
                       ProfileMovieSection(
@@ -106,5 +109,74 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+}
 
+class _ProfileContentTypePill extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final current = context.watch<ContentTypeCubit>().state;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        children: [
+          _PillTab(
+            label: t.search.filters.movies,
+            isSelected: current == ContentType.movies,
+            onTap: () => context.read<ContentTypeCubit>().select(ContentType.movies),
+          ),
+          const SizedBox(width: 10),
+          _PillTab(
+            label: t.search.filters.tv_shows,
+            isSelected: current == ContentType.shows,
+            onTap: () => context.read<ContentTypeCubit>().select(ContentType.shows),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PillTab extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _PillTab({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? theme.colorScheme.primary
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.dividerColor,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            fontSize: 14,
+          ),
+        ),
+      ),
+    );
+  }
 }

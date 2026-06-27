@@ -53,6 +53,8 @@ class TranslationsKu extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$tv$ku tv = _Translations$tv$ku._(_root);
 	@override late final _Translations$common$ku common = _Translations$common$ku._(_root);
 	@override late final _Translations$genres$ku genres = _Translations$genres$ku._(_root);
+	@override late final _Translations$genres_tv$ku genres_tv = _Translations$genres_tv$ku._(_root);
+	@override late final _Translations$errors$ku errors = _Translations$errors$ku._(_root);
 	@override late final _Translations$connectivity$ku connectivity = _Translations$connectivity$ku._(_root);
 	@override late final _Translations$not_found$ku not_found = _Translations$not_found$ku._(_root);
 	@override late final _Translations$what_to_watch_dialog$ku what_to_watch_dialog = _Translations$what_to_watch_dialog$ku._(_root);
@@ -289,14 +291,18 @@ class _Translations$tv$ku extends Translations$tv$en {
 	final TranslationsKu _root; // ignore: unused_field
 
 	// Translations
-	@override String get popular => 'بەناوبانگ';
-	@override String get top_rated => 'بەرزترین نمرە';
+	@override String get popular => 'زنجیرە بەناوبانگەکان';
+	@override String get top_rated => 'زنجیرە خاوەن بەرزترین نمرەکان';
 	@override String get airing_today => 'ئەمڕۆ پەخش دەکرێت';
 	@override String get on_the_air => 'ئێستا پەخش دەکرێت';
-	@override String get action => 'ئەکشن';
-	@override String get comedy => 'کۆمیدی';
-	@override String get drama => 'دراما';
+	@override String get action => 'زنجیرەی ئەکشن';
+	@override String get comedy => 'زنجیرەی کۆمیدی';
+	@override String get drama => 'زنجیرەی دراما';
 	@override String get sci_fi_fantasy => 'خەیاڵی زانستی و فەنتازیا';
+	@override String get mystery => 'زنجیرەی نهێنی';
+	@override String get animation => 'زنجیرەی ئەنیمەیشن';
+	@override String get reality => 'زنجیرەی ڕاستەقینە';
+	@override String get horror => 'زنجیرەی ترسناک';
 }
 
 // Path: common
@@ -346,6 +352,41 @@ class _Translations$genres$ku extends Translations$genres$en {
 	@override String get g_53 => 'هەستبزوێن';
 	@override String get g_10752 => 'جەنگ';
 	@override String get g_37 => 'ڕۆژئاوایی';
+}
+
+// Path: genres_tv
+class _Translations$genres_tv$ku extends Translations$genres_tv$en {
+	_Translations$genres_tv$ku._(TranslationsKu root) : this._root = root, super.internal(root);
+
+	final TranslationsKu _root; // ignore: unused_field
+
+	// Translations
+	@override String get g_10759 => 'ئەکشن و سەرگەرمی';
+	@override String get g_10762 => 'منداڵان';
+	@override String get g_10763 => 'هەواڵ';
+	@override String get g_10764 => 'ڕاستەقینە';
+	@override String get g_10765 => 'خەیاڵی زانستی و فەنتازیا';
+	@override String get g_10766 => 'زنجیرەی ڕۆژانە';
+	@override String get g_10767 => 'وتووێژ';
+	@override String get g_10768 => 'جەنگ و سیاسەت';
+}
+
+// Path: errors
+class _Translations$errors$ku extends Translations$errors$en {
+	_Translations$errors$ku._(TranslationsKu root) : this._root = root, super.internal(root);
+
+	final TranslationsKu _root; // ignore: unused_field
+
+	// Translations
+	@override String get search_failed => 'گەڕان سەرکەوتوو نەبوو. تکایە دووبارە هەوڵبدەرەوە.';
+	@override String get search_tv_failed => 'گەڕانی زنجیرەکان سەرکەوتوو نەبوو. تکایە دووبارە هەوڵبدەرەوە.';
+	@override String get load_failed => 'بارکردنی ناوەڕۆک سەرکەوتوو نەبوو.';
+	@override String get network_timeout => 'کاتی تۆڕ تەواو بوو. تکایە پەیوەندییەکەت بپشکنە.';
+	@override String get server_error => 'هەڵەی ڕاژەکار. تکایە دووبارە هەوڵبدەرەوە.';
+	@override String get network_error => 'هەڵەیەکی چاوەڕواننەکراوی تۆڕ.';
+	@override String get request_failed => 'داواکاری سەرکەوتوو نەبوو.';
+	@override String get sign_up_failed => 'ناونووسین سەرکەوتوو نەبوو.';
+	@override String get auth_failed => 'چوونەژوورەوە سەرکەوتوو نەبوو.';
 }
 
 // Path: connectivity
@@ -860,14 +901,18 @@ extension on TranslationsKu {
 			'director.born' => 'لەدایکبوون:',
 			'director.biography' => 'ژیاننامە',
 			'director.filmography' => 'فیلمۆگرافی',
-			'tv.popular' => 'بەناوبانگ',
-			'tv.top_rated' => 'بەرزترین نمرە',
+			'tv.popular' => 'زنجیرە بەناوبانگەکان',
+			'tv.top_rated' => 'زنجیرە خاوەن بەرزترین نمرەکان',
 			'tv.airing_today' => 'ئەمڕۆ پەخش دەکرێت',
 			'tv.on_the_air' => 'ئێستا پەخش دەکرێت',
-			'tv.action' => 'ئەکشن',
-			'tv.comedy' => 'کۆمیدی',
-			'tv.drama' => 'دراما',
+			'tv.action' => 'زنجیرەی ئەکشن',
+			'tv.comedy' => 'زنجیرەی کۆمیدی',
+			'tv.drama' => 'زنجیرەی دراما',
 			'tv.sci_fi_fantasy' => 'خەیاڵی زانستی و فەنتازیا',
+			'tv.mystery' => 'زنجیرەی نهێنی',
+			'tv.animation' => 'زنجیرەی ئەنیمەیشن',
+			'tv.reality' => 'زنجیرەی ڕاستەقینە',
+			'tv.horror' => 'زنجیرەی ترسناک',
 			'common.cancel' => 'هەڵوەشاندنەوە',
 			'common.submit' => 'نمرەکە بنێرە',
 			'common.cinema' => 'سینەما',
@@ -899,6 +944,23 @@ extension on TranslationsKu {
 			'genres.g_53' => 'هەستبزوێن',
 			'genres.g_10752' => 'جەنگ',
 			'genres.g_37' => 'ڕۆژئاوایی',
+			'genres_tv.g_10759' => 'ئەکشن و سەرگەرمی',
+			'genres_tv.g_10762' => 'منداڵان',
+			'genres_tv.g_10763' => 'هەواڵ',
+			'genres_tv.g_10764' => 'ڕاستەقینە',
+			'genres_tv.g_10765' => 'خەیاڵی زانستی و فەنتازیا',
+			'genres_tv.g_10766' => 'زنجیرەی ڕۆژانە',
+			'genres_tv.g_10767' => 'وتووێژ',
+			'genres_tv.g_10768' => 'جەنگ و سیاسەت',
+			'errors.search_failed' => 'گەڕان سەرکەوتوو نەبوو. تکایە دووبارە هەوڵبدەرەوە.',
+			'errors.search_tv_failed' => 'گەڕانی زنجیرەکان سەرکەوتوو نەبوو. تکایە دووبارە هەوڵبدەرەوە.',
+			'errors.load_failed' => 'بارکردنی ناوەڕۆک سەرکەوتوو نەبوو.',
+			'errors.network_timeout' => 'کاتی تۆڕ تەواو بوو. تکایە پەیوەندییەکەت بپشکنە.',
+			'errors.server_error' => 'هەڵەی ڕاژەکار. تکایە دووبارە هەوڵبدەرەوە.',
+			'errors.network_error' => 'هەڵەیەکی چاوەڕواننەکراوی تۆڕ.',
+			'errors.request_failed' => 'داواکاری سەرکەوتوو نەبوو.',
+			'errors.sign_up_failed' => 'ناونووسین سەرکەوتوو نەبوو.',
+			'errors.auth_failed' => 'چوونەژوورەوە سەرکەوتوو نەبوو.',
 			'connectivity.title' => 'پەیوەندیدانی ئەنتەرنێت نییە',
 			'connectivity.description' => 'تکایە پەیوەندی ئەنتەرنێتت بسەرببە و دوبارە هەوڵبدەرەوە. تطبيق My Movies پێویست بە پەیوەندی کاراکێی ئەنتەرنێتی هەیە بۆ کارکردن بە شێوەیەکی ڕاست.',
 			'connectivity.troubleshooting_title' => 'ڕاهێنان بۆ چارەسەرکردنی کێشه:',
