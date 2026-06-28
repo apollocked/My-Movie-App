@@ -83,7 +83,7 @@ const CachedMovieSchema = CollectionSchema(
   getId: _cachedMovieGetId,
   getLinks: _cachedMovieGetLinks,
   attach: _cachedMovieAttach,
-  version: '3.1.0+1',
+  version: '3.3.2',
 );
 
 int _cachedMovieEstimateSize(
