@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../widgets/movie_poster_card.dart';
 
@@ -113,7 +114,21 @@ class _SeeAllPageState extends State<SeeAllPage> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(widget.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(

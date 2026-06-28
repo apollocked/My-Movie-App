@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
@@ -89,15 +90,10 @@ class _MovieHomePageState extends State<MovieHomePage> {
             Row(
               children: [
                 Container(
-                  width: 8,
-                  height: 28,
+                  width: 6, height: 24,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFE8445A), Color(0xFFFF6B35)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
+                    gradient: AppColors.primaryGradient,
+                    borderRadius: BorderRadius.circular(3),
                   ),
                 ),
                 const SizedBox(width: 12),

@@ -23,6 +23,21 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(t.profile.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: BlocBuilder<AuthBloc, AuthState>(

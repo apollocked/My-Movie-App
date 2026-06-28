@@ -52,7 +52,19 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.swipe.title),
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(t.swipe.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
         actions: [
           BlocBuilder<RecommendationBloc, RecommendationState>(
             builder: (_, state) {

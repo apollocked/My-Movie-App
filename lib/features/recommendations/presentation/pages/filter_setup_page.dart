@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_genre_section.dart';
@@ -56,16 +57,30 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final bottom = MediaQuery.of(context).padding.bottom;
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.swipe.title), centerTitle: true),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(t.swipe.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(0, 0, 0, bottom + 120),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -117,10 +132,9 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                 _yearTo = v.end;
               }),
             ),
-            const SizedBox(height: 12),
             const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: AnimatedButton(
                 text: t.swipe.start_swiping,
                 onPressed: _startSwiping,

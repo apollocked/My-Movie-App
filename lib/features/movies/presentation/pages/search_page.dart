@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/data/services/search_history_service.dart';
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_event.dart';
@@ -87,17 +88,27 @@ class _SearchPageState extends State<SearchPage> {
     final bottom = MediaQuery.of(context).padding.bottom;
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(t.search.explore, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-              child:
-                  Text(t.search.explore, style: theme.textTheme.displayMedium),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SearchField(
                   controller: _searchController, onChanged: _onSearchChanged),
             ),

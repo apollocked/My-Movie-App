@@ -21,25 +21,25 @@ class SettingsPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.fromLTRB(24, 24, 24, bottom + 120),
+      appBar: AppBar(
+        title: Row(
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 6,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Text(t.settings.title, style: theme.textTheme.displayMedium),
-              ],
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(width: 12),
+            Text(t.settings.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
+      body: ListView(
+        padding: EdgeInsets.fromLTRB(24, 0, 24, bottom + 120),
+        children: [
+          const SizedBox(height: 32),
             SettingsGlassCard(
               child: ListTile(
                 leading: Container(
@@ -149,7 +149,6 @@ class SettingsPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }

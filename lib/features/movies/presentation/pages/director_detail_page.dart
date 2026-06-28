@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/shows/data/models/show_model.dart';
 import '../widgets/movie_poster_card.dart';
@@ -78,7 +79,21 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
     final theme = Theme.of(context);
     if (_isLoading) {
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Row(
+              children: [
+                Container(
+                  width: 6, height: 24,
+                  decoration: BoxDecoration(
+                    gradient: AppColors.primaryGradient,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text('...', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+              ],
+            ),
+          ),
           body: const Center(child: CircularProgressIndicator()));
     }
 
@@ -92,7 +107,21 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(title: Text(name)),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(name, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: _fetchData,
         child: ListView(

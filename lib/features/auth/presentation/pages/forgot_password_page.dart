@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/auth/presentation/widgets/auth/forgot_password_form.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
@@ -11,7 +12,21 @@ class ForgotPasswordPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(title: Text(t.auth.reset_password)),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Container(
+              width: 6, height: 24,
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(t.auth.reset_password, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
