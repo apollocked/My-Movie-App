@@ -35,13 +35,13 @@ class CategoryGrid extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.fromLTRB(20, 8, 20, 100),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.3,
+        crossAxisCount: 3,
+        childAspectRatio: 0.85,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
       ),
       itemCount: items.length,
-      scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       itemBuilder: (_, i) {
         final cat = items[i];
         final color = _colors[i % _colors.length];
@@ -51,6 +51,7 @@ class CategoryGrid extends StatelessWidget {
             context.push('/see-all/$encoded', extra: cat.title);
           },
           child: Container(
+            padding: const EdgeInsets.fromLTRB(10, 14, 10, 14),
             decoration: BoxDecoration(
               color: isDark
                   ? AppColors.darkSurface.withValues(alpha: 0.6)
@@ -65,19 +66,22 @@ class CategoryGrid extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 48,
-                  height: 48,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
                       color: color.withValues(alpha: isDark ? 0.2 : 0.12),
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Icon(cat.icon, color: color, size: 24),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Icon(cat.icon, color: color, size: 20),
                 ),
-                const SizedBox(height: 10),
-                Text(cat.title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 13)),
-                const SizedBox(height: 2),
+                const SizedBox(height: 6),
+                Flexible(
+                  child: Text(cat.title,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 12)),
+                ),
                 Text(cat.subtitle,
                     style: TextStyle(
                         fontSize: 11,

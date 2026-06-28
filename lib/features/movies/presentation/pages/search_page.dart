@@ -54,7 +54,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void _onSearchChanged(String query) {
     setState(() => _showHistory = query.trim().isEmpty);
-    if (query.trim().length > 2) {
+    if (query.trim().isNotEmpty) {
       context.read<SearchBloc>().add(ExecuteSearch(
           query: query,
           filter: _selectedFilter,
