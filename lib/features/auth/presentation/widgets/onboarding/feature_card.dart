@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 class FeatureCard extends StatelessWidget {
   final IconData icon;
@@ -22,13 +23,13 @@ class FeatureCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: isDark
-            ? Colors.white.withValues(alpha: 0.06)
-            : Colors.black.withValues(alpha: 0.03),
+            ? AppColors.darkSurface.withValues(alpha: 0.8)
+            : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: isDark
-              ? Colors.white.withValues(alpha: 0.08)
-              : Colors.black.withValues(alpha: 0.06),
+              ? AppColors.darkBorder
+              : AppColors.lightBorder,
         ),
       ),
       child: Row(
@@ -52,7 +53,7 @@ class FeatureCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 14,
-                    color: isDark ? Colors.white : Colors.black,
+                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -61,8 +62,8 @@ class FeatureCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     color: isDark
-                        ? Colors.white.withValues(alpha: 0.5)
-                        : Colors.black.withValues(alpha: 0.45),
+                        ? AppColors.textSecondaryDark
+                        : AppColors.textSecondaryLight,
                   ),
                 ),
               ],

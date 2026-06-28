@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 
 class OnboardingButtons extends StatelessWidget {
   final VoidCallback? onGetStarted;
@@ -25,8 +26,8 @@ class OnboardingButtons extends StatelessWidget {
         AnimatedButton(
           text: getStartedText,
           onPressed: onGetStarted,
-          backgroundColor: isDark ? Colors.white : Colors.black,
-          foregroundColor: isDark ? Colors.black : Colors.white,
+          backgroundColor: AppColors.primaryRed,
+          foregroundColor: Colors.white,
           height: 56,
           borderRadius: 28,
           fontSize: 17,
@@ -36,8 +37,8 @@ class OnboardingButtons extends StatelessWidget {
           text: continueGuestText,
           onPressed: onContinueAsGuest,
           foregroundColor: isDark
-              ? Colors.white.withValues(alpha: 0.55)
-              : Colors.black.withValues(alpha: 0.55),
+              ? AppColors.textSecondaryDark
+              : AppColors.textSecondaryLight,
           height: 44,
           borderRadius: 22,
           fontSize: 15,

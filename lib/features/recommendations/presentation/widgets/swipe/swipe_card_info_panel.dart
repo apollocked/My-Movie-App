@@ -13,7 +13,7 @@ class SwipeCardInfoPanel extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      color: isDark ? AppColors.darkSurface : Colors.white,
+      color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

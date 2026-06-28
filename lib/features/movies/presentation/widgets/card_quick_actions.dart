@@ -98,6 +98,7 @@ class _ActionIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final service = CollectionService();
     return StreamBuilder<bool>(
       stream: service.isInCollectionStream(collection, movie.id),
@@ -109,7 +110,9 @@ class _ActionIcon extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-                color: theme.shadowColor.withValues(alpha: 0.7),
+                color: isDark
+                    ? AppColors.darkElevated.withValues(alpha: 0.85)
+                    : AppColors.lightSurface.withValues(alpha: 0.85),
                 shape: BoxShape.circle),
             child: Icon(isActive ? icon : inactiveIcon,
                 color: isActive

@@ -67,7 +67,9 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           ),
           validator: (value) {
             if (value?.isEmpty ?? true) return t.auth.errors.email_required;
-            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) return t.auth.errors.invalid_email;
+            if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
+              return t.auth.errors.invalid_email;
+            }
             return null;
           },
         ),

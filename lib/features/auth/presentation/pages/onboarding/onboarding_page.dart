@@ -32,14 +32,14 @@ class OnboardingPage extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: isDark
                     ? [
-                        const Color(0xFF0A0A0F),
-                        const Color(0xFF0F0F1A),
-                        const Color(0xFF1A0A1A),
+                        AppColors.darkBackground,
+                        AppColors.darkSurface,
+                        AppColors.darkSurfaceVariant,
                       ]
                     : [
-                        const Color(0xFFF8F8FF),
-                        const Color(0xFFF0F0FF),
-                        const Color(0xFFFFF0F8),
+                        AppColors.lightBackground,
+                        AppColors.lightSurface,
+                        AppColors.lightSurfaceVariant,
                       ],
               ),
             ),
@@ -78,7 +78,10 @@ class OnboardingPage extends StatelessWidget {
                       children: [
                         const SizedBox(height: 8),
                         OnboardingSettingsBar(isDark: isDark),
-                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Image.asset("assets/icon.png", height: 125),
+                        ),
                         ShaderMask(
                           shaderCallback: (bounds) => LinearGradient(
                             colors: [
@@ -93,9 +96,12 @@ class OnboardingPage extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
-                              fontSize: 44,
+                              fontSize: 32,
                               letterSpacing: -1,
-                              color: isDark ? Colors.white : Colors.black,
+                              color: isDark
+                                  ? AppColors.textPrimaryDark
+                                  : AppColors.textPrimaryLight
+                                      .withValues(alpha: 0.95),
                               height: 1.1,
                             ),
                           ),
@@ -128,14 +134,14 @@ class OnboardingPage extends StatelessWidget {
                           title: t.onboarding.features.watch_later.title,
                           description: t.onboarding.features.watch_later.desc,
                         ),
-                        const SizedBox(height: 24),
+                        const Spacer(),
                         Text(
                           t.auth.onboarding_subtitle,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: isDark
-                                ? Colors.white.withValues(alpha: 0.5)
-                                : Colors.black.withValues(alpha: 0.45),
+                                ? AppColors.textSecondaryDark
+                                : AppColors.textSecondaryLight,
                             height: 1.5,
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -154,7 +160,7 @@ class OnboardingPage extends StatelessWidget {
                           getStartedText: t.auth.get_started,
                           continueGuestText: t.auth.continue_guest,
                         ),
-                        const SizedBox(height: 32),
+                        const Spacer(),
                       ],
                     ),
                   ),

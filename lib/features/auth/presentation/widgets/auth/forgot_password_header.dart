@@ -8,25 +8,19 @@ class ForgotPasswordHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Container(
-            width: 6, height: 24,
-            decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(3),
-            ),
-          ),
-          const SizedBox(width: 14),
-          Text(t.auth.reset_password,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, letterSpacing: -0.5)),
-        ]),
-        const SizedBox(height: 12),
+        Center(child: Image.asset('assets/icon.png', height: 85)),
+        SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(t.auth.reset_subtitle,
-              style: TextStyle(fontSize: 14, color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
+              style: TextStyle(
+                  fontSize: 14,
+                  color: isDark
+                      ? AppColors.textSecondaryDark
+                      : AppColors.textSecondaryLight)),
         ),
       ],
     );

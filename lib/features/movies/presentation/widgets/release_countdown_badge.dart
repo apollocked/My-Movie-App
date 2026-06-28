@@ -27,7 +27,7 @@ class ReleaseCountdownBadge extends StatelessWidget {
     final iconColor = isUrgent ? AppColors.primaryOrange : AppColors.infoCyan;
     final bgColor = isUrgent
         ? AppColors.primaryRed.withValues(alpha: 0.9)
-        : Colors.black.withValues(alpha: 0.7);
+        : AppColors.darkElevated.withValues(alpha: 0.85);
 
     return Positioned(
       top: 46,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'dart:ui';
 
@@ -22,13 +23,13 @@ class OnboardingSettingsBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: isDark
-                ? Colors.white.withValues(alpha: 0.06)
-                : Colors.black.withValues(alpha: 0.04),
+                ? AppColors.darkSurface.withValues(alpha: 0.8)
+                : AppColors.lightSurface.withValues(alpha: 0.8),
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
               color: isDark
-                  ? Colors.white.withValues(alpha: 0.08)
-                  : Colors.black.withValues(alpha: 0.08),
+                  ? AppColors.darkBorder
+                  : AppColors.lightBorder,
             ),
           ),
           child: Row(
@@ -39,8 +40,8 @@ class OnboardingSettingsBar extends StatelessWidget {
                 icon: Icon(
                   isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
                   color: isDark
-                      ? Colors.white.withValues(alpha: 0.7)
-                      : Colors.black.withValues(alpha: 0.7),
+                      ? AppColors.textPrimaryDark.withValues(alpha: 0.7)
+                      : AppColors.textPrimaryLight.withValues(alpha: 0.7),
                 ),
               ),
               DropdownButton<String>(
@@ -48,13 +49,13 @@ class OnboardingSettingsBar extends StatelessWidget {
                 underline: const SizedBox(),
                 icon: Icon(Icons.language_rounded, size: 20,
                     color: isDark
-                        ? Colors.white.withValues(alpha: 0.7)
-                        : Colors.black.withValues(alpha: 0.7)),
-                dropdownColor: isDark ? const Color(0xFF1C1C1E) : Colors.white,
+                        ? AppColors.textPrimaryDark.withValues(alpha: 0.7)
+                        : AppColors.textPrimaryLight.withValues(alpha: 0.7)),
+                dropdownColor: isDark ? AppColors.darkSurface : AppColors.lightSurface,
                 style: TextStyle(
                   color: isDark
-                      ? Colors.white.withValues(alpha: 0.7)
-                      : Colors.black.withValues(alpha: 0.7),
+                      ? AppColors.textPrimaryDark.withValues(alpha: 0.7)
+                      : AppColors.textPrimaryLight.withValues(alpha: 0.7),
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
                 ),

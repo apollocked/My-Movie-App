@@ -16,6 +16,7 @@ class CardRatingBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final service = CollectionService();
 
     return Positioned(
@@ -33,7 +34,9 @@ class CardRatingBadge extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: theme.shadowColor.withValues(alpha: 0.7),
+              color: isDark
+                  ? AppColors.darkElevated.withValues(alpha: 0.85)
+                  : AppColors.lightSurface.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 color: hasRated ? AppColors.ratingGold : theme.dividerColor,
