@@ -42,40 +42,55 @@ class GlassNavBar extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: SizedBox(
-            height: 68,
+            height: 76,
             child: Stack(
               clipBehavior: Clip.none,
+              alignment: Alignment.bottomCenter,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: isDark
-                            ? Colors.black.withValues(alpha: 0.6)
-                            : Colors.white.withValues(alpha: 0.85),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: 68,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+                      child: Container(
+                        decoration: BoxDecoration(
                           color: isDark
-                              ? Colors.white.withValues(alpha: 0.08)
-                              : Colors.black.withValues(alpha: 0.06),
-                          width: 1,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black
-                                .withValues(alpha: isDark ? 0.3 : 0.08),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
+                              ? Colors.black.withValues(alpha: 0.6)
+                              : Colors.white.withValues(alpha: 0.85),
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                            color: isDark
+                                ? Colors.white.withValues(alpha: 0.08)
+                                : Colors.black.withValues(alpha: 0.06),
+                            width: 1,
                           ),
-                        ],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black
+                                  .withValues(alpha: isDark ? 0.3 : 0.08),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Row(
-                  children: _buildNavItems(context, theme, isDark, items),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: 68,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _buildNavItems(context, theme, isDark, items),
+                  ),
                 ),
               ],
             ),
@@ -131,11 +146,14 @@ class GlassNavBar extends StatelessWidget {
       if (index == 2) {
         navItem = NavCenterButton(
           isSelected: isSelected,
-          icon: item.icon,
+          icon: Icons.lightbulb_outline_rounded,
           activeColor: activeColor,
           iconColor: theme.colorScheme.onPrimary,
           isDark: isDark,
           onTap: onTap,
+          imageChild: ClipOval(
+            child: Image.asset('assets/icon.png', fit: BoxFit.cover),
+          ),
         );
       } else {
         navItem = NavStandardItem(
@@ -166,13 +184,16 @@ class GlassNavBar extends StatelessWidget {
           child: navItem,
         );
       }
-      if (index == 2 && recommendKey != null) {
-        return Showcase(
-          key: recommendKey!,
-          title: t.onboarding.tooltips.recommend.title,
-          description: t.onboarding.tooltips.recommend.desc,
-          child: navItem,
-        );
+      if (index == 2) {
+        if (recommendKey != null) {
+          return Showcase(
+            key: recommendKey!,
+            title: t.onboarding.tooltips.recommend.title,
+            description: t.onboarding.tooltips.recommend.desc,
+            child: navItem,
+          );
+        }
+        return navItem;
       }
       if (index == 3 && profileKey != null) {
         return Showcase(
