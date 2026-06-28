@@ -25,7 +25,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return UserModel.fromFirebase(credential.user!);
+      final user = credential.user;
+      if (user == null) throw Exception('Sign up failed.');
+      return UserModel.fromFirebase(user);
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Sign up failed.');
     }
@@ -37,7 +39,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return UserModel.fromFirebase(credential.user!);
+      final user = credential.user;
+      if (user == null) throw Exception('Authentication failed.');
+      return UserModel.fromFirebase(user);
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Authentication failed.');
     }

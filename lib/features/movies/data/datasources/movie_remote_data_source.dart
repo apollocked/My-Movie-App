@@ -20,7 +20,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response =
         await dio.get('$_baseUrl/trending/movie/day?api_key=$_apiKey');
     if (response.statusCode == 200) {
-      final List results = response.data['results'];
+      final results = (response.data['results'] as List?) ?? [];
       return results.map((json) => MovieModel.fromJson(json)).toList();
     }
     throw Exception('Failed to load trending movies');
@@ -31,7 +31,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response =
         await dio.get('$_baseUrl/search/movie?api_key=$_apiKey&query=$query');
     if (response.statusCode == 200) {
-      final List results = response.data['results'];
+      final results = (response.data['results'] as List?) ?? [];
       return results.map((json) => MovieModel.fromJson(json)).toList();
     }
     throw Exception('Search execution failed');

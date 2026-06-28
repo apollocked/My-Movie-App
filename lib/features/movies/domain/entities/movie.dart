@@ -31,6 +31,7 @@ class Movie {
       backdropPath: json['backdrop_path'] ?? '',
       releaseDate: json['release_date'] ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      isShow: json['isShow'] as bool? ?? false,
     );
   }
 
@@ -43,6 +44,7 @@ class Movie {
       'backdrop_path': backdropPath,
       'release_date': releaseDate,
       'vote_average': voteAverage,
+      'isShow': isShow,
     };
   }
 }
