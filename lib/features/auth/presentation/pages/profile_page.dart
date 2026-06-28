@@ -185,12 +185,11 @@ class _PillTab extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
+          style: theme.textTheme.labelSmall?.copyWith(
             color: isSelected
                 ? Colors.white
                 : theme.colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-            fontSize: 14,
           ),
         ),
       ),

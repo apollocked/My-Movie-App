@@ -28,10 +28,7 @@ class PrivacyPolicyCard extends StatelessWidget {
                 color: theme.primaryColor, size: 22),
           ),
           title: Text(t.settings.privacy_policy,
-              style: TextStyle(
-                  color: theme.textTheme.titleLarge?.color,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16)),
+              style: theme.textTheme.titleMedium),
           iconColor: theme.hintColor,
           collapsedIconColor: theme.hintColor,
           children: [
@@ -41,7 +38,7 @@ class PrivacyPolicyCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(t.privacy.last_updated,
-                      style: TextStyle(color: theme.hintColor, fontSize: 12)),
+                      style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor)),
                   const SizedBox(height: 16),
                   _section(t.privacy.introduction, false),
                   const SizedBox(height: 20),
@@ -69,16 +66,14 @@ class PrivacyPolicyCard extends StatelessWidget {
   Widget _section(String text, bool isTitle) {
     if (isTitle) {
       return Text(text,
-          style: TextStyle(
+          style: theme.textTheme.titleSmall?.copyWith(
               color: theme.textTheme.titleLarge?.color,
-              fontWeight: FontWeight.w700,
-              fontSize: 15));
+              fontWeight: FontWeight.w700));
     }
     return Text(text,
-        style: TextStyle(
+        style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.textTheme.bodyMedium?.color,
             fontWeight: FontWeight.w400,
-            fontSize: 14,
             height: 1.6));
   }
 }

@@ -94,15 +94,13 @@ class OnboardingPage extends StatelessWidget {
                           child: Text(
                             t.auth.welcome_title,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: theme.textTheme.displayMedium?.copyWith(
                               fontWeight: FontWeight.w800,
-                              fontSize: 32,
                               letterSpacing: -1,
                               color: isDark
                                   ? AppColors.textPrimaryDark
                                   : AppColors.textPrimaryLight
                                       .withValues(alpha: 0.95),
-                              height: 1.1,
                             ),
                           ),
                         ),
@@ -138,14 +136,12 @@ class OnboardingPage extends StatelessWidget {
                         Text(
                           t.auth.onboarding_subtitle,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: isDark
-                                ? AppColors.textSecondaryDark
-                                : AppColors.textSecondaryLight,
-                            height: 1.5,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          ),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: isDark
+                                  ? AppColors.textSecondaryDark
+                                  : AppColors.textSecondaryLight,
+                              fontWeight: FontWeight.w400,
+                            ),
                         ),
                         const Spacer(),
                         OnboardingButtons(

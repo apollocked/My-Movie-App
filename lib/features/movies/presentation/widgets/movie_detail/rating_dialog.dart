@@ -40,8 +40,7 @@ class _RatingDialogState extends State<RatingDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text('${_selectedRating.toInt()}/10',
-              style: const TextStyle(
-                  fontSize: 48,
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                   fontWeight: FontWeight.w900,
                   color: Colors.amber)),
           const SizedBox(height: 16),

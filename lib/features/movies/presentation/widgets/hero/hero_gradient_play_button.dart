@@ -24,11 +24,9 @@ class HeroGradientPlayButton extends StatelessWidget {
             const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 22),
             const SizedBox(width: 6),
             Text(t.movie_detail.play_trailer,
-            
-                style: TextStyle(
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13)),
+                    fontWeight: FontWeight.w700)),
           ],
         ),
       ),

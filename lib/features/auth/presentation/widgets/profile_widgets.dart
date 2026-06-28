@@ -38,8 +38,8 @@ class ProfileTile extends StatelessWidget {
                   isDestructive ? theme.colorScheme.error : theme.primaryColor),
           title: Text(
             title,
-            style: TextStyle(
-                color: color, fontWeight: FontWeight.w600, fontSize: 16),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: color, fontWeight: FontWeight.w600),
           ),
           trailing: Icon(Icons.chevron_right_rounded, color: theme.hintColor),
         ),

@@ -27,10 +27,7 @@ class MovieHorizontalList extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Text(
               title!,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: 18),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         SizedBox(

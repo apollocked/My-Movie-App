@@ -46,10 +46,8 @@ class ReleaseCountdownBadge extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               days == 0 ? t.movie_detail.release_today : days == 1 ? t.movie_detail.release_1_day : '$days ${t.movie_detail.release_days}',
-              style: TextStyle(
-                
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: iconColor,
-                fontSize: 10,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 0.3,
               ),

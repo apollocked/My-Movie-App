@@ -31,8 +31,7 @@ class FilterSectionHeader extends StatelessWidget {
             const Spacer(),
             Text(
               trailing!,
-              style: TextStyle(
-                fontSize: 12,
+              style: theme.textTheme.labelSmall?.copyWith(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.w600,
               ),

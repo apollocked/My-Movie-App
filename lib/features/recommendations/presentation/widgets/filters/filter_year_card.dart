@@ -45,19 +45,16 @@ class FilterYearCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('1900',
-                  style: TextStyle(
-                      fontSize: 11,
+                  style: theme.textTheme.labelSmall?.copyWith(
                       color: isDark
                           ? AppColors.textTertiaryDark
                           : AppColors.textTertiaryLight)),
               Text('${yearFrom.round()} - ${yearTo.round()}',
-                  style: TextStyle(
-                      fontSize: 11,
+                  style: theme.textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: theme.colorScheme.primary)),
               Text('${currentYear.round()}',
-                  style: TextStyle(
-                      fontSize: 11,
+                  style: theme.textTheme.labelSmall?.copyWith(
                       color: isDark
                           ? AppColors.textTertiaryDark
                           : AppColors.textTertiaryLight)),

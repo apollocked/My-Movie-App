@@ -79,12 +79,11 @@ class CategoryGrid extends StatelessWidget {
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 12)),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w700)),
                 ),
                 Text(cat.subtitle,
-                    style: TextStyle(
-                        fontSize: 11,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: isDark
                             ? AppColors.textTertiaryDark
                             : AppColors.textTertiaryLight)),

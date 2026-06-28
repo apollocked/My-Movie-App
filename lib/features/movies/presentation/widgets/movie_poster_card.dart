@@ -49,7 +49,7 @@ class MoviePosterCard extends StatelessWidget {
           Positioned.fill(child: _buildImage(isDark, theme)),
           if (movie != null) ...[
             ReleaseCountdownBadge(movie: movie!),
-            _buildGlassTitleOverlay(),
+            _buildGlassTitleOverlay(context),
             CardQuickActions(movie: movie!),
             CardRatingBadge(
                 movie: movie!, rating: movie!.voteAverage.toStringAsFixed(1)),
@@ -79,7 +79,7 @@ class MoviePosterCard extends StatelessWidget {
     );
   }
 
-  Widget _buildGlassTitleOverlay() {
+  Widget _buildGlassTitleOverlay(BuildContext ctx) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -100,9 +100,8 @@ class MoviePosterCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: Theme.of(ctx).textTheme.labelSmall?.copyWith(
                 color: Colors.white,
-                fontSize: 12,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.3)),
       ),

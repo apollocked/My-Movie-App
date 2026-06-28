@@ -30,7 +30,6 @@ class OnboardingButtons extends StatelessWidget {
           foregroundColor: Colors.white,
           height: 56,
           borderRadius: 28,
-          fontSize: 17,
         ),
         const SizedBox(height: 12),
         AnimatedButton.text(
@@ -41,7 +40,6 @@ class OnboardingButtons extends StatelessWidget {
               : AppColors.textSecondaryLight,
           height: 44,
           borderRadius: 22,
-          fontSize: 15,
         ),
       ],
     );

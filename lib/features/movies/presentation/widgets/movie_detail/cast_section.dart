@@ -73,7 +73,7 @@ class CastSection extends StatelessWidget {
           _buildSectionHeader(theme, t.movie_detail.cast),
           const SizedBox(height: 14),
             SizedBox(
-              height: 130,
+              height: 150,
               child: ListView.builder(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
@@ -119,16 +119,14 @@ class CastSection extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 11,
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
                                 fontWeight: FontWeight.w600)),
                         if (character.isNotEmpty)
                           Text(character,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10,
+                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
                                   color: theme.hintColor,
                                   fontWeight: FontWeight.w400)),
                       ],

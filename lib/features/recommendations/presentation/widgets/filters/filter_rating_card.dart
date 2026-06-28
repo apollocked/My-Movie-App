@@ -55,19 +55,16 @@ class FilterRatingCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('0',
-                  style: TextStyle(
-                      fontSize: 11,
+                  style: theme.textTheme.labelSmall?.copyWith(
                       color: isDark
                           ? AppColors.textTertiaryDark
                           : AppColors.textTertiaryLight)),
               Text('${minRating.toStringAsFixed(0)} - ${maxRating.toStringAsFixed(0)}',
-                  style: TextStyle(
-                      fontSize: 11,
+                  style: theme.textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: theme.colorScheme.primary)),
               Text('10',
-                  style: TextStyle(
-                      fontSize: 11,
+                  style: theme.textTheme.labelSmall?.copyWith(
                       color: isDark
                           ? AppColors.textTertiaryDark
                           : AppColors.textTertiaryLight)),

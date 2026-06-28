@@ -137,9 +137,7 @@ class _CategoryRowState extends State<CategoryRow> {
               ),
               const SizedBox(width: 10),
               Text(widget.title,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontSize: 17,
-                  )),
+                  style: theme.textTheme.titleLarge),
             ],
           ),
           AnimatedButton.text(
@@ -155,7 +153,6 @@ class _CategoryRowState extends State<CategoryRow> {
             },
             foregroundColor: theme.primaryColor,
             icon: Icons.arrow_forward_ios_rounded,
-            fontSize: 13,
           ),
         ],
       ),

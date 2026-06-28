@@ -22,10 +22,8 @@ class HeroRatingBadge extends StatelessWidget {
               color: theme.colorScheme.secondary, size: 14),
           const SizedBox(width: 4),
           Text(t.search.top_rated_badge,
-          
-              style: TextStyle(
+              style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.secondary,
-                  fontSize: 10,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.2)),
         ],

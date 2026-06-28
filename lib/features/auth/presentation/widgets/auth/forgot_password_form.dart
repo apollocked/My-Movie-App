@@ -90,7 +90,6 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             text: t.auth.back_to_login,
             onPressed: () => context.pop(),
             foregroundColor: theme.primaryColor,
-            fontSize: 16,
           ),
         ),
       ],

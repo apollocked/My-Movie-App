@@ -20,10 +20,9 @@ class HeroInfoChip extends StatelessWidget {
         Icon(icon, color: color, size: 16),
         const SizedBox(width: 4),
         Text(text,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: Colors.white.withValues(alpha: 0.8),
-                fontWeight: FontWeight.w600,
-                fontSize: 13)),
+                fontWeight: FontWeight.w600)),
       ],
     );
   }

@@ -52,12 +52,11 @@ class OnboardingSettingsBar extends StatelessWidget {
                         ? AppColors.textPrimaryDark.withValues(alpha: 0.7)
                         : AppColors.textPrimaryLight.withValues(alpha: 0.7)),
                 dropdownColor: isDark ? AppColors.darkSurface : AppColors.lightSurface,
-                style: TextStyle(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: isDark
                       ? AppColors.textPrimaryDark.withValues(alpha: 0.7)
                       : AppColors.textPrimaryLight.withValues(alpha: 0.7),
                   fontWeight: FontWeight.w500,
-                  fontSize: 14,
                 ),
                 items: [
                   DropdownMenuItem(value: 'en', child: Text(t.settings.lang_en)),

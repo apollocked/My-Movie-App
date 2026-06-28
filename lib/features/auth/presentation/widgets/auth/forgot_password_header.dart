@@ -16,8 +16,7 @@ class ForgotPasswordHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(t.auth.reset_subtitle,
-              style: TextStyle(
-                  fontSize: 14,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: isDark
                       ? AppColors.textSecondaryDark
                       : AppColors.textSecondaryLight)),

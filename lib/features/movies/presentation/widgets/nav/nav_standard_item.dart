@@ -65,8 +65,7 @@ class NavStandardItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 200),
-                style: TextStyle(
-                  fontSize: 10,
+                style: (Theme.of(context).textTheme.labelSmall ?? const TextStyle()).copyWith(
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   color: isSelected ? activeColor : inactiveColor,
                   letterSpacing: 0.1,

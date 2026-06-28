@@ -70,9 +70,8 @@ class HeroActionChip extends StatelessWidget {
                     color: isActive ? activeColor : Colors.white70, size: 16),
                 const SizedBox(width: 6),
                 Text(label,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: isActive ? activeColor : Colors.white70,
-                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                     )),
               ],

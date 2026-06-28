@@ -79,7 +79,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text('${state.currentIndex + 1} / ${state.movies.length}',
-                        style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.w700, fontSize: 13)),
+                        style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700)),
                   ),
                 ),
               );

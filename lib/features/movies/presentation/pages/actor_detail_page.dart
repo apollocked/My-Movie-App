@@ -130,8 +130,8 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
                   color: theme.colorScheme.secondary.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Text(knownFor, style: TextStyle(
-                    color: theme.colorScheme.secondary, fontSize: 13, fontWeight: FontWeight.w600)),
+                child: Text(knownFor, style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.colorScheme.secondary, fontWeight: FontWeight.w600)),
               ),
             ],
             if (birthDay.isNotEmpty || placeOfBirth.isNotEmpty) ...[
@@ -184,7 +184,7 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
                     const SizedBox(height: 6),
                     Text(movie.title, maxLines: 2, overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w500)),
                   ]),
                 ),
               ),

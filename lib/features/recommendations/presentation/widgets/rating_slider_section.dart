@@ -15,7 +15,7 @@ class RatingSliderSection extends StatelessWidget {
       children: [
         SizedBox(
           width: 28,
-          child: Text('${value.toStringAsFixed(0)}+', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.ratingGold)),
+          child: Text('${value.toStringAsFixed(0)}+', style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700, color: AppColors.ratingGold)),
         ),
         Expanded(
           child: SliderTheme(

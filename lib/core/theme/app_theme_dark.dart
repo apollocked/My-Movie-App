@@ -34,7 +34,7 @@ class AppDarkTheme {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: AppColors.darkSurface,
-          hintStyle: const TextStyle(color: AppColors.textTertiaryDark),
+          hintStyle: AppTextTheme.dark.bodySmall,
           prefixIconColor: AppColors.primaryRed,
           suffixIconColor: AppColors.textSecondaryDark,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
@@ -49,7 +49,7 @@ class AppDarkTheme {
             elevation: 0,
             backgroundColor: AppColors.primaryRed,
             foregroundColor: Colors.white,
-            textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+            textStyle: AppTextTheme.dark.labelLarge,
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
@@ -58,20 +58,20 @@ class AppDarkTheme {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             side: const BorderSide(color: AppColors.darkBorder, width: 1.5),
             foregroundColor: AppColors.textPrimaryDark,
-            textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+            textStyle: AppTextTheme.dark.labelLarge?.copyWith(fontWeight: FontWeight.w600),
           ),
         ),
         iconTheme: const IconThemeData(color: AppColors.textSecondaryDark),
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: AppColors.darkBackground,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: false,
           iconTheme: IconThemeData(color: AppColors.textPrimaryDark),
-          titleTextStyle: TextStyle(color: AppColors.textPrimaryDark, fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: -0.3),
+          titleTextStyle: AppTextTheme.dark.titleLarge,
         ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.transparent,
           selectedItemColor: AppColors.primaryRed,
           unselectedItemColor: AppColors.textTertiaryDark,
@@ -80,13 +80,13 @@ class AppDarkTheme {
         ),
         chipTheme: ChipThemeData(
           backgroundColor: AppColors.darkSurfaceVariant,
-          labelStyle: const TextStyle(color: AppColors.textSecondaryDark),
+          labelStyle: AppTextTheme.dark.labelSmall,
           selectedColor: AppColors.primaryRed.withValues(alpha: 0.15),
           side: const BorderSide(color: AppColors.darkBorder),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: AppColors.primaryRed,
           foregroundColor: Colors.white,
           elevation: 0,

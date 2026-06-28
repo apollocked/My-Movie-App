@@ -107,8 +107,8 @@ class FilterGenreSection extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.w700)),
               const Spacer(),
               Text('${selectedGenreIds.length} ${t.swipe.selected}',
-                  style: TextStyle(
-                      fontSize: 12, color: theme.colorScheme.primary)),
+                  style: theme.textTheme.labelSmall?.copyWith(
+                      color: theme.colorScheme.primary)),
             ],
           ),
         ),

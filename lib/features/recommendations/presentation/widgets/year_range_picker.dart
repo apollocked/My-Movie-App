@@ -36,14 +36,14 @@ class YearRangePicker extends StatelessWidget {
 
     return Row(
       children: [
-        Expanded(child: _buildYearColumn(t.swipe.year_from, isDark,
+        Expanded(child: _buildYearColumn(context, t.swipe.year_from, isDark,
             FilterDropdown<int>(
               value: yearFrom,
               options: yearOptions,
               onChanged: (v) => onYearFromChanged(v ?? 2000),
             ))),
         const SizedBox(width: 16),
-        Expanded(child: _buildYearColumn(t.swipe.year_to, isDark,
+        Expanded(child: _buildYearColumn(context, t.swipe.year_to, isDark,
             FilterDropdown<int?>(
               value: yearTo,
               hint: t.swipe.year_any,
@@ -57,11 +57,11 @@ class YearRangePicker extends StatelessWidget {
     );
   }
 
-  Widget _buildYearColumn(String label, bool isDark, Widget child) {
+  Widget _buildYearColumn(BuildContext ctx, String label, bool isDark, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(fontSize: 12, color: isDark ? AppColors.textTertiaryDark : AppColors.textTertiaryLight)),
+        Text(label, style: Theme.of(ctx).textTheme.labelSmall?.copyWith(color: isDark ? AppColors.textTertiaryDark : AppColors.textTertiaryLight)),
         const SizedBox(height: 4),
         child,
       ],

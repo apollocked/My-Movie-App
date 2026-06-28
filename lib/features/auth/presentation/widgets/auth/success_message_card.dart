@@ -18,7 +18,7 @@ class SuccessMessageCard extends StatelessWidget {
         const SizedBox(width: 14),
         Expanded(
           child: Text(t.auth.reset_sent,
-              style: const TextStyle(color: AppColors.successGreen, fontWeight: FontWeight.w600, fontSize: 14)),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.successGreen, fontWeight: FontWeight.w600)),
         ),
       ]),
     );

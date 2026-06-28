@@ -43,10 +43,9 @@ class GenreChip extends StatelessWidget {
             Icon(icon, size: 12,
                 color: isSelected ? theme.colorScheme.primary : (isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight)),
             const SizedBox(width: 3),
-            Text(label, style: TextStyle(
+            Text(label, style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: isSelected ? theme.colorScheme.primary : (isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight),
               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              fontSize: 11,
             )),
           ],
         ),

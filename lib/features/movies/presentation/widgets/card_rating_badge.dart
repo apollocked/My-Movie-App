@@ -54,9 +54,8 @@ class CardRatingBadge extends StatelessWidget {
                 const SizedBox(width: 2),
                 Text(
                   displayRating,
-                  style: TextStyle(
+                  style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onSurface,
-                    fontSize: 11,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

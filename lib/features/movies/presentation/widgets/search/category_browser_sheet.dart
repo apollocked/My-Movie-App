@@ -91,8 +91,7 @@ class _CategoryBrowserSheetState extends State<CategoryBrowserSheet> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(t.search.browse_all,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 20)),
+                      style: theme.textTheme.headlineSmall),
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Container(
@@ -130,10 +129,10 @@ class _CategoryBrowserSheetState extends State<CategoryBrowserSheet> {
                   unselectedLabelColor: isDark
                       ? AppColors.textTertiaryDark
                       : AppColors.textTertiaryLight,
-                  labelStyle: const TextStyle(
-                      fontWeight: FontWeight.w700, fontSize: 14),
-                  unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 14),
+                  labelStyle: theme.textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.w700),
+                  unselectedLabelStyle: theme.textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.w600),
                   dividerColor: Colors.transparent,
                   tabs: [
                     Tab(text: t.search.filters.movies),

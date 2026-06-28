@@ -55,12 +55,11 @@ class CategorySelector extends StatelessWidget {
               child: Center(
                 child: Text(
                   categories[index],
-                  style: TextStyle(
+                  style: theme.textTheme.labelSmall?.copyWith(
                     color: isSelected
                         ? Colors.black
                         : theme.textTheme.bodyMedium?.color
                             ?.withValues(alpha: 0.7),
-                    fontSize: 13,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                   ),
                 ),

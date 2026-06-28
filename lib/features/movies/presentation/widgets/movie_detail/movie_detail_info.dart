@@ -79,9 +79,8 @@ class MovieDetailInfo extends StatelessWidget {
                             const SizedBox(width: 4),
                             Text(
                                 '${movie.voteAverage.toStringAsFixed(1)}/10',
-                                style: const TextStyle(
+                                style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 13,
                                     color: AppColors.ratingGold)),
                           ],
                         ),

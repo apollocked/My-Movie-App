@@ -26,7 +26,7 @@ class OfflineBanner extends StatelessWidget {
                   Expanded(
                     child: Text(
                       t.connectivity.offline_banner,
-                      style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],

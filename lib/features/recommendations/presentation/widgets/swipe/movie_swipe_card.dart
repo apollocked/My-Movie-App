@@ -135,9 +135,9 @@ class _MovieSwipeCardState extends State<MovieSwipeCard> with SingleTickerProvid
                     ),
                     child: Text(
                       _dragRatio > 0 ? t.swipe.save_label : t.swipe.skip_label,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         color: _dragRatio > 0 ? AppColors.successGreen : AppColors.errorRed,
-                        fontSize: 32, fontWeight: FontWeight.w900, letterSpacing: 4,
+                        fontWeight: FontWeight.w900, letterSpacing: 4,
                       ),
                     ),
                   ),

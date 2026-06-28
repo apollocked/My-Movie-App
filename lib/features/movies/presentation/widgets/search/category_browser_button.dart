@@ -28,10 +28,9 @@ class CategoryBrowserButton extends StatelessWidget {
                     color: Colors.white, size: 22),
                 const SizedBox(width: 10),
                 Text(t.search.browse_categories,
-                    style: const TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16)),
+                        fontWeight: FontWeight.w700)),
                 const SizedBox(width: 8),
                 const Icon(Icons.keyboard_arrow_down_rounded,
                     color: Colors.white, size: 20),

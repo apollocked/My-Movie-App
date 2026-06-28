@@ -112,9 +112,9 @@ class _AnimatedButtonState extends State<AnimatedButton>
                       ],
                       Text(
                         widget.text,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: widget.foregroundColor,
-                          fontSize: widget.fontSize ?? 16,
+                          fontSize: widget.fontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

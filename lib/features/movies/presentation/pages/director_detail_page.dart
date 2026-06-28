@@ -164,9 +164,8 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(knownFor,
-                    style: TextStyle(
+                    style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.colorScheme.secondary,
-                        fontSize: 13,
                         fontWeight: FontWeight.w600)),
               ),
             ],
@@ -227,7 +226,7 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
                     const SizedBox(height: 6),
                     Text(movie.title, maxLines: 2, overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w500)),
                   ]),
                 ),
               ),

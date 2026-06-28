@@ -52,10 +52,7 @@ class SettingsPage extends StatelessWidget {
                       color: theme.primaryColor, size: 22),
                 ),
                 title: Text(t.settings.language,
-                    style: TextStyle(
-                        color: theme.textTheme.titleLarge?.color,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16)),
+                    style: theme.textTheme.titleMedium),
                 trailing: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -100,10 +97,7 @@ class SettingsPage extends StatelessWidget {
                     AppColors.textTertiaryDark.withValues(alpha: 0.3),
                 inactiveThumbColor: AppColors.textTertiaryDark,
                 title: Text(t.settings.dark_mode,
-                    style: TextStyle(
-                        color: theme.textTheme.titleLarge?.color,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16)),
+                    style: theme.textTheme.titleMedium),
                 secondary: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -138,12 +132,9 @@ class SettingsPage extends StatelessWidget {
                       color: theme.primaryColor, size: 22),
                 ),
                 title: Text(t.settings.contact_us,
-                    style: TextStyle(
-                        color: theme.textTheme.titleLarge?.color,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16)),
+                    style: theme.textTheme.titleMedium),
                 subtitle: Text(t.settings.email,
-                    style: TextStyle(color: theme.hintColor, fontSize: 13)),
+                    style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor)),
                 onTap: () {},
               ),
             ),

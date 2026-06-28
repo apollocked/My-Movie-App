@@ -53,16 +53,12 @@ class PlayTrailerButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(t.movie_detail.watch_trailer,
-
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
-                          fontSize: 15,
                           color: Colors.white)),
                   Text(t.movie_detail.on_youtube,
-                  
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w500,
-                          fontSize: 12,
                           color: Colors.white.withValues(alpha: 0.6))),
                 ],
               ),

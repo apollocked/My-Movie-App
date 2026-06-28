@@ -17,9 +17,9 @@ class SwipeCardInfoPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(movie.title, style: TextStyle(
+          Text(movie.title, style: Theme.of(context).textTheme.titleLarge?.copyWith(
             color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
-            fontSize: 20, fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w700,
           ), maxLines: 1, overflow: TextOverflow.ellipsis),
           const SizedBox(height: 6),
           Row(
@@ -27,23 +27,23 @@ class SwipeCardInfoPanel extends StatelessWidget {
               if (movie.voteAverage > 0) ...[
                 Icon(Icons.star_rounded, color: AppColors.ratingGold, size: 18),
                 const SizedBox(width: 4),
-                Text(movie.voteAverage.toStringAsFixed(1), style: TextStyle(
-                  color: AppColors.ratingGold, fontWeight: FontWeight.w700, fontSize: 14,
+                Text(movie.voteAverage.toStringAsFixed(1), style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: AppColors.ratingGold, fontWeight: FontWeight.w700,
                 )),
                 const SizedBox(width: 12),
               ],
               if (movie.releaseDate.length >= 4)
-                Text(movie.releaseDate.substring(0, 4), style: TextStyle(
+                Text(movie.releaseDate.substring(0, 4), style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                  fontSize: 14, fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w500,
                 )),
             ],
           ),
           const SizedBox(height: 8),
           if (movie.overview.isNotEmpty)
-            Text(movie.overview, style: TextStyle(
+            Text(movie.overview, style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-              fontSize: 13, fontWeight: FontWeight.w400, height: 1.4,
+              fontWeight: FontWeight.w400, height: 1.4,
             ), maxLines: 2, overflow: TextOverflow.ellipsis),
         ],
       ),

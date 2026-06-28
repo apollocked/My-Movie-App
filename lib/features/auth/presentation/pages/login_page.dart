@@ -118,7 +118,6 @@ class _LoginPageState extends State<LoginPage> {
                       text: t.auth.reset_password,
                       onPressed: () => context.push('/forgot-password'),
                       foregroundColor: Theme.of(context).primaryColor,
-                      fontSize: 13,
                     ),
                     ),
                     const SizedBox(height: 8),

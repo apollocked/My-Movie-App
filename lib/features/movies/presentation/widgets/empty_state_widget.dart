@@ -46,7 +46,6 @@ class EmptyStateWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 22,
               ),
             ),
             if (subtitle != null) ...[

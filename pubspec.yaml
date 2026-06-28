@@ -74,6 +74,10 @@ flutter:
   assets:
     - assets/
     - .env
+  fonts:
+    - family: sarkar
+      fonts:
+        - asset: assets/fonts/sarkar.ttf
 flutter_native_splash:
   color: "#07090F"
 

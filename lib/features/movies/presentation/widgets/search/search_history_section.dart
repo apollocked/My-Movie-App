@@ -47,7 +47,6 @@ class SearchHistorySection extends StatelessWidget {
                 text: t.search.clear,
                 onPressed: onClear,
                 foregroundColor: AppColors.textTertiaryDark,
-                fontSize: 13,
               ),
             ],
           ),

@@ -50,17 +50,15 @@ class FeatureCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 14,
                     color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 12,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: isDark
                         ? AppColors.textSecondaryDark
                         : AppColors.textSecondaryLight,

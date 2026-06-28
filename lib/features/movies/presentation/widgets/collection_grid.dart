@@ -80,10 +80,9 @@ class CollectionGrid extends StatelessWidget {
                 const Icon(Icons.star, size: 16, color: Colors.black87),
                 const SizedBox(width: 4),
                 Text('${rating.toInt()}',
-                    style: const TextStyle(
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Colors.black87,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 14)),
+                        fontWeight: FontWeight.w900)),
               ],
             ),
           ),
