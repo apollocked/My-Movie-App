@@ -9,7 +9,9 @@ class SearchHistoryService {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString(_key);
     if (data == null) return [];
-    return (json.decode(data) as List).cast<String>();
+    return ((json.decode(data) as List?) ?? [])
+        .map((e) => e.toString())
+        .toList();
   }
 
   Future<void> addQuery(String query) async {

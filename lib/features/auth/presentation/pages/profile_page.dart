@@ -41,10 +41,10 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       ProfileUserHeader(theme: theme, email: user.email),
                       const SizedBox(height: 16),
+                      ProfileSectionHeader(title: t.profile.my_activity),
+                      const SizedBox(height: 16),
                       _ProfileContentTypePill(),
                       const SizedBox(height: 24),
-                      ProfileSectionHeader(title: t.profile.my_activity),
-                      const SizedBox(height: 8),
                       ProfileMovieSection(
                         icon: Icons.bookmark_outline_rounded,
                         title: t.profile.watch_later,
@@ -119,17 +119,20 @@ class _ProfileContentTypePill extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _PillTab(
             label: t.search.filters.movies,
             isSelected: current == ContentType.movies,
-            onTap: () => context.read<ContentTypeCubit>().select(ContentType.movies),
+            onTap: () =>
+                context.read<ContentTypeCubit>().select(ContentType.movies),
           ),
           const SizedBox(width: 10),
           _PillTab(
             label: t.search.filters.tv_shows,
             isSelected: current == ContentType.shows,
-            onTap: () => context.read<ContentTypeCubit>().select(ContentType.shows),
+            onTap: () =>
+                context.read<ContentTypeCubit>().select(ContentType.shows),
           ),
         ],
       ),
@@ -155,23 +158,22 @@ class _PillTab extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
+        width: 150,
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected
-              ? theme.colorScheme.primary
-              : Colors.transparent,
+          color: isSelected ? theme.colorScheme.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected
-                ? theme.colorScheme.primary
-                : theme.dividerColor,
+            color: isSelected ? theme.colorScheme.primary : theme.dividerColor,
           ),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            color: isSelected
+                ? Colors.white
+                : theme.colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
             fontSize: 14,
           ),

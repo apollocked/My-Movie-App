@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'movie_poster_card.dart';
@@ -20,6 +21,7 @@ class CollectionGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: const EdgeInsets.all(16),
+      physics: const BouncingScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 0.65,
@@ -29,11 +31,12 @@ class CollectionGrid extends StatelessWidget {
       itemCount: movies.length,
       itemBuilder: (context, index) {
         final movie = movies[index];
+        final route = movie.isShow ? '/show' : '/movie';
 
         return Stack(
           children: [
             InkWell(
-              onTap: () => context.push('/movie/${movie.id}', extra: movie),
+              onTap: () => context.push('$route/${movie.id}', extra: movie),
               borderRadius: BorderRadius.circular(20),
               child: MoviePosterCard(movie: movie, fillWidth: true),
             ),
@@ -45,6 +48,7 @@ class CollectionGrid extends StatelessWidget {
   }
 
   Widget _buildRatingBadge(BuildContext context, Movie movie) {
+    final theme = Theme.of(context);
     final service = CollectionService();
 
     return StreamBuilder<Map<String, dynamic>?>(
@@ -61,11 +65,11 @@ class CollectionGrid extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.amber,
+              color: AppColors.ratingGold,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black45,
+                    color: theme.shadowColor.withValues(alpha: 0.3),
                     blurRadius: 6,
                     offset: const Offset(0, 2))
               ],
@@ -73,11 +77,11 @@ class CollectionGrid extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.star, size: 16, color: Colors.black),
+                const Icon(Icons.star, size: 16, color: Colors.black87),
                 const SizedBox(width: 4),
                 Text('${rating.toInt()}',
                     style: const TextStyle(
-                        color: Colors.black,
+                        color: Colors.black87,
                         fontWeight: FontWeight.w900,
                         fontSize: 14)),
               ],

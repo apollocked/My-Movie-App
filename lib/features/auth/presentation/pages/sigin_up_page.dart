@@ -116,14 +116,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           text: t.auth.create_account,
                           isLoading: state is AuthLoading,
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              context.read<AuthBloc>().add(
-                                    SignupRequested(
-                                      _emailController.text.trim(),
-                                      _passwordController.text,
-                                    ),
-                              );
-                            }
+                            if (_formKey.currentState?.validate() != true) return;
+                            context.read<AuthBloc>().add(
+                                  SignupRequested(
+                                    _emailController.text.trim(),
+                                    _passwordController.text,
+                                  ),
+                            );
                           },
                         );
                       },

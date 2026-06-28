@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -5,6 +6,7 @@ part 'connectivity_state.dart';
 
 class ConnectivityCubit extends Cubit<ConnectivityState> {
   final Connectivity _connectivity;
+  StreamSubscription<List<ConnectivityResult>>? _subscription;
 
   ConnectivityCubit({Connectivity? connectivity})
       : _connectivity = connectivity ?? Connectivity(),
@@ -12,9 +14,15 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     _initConnectivityListener();
   }
 
+  @override
+  Future<void> close() {
+    _subscription?.cancel();
+    return super.close();
+  }
+
   /// Initialize listener for connectivity changes
   void _initConnectivityListener() {
-    _connectivity.onConnectivityChanged.listen((result) {
+    _subscription = _connectivity.onConnectivityChanged.listen((result) {
       _handleConnectivityChange(result);
     });
 

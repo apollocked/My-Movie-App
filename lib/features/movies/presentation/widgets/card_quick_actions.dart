@@ -97,6 +97,7 @@ class _ActionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final service = CollectionService();
     return StreamBuilder<bool>(
       stream: service.isInCollectionStream(collection, movie.id),
@@ -107,10 +108,14 @@ class _ActionIcon extends StatelessWidget {
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.all(6),
-            decoration: const BoxDecoration(
-                color: Colors.black54, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+                color: theme.shadowColor.withValues(alpha: 0.7),
+                shape: BoxShape.circle),
             child: Icon(isActive ? icon : inactiveIcon,
-                color: isActive ? activeColor : Colors.white70, size: 16),
+                color: isActive
+                    ? activeColor
+                    : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                size: 16),
           ),
         );
       },

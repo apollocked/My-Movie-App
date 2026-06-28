@@ -49,7 +49,7 @@ class AuthNavigationLinks extends StatelessWidget {
             text: t.common.back_to_browse,
             onPressed: () {
               context.read<AuthBloc>().add(const ContinueAsGuestRequested());
-              context.go('/');
+              Future.microtask(() => context.go('/'));
             },
             foregroundColor: theme.primaryColor,
             borderColor: theme.dividerColor,

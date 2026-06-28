@@ -25,7 +25,7 @@ class CastSection extends StatelessWidget {
               .where((c) => c['job'] == 'Director')
               .map((d) {
             final name = d['name'] as String? ?? '';
-            final personId = d['id'] as int;
+            final personId = (d['id'] as num?)?.toInt() ?? 0;
             final profilePath = d['profile_path'] as String? ?? '';
             return GestureDetector(
               onTap: () => context.push('/director/$personId',
@@ -72,17 +72,18 @@ class CastSection extends StatelessWidget {
         if (cast.isNotEmpty) ...[
           _buildSectionHeader(theme, t.movie_detail.cast),
           const SizedBox(height: 14),
-          SizedBox(
-            height: 130,
-            child: ListView.builder(
+            SizedBox(
+              height: 130,
+              child: ListView.builder(
               scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
               itemCount: cast.length > 10 ? 10 : cast.length,
               itemBuilder: (context, index) {
                 final person = cast[index];
                 final profilePath = person['profile_path'] as String? ?? '';
                 final name = person['name'] as String? ?? '';
                 final character = person['character'] as String? ?? '';
-                final personId = person['id'] as int;
+                final personId = (person['id'] as num?)?.toInt() ?? 0;
 
                 return GestureDetector(
                   onTap: () => context.push('/person/$personId',

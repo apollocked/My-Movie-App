@@ -9,7 +9,7 @@ class ShowLocalDataSource {
   Future<List<Show>> fetchAndCache(
       String category, String endpoint, String language) async {
     final data = await apiClient.get(endpoint, params: {'language': language});
-    return _parseShows(data['results'] as List);
+    return _parseShows((data['results'] as List?) ?? []);
   }
 
   List<Show> _parseShows(List jsonList) {

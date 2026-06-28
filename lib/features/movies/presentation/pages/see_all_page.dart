@@ -23,9 +23,14 @@ class _SeeAllPageState extends State<SeeAllPage> {
   bool _hasMore = true;
   int _currentPage = 1;
 
+  bool get _isTvEndpoint =>
+      widget.endpoint.startsWith('/tv/') ||
+      widget.endpoint.startsWith('/discover/tv');
+
   @override
   void initState() {
     super.initState();
+    _currentPage = 1;
     _fetchMovies();
     _scrollController.addListener(_onScroll);
   }
@@ -58,6 +63,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
         _movies.clear();
         _movies.addAll(movies);
         _isLoading = false;
+        _currentPage = 1;
         _hasMore = _currentPage < totalPages;
       });
     } catch (_) {
@@ -96,6 +102,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
               backdropPath: json['backdrop_path'] as String? ?? '',
               releaseDate: (json['release_date'] ?? json['first_air_date']) as String? ?? '',
               voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+              isShow: _isTvEndpoint,
             ))
         .toList();
   }
@@ -130,9 +137,10 @@ class _SeeAllPageState extends State<SeeAllPage> {
                   );
                 }
                 final movie = _movies[index];
+                final route = movie.isShow ? '/show' : '/movie';
                 return InkWell(
                   onTap: () =>
-                      context.push('/movie/${movie.id}', extra: movie),
+                      context.push('$route/${movie.id}', extra: movie),
                   borderRadius: BorderRadius.circular(20),
                   child: MoviePosterCard(movie: movie),
                 );

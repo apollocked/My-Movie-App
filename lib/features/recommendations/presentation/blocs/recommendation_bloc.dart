@@ -79,6 +79,13 @@ class RecommendationBloc
       if (state is RecommendationLoaded) {
         final current = state as RecommendationLoaded;
         emit(current.copyWith(movies: _allMovies));
+      } else if (state is AllSwiped) {
+        final current = state as AllSwiped;
+        emit(RecommendationLoaded(
+          movies: _allMovies,
+          currentIndex: 0,
+          watchLaterIds: current.watchLaterIds,
+        ));
       }
     } catch (e) {
       debugPrint('RecommendationBloc loadMore error: $e');
@@ -95,9 +102,7 @@ class RecommendationBloc
       final nextIndex = current.currentIndex + 1;
 
       if (nextIndex >= _allMovies.length) {
-        if (_hasReachedEnd) {
-          emit(AllSwiped(watchLaterIds: current.watchLaterIds));
-        }
+        emit(AllSwiped(watchLaterIds: current.watchLaterIds));
         return;
       }
 
@@ -124,9 +129,7 @@ class RecommendationBloc
       final nextIndex = current.currentIndex + 1;
 
       if (nextIndex >= _allMovies.length) {
-        if (_hasReachedEnd) {
-          emit(AllSwiped(watchLaterIds: updatedWatchLater));
-        }
+        emit(AllSwiped(watchLaterIds: updatedWatchLater));
         return;
       }
 

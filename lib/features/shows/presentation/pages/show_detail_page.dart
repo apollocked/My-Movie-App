@@ -54,6 +54,8 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
       }
       if (trailerKey != null) {
         _trailerKey = trailerKey;
+        _ytController?.close();
+        _ytSubscription?.cancel();
         _ytController = YoutubePlayerController(
             params: const YoutubePlayerParams(showControls: true, showFullscreenButton: true, mute: false));
         _ytController!.loadVideoById(videoId: trailerKey);
@@ -92,7 +94,13 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
   }
 
   @override
-  void dispose() { _ytSubscription?.cancel(); _ytSubscription = null; super.dispose(); }
+  void dispose() {
+    _ytController?.close();
+    _ytController = null;
+    _ytSubscription?.cancel();
+    _ytSubscription = null;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

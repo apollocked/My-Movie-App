@@ -27,7 +27,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   }
 
   Future<void> _sendResetEmail() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (_formKey.currentState?.validate() != true) return;
     setState(() => _isLoading = true);
     try {
       await FirebaseAuth.instance

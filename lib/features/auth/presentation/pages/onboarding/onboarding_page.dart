@@ -147,7 +147,7 @@ class OnboardingPage extends StatelessWidget {
                             context
                                 .read<AuthBloc>()
                                 .add(const ContinueAsGuestRequested());
-                            context.go('/');
+                            Future.microtask(() => context.go('/'));
                           },
                           getStartedText: t.auth.get_started,
                           continueGuestText: t.auth.continue_guest,

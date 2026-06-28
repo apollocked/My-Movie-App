@@ -58,6 +58,8 @@ class MovieDetailInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(movie.title,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.headlineMedium
                           ?.copyWith(fontWeight: FontWeight.w800)),
                   const SizedBox(height: 10),

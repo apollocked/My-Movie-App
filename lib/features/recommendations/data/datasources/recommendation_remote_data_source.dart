@@ -18,7 +18,7 @@ class RecommendationRemoteDataSource {
 
     final endpoint = filter.isForShows ? '/discover/tv' : '/discover/movie';
     final data = await apiClient.get(endpoint, params: params);
-    final results = data['results'] as List;
+    final results = (data['results'] as List?) ?? [];
 
     if (filter.isForShows) {
       return results

@@ -41,12 +41,13 @@ class ShowFirestoreDataSourceImpl {
   Map<String, dynamic> _showToMap(Show s) {
     return {
       'id': s.id,
-      'name': s.name,
+      'title': s.name,
       'posterPath': s.posterPath,
       'backdropPath': s.backdropPath,
       'overview': s.overview,
       'voteAverage': s.voteAverage,
-      'firstAirDate': s.firstAirDate,
+      'releaseDate': s.firstAirDate,
+      'isShow': true,
       'timestamp': FieldValue.serverTimestamp(),
     };
   }

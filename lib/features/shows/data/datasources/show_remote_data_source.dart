@@ -15,21 +15,21 @@ class ShowRemoteDataSourceImpl implements ShowRemoteDataSource {
   @override
   Future<List<ShowModel>> getTrendingShows() async {
     final data = await apiClient.get('/trending/tv/day');
-    final results = data['results'] as List;
+    final results = (data['results'] as List?) ?? [];
     return results.map((json) => ShowModel.fromJson(json)).toList();
   }
 
   @override
   Future<List<ShowModel>> fetchByEndpoint(String endpoint, String language) async {
     final data = await apiClient.get(endpoint, params: {'language': language});
-    final results = data['results'] as List;
+    final results = (data['results'] as List?) ?? [];
     return results.map((json) => ShowModel.fromJson(json)).toList();
   }
 
   @override
   Future<List<ShowModel>> searchShows(String query) async {
     final data = await apiClient.get('/search/tv', params: {'query': query});
-    final results = data['results'] as List;
+    final results = (data['results'] as List?) ?? [];
     return results.map((json) => ShowModel.fromJson(json)).toList();
   }
 }
