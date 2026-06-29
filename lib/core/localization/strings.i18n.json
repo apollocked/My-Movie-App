@@ -207,7 +207,14 @@
     "added_to_watch_later": "Added to Watch Later",
     "director": "Director",
     "cast": "Cast",
-    "you_might_also_like": "You Might Also Like"
+    "you_might_also_like": "You Might Also Like",
+    "show": {
+      "seasons_and_episodes": "Seasons & Episodes",
+      "season": "Season",
+      "episode": "Episode",
+      "episodes": "episodes",
+      "no_episodes": "No episodes yet"
+    }
   },
   "actor": {
     "born": "Born:",

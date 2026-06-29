@@ -207,7 +207,14 @@
     "added_to_watch_later": "بۆ سەیرکردنی دواتر زیادکرا",
     "director": "دەرهێنەر",
     "cast": "ئەکتەرەکان",
-    "you_might_also_like": "لەوانەیە ئەمانەشت بەدڵ بێت"
+    "you_might_also_like": "لەوانەیە ئەمانەشت بەدڵ بێت",
+    "show": {
+      "seasons_and_episodes": "وەرز و ئەڵقەکان",
+      "season": "وەرز",
+      "episode": "ئەڵقە",
+      "episodes": "ئەڵقە",
+      "no_episodes": "هێشتا ئەڵقە نییە"
+    }
   },
   "actor": {
     "born": "لەدایکبوون:",

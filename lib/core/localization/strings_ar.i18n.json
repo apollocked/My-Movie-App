@@ -207,7 +207,14 @@
     "added_to_watch_later": "تمت الإضافة إلى المشاهدة لاحقاً",
     "director": "مخرج",
     "cast": "الممثلون",
-    "you_might_also_like": "قد يعجبك أيضاً"
+    "you_might_also_like": "قد يعجبك أيضاً",
+    "show": {
+      "seasons_and_episodes": "المواسم والحلقات",
+      "season": "الموسم",
+      "episode": "الحلقة",
+      "episodes": "حلقة",
+      "no_episodes": "لا توجد حلقات بعد"
+    }
   },
   "actor": {
     "born": "تاريخ الميلاد:",

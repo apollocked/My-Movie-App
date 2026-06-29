@@ -11,6 +11,7 @@ import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/movie_detail_bottom_actions.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/movie_detail_info.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/cast_section.dart';
+import 'package:my_movie/features/shows/presentation/widgets/season_episode_section.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/play_trailer_button.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/section_divider.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/recommendations_section.dart';
@@ -147,6 +148,11 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
                   const SizedBox(height: 28),
                   MovieDetailInfo(movie: currentShow, uid: uid, overview: _details?['overview']),
                   CastSection(cast: _cast, crew: _crew),
+                  const SizedBox(height: 32),
+                  SeasonEpisodeSection(
+                    showId: widget.showId,
+                    seasons: (_details?['seasons'] as List? ?? []),
+                  ),
                   const SizedBox(height: 32),
                   SectionDivider(color: theme.dividerColor),
                   const SizedBox(height: 20),

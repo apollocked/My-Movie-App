@@ -477,6 +477,30 @@ class Translations$movie_detail$en {
 
 	/// en: 'You Might Also Like'
 	String get you_might_also_like => 'You Might Also Like';
+
+	late final Translations$movie_detail$show$en show = Translations$movie_detail$show$en.internal(_root);
+}
+
+// Path: movie_detail.show
+class Translations$movie_detail$show$en {
+	Translations$movie_detail$show$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	/// en: 'Seasons & Episodes'
+	String get seasons_and_episodes => 'Seasons & Episodes';
+
+	/// en: 'Season'
+	String get season => 'Season';
+
+	/// en: 'Episode'
+	String get episode => 'Episode';
+
+	/// en: 'episodes'
+	String get episodes => 'episodes';
+
+	/// en: 'No episodes yet'
+	String get no_episodes => 'No episodes yet';
 }
 
 // Path: actor
@@ -1450,6 +1474,11 @@ extension on Translations {
 			'movie_detail.director' => 'Director',
 			'movie_detail.cast' => 'Cast',
 			'movie_detail.you_might_also_like' => 'You Might Also Like',
+			'movie_detail.show.seasons_and_episodes' => 'Seasons & Episodes',
+			'movie_detail.show.season' => 'Season',
+			'movie_detail.show.episode' => 'Episode',
+			'movie_detail.show.episodes' => 'episodes',
+			'movie_detail.show.no_episodes' => 'No episodes yet',
 			'actor.born' => 'Born:',
 			'actor.biography' => 'Biography',
 			'actor.filmography' => 'Filmography',

@@ -258,6 +258,19 @@ class _Translations$movie_detail$ku extends Translations$movie_detail$en {
 	@override String get director => 'دەرهێنەر';
 	@override String get cast => 'ئەکتەرەکان';
 	@override String get you_might_also_like => 'لەوانەیە ئەمانەشت بەدڵ بێت';
+	@override late final _Translations$movie_detail$show$ku show = _Translations$movie_detail$show$ku._(_root);
+}
+
+class _Translations$movie_detail$show$ku extends Translations$movie_detail$show$en {
+	_Translations$movie_detail$show$ku._(TranslationsKu root) : this._root = root, super.internal(root);
+
+	final TranslationsKu _root; // ignore: unused_field
+
+	@override String get seasons_and_episodes => 'وەرز و ئەڵقەکان';
+	@override String get season => 'وەرز';
+	@override String get episode => 'ئەڵقە';
+	@override String get episodes => 'ئەڵقە';
+	@override String get no_episodes => 'هێشتا ئەڵقە نییە';
 }
 
 // Path: actor
@@ -895,6 +908,11 @@ extension on TranslationsKu {
 			'movie_detail.director' => 'دەرهێنەر',
 			'movie_detail.cast' => 'ئەکتەرەکان',
 			'movie_detail.you_might_also_like' => 'لەوانەیە ئەمانەشت بەدڵ بێت',
+			'movie_detail.show.seasons_and_episodes' => 'وەرز و ئەڵقەکان',
+			'movie_detail.show.season' => 'وەرز',
+			'movie_detail.show.episode' => 'ئەڵقە',
+			'movie_detail.show.episodes' => 'ئەڵقە',
+			'movie_detail.show.no_episodes' => 'هێشتا ئەڵقە نییە',
 			'actor.born' => 'لەدایکبوون:',
 			'actor.biography' => 'ژیاننامە',
 			'actor.filmography' => 'فیلمۆگرافی',

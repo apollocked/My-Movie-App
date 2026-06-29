@@ -258,6 +258,19 @@ class _Translations$movie_detail$ar extends Translations$movie_detail$en {
 	@override String get director => 'مخرج';
 	@override String get cast => 'الممثلون';
 	@override String get you_might_also_like => 'قد يعجبك أيضاً';
+	@override late final _Translations$movie_detail$show$ar show = _Translations$movie_detail$show$ar._(_root);
+}
+
+class _Translations$movie_detail$show$ar extends Translations$movie_detail$show$en {
+	_Translations$movie_detail$show$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	@override String get seasons_and_episodes => 'المواسم والحلقات';
+	@override String get season => 'الموسم';
+	@override String get episode => 'الحلقة';
+	@override String get episodes => 'حلقة';
+	@override String get no_episodes => 'لا توجد حلقات بعد';
 }
 
 // Path: actor
@@ -895,6 +908,11 @@ extension on TranslationsAr {
 			'movie_detail.director' => 'مخرج',
 			'movie_detail.cast' => 'الممثلون',
 			'movie_detail.you_might_also_like' => 'قد يعجبك أيضاً',
+			'movie_detail.show.seasons_and_episodes' => 'المواسم والحلقات',
+			'movie_detail.show.season' => 'الموسم',
+			'movie_detail.show.episode' => 'الحلقة',
+			'movie_detail.show.episodes' => 'حلقة',
+			'movie_detail.show.no_episodes' => 'لا توجد حلقات بعد',
 			'actor.born' => 'تاريخ الميلاد:',
 			'actor.biography' => 'السيرة الذاتية',
 			'actor.filmography' => 'قائمة الأفلام',
