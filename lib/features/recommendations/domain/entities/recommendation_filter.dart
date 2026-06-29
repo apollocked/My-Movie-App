@@ -10,6 +10,8 @@ class RecommendationFilter {
   final int minVotes;
   final bool isShuffled;
   final ContentType contentType;
+  final String? certificationCountry;
+  final String? certificationMax;
 
   const RecommendationFilter({
     this.genreIds = const [],
@@ -21,6 +23,8 @@ class RecommendationFilter {
     this.minVotes = 50,
     this.isShuffled = true,
     this.contentType = ContentType.movies,
+    this.certificationCountry,
+    this.certificationMax,
   });
 
   bool get isForShows => contentType == ContentType.shows;
@@ -52,6 +56,14 @@ class RecommendationFilter {
           '$yearTo-12-31';
     }
 
+    final cert = certificationMax;
+    if (cert != null && cert.isNotEmpty) {
+      params['certification_country'] =
+          certificationCountry ?? 'US';
+      params['certification.lte'] = cert;
+      params['include_adult'] = false;
+    }
+
     return params;
   }
 
@@ -65,6 +77,8 @@ class RecommendationFilter {
     int? minVotes,
     bool? isShuffled,
     ContentType? contentType,
+    String? certificationCountry,
+    String? certificationMax,
   }) {
     return RecommendationFilter(
       genreIds: genreIds ?? this.genreIds,
@@ -76,6 +90,8 @@ class RecommendationFilter {
       minVotes: minVotes ?? this.minVotes,
       isShuffled: isShuffled ?? this.isShuffled,
       contentType: contentType ?? this.contentType,
+      certificationCountry: certificationCountry ?? this.certificationCountry,
+      certificationMax: certificationMax ?? this.certificationMax,
     );
   }
 }

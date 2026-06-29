@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 
 class WhatToWatchDialog extends StatelessWidget {
   const WhatToWatchDialog({super.key});

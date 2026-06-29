@@ -8,8 +8,9 @@ import 'package:my_movie/core/config/firebase_options.dart';
 import 'package:my_movie/core/routing/app_router.dart';
 import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/theme/app_theme.dart';
+import 'package:my_movie/core/localization/translations.dart';
+import 'package:my_movie/l10n/app_localizations.dart';
 import 'package:my_movie/core/localization/fallback_delegates.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
@@ -27,7 +28,6 @@ import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.da
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -35,11 +35,7 @@ void main() async {
   await configureDependencies();
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  runApp(
-    TranslationProvider(
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -118,13 +114,14 @@ class _MyAppState extends State<MyApp> {
             prev.themeMode != curr.themeMode || prev.locale != curr.locale,
         builder: (context, settingsState) {
           return MaterialApp.router(
-            title: t.common.my_movie,
+            title: 'My Movies',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: settingsState.themeMode,
             locale: settingsState.locale,
             localizationsDelegates: const [
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
@@ -132,9 +129,12 @@ class _MyAppState extends State<MyApp> {
               FallbackCupertinoLocalizationsDelegate(),
               FallbackWidgetsLocalizationsDelegate(),
             ],
-            supportedLocales: AppLocaleUtils.instance.supportedLocales,
+            supportedLocales: AppLocalizations.supportedLocales,
             routerConfig: _router,
-            builder: (context, child) => OfflineWrapper(child: child),
+            builder: (context, child) {
+              TranslationsManager.init(AppLocalizations.of(context)!);
+              return OfflineWrapper(child: child);
+            },
           );
         },
       ),

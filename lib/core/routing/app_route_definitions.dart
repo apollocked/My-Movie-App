@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import '../../features/movies/domain/entities/movie.dart';
 import '../../features/movies/presentation/pages/main_navigation_shell.dart';
 import '../../features/movies/presentation/pages/home_page.dart';

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_genre_section.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_rating_card.dart';
+import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_certification_card.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_year_card.dart';
@@ -27,6 +28,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   double _maxRating = 10.0;
   double _yearFrom = 2000;
   double _yearTo = DateTime.now().year.toDouble();
+  String? _certification;
   var _isTv = false;
 
   void _startSwiping() {
@@ -37,6 +39,8 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
       maxRating: _maxRating,
       yearFrom: _yearFrom.round(),
       yearTo: _yearTo.round(),
+      certificationCountry: 'US',
+      certificationMax: _certification,
       contentType: contentType,
     );
     final locale = context.read<SettingsCubit>().state.locale;
@@ -94,6 +98,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                     onTap: () => setState(() {
                       _isTv = false;
                       _selectedGenreIds.clear();
+                      _certification = null;
                     }),
                   ),
                   const SizedBox(width: 15),
@@ -103,6 +108,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                     onTap: () => setState(() {
                       _isTv = true;
                       _selectedGenreIds.clear();
+                      _certification = null;
                     }),
                   ),
                 ],
@@ -125,6 +131,12 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                 _minRating = v.start;
                 _maxRating = v.end;
               }),
+            ),
+            const SizedBox(height: 15),
+            FilterCertificationCard(
+              selectedCert: _certification,
+              onChanged: (v) => setState(() => _certification = v),
+              isTv: _isTv,
             ),
             const SizedBox(height: 15),
             FilterYearCard(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/widgets/settings/privacy_policy_card.dart';

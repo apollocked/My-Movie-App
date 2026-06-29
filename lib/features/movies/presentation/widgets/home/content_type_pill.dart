@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 import 'pill_tab.dart';
 

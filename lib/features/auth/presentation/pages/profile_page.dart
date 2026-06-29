@@ -5,7 +5,7 @@ import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_state.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 import '../widgets/guest_profile_view.dart';
 import '../widgets/profile_user_header.dart';

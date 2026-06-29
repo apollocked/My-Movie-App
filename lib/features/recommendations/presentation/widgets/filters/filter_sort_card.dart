@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/features/recommendations/presentation/widgets/filters/filter_card.dart';
 
 class FilterShuffleCard extends StatelessWidget {

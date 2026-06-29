@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/network/connectivity_cubit/connectivity_cubit.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 
 class OfflineBanner extends StatelessWidget {
   const OfflineBanner({super.key});

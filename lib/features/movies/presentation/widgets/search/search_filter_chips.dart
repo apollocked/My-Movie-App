@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 
 class SearchFilterChips extends StatelessWidget {
   final String selectedFilter;

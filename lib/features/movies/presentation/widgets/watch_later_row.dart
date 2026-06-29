@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';

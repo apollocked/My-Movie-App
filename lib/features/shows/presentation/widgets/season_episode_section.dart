@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';

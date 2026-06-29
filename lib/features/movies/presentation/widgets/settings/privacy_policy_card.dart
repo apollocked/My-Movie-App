@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 
 class PrivacyPolicyCard extends StatelessWidget {
   final ThemeData theme;

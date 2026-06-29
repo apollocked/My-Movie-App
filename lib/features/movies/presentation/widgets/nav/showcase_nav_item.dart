@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'nav_center_button.dart';
 import 'nav_item_data.dart';

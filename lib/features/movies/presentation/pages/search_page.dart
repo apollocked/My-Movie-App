@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/core/di/injection.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/data/services/search_history_service.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
+import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
