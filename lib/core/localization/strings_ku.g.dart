@@ -103,7 +103,7 @@ class _Translations$search$ku extends Translations$search$en {
 	@override String get clear => 'سڕینەوە';
 	@override String get browse_categories => 'گەڕان بەپێی پۆلەکان';
 	@override String get browse_all => 'گەڕان بە هەمووی';
-	@override String get top_rated_badge => 'بەرزترین نمرە';
+	@override String get top_rated_badge => 'نوێترین';
 	@override String get browse => 'گەڕان';
 }
 

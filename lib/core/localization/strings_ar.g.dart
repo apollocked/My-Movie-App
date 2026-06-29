@@ -103,7 +103,7 @@ class _Translations$search$ar extends Translations$search$en {
 	@override String get clear => 'مسح';
 	@override String get browse_categories => 'تصفح حسب الفئات';
 	@override String get browse_all => 'تصفح الكل';
-	@override String get top_rated_badge => 'الأعلى تقييماً';
+	@override String get top_rated_badge => 'جديد';
 	@override String get browse => 'تصفح';
 }
 
@@ -772,7 +772,7 @@ extension on TranslationsAr {
 			'search.clear' => 'مسح',
 			'search.browse_categories' => 'تصفح حسب الفئات',
 			'search.browse_all' => 'تصفح الكل',
-			'search.top_rated_badge' => 'الأعلى تقييماً',
+			'search.top_rated_badge' => 'جديد',
 			'search.browse' => 'تصفح',
 			'profile.title' => 'الملف الشخصي',
 			'profile.my_activity' => 'نشاطي',

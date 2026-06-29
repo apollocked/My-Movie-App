@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/shows/data/models/show_model.dart';
-import '../widgets/movie_poster_card.dart';
-import '../widgets/actor_detail/actor_section_header.dart';
+import '../widgets/person/person_profile_header.dart';
+import '../widgets/person/credit_horizontal_list.dart';
 import '../widgets/actor_detail/actor_info_row.dart';
+import '../widgets/actor_detail/actor_section_header.dart';
 import '../widgets/actor_detail/actor_biography_card.dart';
 
 class DirectorDetailPage extends StatefulWidget {
@@ -127,48 +127,10 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            Center(
-                child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                    color: theme.dividerColor.withValues(alpha: 0.5),
-                    width: 2),
-              ),
-              child: CircleAvatar(
-                radius: 56,
-                backgroundColor: theme.cardColor,
-                backgroundImage: profilePath.isNotEmpty
-                    ? NetworkImage(
-                        'https://image.tmdb.org/t/p/w185$profilePath')
-                    : null,
-                child: profilePath.isEmpty
-                    ? Icon(Icons.person_rounded,
-                        size: 46, color: theme.hintColor)
-                    : null,
-              ),
-            )),
-            const SizedBox(height: 20),
-            Text(name,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w800)),
-            if (knownFor.isNotEmpty) ...[
-              const SizedBox(height: 6),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.secondary.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(knownFor,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                        color: theme.colorScheme.secondary,
-                        fontWeight: FontWeight.w600)),
-              ),
-            ],
+            PersonProfileHeader(
+                name: name,
+                profilePath: profilePath,
+                knownFor: knownFor),
             if (birthDay.isNotEmpty || placeOfBirth.isNotEmpty) ...[
               const SizedBox(height: 20),
               if (birthDay.isNotEmpty)
@@ -187,53 +149,18 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
               ActorBiographyCard(biography: biography),
             ],
             if (_movieCredits.isNotEmpty)
-              ..._buildCreditSection(theme, t.search.filters.movies, _movieCredits, false),
+              CreditHorizontalList(
+                  label: t.search.filters.movies,
+                  items: _movieCredits),
             if (_tvCredits.isNotEmpty)
-              ..._buildCreditSection(theme, t.search.filters.tv_shows, _tvCredits, true),
+              CreditHorizontalList(
+                  label: t.search.filters.tv_shows,
+                  items: _tvCredits,
+                  isTv: true),
             const SizedBox(height: 40),
           ],
         ),
       ),
     );
-  }
-
-  List<Widget> _buildCreditSection(ThemeData theme, String label, List<Movie> items, bool isTv) {
-    return [
-      const SizedBox(height: 28),
-      ActorSectionHeader(title: '$label (${items.length})'),
-      const SizedBox(height: 16),
-      SizedBox(
-        height: 200,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final movie = items[index];
-            return GestureDetector(
-              onTap: () {
-                if (isTv) {
-                  context.push('/show/${movie.id}', extra: movie);
-                } else {
-                  context.push('/movie/${movie.id}', extra: movie);
-                }
-              },
-              child: SizedBox(
-                width: 130,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 14),
-                  child: Column(children: [
-                    Expanded(child: MoviePosterCard(height: 200, movie: movie)),
-                    const SizedBox(height: 6),
-                    Text(movie.title, maxLines: 2, overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w500)),
-                  ]),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    ];
   }
 }

@@ -157,7 +157,7 @@ class Translations$search$en {
 	String get browse_all => 'Browse All';
 
 	/// en: 'TOP RATED'
-	String get top_rated_badge => 'TOP RATED';
+	String get top_rated_badge => 'NEW';
 
 	/// en: 'Browse'
 	String get browse => 'Browse';
@@ -1327,7 +1327,7 @@ extension on Translations {
 			'search.clear' => 'Clear',
 			'search.browse_categories' => 'Browse Categories',
 			'search.browse_all' => 'Browse All',
-			'search.top_rated_badge' => 'TOP RATED',
+			'search.top_rated_badge' => 'NEW',
 			'search.browse' => 'Browse',
 			'profile.title' => 'Profile',
 			'profile.my_activity' => 'My Activity',

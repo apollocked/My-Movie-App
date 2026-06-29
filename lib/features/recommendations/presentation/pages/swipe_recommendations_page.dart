@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import '../blocs/recommendation_bloc.dart';
 import '../blocs/recommendation_event.dart';
 import '../blocs/recommendation_state.dart';
 import '../widgets/swipe/swipe_card_stack.dart';
-import '../widgets/swipe/swipe_action_button.dart';
+import '../widgets/swipe/swipe_progress_badge.dart';
+import '../widgets/swipe/swipe_bottom_actions.dart';
 import '../widgets/swipe/swipe_state_views.dart';
 
 import 'package:my_movie/features/recommendations/domain/entities/recommendation_filter.dart';
@@ -79,21 +79,9 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
             if (state is! RecommendationLoaded) return const SizedBox.shrink();
             return Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Center(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                      '${state.currentIndex + 1} / ${state.movies.length}',
-                      style: theme.textTheme.labelSmall?.copyWith(
-                          color: theme.colorScheme.primary,
-                          fontWeight: FontWeight.w700)),
-                ),
-              ),
+              child: SwipeProgressBadge(
+                  current: state.currentIndex + 1,
+                  total: state.movies.length),
             );
           })
         ],
@@ -163,50 +151,12 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
           left: 24,
           right: 24,
           bottom: bottom + 100,
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: Row(
-              children: [
-                Expanded(
-                  child: AnimatedButton(
-                    text: t.swipe.skip,
-                    onPressed: _onSkip,
-                    icon: Icons.close_rounded,
-                    height: 52,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                SizedBox(
-                  height: 52,
-                  child: SwipeActionButton(
-                      icon: Icons.info_outline_rounded,
-                      color: AppColors.infoCyan,
-                      size: 52,
-                      onTap: () {
-                        if (state.currentMovie != null) {
-                          if (isTv) {
-                            context.push('/show/${state.currentMovie!.id}',
-                                extra: state.currentMovie);
-                          } else {
-                            context.push('/movie/${state.currentMovie!.id}',
-                                extra: state.currentMovie);
-                          }
-                        }
-                      }),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: AnimatedButton(
-                    text: t.swipe.save,
-                    onPressed: _onSave,
-                    icon: Icons.bookmark_rounded,
-                    height: 52,
-                    backgroundColor: AppColors.successGreen,
-                    foregroundColor: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+          child: SwipeBottomActions(
+            isTv: isTv,
+            currentMovieId: state.currentMovie!.id,
+            currentMovie: state.currentMovie,
+            onSkip: _onSkip,
+            onSave: _onSave,
           ),
         ),
       ],

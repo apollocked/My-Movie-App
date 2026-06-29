@@ -4,7 +4,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_movie/core/di/injection.dart';
-import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
@@ -15,6 +14,7 @@ import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_eve
 import 'package:my_movie/features/movies/presentation/widgets/watch_later_row.dart';
 import 'package:my_movie/features/movies/presentation/widgets/home/home_hero_section.dart';
 import 'package:my_movie/features/movies/presentation/widgets/home/home_categories_section.dart';
+import 'package:my_movie/features/movies/presentation/widgets/home/content_type_pill.dart';
 import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
 import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_event.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
@@ -115,7 +115,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
         },
         child: Column(
           children: [
-            _ContentTypePill(),
+            const ContentTypePill(),
             Expanded(
               child: isloading
                   ? const Center(child: CircularProgressIndicator())
@@ -170,71 +170,3 @@ class _MovieHomePageState extends State<MovieHomePage> {
   }
 }
 
-class _ContentTypePill extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final current = context.watch<ContentTypeCubit>().state;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Row(
-        children: [
-          _PillTab(
-            label: t.search.filters.movies,
-            isSelected: current == ContentType.movies,
-            onTap: () => context.read<ContentTypeCubit>().select(ContentType.movies),
-          ),
-          const SizedBox(width: 10),
-          _PillTab(
-            label: t.search.filters.tv_shows,
-            isSelected: current == ContentType.shows,
-            onTap: () => context.read<ContentTypeCubit>().select(ContentType.shows),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _PillTab extends StatelessWidget {
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _PillTab({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? theme.colorScheme.primary
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected
-                ? theme.colorScheme.primary
-                : theme.dividerColor,
-          ),
-        ),
-        child: Text(
-          label,
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: isSelected ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.7),
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
