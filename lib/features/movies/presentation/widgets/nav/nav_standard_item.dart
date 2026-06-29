@@ -42,7 +42,8 @@ class NavStandardItem extends StatelessWidget {
                     width: isSelected ? 48 : 0,
                     height: isSelected ? 36 : 0,
                     decoration: BoxDecoration(
-                      color: activeColor.withValues(alpha: isSelected ? 0.2 : 0.0),
+                      color:
+                          activeColor.withValues(alpha: isSelected ? 0.2 : 0.0),
                       borderRadius: BorderRadius.circular(18),
                     ),
                   ),
@@ -60,12 +61,15 @@ class NavStandardItem extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 1),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 200),
-                style: (Theme.of(context).textTheme.labelSmall ?? const TextStyle()).copyWith(
+                style: (Theme.of(context).textTheme.labelSmall ??
+                        const TextStyle())
+                    .copyWith(
+                  fontSize: isSelected ? 12 : null,
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   color: isSelected ? activeColor : inactiveColor,
                   letterSpacing: 0.1,

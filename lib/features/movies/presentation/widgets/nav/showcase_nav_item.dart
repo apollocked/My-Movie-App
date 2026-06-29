@@ -70,11 +70,26 @@ class ShowcaseNavItem extends StatelessWidget {
 
   (String, String) _showcaseContent() {
     return switch (index) {
-      0 => (t.onboarding.tooltips.browse.title, t.onboarding.tooltips.browse.desc),
-      1 => (t.onboarding.tooltips.search.title, t.onboarding.tooltips.search.desc),
-      2 => (t.onboarding.tooltips.recommend.title, t.onboarding.tooltips.recommend.desc),
-      3 => (t.onboarding.tooltips.profile.title, t.onboarding.tooltips.profile.desc),
-      4 => (t.onboarding.tooltips.settings.title, t.onboarding.tooltips.settings.desc),
+      0 => (
+          t.onboarding.tooltips.browse.title,
+          t.onboarding.tooltips.browse.desc
+        ),
+      1 => (
+          t.onboarding.tooltips.search.title,
+          t.onboarding.tooltips.search.desc
+        ),
+      2 => (
+          t.onboarding.tooltips.recommend.title,
+          t.onboarding.tooltips.recommend.desc
+        ),
+      3 => (
+          t.onboarding.tooltips.profile.title,
+          t.onboarding.tooltips.profile.desc
+        ),
+      4 => (
+          t.onboarding.tooltips.settings.title,
+          t.onboarding.tooltips.settings.desc
+        ),
       _ => ('', ''),
     };
   }

@@ -22,7 +22,8 @@ class NavCenterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double size = isSelected ? 70.0 : 61.0;
+    // Scaled down slightly to fit the compact glass pill beautifully
+    final double size = isSelected ? 56.0 : 50.0;
 
     return GestureDetector(
       onTap: onTap,
@@ -68,7 +69,7 @@ class NavCenterButton extends StatelessWidget {
                     Icon(
                       icon,
                       color: iconColor,
-                      size: isSelected ? 28 : 24,
+                      size: isSelected ? 26 : 22,
                     ),
               ),
             ),

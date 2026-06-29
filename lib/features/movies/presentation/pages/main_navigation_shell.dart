@@ -50,25 +50,37 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
       },
       child: ShowcaseHandler(
         key: _showcaseKey,
-        showcaseKeys: [_homeKey, _searchKey, _recommendKey, _profileKey, _settingsKey],
+        showcaseKeys: [
+          _homeKey,
+          _searchKey,
+          _recommendKey,
+          _profileKey,
+          _settingsKey
+        ],
         child: Scaffold(
           extendBody: true,
           body: Stack(
             children: [
               widget.navigationShell,
-              GlassNavBar(
-                currentIndex: widget.navigationShell.currentIndex,
-                onItemTapped: (index) {
-                  if (index == 2) {
-                    FirstOpenService.showWhatToWatchDialog(context);
-                  }
-                  widget.navigationShell.goBranch(index);
-                },
-                homeKey: _homeKey,
-                searchKey: _searchKey,
-                recommendKey: _recommendKey,
-                profileKey: _profileKey,
-                settingsKey: _settingsKey,
+              // Wrapped in Positioned to float and resize the whole nav bar
+              Positioned(
+                bottom: 24.0,
+                left: 20.0,
+                right: 20.0,
+                child: GlassNavBar(
+                  currentIndex: widget.navigationShell.currentIndex,
+                  onItemTapped: (index) {
+                    if (index == 2) {
+                      FirstOpenService.showWhatToWatchDialog(context);
+                    }
+                    widget.navigationShell.goBranch(index);
+                  },
+                  homeKey: _homeKey,
+                  searchKey: _searchKey,
+                  recommendKey: _recommendKey,
+                  profileKey: _profileKey,
+                  settingsKey: _settingsKey,
+                ),
               ),
             ],
           ),

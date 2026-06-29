@@ -32,19 +32,21 @@ class GlassNavBar extends StatelessWidget {
 
     return Align(
       alignment: Alignment.bottomCenter,
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(AppSizing.wp(context, 4).clamp(12, 32), 0, AppSizing.wp(context, 4).clamp(12, 32), AppSizing.hp(context, 2).clamp(8, 24)),
-          child: SizedBox(
-            height: 76,
-            child: Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.bottomCenter,
-              children: [
-                _buildGlassBackground(context, isDark),
-                _buildNavItemsRow(context, theme, isDark),
-              ],
-            ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+            AppSizing.wp(context, 5).clamp(20, 40),
+            0,
+            AppSizing.wp(context, 5).clamp(20, 40),
+            AppSizing.hp(context, 2).clamp(16, 32)),
+        child: SizedBox(
+          height: 70, // Compact height matching the video
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.bottomCenter,
+            children: [
+              _buildGlassBackground(context, isDark),
+              _buildNavItemsRow(context, theme, isDark),
+            ],
           ),
         ),
       ),
@@ -52,27 +54,28 @@ class GlassNavBar extends StatelessWidget {
   }
 
   Widget _buildGlassBackground(BuildContext context, bool isDark) {
-    return Positioned(
-      left: 0, right: 0, bottom: 0, height: 68,
+    return Positioned.fill(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(40), // Fully rounded pill shape
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+          filter:
+              ImageFilter.blur(sigmaX: 16, sigmaY: 16), // Pronounced glass blur
           child: Container(
             decoration: BoxDecoration(
               color: isDark
-                  ? Colors.black.withValues(alpha: 0.6)
-                  : Colors.white.withValues(alpha: 0.85),
-              borderRadius: BorderRadius.circular(30),
+                  ? Colors.black.withValues(alpha: 0.5)
+                  : Colors.white.withValues(alpha: 0.7),
+              borderRadius: BorderRadius.circular(40),
               border: Border.all(
                 color: isDark
-                    ? Colors.white.withValues(alpha: 0.08)
-                    : Colors.black.withValues(alpha: 0.06),
+                    ? Colors.white
+                        .withValues(alpha: 0.15) // Bright, crisp glass edge
+                    : Colors.black.withValues(alpha: 0.1),
                 width: 1,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.08),
+                  color: Colors.black.withValues(alpha: isDark ? 0.4 : 0.15),
                   blurRadius: 20,
                   offset: const Offset(0, 8),
                 ),
@@ -85,27 +88,30 @@ class GlassNavBar extends StatelessWidget {
   }
 
   Widget _buildNavItemsRow(BuildContext context, ThemeData theme, bool isDark) {
-    final inactiveColor = isDark ? AppColors.textTertiaryDark : AppColors.textTertiaryLight;
+    final inactiveColor =
+        isDark ? AppColors.textTertiaryDark : AppColors.textTertiaryLight;
     final activeColor = theme.colorScheme.primary;
     final keys = [homeKey, searchKey, recommendKey, profileKey, settingsKey];
 
-    return Positioned(
-      left: 0, right: 0, bottom: 0, height: 68,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: List.generate(5, (index) {
-          return ShowcaseNavItem(
-            index: index,
-            currentIndex: currentIndex,
-            item: NavItemData.forIndex(index),
-            activeColor: activeColor,
-            inactiveColor: inactiveColor,
-            isDark: isDark,
-            showcaseKey: keys[index],
-            onTap: onItemTapped,
-          );
-        }),
+    return Positioned.fill(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: List.generate(5, (index) {
+            return ShowcaseNavItem(
+              index: index,
+              currentIndex: currentIndex,
+              item: NavItemData.forIndex(index),
+              activeColor: activeColor,
+              inactiveColor: inactiveColor,
+              isDark: isDark,
+              showcaseKey: keys[index],
+              onTap: onItemTapped,
+            );
+          }),
+        ),
       ),
     );
   }
