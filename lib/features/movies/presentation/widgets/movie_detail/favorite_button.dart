@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
@@ -10,16 +11,29 @@ import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_event.
 import '../../blocs/movie_bloc/movie_bloc.dart';
 import '../../blocs/movie_bloc/movie_event.dart';
 
-class FavoriteButton extends StatelessWidget {
+class FavoriteButton extends StatefulWidget {
   final Movie movie;
 
   const FavoriteButton({super.key, required this.movie});
 
   @override
+  State<FavoriteButton> createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  late final Stream<bool> _favStream;
+
+  @override
+  void initState() {
+    super.initState();
+    final service = getIt<CollectionService>();
+    _favStream = service.isInCollectionStream('favorites', widget.movie.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final service = CollectionService();
     return StreamBuilder<bool>(
-      stream: service.isInCollectionStream('favorites', movie.id),
+      stream: _favStream,
       initialData: false,
       builder: (context, snapshot) {
         final isFav = snapshot.data ?? false;
@@ -34,9 +48,9 @@ class FavoriteButton extends StatelessWidget {
             onPressed: () {
               final ct = context.read<ContentTypeCubit>().state;
               if (ct == ContentType.movies) {
-                context.read<MovieBloc>().add(ToggleFavorite(movie));
+                context.read<MovieBloc>().add(ToggleFavorite(widget.movie));
               } else {
-                context.read<ShowBloc>().add(ToggleShowFavorite(movie));
+                context.read<ShowBloc>().add(ToggleShowFavorite(widget.movie));
               }
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(isFav

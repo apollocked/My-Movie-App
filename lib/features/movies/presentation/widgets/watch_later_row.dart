@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_horizontal_list.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
-class WatchLaterRow extends StatelessWidget {
+class WatchLaterRow extends StatefulWidget {
   const WatchLaterRow({super.key});
 
   @override
+  State<WatchLaterRow> createState() => _WatchLaterRowState();
+}
+
+class _WatchLaterRowState extends State<WatchLaterRow> {
+  final CollectionService _service = getIt<CollectionService>();
+
+  @override
   Widget build(BuildContext context) {
-    final service = CollectionService();
     final isTv = context.watch<ContentTypeCubit>().state == ContentType.shows;
 
     return StreamBuilder<List<Movie>>(
-      stream: service.watchCollection('watch_later'),
+      stream: _service.watchCollection('watch_later'),
       builder: (context, snapshot) {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const SizedBox.shrink();

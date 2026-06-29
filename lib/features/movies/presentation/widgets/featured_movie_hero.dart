@@ -24,31 +24,26 @@ class FeaturedMovieHero extends StatelessWidget {
 
     if (movie == null) {
       return Container(
-          height: AppSizing.hp(context, 60).clamp(380, 600),
           color: theme.cardColor,
           child: const Center(child: CircularProgressIndicator()));
     }
 
-    return SizedBox(
-      height: AppSizing.hp(context, 60).clamp(380, 600),
-      width: double.infinity,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Hero(
-            tag: 'featured_poster_${movie!.id}',
-            child: CachedNetworkImage(
-              imageUrl: movie!.fullPosterUrl,
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-              placeholder: (_, __) => Container(color: theme.cardColor),
-              errorWidget: (_, __, ___) => Container(color: theme.cardColor),
-            ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Hero(
+          tag: 'featured_poster_${movie!.id}',
+          child: CachedNetworkImage(
+            imageUrl: movie!.fullPosterUrl,
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+            placeholder: (_, __) => Container(color: theme.cardColor),
+            errorWidget: (_, __, ___) => Container(color: theme.cardColor),
           ),
-          const HeroGradientOverlay(),
-          _buildContent(context, theme),
-        ],
-      ),
+        ),
+        const HeroGradientOverlay(),
+        _buildContent(context, theme),
+      ],
     );
   }
 

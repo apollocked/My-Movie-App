@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/movie_bloc/movie_state.dart';
-import 'package:my_movie/features/movies/presentation/widgets/featured_movie_hero.dart';
+import 'package:my_movie/features/movies/presentation/widgets/hero_slider.dart';
 import 'package:my_movie/features/movies/presentation/pages/shimmer_pages/hero_shimmer.dart';
 
 class HomeHeroSection extends StatelessWidget {
@@ -17,11 +16,11 @@ class HomeHeroSection extends StatelessWidget {
           return const HeroShimmer();
         }
         if (state is MovieLoaded && state.movies.isNotEmpty) {
-          final m = state.movies.first;
-          return FeaturedMovieHero(
-              movie: m,
-              onPlayPressed: () => context.push('/movie/${m.id}?autoPlay=true', extra: m),
-              onInfoPressed: () => context.push('/movie/${m.id}', extra: m));
+          return HeroSlider(
+            movies: state.movies,
+            route: (m) => '/movie/${m.id}',
+            autoPlayRoute: (m) => '/movie/${m.id}?autoPlay=true',
+          );
         }
         return const SizedBox.shrink();
       },

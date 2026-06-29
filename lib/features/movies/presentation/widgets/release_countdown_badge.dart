@@ -42,10 +42,10 @@ class ReleaseCountdownBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.schedule_rounded, color: iconColor, size: 12),
+            Icon(Icons.new_releases_rounded, color: iconColor, size: 12),
             const SizedBox(width: 4),
             Text(
-              days == 0 ? t.movie_detail.release_today : days == 1 ? t.movie_detail.release_1_day : '$days ${t.movie_detail.release_days}',
+              '${t.home.upcoming} · ${days == 0 ? t.movie_detail.release_today : days == 1 ? t.movie_detail.release_1_day : '$days ${t.movie_detail.release_days}'}',
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: iconColor,
                 fontWeight: FontWeight.w800,

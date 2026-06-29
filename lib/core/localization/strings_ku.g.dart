@@ -772,7 +772,7 @@ extension on TranslationsKu {
 			'search.clear' => 'سڕینەوە',
 			'search.browse_categories' => 'گەڕان بەپێی پۆلەکان',
 			'search.browse_all' => 'گەڕان بە هەمووی',
-			'search.top_rated_badge' => 'بەرزترین نمرە',
+			'search.top_rated_badge' => 'نوێترین',
 			'search.browse' => 'گەڕان',
 			'profile.title' => 'پڕۆفایل',
 			'profile.my_activity' => 'چالاکییەکانم',

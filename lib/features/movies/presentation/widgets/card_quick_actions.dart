@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
@@ -79,7 +80,7 @@ class CardQuickActions extends StatelessWidget {
   }
 }
 
-class _ActionIcon extends StatelessWidget {
+class _ActionIcon extends StatefulWidget {
   final Movie movie;
   final String collection;
   final IconData icon, inactiveIcon;
@@ -96,17 +97,30 @@ class _ActionIcon extends StatelessWidget {
   });
 
   @override
+  State<_ActionIcon> createState() => _ActionIconState();
+}
+
+class _ActionIconState extends State<_ActionIcon> {
+  late final Stream<bool> _stream;
+
+  @override
+  void initState() {
+    super.initState();
+    final service = getIt<CollectionService>();
+    _stream = service.isInCollectionStream(widget.collection, widget.movie.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final service = CollectionService();
     return StreamBuilder<bool>(
-      stream: service.isInCollectionStream(collection, movie.id),
+      stream: _stream,
       initialData: false,
       builder: (context, snapshot) {
         final isActive = snapshot.data ?? false;
         return GestureDetector(
-          onTap: onTap,
+          onTap: widget.onTap,
           child: Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
@@ -114,9 +128,9 @@ class _ActionIcon extends StatelessWidget {
                     ? AppColors.darkElevated.withValues(alpha: 0.85)
                     : AppColors.lightSurface.withValues(alpha: 0.85),
                 shape: BoxShape.circle),
-            child: Icon(isActive ? icon : inactiveIcon,
+            child: Icon(isActive ? widget.icon : widget.inactiveIcon,
                 color: isActive
-                    ? activeColor
+                    ? widget.activeColor
                     : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 size: 16),
           ),

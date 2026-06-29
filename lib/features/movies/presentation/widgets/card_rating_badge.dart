@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 
-class CardRatingBadge extends StatelessWidget {
+class CardRatingBadge extends StatefulWidget {
   final Movie movie;
   final String rating;
 
@@ -14,23 +15,36 @@ class CardRatingBadge extends StatelessWidget {
   });
 
   @override
+  State<CardRatingBadge> createState() => _CardRatingBadgeState();
+}
+
+class _CardRatingBadgeState extends State<CardRatingBadge> {
+  late final Stream<Map<String, dynamic>?> _ratingStream;
+
+  @override
+  void initState() {
+    super.initState();
+    final service = getIt<CollectionService>();
+    _ratingStream = service.getRatingStream(widget.movie.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final service = CollectionService();
 
     return Positioned(
       top: 12,
       right: 12,
       child: StreamBuilder<Map<String, dynamic>?>(
-        stream: service.getRatingStream(movie.id),
+        stream: _ratingStream,
         initialData: null,
         builder: (context, snapshot) {
           final data = snapshot.data;
           final hasRated = data != null;
           final displayRating = hasRated
-              ? (data['rating'] as num?)?.toStringAsFixed(1) ?? rating
-              : rating;
+              ? (data['rating'] as num?)?.toStringAsFixed(1) ?? widget.rating
+              : widget.rating;
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(

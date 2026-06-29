@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
@@ -8,7 +9,7 @@ import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_event.
 import '../blocs/movie_bloc/movie_bloc.dart';
 import '../blocs/movie_bloc/movie_event.dart';
 
-class HeroActionChip extends StatelessWidget {
+class HeroActionChip extends StatefulWidget {
   final Movie movie;
   final String collection;
   final String label;
@@ -26,10 +27,23 @@ class HeroActionChip extends StatelessWidget {
   });
 
   @override
+  State<HeroActionChip> createState() => _HeroActionChipState();
+}
+
+class _HeroActionChipState extends State<HeroActionChip> {
+  late final Stream<bool> _collectionStream;
+
+  @override
+  void initState() {
+    super.initState();
+    final service = getIt<CollectionService>();
+    _collectionStream = service.isInCollectionStream(widget.collection, widget.movie.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final service = CollectionService();
     return StreamBuilder<bool>(
-      stream: service.isInCollectionStream(collection, movie.id),
+      stream: _collectionStream,
       initialData: false,
       builder: (context, snapshot) {
         final isActive = snapshot.data ?? false;
@@ -37,16 +51,16 @@ class HeroActionChip extends StatelessWidget {
           onTap: () {
             final isMovies = context.read<ContentTypeCubit>().state == ContentType.movies;
             if (isMovies) {
-              if (collection == 'favorites') {
-                context.read<MovieBloc>().add(ToggleFavorite(movie));
+              if (widget.collection == 'favorites') {
+                context.read<MovieBloc>().add(ToggleFavorite(widget.movie));
               } else {
-                context.read<MovieBloc>().add(ToggleWatchLater(movie));
+                context.read<MovieBloc>().add(ToggleWatchLater(widget.movie));
               }
             } else {
-              if (collection == 'favorites') {
-                context.read<ShowBloc>().add(ToggleShowFavorite(movie));
+              if (widget.collection == 'favorites') {
+                context.read<ShowBloc>().add(ToggleShowFavorite(widget.movie));
               } else {
-                context.read<ShowBloc>().add(ToggleShowWatchLater(movie));
+                context.read<ShowBloc>().add(ToggleShowWatchLater(widget.movie));
               }
             }
           },
@@ -54,24 +68,24 @@ class HeroActionChip extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: isActive
-                  ? activeColor.withValues(alpha: 0.2)
+                  ? widget.activeColor.withValues(alpha: 0.2)
                   : Colors.white.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
                 color: isActive
-                    ? activeColor.withValues(alpha: 0.5)
+                    ? widget.activeColor.withValues(alpha: 0.5)
                     : Colors.white.withValues(alpha: 0.2),
               ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(isActive ? icon : inactiveIcon,
-                    color: isActive ? activeColor : Colors.white70, size: 16),
+                Icon(isActive ? widget.icon : widget.inactiveIcon,
+                    color: isActive ? widget.activeColor : Colors.white70, size: 16),
                 const SizedBox(width: 6),
-                Text(label,
+                Text(widget.label,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: isActive ? activeColor : Colors.white70,
+                      color: isActive ? widget.activeColor : Colors.white70,
                       fontWeight: FontWeight.w600,
                     )),
               ],

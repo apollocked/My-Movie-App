@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
@@ -41,25 +42,44 @@ class CollectionGrid extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: MoviePosterCard(movie: movie, fillWidth: true),
             ),
-            if (isRatings) _buildRatingBadge(context, movie),
+            if (isRatings) _RatingBadge(movie: movie),
           ],
         );
       },
     );
   }
+}
 
-  Widget _buildRatingBadge(BuildContext context, Movie movie) {
-    final theme = Theme.of(context);
-    final service = CollectionService();
+class _RatingBadge extends StatefulWidget {
+  final Movie movie;
 
+  const _RatingBadge({required this.movie});
+
+  @override
+  State<_RatingBadge> createState() => _RatingBadgeState();
+}
+
+class _RatingBadgeState extends State<_RatingBadge> {
+  late final Stream<Map<String, dynamic>?> _ratingStream;
+
+  @override
+  void initState() {
+    super.initState();
+    final service = getIt<CollectionService>();
+    _ratingStream = service.getRatingStream(widget.movie.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return StreamBuilder<Map<String, dynamic>?>(
-      stream: service.getRatingStream(movie.id),
+      stream: _ratingStream,
       initialData: null,
       builder: (context, snapshot) {
         final data = snapshot.data;
         if (data == null) return const SizedBox.shrink();
         final rating = data['rating'] as num?;
         if (rating == null) return const SizedBox.shrink();
+        final theme = Theme.of(context);
         return Positioned(
           top: 8,
           right: 8,
