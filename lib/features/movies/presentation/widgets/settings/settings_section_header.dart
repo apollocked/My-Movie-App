@@ -21,9 +21,9 @@ class SettingsSectionHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Text(title,
+        Flexible(child: Text(title,
             style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w600)),
+                ?.copyWith(fontWeight: FontWeight.w600))),
       ],
     );
   }

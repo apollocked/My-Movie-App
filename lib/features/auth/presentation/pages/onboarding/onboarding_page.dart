@@ -73,16 +73,19 @@ class OnboardingPage extends StatelessWidget {
                   ),
                 ),
                 SafeArea(
-                  child: Padding(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 28),
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
                         OnboardingSettingsBar(isDark: isDark),
+                        SizedBox(height: AppSizing.hp(context, 3).clamp(12, 24)),
                         Padding(
                           padding: const EdgeInsets.all(6.0),
-                          child: Image.asset("assets/icon.png", height: AppSizing.hp(context, 14).clamp(80, 140)),
+                          child: Image.asset("assets/icon.png", height: AppSizing.hp(context, 14).clamp(70, 140)),
                         ),
+                        SizedBox(height: AppSizing.hp(context, 3).clamp(16, 24)),
                         ShaderMask(
                           shaderCallback: (bounds) => LinearGradient(
                             colors: [
@@ -105,7 +108,7 @@ class OnboardingPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: AppSizing.hp(context, 3).clamp(16, 24)),
                         FeatureCard(
                           icon: Icons.search_rounded,
                           color: theme.colorScheme.primary,
@@ -133,7 +136,7 @@ class OnboardingPage extends StatelessWidget {
                           title: t.onboarding.features.watch_later.title,
                           description: t.onboarding.features.watch_later.desc,
                         ),
-                        const Spacer(),
+                        SizedBox(height: AppSizing.hp(context, 3).clamp(16, 24)),
                         Text(
                           t.auth.onboarding_subtitle,
                           textAlign: TextAlign.center,
@@ -144,7 +147,7 @@ class OnboardingPage extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                         ),
-                        const Spacer(),
+                        SizedBox(height: AppSizing.hp(context, 3).clamp(16, 24)),
                         OnboardingButtons(
                           isDark: isDark,
                           onGetStarted: () => context.go('/login'),
@@ -157,7 +160,7 @@ class OnboardingPage extends StatelessWidget {
                           getStartedText: t.auth.get_started,
                           continueGuestText: t.auth.continue_guest,
                         ),
-                        const Spacer(),
+                        SizedBox(height: AppSizing.hp(context, 4).clamp(24, 40)),
                       ],
                     ),
                   ),

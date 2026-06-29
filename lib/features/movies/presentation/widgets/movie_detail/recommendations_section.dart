@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_poster_card.dart';
 
@@ -13,6 +14,8 @@ class RecommendationsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (movies.isEmpty) return const SizedBox.shrink();
+    final cardH = AppSizing.hp(context, 28).clamp(160.0, 260.0);
+    final cardW = AppSizing.scale(context, 130).clamp(90.0, 170.0);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +23,7 @@ class RecommendationsSection extends StatelessWidget {
         _buildSectionHeader(Theme.of(context)),
         const SizedBox(height: 16),
         SizedBox(
-          height: 200,
+          height: cardH,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.only(right: 20),
@@ -31,8 +34,8 @@ class RecommendationsSection extends StatelessWidget {
                 onTap: () =>
                     context.push('/movie/${movie.id}', extra: movie),
                 child: SizedBox(
-                  width: 130,
-                  child: MoviePosterCard(height: 200, movie: movie),
+                  width: cardW,
+                  child: MoviePosterCard(height: cardH, movie: movie),
                 ),
               );
             },
@@ -54,9 +57,9 @@ class RecommendationsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Text(t.movie_detail.you_might_also_like,
+        Flexible(child: Text(t.movie_detail.you_might_also_like,
             style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700)),
+                ?.copyWith(fontWeight: FontWeight.w700))),
       ],
     );
   }

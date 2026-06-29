@@ -33,6 +33,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   runApp(
     TranslationProvider(

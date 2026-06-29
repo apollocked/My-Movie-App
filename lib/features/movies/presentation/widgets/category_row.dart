@@ -127,21 +127,23 @@ class _CategoryRowState extends State<CategoryRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 4,
-                height: 22,
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(2),
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.primaryGradient,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(child: Text(widget.title,
+                        style: theme.textTheme.titleLarge)),
+                  ],
                 ),
               ),
-              const SizedBox(width: 10),
-              Text(widget.title,
-                  style: theme.textTheme.titleLarge),
-            ],
-          ),
           AnimatedButton.text(
             text: t.common.see_all,
             onPressed: () {

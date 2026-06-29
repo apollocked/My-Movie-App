@@ -6,6 +6,7 @@ import 'package:my_movie/features/movies/presentation/widgets/trailer_feedback.d
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_detail/movie_detail_bottom_actions.dart';
@@ -126,7 +127,7 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              expandedHeight: 260, pinned: true,
+              expandedHeight: AppSizing.hp(context, 30).clamp(220, 400), pinned: true,
               backgroundColor: theme.scaffoldBackgroundColor,
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(fit: StackFit.expand, children: [
@@ -142,7 +143,7 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                padding: EdgeInsets.fromLTRB(AppSizing.safeHorizontal(context), 8, AppSizing.safeHorizontal(context), 0),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   if (_hasTrailer) ...[const SizedBox(height: 20), PlayTrailerButton(trailerKey: _trailerKey)],
                   const SizedBox(height: 28),

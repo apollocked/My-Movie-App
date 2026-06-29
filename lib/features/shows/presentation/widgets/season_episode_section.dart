@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 
 class SeasonEpisodeSection extends StatefulWidget {
   final int showId;
@@ -75,9 +76,9 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
           ),
         ),
         const SizedBox(width: 10),
-        Text(t.movie_detail.show.seasons_and_episodes,
+        Flexible(child: Text(t.movie_detail.show.seasons_and_episodes,
             style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700)),
+                ?.copyWith(fontWeight: FontWeight.w700))),
       ],
     );
   }
@@ -198,12 +199,12 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
     return Padding(
       padding: const EdgeInsets.only(left: 16, bottom: 12),
       child: Column(
-        children: episodes.map((ep) => _buildEpisodeCard(theme, ep)).toList(),
+        children: episodes.map((ep) => _buildEpisodeCard(context, theme, ep)).toList(),
       ),
     );
   }
 
-  Widget _buildEpisodeCard(ThemeData theme, Map<String, dynamic> ep) {
+  Widget _buildEpisodeCard(BuildContext context, ThemeData theme, Map<String, dynamic> ep) {
     final epNum = (ep['episode_number'] as num?)?.toInt() ?? 0;
     final title = ep['name'] as String? ?? '';
     final overview = ep['overview'] as String? ?? '';
@@ -231,8 +232,8 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: SizedBox(
-                    width: 120,
-                    height: 68,
+                    width: AppSizing.scale(context, 120).clamp(80.0, 160.0),
+                    height: AppSizing.scale(context, 68).clamp(48.0, 90.0),
                     child: CachedNetworkImage(
                       imageUrl:
                           'https://image.tmdb.org/t/p/w300$stillPath',

@@ -19,9 +19,9 @@ class ActorSectionHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Text(title,
+        Flexible(child: Text(title,
             style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700)),
+                ?.copyWith(fontWeight: FontWeight.w700))),
       ],
     );
   }

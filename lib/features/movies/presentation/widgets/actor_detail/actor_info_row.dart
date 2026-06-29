@@ -14,7 +14,7 @@ class ActorInfoRow extends StatelessWidget {
       children: [
         Icon(icon, size: 16, color: AppColors.textTertiaryDark),
         const SizedBox(width: 6),
-        Text(text, style: theme.textTheme.bodySmall),
+        Flexible(child: Text(text, style: theme.textTheme.bodySmall)),
       ],
     );
   }

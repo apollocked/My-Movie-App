@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'favorite_button.dart';
 
 class MovieDetailInfo extends StatelessWidget {
@@ -27,23 +28,23 @@ class MovieDetailInfo extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                imageUrl: movie.fullPosterUrl,
-                width: 100,
-                height: 150,
-                fit: BoxFit.cover,
-                placeholder: (_, __) => Container(
-                  width: 100,
-                  height: 150,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: movie.fullPosterUrl,
+                  width: AppSizing.scale(context, 100).clamp(70.0, 130.0),
+                  height: AppSizing.scale(context, 150).clamp(105.0, 195.0),
+                  fit: BoxFit.cover,
+                  placeholder: (_, __) => Container(
+                    width: AppSizing.scale(context, 100).clamp(70.0, 130.0),
+                    height: AppSizing.scale(context, 150).clamp(105.0, 195.0),
                   color: isDark
                       ? AppColors.darkSurfaceVariant
                       : AppColors.lightSurfaceVariant,
                 ),
                 errorWidget: (_, __, ___) => Container(
-                  width: 100,
-                  height: 150,
+                  width: AppSizing.scale(context, 100).clamp(70.0, 130.0),
+                  height: AppSizing.scale(context, 150).clamp(105.0, 195.0),
                   color: isDark
                       ? AppColors.darkSurfaceVariant
                       : AppColors.lightSurfaceVariant,
@@ -92,12 +93,14 @@ class MovieDetailInfo extends StatelessWidget {
                               ? AppColors.textTertiaryDark
                               : AppColors.textTertiaryLight),
                       const SizedBox(width: 4),
-                      Text(movie.releaseDate.split('-').first,
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            color: isDark
-                                ? AppColors.textTertiaryDark
-                                : AppColors.textTertiaryLight,
-                          )),
+                      Flexible(
+                        child: Text(movie.releaseDate.split('-').first,
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: isDark
+                                  ? AppColors.textTertiaryDark
+                                  : AppColors.textTertiaryLight,
+                            )),
+                      ),
                     ],
                   ),
                 ],
