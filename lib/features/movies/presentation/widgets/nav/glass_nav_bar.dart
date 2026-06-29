@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/presentation/widgets/nav/nav_center_button.dart';
 import 'package:my_movie/features/movies/presentation/widgets/nav/nav_item_data.dart';
 import 'package:my_movie/features/movies/presentation/widgets/nav/nav_standard_item.dart';
@@ -40,7 +41,7 @@ class GlassNavBar extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          padding: EdgeInsets.fromLTRB(AppSizing.wp(context, 4).clamp(12, 32), 0, AppSizing.wp(context, 4).clamp(12, 32), AppSizing.hp(context, 2).clamp(8, 24)),
           child: SizedBox(
             height: 76,
             child: Stack(

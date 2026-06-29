@@ -112,6 +112,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ContentTypeCubit>.value(value: _contentTypeCubit),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
+        buildWhen: (prev, curr) =>
+            prev.themeMode != curr.themeMode || prev.locale != curr.locale,
         builder: (context, settingsState) {
           return MaterialApp.router(
             title: t.common.my_movie,

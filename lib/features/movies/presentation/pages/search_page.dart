@@ -5,6 +5,7 @@ import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/data/services/search_history_service.dart';
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:my_movie/features/movies/presentation/blocs/search_bloc/search_event.dart';
@@ -136,8 +137,8 @@ class _SearchPageState extends State<SearchPage> {
         }
         return GridView.builder(
           padding: EdgeInsets.fromLTRB(20, 20, 20, bottom + 120),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: AppSizing.gridColumns(context, mobile: 2, tablet: 3, desktop: 4).toInt(),
               childAspectRatio: 0.65,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16),

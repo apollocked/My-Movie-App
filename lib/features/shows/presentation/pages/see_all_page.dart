@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/widgets/movie_poster_card.dart';
 
@@ -129,8 +130,8 @@ class _ShowSeeAllPageState extends State<ShowSeeAllPage> {
               controller: _scrollController,
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: AppSizing.gridColumns(context, mobile: 2, tablet: 3, desktop: 4).toInt(),
                 childAspectRatio: 0.65,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/presentation/widgets/search/category_data.dart';
 
 class CategoryGrid extends StatelessWidget {
@@ -34,8 +35,8 @@ class CategoryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       padding: EdgeInsets.fromLTRB(20, 8, 20, 100),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: AppSizing.gridColumns(context, mobile: 3, tablet: 4, desktop: 5).toInt(),
         childAspectRatio: 0.85,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,

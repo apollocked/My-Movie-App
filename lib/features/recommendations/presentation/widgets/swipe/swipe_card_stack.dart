@@ -44,19 +44,19 @@ class _SwipeCardStackState extends State<SwipeCardStack> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _ctrl,
-      builder: (_, child) {
-        return Opacity(
-          opacity: _opacityAnim.value,
-          child: Transform.scale(scale: _scaleAnim.value, child: child),
-        );
-      },
-      child: MovieSwipeCard(
-        key: ValueKey(widget.movie.id),
-        movie: widget.movie,
-        onSwipeLeft: widget.onSwipeLeft,
-        onSwipeRight: widget.onSwipeRight,
+    return FadeTransition(
+      opacity: _opacityAnim,
+      child: AnimatedBuilder(
+        animation: _ctrl,
+        builder: (_, child) {
+          return Transform.scale(scale: _scaleAnim.value, child: child);
+        },
+        child: MovieSwipeCard(
+          key: ValueKey(widget.movie.id),
+          movie: widget.movie,
+          onSwipeLeft: widget.onSwipeLeft,
+          onSwipeRight: widget.onSwipeRight,
+        ),
       ),
     );
   }

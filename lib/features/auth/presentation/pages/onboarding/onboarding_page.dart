@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_event.dart';
 import 'package:my_movie/features/auth/presentation/widgets/onboarding/feature_card.dart';
@@ -79,8 +80,8 @@ class OnboardingPage extends StatelessWidget {
                         const SizedBox(height: 8),
                         OnboardingSettingsBar(isDark: isDark),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image.asset("assets/icon.png", height: 125),
+                          padding: const EdgeInsets.all(6.0),
+                          child: Image.asset("assets/icon.png", height: AppSizing.hp(context, 14).clamp(80, 140)),
                         ),
                         ShaderMask(
                           shaderCallback: (bounds) => LinearGradient(
@@ -104,28 +105,28 @@ class OnboardingPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: 20),
                         FeatureCard(
-                          icon: Icons.explore_rounded,
+                          icon: Icons.search_rounded,
                           color: theme.colorScheme.primary,
                           title: t.onboarding.features.browse.title,
                           description: t.onboarding.features.browse.desc,
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 6),
                         FeatureCard(
                           icon: Icons.lightbulb_rounded,
                           color: AppColors.ratingGold,
                           title: t.onboarding.features.recommend.title,
                           description: t.onboarding.features.recommend.desc,
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 6),
                         FeatureCard(
                           icon: Icons.favorite_rounded,
                           color: AppColors.favoriteRed,
                           title: t.onboarding.features.favorites.title,
                           description: t.onboarding.features.favorites.desc,
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 6),
                         FeatureCard(
                           icon: Icons.bookmark_rounded,
                           color: AppColors.watchLaterGreen,

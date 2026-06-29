@@ -6,6 +6,7 @@ import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_state.dart';
@@ -85,13 +86,14 @@ class _CategoryRowState extends State<CategoryRow> {
 
   Widget _buildContent(BuildContext context) {
     final theme = Theme.of(context);
+    final cardH = AppSizing.hp(context, 30).clamp(180.0, 320.0);
 
     if (_isLoading) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(theme, 0),
-          const MovieShimmerList(cardHeight: 220),
+          MovieShimmerList(cardHeight: cardH),
           const SizedBox(height: 24),
         ],
       );
@@ -104,7 +106,7 @@ class _CategoryRowState extends State<CategoryRow> {
         _buildHeader(theme, 1),
         MovieHorizontalList(
           movies: _movies,
-          cardHeight: 220,
+          cardHeight: cardH,
           onMovieTap: (Movie movie) {
             final isMovies = context.read<ContentTypeCubit>().state == ContentType.movies;
             if (isMovies) {

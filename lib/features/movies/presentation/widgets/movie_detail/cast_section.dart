@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 
 class CastSection extends StatelessWidget {
   final List<dynamic> cast;
@@ -73,7 +74,7 @@ class CastSection extends StatelessWidget {
           _buildSectionHeader(theme, t.movie_detail.cast),
           const SizedBox(height: 14),
             SizedBox(
-              height: 150,
+              height: AppSizing.hp(context, 20).clamp(140, 220),
               child: ListView.builder(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
@@ -89,7 +90,7 @@ class CastSection extends StatelessWidget {
                   onTap: () => context.push('/person/$personId',
                       extra: {'name': name, 'profilePath': profilePath}),
                   child: Container(
-                    width: 85,
+                    width: AppSizing.wp(context, 22).clamp(80, 130),
                     margin: const EdgeInsets.only(right: 14),
                     child: Column(
                       children: [

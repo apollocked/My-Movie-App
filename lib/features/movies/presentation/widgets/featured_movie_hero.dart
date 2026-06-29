@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/core/localization/strings.g.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'hero_action_chip.dart';
 import 'hero/hero_gradient_overlay.dart';
@@ -23,13 +24,13 @@ class FeaturedMovieHero extends StatelessWidget {
 
     if (movie == null) {
       return Container(
-          height: 480,
+          height: AppSizing.hp(context, 60).clamp(380, 600),
           color: theme.cardColor,
           child: const Center(child: CircularProgressIndicator()));
     }
 
     return SizedBox(
-      height: 500,
+      height: AppSizing.hp(context, 60).clamp(380, 600),
       width: double.infinity,
       child: Stack(
         fit: StackFit.expand,
@@ -58,7 +59,7 @@ class FeaturedMovieHero extends StatelessWidget {
       left: 0,
       right: 0,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+        padding: EdgeInsets.fromLTRB(AppSizing.safeHorizontal(context), 0, AppSizing.safeHorizontal(context), 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
