@@ -20,11 +20,15 @@ const _categoryEndpoints = {
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final ApiClient apiClient;
   final MovieLocalDataSource _dataService;
-  final CollectionService _collectionService = CollectionService();
+  final CollectionService _collectionService;
 
-  MovieBloc({required this.apiClient, required Isar isar})
-      : _dataService = MovieLocalDataSource(apiClient: apiClient, isar: isar),
-        super(const MovieInitialState()) {
+  MovieBloc({
+    required this.apiClient,
+    required Isar isar,
+    CollectionService? collectionService,
+  }) : _dataService = MovieLocalDataSource(apiClient: apiClient, isar: isar),
+       _collectionService = collectionService ?? CollectionService(),
+       super(const MovieInitialState()) {
     on<LoadTrendingMovies>((event, emit) async {
       await _load(
           'Trending', _categoryEndpoints['Trending']!, emit, event.language);

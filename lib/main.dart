@@ -21,7 +21,8 @@ import 'package:my_movie/features/recommendations/presentation/blocs/recommendat
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:my_movie/common/widgets/offline_wrapper.dart';
 import 'package:my_movie/features/shows/presentation/blocs/show_bloc/show_bloc.dart';
-import 'package:my_movie/features/shows/presentation/blocs/search_bloc/search_bloc.dart' as show_search;
+import 'package:my_movie/features/shows/presentation/blocs/search_bloc/search_bloc.dart'
+    as show_search;
 import 'package:my_movie/features/shows/presentation/cubit/content_type_cubit.dart';
 
 void main() async {

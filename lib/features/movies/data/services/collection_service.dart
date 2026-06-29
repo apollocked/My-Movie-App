@@ -5,13 +5,12 @@ import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../datasources/guest_local_data_source.dart';
 
 class CollectionService {
-  static final CollectionService _instance = CollectionService._();
-  factory CollectionService() => _instance;
-  CollectionService._();
-
-  final GuestLocalDataSource _local = GuestLocalDataSource();
+  final GuestLocalDataSource _local;
   final _db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+
+  CollectionService({GuestLocalDataSource? local})
+      : _local = local ?? GuestLocalDataSource();
 
   User? get _user => _auth.currentUser;
   String? get _uid => _user?.uid;

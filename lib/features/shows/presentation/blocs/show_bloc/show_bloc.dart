@@ -22,10 +22,11 @@ const _categoryEndpoints = {
 
 class ShowBloc extends Bloc<ShowEvent, ShowState> {
   final ShowRepository repository;
-  final CollectionService _collectionService = CollectionService();
+  final CollectionService _collectionService;
 
-  ShowBloc({required this.repository})
-      : super(const ShowInitialState()) {
+  ShowBloc({required this.repository, CollectionService? collectionService})
+      : _collectionService = collectionService ?? CollectionService(),
+        super(const ShowInitialState()) {
     on<LoadTrendingShows>((event, emit) async {
       await _load(_categoryEndpoints['Trending']!, emit, event.language);
     });

@@ -10,14 +10,15 @@ import 'recommendation_state.dart';
 class RecommendationBloc
     extends Bloc<RecommendationEvent, RecommendationState> {
   final RecommendationRepository repository;
-  final CollectionService _collectionService = CollectionService();
+  final CollectionService _collectionService;
 
   List<Movie> _allMovies = [];
   int _currentPage = 1;
   bool _hasReachedEnd = false;
 
-  RecommendationBloc({required this.repository})
-      : super(RecommendationInitial()) {
+  RecommendationBloc({required this.repository, CollectionService? collectionService})
+      : _collectionService = collectionService ?? CollectionService(),
+        super(RecommendationInitial()) {
     on<LoadRecommendations>(_onLoadRecommendations);
     on<LoadMoreRecommendations>(_onLoadMoreRecommendations);
     on<SwipeMovieLeft>(_onSwipeLeft);
