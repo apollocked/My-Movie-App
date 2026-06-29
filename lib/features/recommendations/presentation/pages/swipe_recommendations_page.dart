@@ -17,10 +17,12 @@ class SwipeRecommendationsPage extends StatefulWidget {
   final RecommendationFilter filter;
   final String language;
 
-  const SwipeRecommendationsPage({super.key, required this.filter, required this.language});
+  const SwipeRecommendationsPage(
+      {super.key, required this.filter, required this.language});
 
   @override
-  State<SwipeRecommendationsPage> createState() => _SwipeRecommendationsPageState();
+  State<SwipeRecommendationsPage> createState() =>
+      _SwipeRecommendationsPageState();
 }
 
 class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
@@ -32,7 +34,9 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
   void _onSave() {
     final s = context.read<RecommendationBloc>().state;
     if (s is RecommendationLoaded && s.currentMovie != null) {
-      context.read<RecommendationBloc>().add(SwipeMovieRight(s.currentMovie!.id));
+      context
+          .read<RecommendationBloc>()
+          .add(SwipeMovieRight(s.currentMovie!.id));
       _checkLoadMore();
     }
   }
@@ -40,7 +44,8 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
   void _checkLoadMore() {
     final s = context.read<RecommendationBloc>().state;
     if (s is RecommendationLoaded && s.movies.length - s.currentIndex <= 3) {
-      context.read<RecommendationBloc>().add(LoadMoreRecommendations(filter: widget.filter, language: widget.language));
+      context.read<RecommendationBloc>().add(LoadMoreRecommendations(
+          filter: widget.filter, language: widget.language));
     }
   }
 
@@ -55,43 +60,62 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
         title: Row(
           children: [
             Container(
-              width: 6, height: 24,
+              width: 6,
+              height: 24,
               decoration: BoxDecoration(
                 gradient: AppColors.primaryGradient,
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
             const SizedBox(width: 12),
-            Text(t.swipe.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+            Text(t.swipe.title,
+                style: theme.textTheme.titleLarge
+                    ?.copyWith(fontWeight: FontWeight.w700)),
           ],
         ),
         actions: [
           BlocBuilder<RecommendationBloc, RecommendationState>(
-            builder: (_, state) {
-              if (state is! RecommendationLoaded) return const SizedBox.shrink();
-              return Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text('${state.currentIndex + 1} / ${state.movies.length}',
-                        style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700)),
+              builder: (_, state) {
+            if (state is! RecommendationLoaded) return const SizedBox.shrink();
+            return Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: Center(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(20),
                   ),
+                  child: Text(
+                      '${state.currentIndex + 1} / ${state.movies.length}',
+                      style: theme.textTheme.labelSmall?.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w700)),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          })
         ],
       ),
       body: BlocBuilder<RecommendationBloc, RecommendationState>(
         builder: (_, state) {
-          if (state is RecommendationLoading) return const Center(child: CircularProgressIndicator());
-          if (state is RecommendationError) return ErrorSwipeView(message: state.message, onRetry: () => bloc.add(LoadRecommendations(filter: widget.filter, language: widget.language)));
-          if (state is RecommendationEmpty) return EmptySwipeView(message: state.message.isNotEmpty ? state.message : t.swipe.empty_no_movies, onChangeFilters: () => Navigator.of(context).pop());
+          if (state is RecommendationLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is RecommendationError) {
+            return ErrorSwipeView(
+                message: state.message,
+                onRetry: () => bloc.add(LoadRecommendations(
+                    filter: widget.filter, language: widget.language)));
+          }
+          if (state is RecommendationEmpty) {
+            return EmptySwipeView(
+                message: state.message.isNotEmpty
+                    ? state.message
+                    : t.swipe.empty_no_movies,
+                onChangeFilters: () => Navigator.of(context).pop());
+          }
           if (state is AllSwiped) {
             return AllSwipedView(
               count: state.watchLaterIds.length,
@@ -125,50 +149,64 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
               const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(height: mq.size.height * 0.6, child: SwipeCardStack(movie: state.currentMovie!, onSwipeLeft: _onSkip, onSwipeRight: _onSave)),
+                child: SizedBox(
+                    height: mq.size.height * 0.6,
+                    child: SwipeCardStack(
+                        movie: state.currentMovie!,
+                        onSwipeLeft: _onSkip,
+                        onSwipeRight: _onSave)),
               ),
             ],
           ),
         ),
         Positioned(
-          left: 24, right: 24,
+          left: 24,
+          right: 24,
           bottom: bottom + 100,
-          child: Row(
-            children: [
-              Expanded(
-                child: AnimatedButton(
-                  text: t.swipe.skip,
-                  onPressed: _onSkip,
-                  icon: Icons.close_rounded,
-                  height: 52,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Row(
+              children: [
+                Expanded(
+                  child: AnimatedButton(
+                    text: t.swipe.skip,
+                    onPressed: _onSkip,
+                    icon: Icons.close_rounded,
+                    height: 52,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              SizedBox(
-                height: 52,
-                child: SwipeActionButton(icon: Icons.info_outline_rounded, color: AppColors.infoCyan, size: 52,
-                  onTap: () {
-                    if (state.currentMovie != null) {
-                      if (isTv) {
-                        context.push('/show/${state.currentMovie!.id}', extra: state.currentMovie);
-                      } else {
-                        context.push('/movie/${state.currentMovie!.id}', extra: state.currentMovie);
-                      }
-                    }
-                  }),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: AnimatedButton(
-                  text: t.swipe.save,
-                  onPressed: _onSave,
-                  icon: Icons.bookmark_rounded,
+                const SizedBox(width: 16),
+                SizedBox(
                   height: 52,
-                  backgroundColor: AppColors.successGreen,
-                  foregroundColor: Colors.white,
+                  child: SwipeActionButton(
+                      icon: Icons.info_outline_rounded,
+                      color: AppColors.infoCyan,
+                      size: 52,
+                      onTap: () {
+                        if (state.currentMovie != null) {
+                          if (isTv) {
+                            context.push('/show/${state.currentMovie!.id}',
+                                extra: state.currentMovie);
+                          } else {
+                            context.push('/movie/${state.currentMovie!.id}',
+                                extra: state.currentMovie);
+                          }
+                        }
+                      }),
                 ),
-              ),
-            ],
+                const SizedBox(width: 16),
+                Expanded(
+                  child: AnimatedButton(
+                    text: t.swipe.save,
+                    onPressed: _onSave,
+                    icon: Icons.bookmark_rounded,
+                    height: 52,
+                    backgroundColor: AppColors.successGreen,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

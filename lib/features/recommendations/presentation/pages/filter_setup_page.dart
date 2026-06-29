@@ -65,14 +65,17 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
         title: Row(
           children: [
             Container(
-              width: 6, height: 24,
+              width: 6,
+              height: 24,
               decoration: BoxDecoration(
                 gradient: AppColors.primaryGradient,
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
             const SizedBox(width: 12),
-            Text(t.swipe.title, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+            Text(t.swipe.title,
+                style: theme.textTheme.titleLarge
+                    ?.copyWith(fontWeight: FontWeight.w700)),
           ],
         ),
       ),
@@ -93,7 +96,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                       _selectedGenreIds.clear();
                     }),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 15),
                   _FilterTypePill(
                     label: t.search.filters.tv_shows,
                     isSelected: _isTv,
@@ -106,15 +109,6 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
               ),
             ),
             const SizedBox(height: 20),
-            FilterRatingCard(
-              minRating: _minRating,
-              maxRating: _maxRating,
-              onChanged: (v) => setState(() {
-                _minRating = v.start;
-                _maxRating = v.end;
-              }),
-            ),
-            const SizedBox(height: 12),
             FilterGenreSection(
               selectedGenreIds: _selectedGenreIds,
               onGenreToggled: (id) => setState(() =>
@@ -123,7 +117,16 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                       : _selectedGenreIds.add(id)),
               isTv: _isTv,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 15),
+            FilterRatingCard(
+              minRating: _minRating,
+              maxRating: _maxRating,
+              onChanged: (v) => setState(() {
+                _minRating = v.start;
+                _maxRating = v.end;
+              }),
+            ),
+            const SizedBox(height: 15),
             FilterYearCard(
               yearFrom: _yearFrom,
               yearTo: _yearTo,
@@ -142,7 +145,6 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
                 height: 48,
               ),
             ),
-            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -171,20 +173,18 @@ class _FilterTypePill extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected
-              ? theme.colorScheme.primary
-              : Colors.transparent,
+          color: isSelected ? theme.colorScheme.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected
-                ? theme.colorScheme.primary
-                : theme.dividerColor,
+            color: isSelected ? theme.colorScheme.primary : theme.dividerColor,
           ),
         ),
         child: Text(
           label,
           style: theme.textTheme.labelSmall?.copyWith(
-            color: isSelected ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            color: isSelected
+                ? Colors.white
+                : theme.colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
           ),
         ),
