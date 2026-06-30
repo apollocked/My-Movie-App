@@ -52,7 +52,7 @@ class AppColors {
   // Light text scale
   static const Color textPrimaryLight = Color(0xFF0D0F18);
   static const Color textSecondaryLight = Color(0xFF5A6175);
-  static const Color textTertiaryLight = Color(0xFF8C93A8);
+  static const Color textTertiaryLight = Color.fromARGB(255, 100, 107, 131);
 
   // Glow shadows
   static List<BoxShadow> glowShadow(Color color, {double radius = 12}) => [

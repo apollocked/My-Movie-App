@@ -33,7 +33,12 @@ class SearchFilterChips extends StatelessWidget {
           return Padding(
             padding: const EdgeInsetsDirectional.only(end: 8),
             child: FilterChip(
-              label: Text(label),
+              label: Text(label,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: isSelected
+                        ? theme.primaryColor
+                        : theme.textTheme.bodySmall?.color,
+                  )),
               selected: isSelected,
               selectedColor: AppColors.primaryRed.withValues(alpha: 0.15),
               checkmarkColor: theme.primaryColor,

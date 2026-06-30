@@ -78,10 +78,9 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
               builder: (_, state) {
             if (state is! RecommendationLoaded) return const SizedBox.shrink();
             return Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16, left: 16),
               child: SwipeProgressBadge(
-                  current: state.currentIndex + 1,
-                  total: state.movies.length),
+                  current: state.currentIndex + 1, total: state.movies.length),
             );
           })
         ],
@@ -150,7 +149,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
         Positioned(
           left: 24,
           right: 24,
-          bottom: bottom + 100,
+          bottom: bottom + 175,
           child: SwipeBottomActions(
             isTv: isTv,
             currentMovieId: state.currentMovie!.id,

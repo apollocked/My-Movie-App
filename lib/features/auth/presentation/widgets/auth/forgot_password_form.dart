@@ -50,7 +50,8 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
+    return SingleChildScrollView(
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 32),
@@ -93,6 +94,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           ),
         ),
       ],
+    ),
     );
   }
 }

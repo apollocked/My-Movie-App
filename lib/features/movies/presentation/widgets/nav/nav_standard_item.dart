@@ -30,6 +30,7 @@ class NavStandardItem extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 36,
@@ -61,15 +62,14 @@ class NavStandardItem extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 1),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 200),
                 style: (Theme.of(context).textTheme.labelSmall ??
                         const TextStyle())
                     .copyWith(
-                  fontSize: isSelected ? 12 : null,
+                  fontSize: isSelected ? 16 : 14,
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   color: isSelected ? activeColor : inactiveColor,
                   letterSpacing: 0.1,

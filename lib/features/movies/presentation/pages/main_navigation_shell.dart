@@ -62,11 +62,10 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
           body: Stack(
             children: [
               widget.navigationShell,
-              // Wrapped in Positioned to float and resize the whole nav bar
               Positioned(
-                bottom: 24.0,
-                left: 20.0,
-                right: 20.0,
+                bottom: 15.0,
+                left: 10.0,
+                right: 10.0,
                 child: GlassNavBar(
                   currentIndex: widget.navigationShell.currentIndex,
                   onItemTapped: (index) {

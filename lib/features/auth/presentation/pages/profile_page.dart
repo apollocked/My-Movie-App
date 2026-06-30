@@ -134,20 +134,23 @@ class _ProfileContentTypePill extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _PillTab(
-            label: t.search.filters.movies,
-            isSelected: current == ContentType.movies,
-            onTap: () =>
-                context.read<ContentTypeCubit>().select(ContentType.movies),
+          Expanded(
+            child: _PillTab(
+              label: t.search.filters.movies,
+              isSelected: current == ContentType.movies,
+              onTap: () =>
+                  context.read<ContentTypeCubit>().select(ContentType.movies),
+            ),
           ),
           const SizedBox(width: 10),
-          _PillTab(
-            label: t.search.filters.tv_shows,
-            isSelected: current == ContentType.shows,
-            onTap: () =>
-                context.read<ContentTypeCubit>().select(ContentType.shows),
+          Expanded(
+            child: _PillTab(
+              label: t.search.filters.tv_shows,
+              isSelected: current == ContentType.shows,
+              onTap: () =>
+                  context.read<ContentTypeCubit>().select(ContentType.shows),
+            ),
           ),
         ],
       ),
@@ -173,7 +176,6 @@ class _PillTab extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        width: 150,
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(

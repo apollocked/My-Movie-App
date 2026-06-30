@@ -4,9 +4,12 @@ import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 
 class ReleaseCountdownBadge extends StatelessWidget {
-  final Movie movie;
+  final String dateString;
 
-  const ReleaseCountdownBadge({super.key, required this.movie});
+  ReleaseCountdownBadge({super.key, required Movie movie})
+      : dateString = movie.releaseDate;
+
+  const ReleaseCountdownBadge.forDate({super.key, required this.dateString});
 
   static int? _daysUntil(String dateStr) {
     if (dateStr.isEmpty) return null;
@@ -18,9 +21,12 @@ class ReleaseCountdownBadge extends StatelessWidget {
 
   static bool isUpcoming(Movie movie) => _daysUntil(movie.releaseDate) != null;
 
+  static bool isUpcomingDate(String dateString) =>
+      _daysUntil(dateString) != null;
+
   @override
   Widget build(BuildContext context) {
-    final days = _daysUntil(movie.releaseDate);
+    final days = _daysUntil(dateString);
     if (days == null) return const SizedBox.shrink();
 
     final isUrgent = days <= 7;

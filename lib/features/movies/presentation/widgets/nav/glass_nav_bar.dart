@@ -37,9 +37,9 @@ class GlassNavBar extends StatelessWidget {
             AppSizing.wp(context, 5).clamp(20, 40),
             0,
             AppSizing.wp(context, 5).clamp(20, 40),
-            AppSizing.hp(context, 2).clamp(16, 32)),
+            AppSizing.hp(context, 1).clamp(16, 32)),
         child: SizedBox(
-          height: 70, // Compact height matching the video
+          height: 70,
           child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.bottomCenter,
@@ -56,15 +56,15 @@ class GlassNavBar extends StatelessWidget {
   Widget _buildGlassBackground(BuildContext context, bool isDark) {
     return Positioned.fill(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(40), // Fully rounded pill shape
+        borderRadius: BorderRadius.circular(40),
         child: BackdropFilter(
           filter:
-              ImageFilter.blur(sigmaX: 16, sigmaY: 16), // Pronounced glass blur
+              ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Pronounced glass blur
           child: Container(
             decoration: BoxDecoration(
               color: isDark
                   ? Colors.black.withValues(alpha: 0.5)
-                  : Colors.white.withValues(alpha: 0.7),
+                  : Colors.white.withValues(alpha: 0.6),
               borderRadius: BorderRadius.circular(40),
               border: Border.all(
                 color: isDark
@@ -95,7 +95,7 @@ class GlassNavBar extends StatelessWidget {
 
     return Positioned.fill(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,

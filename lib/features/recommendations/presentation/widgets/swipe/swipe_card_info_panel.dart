@@ -44,7 +44,7 @@ class SwipeCardInfoPanel extends StatelessWidget {
             Text(movie.overview, style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
               fontWeight: FontWeight.w400, height: 1.4,
-            ), maxLines: 2, overflow: TextOverflow.ellipsis),
+            )),
         ],
       ),
     );

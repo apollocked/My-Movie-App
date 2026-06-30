@@ -18,6 +18,7 @@ import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../common/ui/no_internet_page.dart';
 import '../../features/recommendations/presentation/pages/filter_setup_page.dart';
 import '../../features/shows/presentation/pages/show_detail_page.dart';
+import '../../features/shows/presentation/pages/episode_detail_page.dart';
 import '../../features/shows/presentation/pages/see_all_page.dart' as show_see_all;
 
 List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
@@ -155,6 +156,22 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
         final show = state.extra is Movie ? state.extra as Movie : null;
         final autoPlay = state.uri.queryParameters['autoPlay'] == 'true';
         return ShowDetailPage(showId: showId, show: show, autoPlayTrailer: autoPlay);
+      },
+    ),
+    GoRoute(
+      path: '/show/:showId/season/:seasonNumber/episode/:episodeNumber',
+      name: 'episode_details',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        final showId = int.parse(state.pathParameters['showId']!);
+        final seasonNumber = int.parse(state.pathParameters['seasonNumber']!);
+        final episodeNumber = int.parse(state.pathParameters['episodeNumber']!);
+        return EpisodeDetailPage(
+          showId: showId,
+          seasonNumber: seasonNumber,
+          episodeNumber: episodeNumber,
+          episodeData: state.extra is Map ? state.extra as Map<String, dynamic> : null,
+        );
       },
     ),
     GoRoute(
