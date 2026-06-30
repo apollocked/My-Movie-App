@@ -1,292 +1,287 @@
-# 🎬 MyMovies App
+# MyMovies App
 
-A modern, feature-rich Flutter application for discovering and managing movies. Built with clean architecture principles and cutting-edge Flutter technologies, MyMovies provides a seamless user experience for browsing, searching, and organizing your favorite films.
+A modern, feature-rich Flutter application for discovering movies and TV shows. Built with Clean Architecture and BLoC pattern, MyMovies provides a seamless experience for browsing, searching, managing, and discovering content from **The Movie Database (TMDB)**.
 
-## ✨ Features
+## Features
 
-### 🎥 Movie Discovery & Management
+### Movie & TV Show Discovery
 
-- **Browse Movies**: Discover movies across various categories with an elegant, intuitive interface
-- **Advanced Search**: Powerful search functionality to find movies by title and metadata
-- **Movie Details**: Comprehensive movie information including ratings, descriptions, and cast details
-- **Swipe Recommendations**: Filter-based movie discovery with Tinder-style card swiping — set genre, rating, and year preferences, then swipe right to save or left to skip
-- **Shuffle Mode**: Movies appear in random order by default, keeping recommendations fresh
-- **Collections**: Create and manage personalized movie collections (Watch Later, Favorites) for easy organization
-- **Personal Ratings**: Rate movies and view your ratings directly in your profile
-- **Cached Movie Data**: Offline movie browsing with intelligent caching system
+- **Browse by Categories** — Trending, Top Rated, Now Playing, Popular, Upcoming, and genre-based rows (Action, Sci-Fi, Horror, Drama, Comedy, Romance, Thriller, Animation, Mystery)
+- **TV Shows** — Dedicated show mode with Popular, Top Rated, Airing Today, On The Air, and genre-based rows
+- **Content Type Toggle** — Switch between Cinema (Movies) and TV Shows mode at the top of the home page
+- **See All Pages** — Full-list views for every category (separate for movies and shows)
+- **Detail Pages** — Movie/TV show detail with overview, ratings, cast, director, seasons & episodes, trailers, and similar recommendations
+- **Actor/Person Details** — Biography, birth date, and filmography
+- **Director Details** — Biography, birth date, and filmography
 
-### 👤 User Authentication & Profile
+### Search
 
-- **Secure Authentication**: Firebase-powered login and signup with modern security practices
-- **User Profiles**: Personalized user profiles for managing preferences and saved collections
-- **Onboarding**: Guided first-time user experience
-- **Session Management**: Persistent login state with secure logout
+- **Global Search** — Search across Movies, TV Shows, and Actors with category filter chips (All / Movies / TV Shows / Actors)
+- **Recent Searches** — Persisted locally with clear option
+- **Browse Categories** — Modal sheet for quick genre-based exploration
+- **Discover Landing** — Search suggestions and categories on the search page
 
-### ⚙️ Advanced Features
+### "What to Watch" — Swipe Recommendations
 
-- **Multi-Language Support**: Internationalization (i18n) for global user base
-- **Dark & Light Themes**: Customizable UI themes matching user preferences
-- **Settings Management**: Granular control over app behavior and preferences
-- **Video Integration**: YouTube video player integration for trailers
-- **Network Status Monitoring**: Real-time internet connectivity detection with offline-aware UI
+- **Filter Setup** — Multi-select genres, minimum rating slider (0–10), release year range, sort order (Popular, Highest Rated, Newest, Oldest, Highest Revenue)
+- **Shuffle Toggle** — Randomize movie order
+- **Tinder-Style Cards** — Swipe right to save to Watch Later, swipe left to skip
+- **Trailer Preview** — Tap a card to open trailer and details
+- **First-Use Tutorial** — 3-step dialog explaining the feature
+- **Counter** — Shows "X movies added to watch later!" with quick link
 
-## 🏗️ Architecture
+### User Authentication & Profile
 
-The app follows **Clean Architecture** principles with clear separation of concerns:
+- **Onboarding Flow** — First-time app introduction with feature cards
+- **Email/Password Sign Up** — With validation (email format, password length, confirm match)
+- **Email/Password Login** — With error handling
+- **Forgot Password** — Send reset link via Firebase Auth
+- **Continue as Guest** — Browse without an account
+- **Persistent Login** — Firebase Auth state listener with auto-redirect
+- **Profile Page** — Watch Later collection, Favorites, My Ratings, Logout with confirmation
+- **Guest Profile** — Limited view with prompts to sign in
+
+### Collections & Personalization
+
+- **Watch Later** — Save movies/shows to a personal list
+- **Favorites** — Toggle favorite status on movies/shows
+- **Personal Ratings** — Slide-to-rate (0–10) on detail pages
+- **Login Prompts** — Guest users are prompted to sign in when saving/favoriting/rating
+
+### Settings
+
+- **Dark Mode** — Light, dark, or system theme
+- **Language Selector** — English, Kurdish (Sorani), Arabic — real-time locale switching
+- **Privacy Policy** — Localized privacy page
+- **Contact & Support** — Email link
+
+### Offline & Network Awareness
+
+- **Real-Time Connectivity** — Monitors network state via `connectivity_plus`
+- **Offline Banner** — Red snackbar shown when transitioning offline
+- **No-Internet Page** — Full-screen offline state with troubleshooting tips and retry
+- **Local Caching** — Movies/shows cached via Isar for offline browsing
+- **OfflineWrapper** — Global wrapper managing offline state app-wide
+
+### UI/UX
+
+- **Dark & Light Themes** — Brand cinematic red/orange accent colors with custom Sarkar font
+- **ShowcaseView Tooltips** — First-use feature discovery for navigation tabs
+- **Shimmer Loading Skeletons** — On all pages during data fetch
+- **Cached Network Images** — Posters and backdrops with intelligent caching
+- **YouTube Trailers** — Inline video player via `youtube_player_iframe`
+- **Release Countdown Badges** — Days remaining for upcoming movies
+- **Rating Badges** — Vote average badges on movie cards
+- **Quick Action Buttons** — Watch Later, Favorite, Rate on movie cards
+- **Responsive Design** — Utilities for mobile/tablet/desktop breakpoints
+- **404 Not Found Page** — With return-to-home action
+- **Floating Glass Nav Bar** — Pill-shaped bottom navigation with blur effect
+- **Native Splash Screen** — Dark background with app icon
+- **Custom App Icon** — Adaptive icon on Android
+
+## Architecture
+
+Clean Architecture with feature-first modular structure:
 
 ```
 lib/
-├── features/           # Feature modules (Auth, Movies, Recommendations)
-│   ├── auth/          # Authentication feature
-│   │   ├── data/      # Data sources, repositories
-│   │   ├── domain/    # Entities, use cases, contracts
-│   │   └── presentation/ # UI, BLoCs, pages
-│   ├── movies/        # Movies feature
-│   │   ├── data/      # API clients, local cache
-│   │   ├── domain/    # Movie entities, repositories
-│   │   └── presentation/ # UI components, BLoCs
-│   └── recommendations/ # Swipe recommendations feature
-│       ├── data/      # TMDB discover data source
-│       ├── domain/    # Recommendation filter, repository
-│       └── presentation/ # Filter UI, swipe cards, BLoC
-├── core/              # Shared & core utilities
-│   ├── config/        # Firebase & app configuration
-│   ├── localization/  # i18n & translations
-│   ├── network/       # API clients & connectivity
-│   ├── routing/       # GoRouter configuration
-│   ├── theme/         # App themes & styling
-│   └── utils/         # Helper utilities
-└── main.dart          # App entry point
+├── common/                    # Shared widgets & services
+├── core/                      # App infrastructure
+│   ├── config/                # Firebase options
+│   ├── di/                    # GetIt dependency injection
+│   ├── localization/          # Translations wrapper (t.*)
+│   ├── network/               # ApiClient (Dio) & ConnectivityCubit
+│   ├── routing/               # GoRouter (17 routes)
+│   ├── theme/                 # Dark/light themes, colors, typography
+│   └── utils/                 # Helpers (locale, responsive)
+├── features/
+│   ├── auth/                  # Login, signup, onboarding, profile
+│   ├── movies/                # Movies browsing, search, detail pages
+│   ├── shows/                 # TV shows browsing, search, detail pages
+│   └── recommendations/       # Swipe recommendation engine
+├── l10n/                      # ARB localization files
+└── main.dart                  # Entry point
 ```
 
-## 🛠️ Tech Stack
+Each feature follows a **data / domain / presentation** structure:
 
-### State Management & DI
+- `data/` — Data sources (remote API, local Isar, Firestore), models, repositories
+- `domain/` — Entities, repository contracts, use cases
+- `presentation/` — BLoCs/Cubits, pages, widgets
 
-- **Flutter BLoC**: Robust state management pattern
-- **GetIt**: Service locator for dependency injection
+## Tech Stack
 
-### Navigation & Networking
+| Category             | Package                              | Purpose                                      |
+| -------------------- | ------------------------------------ | -------------------------------------------- |
+| **State Management** | flutter_bloc ^9.1.1                  | BLoC pattern + Cubits                        |
+| **DI**               | get_it ^7.6.0                        | Service locator                              |
+| **Routing**          | go_router ^14.0.0                    | Type-safe routing with StatefulShellRoute    |
+| **HTTP**             | dio ^5.4.0                           | TMDB API client                              |
+| **Auth**             | firebase_auth ^5.5.0                 | Email/password authentication                |
+| **Database**         | cloud_firestore ^5.6.0               | Cloud sync (favorites, watch later, ratings) |
+| **Local DB**         | isar_community ^3.3.2                | Offline caching                              |
+| **Local Storage**    | shared_preferences ^2.2.2            | Key-value persistence                        |
+| **Crash Reporting**  | firebase_crashlytics                 | Error logging                                |
+| **Analytics**        | firebase_analytics                   | Usage analytics                              |
+| **Remote Config**    | firebase_remote_config               | Feature flags                                |
+| **Images**           | cached_network_image ^3.3.1          | Image caching                                |
+| **Trailers**         | youtube_player_iframe ^5.1.3         | Inline video player                          |
+| **Network**          | connectivity_plus ^6.0.0             | Connectivity monitoring                      |
+| **Skeletons**        | shimmer ^3.0.0                       | Loading animations                           |
+| **Tooltips**         | showcaseview ^5.1.0                  | Feature discovery                            |
+| **Localization**     | flutter_localizations + intl ^0.20.2 | ARB-based l10n                               |
+| **Env**              | flutter_dotenv ^5.1.0                | .env file loading                            |
+| **Code Gen**         | build_runner ^2.4.13                 | Isar schema generation                       |
 
-- **GoRouter**: Type-safe routing and navigation
-- **Dio**: HTTP client with interceptors
-- **Connectivity Plus**: Real-time network status monitoring
+## Supported Platforms
 
-### Backend & Authentication
+| Platform          | Status                            |
+| ----------------- | --------------------------------- |
+| Android (API 21+) | Full                              |
+| iOS (12.0+)       | Full                              |
+| Web               | Partial (Firebase not configured) |
+| Windows           | Partial (Firebase not configured) |
+| macOS             | Partial (Firebase not configured) |
+| Linux             | Partial (Firebase not configured) |
 
-- **Firebase Core**: Backend infrastructure
-- **Firebase Auth**: User authentication
-- **Cloud Firestore**: Real-time database
-- **Google Cloud Storage**: Media storage
+Firebase services are fully configured for **Android and iOS** only.
 
-### Local Persistence
+## Localization
 
-- **Isar**: Fast, embeddable NoSQL database
-- **SharedPreferences**: Lightweight key-value storage
-- **Path Provider**: File system path access
+| Language         | Locale | Coverage         |
+| ---------------- | ------ | ---------------- |
+| English          | `en`   | Full (~310 keys) |
+| Kurdish (Sorani) | `ku`   | Full             |
+| Arabic           | `ar`   | Full             |
 
-### UI & Presentation
+Real-time locale switching via `SettingsCubit`. TMDB language mapping: `ar` → `ar-SA`, `ku` → `en-US` (fallback).
 
-- **Google Fonts**: Beautiful typography
-- **Cached Network Image**: Image optimization & caching
-- **Shimmer**: Loading skeleton screens
-- **YouTube Player Flutter**: Video playback
+## Getting Started
 
-### Localization & Configuration
+### Prerequisites
 
-- **Slang**: Type-safe translations
-- **Flutter Dotenv**: Environment configuration
+- Flutter SDK >=3.3.0
+- Dart SDK >=3.3.0
 
-## 📋 Requirements
-
-- **Flutter**: >=3.3.0
-- **Dart**: >=3.3.0
-- **Minimum Android API**: 21+
-- **Minimum iOS Version**: 12.0+
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-
-Ensure you have Flutter installed and configured:
+### Installation
 
 ```bash
-flutter doctor
-```
+# Clone the repo
+git clone https://github.com/apollocked/My-Movie-App.git
 
-### 2. Installation
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd my_movie
+# Change directory
+cd My-Movie-App
 
 # Install dependencies
 flutter pub get
 
-# Generate necessary files
+# Generate code (Isar schemas)
 flutter pub run build_runner build
-flutter pub run slang
 ```
 
-### 3. Configuration
+### Configuration
 
-Create a `.env` file in the project root with your Firebase configuration:
+Create a `.env` file in the project root:
 
 ```
-FIREBASE_API_KEY=your_api_key
 TMDB_API_KEY=your_tmdb_api_key
+TMDB_API_ACCESS_TOKEN=your_tmdb_access_token
 ```
 
-### 4. Run the App
+The app uses TMDB API v3 with Bearer token authentication.
+
+Firebase is pre-configured with `google-services.json` (Android) and `GoogleService-Info.plist` (iOS). For a custom Firebase project, regenerate with `flutterfire configure`.
+
+### Run
 
 ```bash
-# Development
 flutter run
-
-# Release
-flutter run --release
-
-# Specific device
-flutter run -d <device_id>
 ```
 
-## 📱 Supported Platforms
-
-- ✅ Android (API 21+)
-- ✅ iOS (12.0+)
-- ✅ Web
-- ✅ Windows
-- ✅ macOS
-- ✅ Linux
-
-## 🎯 App Flow
+## App Flow
 
 ```
 App Start
     ↓
-Internet Check ← If offline, show network status screen
-    ↓
 Firebase Initialization
     ↓
-Check Auth State
-     ├→ Not Authenticated → Onboarding/Login
-     └→ Authenticated → Main App
-          ├→ Home (Browse Movies)
-          ├→ Search (Find Movies)
-          ├→ Recommendations (Swipe Cards)
-          ├→ Settings (Preferences)
-          └→ Profile (User Info, Collections, Ratings)
+Auth State Check
+    ├→ Unauthenticated → Onboarding → Login/Sign Up → Home
+    └→ Authenticated → Home
+                          ├─ Home (Movies / TV Shows toggle)
+                          ├─ Search (Movies, Shows, Actors)
+                          ├─ What to Watch (Swipe recommendations)
+                          ├─ Profile (Watch Later, Favorites, Ratings)
+                          └─ Settings (Theme, Language, About)
 ```
 
-## 🔐 Authentication Flow
+## Offline Behavior
 
-1. **Onboarding**: First-time users see app introduction
-2. **Sign Up**: Create account with email/password
-3. **Login**: Authenticate with credentials
-4. **Session**: Persistent login with Firebase Auth
-5. **Logout**: Secure session termination
+The app includes real-time connectivity monitoring via `connectivity_plus`. A persistent red banner appears at the top of the screen when offline, and a SnackBar notifies on the transition.
 
-## 🌐 Network Status Handling
+| Feature | Offline Behavior |
+|---|---|
+| **Visual indicator** | Persistent red banner "You are offline" + SnackBar on transition |
+| **Home — Movies** | Partially works — shows previously cached categories from Isar; unvisited categories show error |
+| **Home — TV Shows** | Fails — no caching for show categories |
+| **Search (movies/shows/actors)** | Fails — shows error with Retry button; no local search cache |
+| **Movie Detail Page** | Fails — shows blank page (no error message); pull-to-refresh to retry |
+| **Add to Favorites** | **Works** — authenticates users fall back to SharedPreferences; guest users always save locally |
+| **Rate a Movie** | **Works** — same fallback mechanism |
+| **Save to Watch Later** | **Works** — same fallback mechanism |
+| **View Profile / Watch Later / Favorites** | **Works** — guests use local storage; authenticated users fall back to local on Firestore failure |
+| **Login / Sign Up** | Fails — Firebase Auth requires network; error shown in SnackBar |
+| **Continue as Guest** | **Works** — fully local (SharedPreferences) |
 
-The app includes real-time internet connectivity monitoring:
 
-- **Online**: Full app functionality
-- **Offline**: Limited features with cached data, offline reminder screen
+## Key Packages
 
-## 📚 Project Structure & Best Practices
+| Package               | Version |
+| --------------------- | ------- |
+| flutter_bloc          | ^9.1.1  |
+| get_it                | ^7.6.0  |
+| go_router             | ^14.0.0 |
+| dio                   | ^5.4.0  |
+| firebase_core         | ^3.13.0 |
+| firebase_auth         | ^5.5.0  |
+| cloud_firestore       | ^5.6.0  |
+| firebase_crashlytics  | ^4.3.0  |
+| isar_community        | ^3.3.2  |
+| connectivity_plus     | ^6.0.0  |
+| cached_network_image  | ^3.3.1  |
+| youtube_player_iframe | ^5.1.3  |
+| shimmer               | ^3.0.0  |
+| showcaseview          | ^5.1.0  |
+| flutter_dotenv        | ^5.1.0  |
+| intl                  | ^0.20.2 |
 
-### Clean Code Principles
+## Services
 
-- **Single Responsibility**: Each class has one reason to change
-- **DRY (Don't Repeat Yourself)**: Reusable components and utilities
-- **SOLID Principles**: Applied throughout the codebase
-- **Consistent Naming**: Clear, descriptive variable and function names
-- **Type Safety**: Null safety enabled, strong typing enforced
+- **TMDB** — All movie/TV show content and metadata
+- **Firebase Auth** — Email/password authentication
+- **Cloud Firestore** — User data sync (favorites, watch later, ratings)
+- **Firebase Crashlytics** — Crash reporting
+- **Firebase Analytics** — Usage analytics
+- **Firebase Remote Config** — Feature flags
+- **YouTube** — Trailer playback
 
-### Code Organization
-
-- Feature-driven modular structure
-- Separation of concerns (presentation, domain, data)
-- Dependency injection for loose coupling
-- Repository pattern for data abstraction
-
-### Performance Optimization
-
-- Lazy loading and pagination
-- Image caching and optimization
-- Minimal widget rebuilds with BLoC
-- Efficient local database queries
-
-## 📦 Dependencies Overview
-
-| Package           | Version | Purpose              |
-| ----------------- | ------- | -------------------- |
-| flutter_bloc      | 8.1.6   | State management     |
-| firebase_core     | 2.32.0  | Backend services     |
-| cloud_firestore   | 4.17.5  | Real-time database   |
-| dio               | 5.4.0   | HTTP networking      |
-| go_router         | 14.0.0  | Routing & navigation |
-| isar              | 3.1.0+1 | Local database       |
-| connectivity_plus | 6.0.0   | Network detection    |
-| slang             | 4.14.0  | Localization         |
-
-## 🐛 Debugging & Troubleshooting
-
-### Common Issues
-
-**Firebase Initialization Error**
+## Troubleshooting
 
 ```bash
-# Rebuild Android/iOS native files
-flutter clean
-flutter pub get
-flutter run
-```
-
-**Build Cache Issues**
-
-```bash
+# Clean and rebuild
 flutter clean
 flutter pub get
 flutter pub run build_runner build
-```
-
-**Localization Not Loading**
-
-```bash
-flutter pub run slang
 flutter run
+
+# Regenerate localizations
+flutter gen-l10n
 ```
 
-## 📝 Contributing Guidelines
+## License
 
-1. Follow Flutter/Dart style guidelines
-2. Maintain clean architecture separation
-3. Add comments for complex logic
-4. Test features before committing
-5. Use meaningful commit messages
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙋 Support & Contact
-
-For issues, feature requests, or questions:
-
-- Open an issue on GitHub
-- Check existing documentation
-- Review architecture patterns in the codebase
-
-## 🔄 Future Enhancements
-
-- [ ] Advanced analytics integration
-- [ ] Social features (sharing, ratings)
-- [ ] Premium subscription model
-- [ ] Real-time notifications
-- [ ] Advanced caching strategies
+MIT License
 
 ---
 
-**Built with ❤️ by Muhammed jameel - May/2026**
+Built with Flutter — May 2026
