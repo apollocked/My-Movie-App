@@ -26,22 +26,22 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
     GoRoute(
       path: '/onboarding',
       name: 'onboarding',
-      builder: (context, state) => const OnboardingPage(),
+      builder: (context, state) => OnboardingPage(),
     ),
     GoRoute(
       path: '/login',
       name: 'login',
-      builder: (context, state) => const LoginPage(),
+      builder: (context, state) => LoginPage(),
     ),
     GoRoute(
       path: '/signup',
       name: 'signup',
-      builder: (context, state) => const SignUpPage(),
+      builder: (context, state) => SignUpPage(),
     ),
     GoRoute(
       path: '/no-internet',
       name: 'no-internet',
-      builder: (context, state) => const NoInternetPage(),
+      builder: (context, state) => NoInternetPage(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -53,7 +53,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
             GoRoute(
               path: '/',
               name: 'home',
-              builder: (context, state) => const MovieHomePage(),
+              builder: (context, state) => MovieHomePage(),
             ),
           ],
         ),
@@ -62,7 +62,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
             GoRoute(
               path: '/search',
               name: 'search',
-              builder: (context, state) => const SearchPage(),
+              builder: (context, state) => SearchPage(),
             ),
           ],
         ),
@@ -71,7 +71,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
             GoRoute(
               path: '/discover',
               name: 'discover',
-              builder: (context, state) => const FilterSetupPage(),
+              builder: (context, state) => FilterSetupPage(),
             ),
           ],
         ),
@@ -80,7 +80,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
             GoRoute(
               path: '/profile',
               name: 'profile',
-              builder: (context, state) => const ProfilePage(),
+              builder: (context, state) => ProfilePage(),
             ),
           ],
         ),
@@ -89,7 +89,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
             GoRoute(
               path: '/settings',
               name: 'settings',
-              builder: (context, state) => const SettingsPage(),
+              builder: (context, state) => SettingsPage(),
             ),
           ],
         ),
@@ -147,7 +147,7 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       path: '/forgot-password',
       name: 'forgot_password',
       parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const ForgotPasswordPage(),
+      builder: (context, state) => ForgotPasswordPage(),
     ),
     GoRoute(
       path: '/show/:id',

@@ -11,14 +11,17 @@ import 'not_found_page.dart';
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-  static GoRouter router(AuthBloc authBloc) {
+  static GoRouter router(AuthBloc authBloc, {Listenable? localeRefresh}) {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       extraCodec: MovieCodec(),
       initialLocation: '/',
       debugLogDiagnostics: !kReleaseMode,
       errorBuilder: (context, state) => const NotFoundPage(),
-      refreshListenable: GoRouterRefreshStream(authBloc.stream),
+      refreshListenable: GoRouterRefreshStream(
+        authBloc.stream,
+        additional: localeRefresh,
+      ),
       redirect: (context, state) {
         final authState = authBloc.state;
 

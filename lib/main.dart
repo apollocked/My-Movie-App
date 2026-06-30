@@ -33,9 +33,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
-
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   runApp(const MyApp());
+}
+
+class _LocaleRefreshNotifier extends ChangeNotifier {
+  void notify() => notifyListeners();
 }
 
 class MyApp extends StatefulWidget {
@@ -46,24 +49,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final AuthBloc _authBloc;
-
   late final MovieBloc _movieBloc;
-
   late final SearchBloc _searchBloc;
-
   late final RecommendationBloc _recommendationBloc;
-
   late final SettingsCubit _settingsCubit;
-
   late final ConnectivityCubit _connectivityCubit;
-
   late final ShowBloc _showBloc;
-
   late final show_search.ShowSearchBloc _showSearchBloc;
-
   late final ContentTypeCubit _contentTypeCubit;
-
   late final GoRouter _router;
+  late final _LocaleRefreshNotifier _localeRefreshNotifier;
 
   @override
   void initState() {
@@ -78,11 +73,21 @@ class _MyAppState extends State<MyApp> {
     _showBloc = getIt<ShowBloc>();
     _showSearchBloc = getIt<show_search.ShowSearchBloc>();
     _contentTypeCubit = getIt<ContentTypeCubit>();
-    _router = AppRouter.router(_authBloc);
+    _localeRefreshNotifier = _LocaleRefreshNotifier();
+    _router =
+        AppRouter.router(_authBloc, localeRefresh: _localeRefreshNotifier);
+    Locale? previousLocale = _settingsCubit.state.locale;
+    _settingsCubit.stream.listen((state) {
+      if (state.locale != previousLocale) {
+        previousLocale = state.locale;
+        _localeRefreshNotifier.notify();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _localeRefreshNotifier.dispose();
     _authBloc.close();
     _movieBloc.close();
     _searchBloc.close();

@@ -10,20 +10,20 @@ class ContentTypePill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final current = context.watch<ContentTypeCubit>().state;
-
+    final labels = context.t.search.filters;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
         children: [
           PillTab(
-            label: t.search.filters.movies,
+            label: labels.movies,
             isSelected: current == ContentType.movies,
             onTap: () =>
                 context.read<ContentTypeCubit>().select(ContentType.movies),
           ),
           const SizedBox(width: 10),
           PillTab(
-            label: t.search.filters.tv_shows,
+            label: labels.tv_shows,
             isSelected: current == ContentType.shows,
             onTap: () =>
                 context.read<ContentTypeCubit>().select(ContentType.shows),

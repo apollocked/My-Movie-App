@@ -130,14 +130,14 @@ class _ProfileContentTypePill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final current = context.watch<ContentTypeCubit>().state;
-
+    final labels = context.t.search.filters;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
           Expanded(
             child: _PillTab(
-              label: t.search.filters.movies,
+              label: labels.movies,
               isSelected: current == ContentType.movies,
               onTap: () =>
                   context.read<ContentTypeCubit>().select(ContentType.movies),
@@ -146,7 +146,7 @@ class _ProfileContentTypePill extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: _PillTab(
-              label: t.search.filters.tv_shows,
+              label: labels.tv_shows,
               isSelected: current == ContentType.shows,
               onTap: () =>
                   context.read<ContentTypeCubit>().select(ContentType.shows),
