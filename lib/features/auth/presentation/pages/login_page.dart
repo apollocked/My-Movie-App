@@ -105,8 +105,8 @@ class _LoginPageState extends State<LoginPage> {
                         if (value?.isEmpty ?? true) {
                           return t.auth.errors.password_required;
                         }
-                        if (value!.length < 6) {
-                          return t.auth.errors.password_too_short;
+                        if (value!.length < 8) {
+                          return 'Password must be at least 8 characters';
                         }
                         return null;
                       },

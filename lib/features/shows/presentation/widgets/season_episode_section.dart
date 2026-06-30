@@ -41,7 +41,8 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
           _loadingSeason[seasonNumber] = false;
         });
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint('SeasonEpisodeSection.fetchEpisodes error: $e');
       if (mounted) setState(() => _loadingSeason[seasonNumber] = false);
     }
   }
@@ -205,14 +206,16 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
       padding: const EdgeInsets.only(left: 16, bottom: 12),
       child: Column(
         children: episodes
-            .map((ep) => _buildEpisodeCard(context, theme, ep, seasonNumber))
+            .map((ep) => _buildEpisodeCard(
+                context, theme, ep, seasonNumber,
+                ValueKey('ep_${seasonNumber}_${ep['episode_number']}')))
             .toList(),
       ),
     );
   }
 
   Widget _buildEpisodeCard(BuildContext context, ThemeData theme,
-      Map<String, dynamic> ep, int seasonNumber) {
+      Map<String, dynamic> ep, int seasonNumber, [Key? key]) {
     final epNum = (ep['episode_number'] as num?)?.toInt() ?? 0;
     final title = ep['name'] as String? ?? '';
     final overview = ep['overview'] as String? ?? '';
@@ -222,6 +225,7 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
     final airDate = ep['air_date'] as String? ?? '';
 
     return GestureDetector(
+        key: key,
         onTap: () => context.push(
               '/show/${widget.showId}/season/$seasonNumber/episode/$epNum',
               extra: ep,

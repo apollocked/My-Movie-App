@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +33,7 @@ class _SearchPageState extends State<SearchPage> {
   final _searchHistory = <String>[];
   var _selectedFilter = 'All';
   var _showHistory = true;
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -50,37 +52,48 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
 
   void _onSearchChanged(String query) {
     setState(() => _showHistory = query.trim().isEmpty);
+    _debounce?.cancel();
     if (query.trim().isNotEmpty) {
-      context.read<SearchBloc>().add(ExecuteSearch(
-          query: query,
-          filter: _selectedFilter,
-          language:
-              getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
-    } else if (query.trim().isEmpty) {
+      _debounce = Timer(const Duration(milliseconds: 350), () {
+        if (!mounted) return;
+        context.read<SearchBloc>().add(ExecuteSearch(
+            query: query,
+            filter: _selectedFilter,
+            language:
+                getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+      });
+    } else {
       context.read<SearchBloc>().add(const ClearSearch());
     }
   }
 
   void _executeSearch(String query) {
+    _debounce?.cancel();
     _searchController.text = query;
     _onSearchChanged(query);
     _historyService.addQuery(query);
+    _searchHistory.insert(0, query);
   }
 
   void _onFilterChanged(String filter) {
     setState(() => _selectedFilter = filter);
+    _debounce?.cancel();
     if (_searchController.text.trim().isNotEmpty) {
-      context.read<SearchBloc>().add(ExecuteSearch(
-          query: _searchController.text,
-          filter: filter,
-          language:
-              getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+      _debounce = Timer(const Duration(milliseconds: 350), () {
+        if (!mounted) return;
+        context.read<SearchBloc>().add(ExecuteSearch(
+            query: _searchController.text,
+            filter: filter,
+            language:
+                getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+      });
     }
   }
 
@@ -147,6 +160,7 @@ class _SearchPageState extends State<SearchPage> {
           itemBuilder: (context, index) {
             final movie = state.results[index];
             return InkWell(
+                key: ValueKey('search_${movie.id}'),
                 onTap: () => context.push('/movie/${movie.id}', extra: movie),
                 borderRadius: BorderRadius.circular(20),
                 child: MoviePosterCard(movie: movie));

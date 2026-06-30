@@ -17,8 +17,10 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getTrendingMovies() async {
-    final response =
-        await dio.get('$_baseUrl/trending/movie/day?api_key=$_apiKey');
+    final response = await dio.get(
+      '$_baseUrl/trending/movie/day',
+      queryParameters: {'api_key': _apiKey},
+    );
     if (response.statusCode == 200) {
       final results = (response.data['results'] as List?) ?? [];
       return results.map((json) => MovieModel.fromJson(json)).toList();
@@ -28,8 +30,10 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<List<MovieModel>> searchMovies(String query) async {
-    final response =
-        await dio.get('$_baseUrl/search/movie?api_key=$_apiKey&query=$query');
+    final response = await dio.get(
+      '$_baseUrl/search/movie',
+      queryParameters: {'api_key': _apiKey, 'query': query},
+    );
     if (response.statusCode == 200) {
       final results = (response.data['results'] as List?) ?? [];
       return results.map((json) => MovieModel.fromJson(json)).toList();

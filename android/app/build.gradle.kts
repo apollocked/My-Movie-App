@@ -13,10 +13,16 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Load keystore properties
-val keystorePropertiesFile = rootProject.file("key.properties")
+// Load keystore properties from env vars (CI) or key.properties file (local)
 val keystoreProperties = Properties()
-keystoreProperties.load(keystorePropertiesFile.inputStream())
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
+val storeFileProp = System.getenv("STORE_FILE") ?: keystoreProperties["storeFile"]?.toString()
+val storePasswordProp = System.getenv("STORE_PASSWORD") ?: keystoreProperties["storePassword"]?.toString()
+val keyAliasProp = System.getenv("KEY_ALIAS") ?: keystoreProperties["keyAlias"]?.toString()
+val keyPasswordProp = System.getenv("KEY_PASSWORD") ?: keystoreProperties["keyPassword"]?.toString()
 
 android {
     namespace = "com.example.my_movie"
@@ -51,10 +57,10 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keyAliasProp ?: return@create
+            keyPassword = keyPasswordProp ?: return@create
+            storeFile = if (storeFileProp != null) file(storeFileProp) else return@create
+            storePassword = storePasswordProp ?: return@create
         }
     }
 
@@ -68,7 +74,9 @@ android {
                 "proguard-rules.pro"
             )
 
-            signingConfig = signingConfigs.getByName("release")
+            if (signingConfigs.findByName("release") != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 }

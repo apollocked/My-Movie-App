@@ -100,8 +100,8 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'movie_details',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final idString = state.pathParameters['id']!;
-        final movieId = int.parse(idString);
+        final idString = state.pathParameters['id'] ?? '';
+        final movieId = int.tryParse(idString) ?? 0;
         final movie = state.extra is Movie ? state.extra as Movie : null;
         final autoPlay = state.uri.queryParameters['autoPlay'] == 'true';
         return MovieDetailPage(movieId: movieId, movie: movie, autoPlayTrailer: autoPlay);
@@ -112,10 +112,13 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'see_all',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final endpoint = state.pathParameters['encodedEndpoint']!;
+        final endpoint = state.pathParameters['encodedEndpoint'] ?? '';
         final decoded = Uri.decodeComponent(endpoint);
+        final validPrefixes = ['/trending', '/movie', '/tv', '/discover', '/search', '/person'];
+        final isValid = validPrefixes.any((p) => decoded.startsWith(p));
+        final safeEndpoint = isValid ? decoded : '/trending/movie/week';
         final title = state.extra is String ? state.extra as String : t.search.browse;
-        return SeeAllPage(title: title, endpoint: decoded);
+        return SeeAllPage(title: title, endpoint: safeEndpoint);
       },
     ),
     GoRoute(
@@ -123,8 +126,8 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'actor_details',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final idString = state.pathParameters['id']!;
-        final personId = int.parse(idString);
+        final idString = state.pathParameters['id'] ?? '';
+        final personId = int.tryParse(idString) ?? 0;
         final data = state.extra is Map ? state.extra as Map<String, dynamic> : null;
         return ActorDetailPage(personId: personId, data: data);
       },
@@ -134,8 +137,8 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'director_details',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final idString = state.pathParameters['id']!;
-        final personId = int.parse(idString);
+        final idString = state.pathParameters['id'] ?? '';
+        final personId = int.tryParse(idString) ?? 0;
         final data = state.extra is Map ? state.extra as Map<String, dynamic> : null;
         return DirectorDetailPage(personId: personId, data: data);
       },
@@ -151,8 +154,8 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'show_details',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final idString = state.pathParameters['id']!;
-        final showId = int.parse(idString);
+        final idString = state.pathParameters['id'] ?? '';
+        final showId = int.tryParse(idString) ?? 0;
         final show = state.extra is Movie ? state.extra as Movie : null;
         final autoPlay = state.uri.queryParameters['autoPlay'] == 'true';
         return ShowDetailPage(showId: showId, show: show, autoPlayTrailer: autoPlay);
@@ -163,9 +166,9 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'episode_details',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final showId = int.parse(state.pathParameters['showId']!);
-        final seasonNumber = int.parse(state.pathParameters['seasonNumber']!);
-        final episodeNumber = int.parse(state.pathParameters['episodeNumber']!);
+        final showId = int.tryParse(state.pathParameters['showId'] ?? '') ?? 0;
+        final seasonNumber = int.tryParse(state.pathParameters['seasonNumber'] ?? '') ?? 0;
+        final episodeNumber = int.tryParse(state.pathParameters['episodeNumber'] ?? '') ?? 0;
         return EpisodeDetailPage(
           showId: showId,
           seasonNumber: seasonNumber,
@@ -179,10 +182,13 @@ List<RouteBase> getAppRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
       name: 'see_all_shows',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        final endpoint = state.pathParameters['encodedEndpoint']!;
+        final endpoint = state.pathParameters['encodedEndpoint'] ?? '';
         final decoded = Uri.decodeComponent(endpoint);
+        final validPrefixes = ['/trending', '/tv', '/discover', '/search'];
+        final isValid = validPrefixes.any((p) => decoded.startsWith(p));
+        final safeEndpoint = isValid ? decoded : '/trending/tv/week';
         final title = state.extra is String ? state.extra as String : t.search.browse;
-        return show_see_all.ShowSeeAllPage(title: title, endpoint: decoded);
+        return show_see_all.ShowSeeAllPage(title: title, endpoint: safeEndpoint);
       },
     ),
   

@@ -70,7 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await prefs.setBool('has_seen_onboarding', true);
         emit(Authenticated(user));
       } catch (e) {
-        emit(Unauthenticated(message: e.toString()));
+        emit(Unauthenticated(message: 'Login failed. Please check your credentials.'));
       }
     });
 
@@ -84,7 +84,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await prefs.setBool('has_seen_onboarding', true);
         emit(Authenticated(user));
       } catch (e) {
-        emit(Unauthenticated(message: e.toString()));
+        emit(Unauthenticated(message: 'Account creation failed. Please try again.'));
       }
     });
 

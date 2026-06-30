@@ -88,7 +88,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       onSuffixTap: () => setState(() => _obscurePassword = !_obscurePassword),
                       validator: (value) {
                         if (value?.isEmpty ?? true) return t.auth.errors.password_required;
-                        if (value!.length < 6) return t.auth.errors.password_too_short;
+                        if (value!.length < 8) return 'Password must be at least 8 characters';
+                        if (!RegExp(r'[A-Z]').hasMatch(value)) return 'Password needs an uppercase letter';
+                        if (!RegExp(r'[a-z]').hasMatch(value)) return 'Password needs a lowercase letter';
+                        if (!RegExp(r'[0-9]').hasMatch(value)) return 'Password needs a number';
                         return null;
                       },
                     ),

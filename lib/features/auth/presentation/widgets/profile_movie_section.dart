@@ -67,6 +67,7 @@ class _ProfileMovieSectionState extends State<ProfileMovieSection> {
                 itemBuilder: (context, index) {
                   final movie = movies[index];
                   return Padding(
+                    key: ValueKey('profile_movie_${movie.id}'),
                     padding: const EdgeInsets.only(right: 12),
                     child: GestureDetector(
                       onTap: () {

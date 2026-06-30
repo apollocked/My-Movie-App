@@ -45,8 +45,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           params: {'append_to_response': 'videos,credits', 'language': lang});
       if (!mounted) return;
       String? trailerKey;
-      final videos = data['videos']?['results'] as List?;
-      if (videos != null && videos.isNotEmpty) {
+      final videos = (data['videos']?['results'] as List?)?? [];
+      if (videos.isNotEmpty) {
         final t = videos.firstWhere(
           (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
           orElse: () => videos.firstWhere((v) => v['site'] == 'YouTube', orElse: () => null));
@@ -75,7 +75,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           backdropPath: json['backdrop_path'] as String? ?? '', releaseDate: json['release_date'] as String? ?? '',
           voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
         )).toList();
-      } catch (_) {}
+      } catch (e) {
+        debugPrint('MovieDetailPage.recommendations error: $e');
+      }
       if (!mounted) return;
       setState(() {
         _details = data; _hasTrailer = trailerKey != null; _isLoading = false;
@@ -88,7 +90,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   @override
-  void dispose() { _ytSubscription?.cancel(); _ytSubscription = null; super.dispose(); }
+  void dispose() {
+    _ytController?.close();
+    _ytController = null;
+    _ytSubscription?.cancel();
+    _ytSubscription = null;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

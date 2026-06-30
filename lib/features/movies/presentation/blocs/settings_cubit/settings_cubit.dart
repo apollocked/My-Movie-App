@@ -20,7 +20,9 @@ class SettingsCubit extends Cubit<SettingsState> {
         themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
         locale: Locale(langCode),
       ));
-    } catch (_) {}
+    } catch (e) {
+      debugPrint('SettingsCubit._loadSettings error: $e');
+    }
   }
 
   void toggleTheme() async {

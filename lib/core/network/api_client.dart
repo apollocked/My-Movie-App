@@ -22,8 +22,8 @@ class ApiClient {
     try {
       final response = await _dio.get(endpoint, queryParameters: params);
       
-      if (response.statusCode == 200 && response.data is Map<String, dynamic>) {
-        return response.data as Map<String, dynamic>;
+      if (response.statusCode == 200 && response.data is Map) {
+        return (response.data as Map).cast<String, dynamic>();
       } else if (response.statusCode == 200) {
         return {};
       } else {

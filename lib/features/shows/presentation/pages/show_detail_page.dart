@@ -83,7 +83,9 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
           voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
           isShow: true,
         )).toList();
-      } catch (_) {}
+      } catch (e) {
+        debugPrint('ShowDetailPage.recommendations error: $e');
+      }
       if (!mounted) return;
       setState(() {
         _details = data; _hasTrailer = trailerKey != null; _isLoading = false;

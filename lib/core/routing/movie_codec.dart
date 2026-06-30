@@ -39,13 +39,13 @@ class _MovieDecoder extends Converter<Object?, Object?> {
   Object? convert(Object? input) {
     if (input is Map<String, dynamic> && (input['type'] == 'Movie' || input['type'] == 'Show')) {
       return Movie(
-        id: input['id'] as int,
-        title: input['title'] as String,
-        overview: input['overview'] as String,
-        posterPath: input['posterPath'] as String,
-        backdropPath: input['backdropPath'] as String,
-        releaseDate: input['releaseDate'] as String,
-        voteAverage: (input['voteAverage'] as num).toDouble(),
+        id: (input['id'] as num?)?.toInt() ?? 0,
+        title: (input['title'] as String?) ?? '',
+        overview: (input['overview'] as String?) ?? '',
+        posterPath: (input['posterPath'] as String?) ?? '',
+        backdropPath: (input['backdropPath'] as String?) ?? '',
+        releaseDate: (input['releaseDate'] as String?) ?? '',
+        voteAverage: (input['voteAverage'] as num?)?.toDouble() ?? 0.0,
       );
     }
     return input;

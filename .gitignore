@@ -48,3 +48,6 @@ app.*.map.json
 
 
 TO-DO.md
+*.jks
+*.keystore
+key.properties

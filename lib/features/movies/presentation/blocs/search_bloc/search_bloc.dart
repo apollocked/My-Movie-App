@@ -27,7 +27,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       final data = await apiClient.get(endpoint,
           params: {'query': event.query, 'language': event.language});
-      final results = data['results'] as List;
+      final results = (data['results'] as List?) ?? [];
 
       final movies = results
           .where((json) =>

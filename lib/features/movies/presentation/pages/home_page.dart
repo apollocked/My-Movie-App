@@ -60,7 +60,8 @@ class _MovieHomePageState extends State<MovieHomePage> {
         await remoteConfig.activate();
         if (mounted) setState(() {});
       });
-    } catch (_) {
+    } catch (e) {
+      debugPrint('HomePage.initRemoteConfig error: $e');
     } finally {
       if (mounted) setState(() => isloading = false);
     }
@@ -131,8 +132,8 @@ class _MovieHomePageState extends State<MovieHomePage> {
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: isMovies
-                              ? _buildMovieContent(theme, movieBloc, bottom)
-                              : _buildShowContent(theme, showBloc, bottom),
+                              ? _buildMovieContent(bottom)
+                              : _buildShowContent(bottom),
                         ),
                       ),
                     ),
@@ -143,20 +144,20 @@ class _MovieHomePageState extends State<MovieHomePage> {
     );
   }
 
-  Widget _buildMovieContent(ThemeData theme, MovieBloc movieBloc, double bottom) {
+  Widget _buildMovieContent(double bottom) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const HomeHeroSection(),
         const SizedBox(height: 16),
         const WatchLaterRow(),
-        HomeCategoriesSection(apiClient: movieBloc.apiClient),
+        HomeCategoriesSection(apiClient: context.read<MovieBloc>().apiClient),
         SizedBox(height: bottom + 120),
       ],
     );
   }
 
-  Widget _buildShowContent(ThemeData theme, ShowBloc showBloc, double bottom) {
+  Widget _buildShowContent(double bottom) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

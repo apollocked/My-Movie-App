@@ -94,6 +94,15 @@ class ShowGuestLocalDataSource {
     }
   }
 
+  void dispose() {
+    for (final c in _itemControllers.values) { c.close(); }
+    for (final c in _ratingControllers.values) { c.close(); }
+    for (final c in _collectionControllers.values) { c.close(); }
+    _itemControllers.clear();
+    _ratingControllers.clear();
+    _collectionControllers.clear();
+  }
+
   Future<void> _saveCollection(String type, List<Show> items) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonStr = json.encode(items.map((s) => s.toJson()).toList());

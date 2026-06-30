@@ -15,7 +15,8 @@ class PlayTrailerButton extends StatelessWidget {
         final url = Uri.parse('https://www.youtube.com/watch?v=$trailerKey');
         try {
           await launchUrl(url, mode: LaunchMode.externalApplication);
-        } catch (_) {
+        } catch (e) {
+          debugPrint('PlayTrailerButton.launchUrl error: $e');
           await launchUrl(url, mode: LaunchMode.platformDefault);
         }
       },

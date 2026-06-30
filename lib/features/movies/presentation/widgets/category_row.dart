@@ -47,7 +47,7 @@ class _CategoryRowState extends State<CategoryRow> {
       final language = getTmdbLanguageCode(locale);
       final data = await widget.apiClient
           .get(widget.endpoint, params: {'language': language});
-      final rawList = data['results'] as List;
+      final rawList = (data['results'] as List?) ?? [];
       final isTvEndpoint = widget.endpoint.startsWith('/tv/') || widget.endpoint.startsWith('/discover/tv');
       final movies = rawList
           .map((json) => Movie(
@@ -68,7 +68,8 @@ class _CategoryRowState extends State<CategoryRow> {
           _isLoading = false;
         });
       }
-    } catch (_) {
+    } catch (e) {
+      debugPrint('CategoryRow.fetchMovies error: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }

@@ -62,7 +62,8 @@ class _ShowSeeAllPageState extends State<ShowSeeAllPage> {
         _isLoading = false;
         _hasMore = _currentPage < totalPages;
       });
-    } catch (_) {
+    } catch (e) {
+      debugPrint('ShowSeeAllPage.fetchShows error: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }
@@ -82,8 +83,9 @@ class _ShowSeeAllPageState extends State<ShowSeeAllPage> {
         _isLoadingMore = false;
         _hasMore = _currentPage < totalPages;
       });
-    } catch (_) {
+    } catch (e) {
       _currentPage--;
+      debugPrint('ShowSeeAllPage.loadMore error: $e');
       if (mounted) setState(() => _isLoadingMore = false);
     }
   }
@@ -148,6 +150,7 @@ class _ShowSeeAllPageState extends State<ShowSeeAllPage> {
                 }
                 final show = _shows[index];
                 return InkWell(
+                  key: ValueKey('show_${show.id}'),
                   onTap: () =>
                       context.push('/show/${show.id}', extra: show),
                   borderRadius: BorderRadius.circular(20),

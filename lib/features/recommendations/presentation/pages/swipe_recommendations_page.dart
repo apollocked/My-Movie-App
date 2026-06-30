@@ -45,7 +45,8 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
       setState(() {
         _fullOverview = (data['overview'] as String?) ?? '';
       });
-    } catch (_) {
+    } catch (e) {
+      debugPrint('SwipeRecommendationsPage.fetchFullOverview error: $e');
       if (!mounted) return;
       setState(() { _fullOverview = ''; });
     }

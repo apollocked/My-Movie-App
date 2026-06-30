@@ -31,12 +31,6 @@ class _MovieSwipeCardState extends State<MovieSwipeCard> with SingleTickerProvid
     _snapCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 250));
   }
 
-  @override
-  void dispose() {
-    _snapCtrl.dispose();
-    super.dispose();
-  }
-
   void _onPanUpdate(DragUpdateDetails d) {
     if (_snapCtrl.isAnimating) return;
     setState(() { _drag += d.delta; _isDragging = true; });
@@ -55,12 +49,28 @@ class _MovieSwipeCardState extends State<MovieSwipeCard> with SingleTickerProvid
     }
     _snapCtrl.addListener(listener);
     _snapCtrl.forward(from: 0);
-    _snapCtrl.addStatusListener((s) {
-      if (s == AnimationStatus.completed) {
-        _snapCtrl.removeListener(listener);
-        setState(() { _drag = Offset.zero; _isDragging = false; });
-      }
-    });
+    _snapCtrl.addStatusListener(_onAnimComplete);
+    _animListener = listener;
+  }
+
+  VoidCallback? _animListener;
+
+  void _onAnimComplete(AnimationStatus s) {
+    if (s == AnimationStatus.completed && _animListener != null) {
+      _snapCtrl.removeListener(_animListener!);
+      _animListener = null;
+      if (mounted) setState(() { _drag = Offset.zero; _isDragging = false; });
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_animListener != null) {
+      _snapCtrl.removeListener(_animListener!);
+      _animListener = null;
+    }
+    _snapCtrl.dispose();
+    super.dispose();
   }
 
   void _reset() {

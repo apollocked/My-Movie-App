@@ -68,7 +68,8 @@ class _SeeAllPageState extends State<SeeAllPage> {
         _currentPage = 1;
         _hasMore = _currentPage < totalPages;
       });
-    } catch (_) {
+    } catch (e) {
+      debugPrint('SeeAllPage.fetchMovies error: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }
@@ -88,8 +89,9 @@ class _SeeAllPageState extends State<SeeAllPage> {
         _isLoadingMore = false;
         _hasMore = _currentPage < totalPages;
       });
-    } catch (_) {
+    } catch (e) {
       _currentPage--;
+      debugPrint('SeeAllPage.loadMore error: $e');
       if (mounted) setState(() => _isLoadingMore = false);
     }
   }
@@ -155,6 +157,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 final movie = _movies[index];
                 final route = movie.isShow ? '/show' : '/movie';
                 return InkWell(
+                  key: ValueKey('movie_${movie.id}'),
                   onTap: () =>
                       context.push('$route/${movie.id}', extra: movie),
                   borderRadius: BorderRadius.circular(20),
