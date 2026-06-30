@@ -22,8 +22,7 @@ class NavCenterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Scaled down slightly to fit the compact glass pill beautifully
-    final double size = isSelected ? 56.0 : 50.0;
+    final double size = isSelected ? 65.0 : 60.0;
 
     return GestureDetector(
       onTap: onTap,
@@ -53,8 +52,11 @@ class NavCenterButton extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4.0,
+            ),
             child: Container(
+              margin: EdgeInsets.symmetric(horizontal: isSelected ? 4.0 : 0.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.black.withValues(alpha: 0.2),

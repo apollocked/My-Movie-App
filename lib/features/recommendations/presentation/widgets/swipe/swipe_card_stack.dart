@@ -5,10 +5,11 @@ import 'movie_swipe_card.dart';
 
 class SwipeCardStack extends StatefulWidget {
   final Movie movie;
+  final String? fullOverview;
   final VoidCallback? onSwipeLeft;
   final VoidCallback? onSwipeRight;
 
-  const SwipeCardStack({super.key, required this.movie, this.onSwipeLeft, this.onSwipeRight});
+  const SwipeCardStack({super.key, required this.movie, this.fullOverview, this.onSwipeLeft, this.onSwipeRight});
 
   @override
   State<SwipeCardStack> createState() => _SwipeCardStackState();
@@ -54,6 +55,7 @@ class _SwipeCardStackState extends State<SwipeCardStack> with SingleTickerProvid
         child: MovieSwipeCard(
           key: ValueKey(widget.movie.id),
           movie: widget.movie,
+          fullOverview: widget.fullOverview,
           onSwipeLeft: widget.onSwipeLeft,
           onSwipeRight: widget.onSwipeRight,
         ),

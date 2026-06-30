@@ -28,64 +28,69 @@ class NavStandardItem extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         behavior: HitTestBehavior.opaque,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 36,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeOutCubic,
-                    width: isSelected ? 48 : 0,
-                    height: isSelected ? 36 : 0,
-                    decoration: BoxDecoration(
-                      color:
-                          activeColor.withValues(alpha: isSelected ? 0.2 : 0.0),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    transitionBuilder: (child, animation) =>
-                        ScaleTransition(scale: animation, child: child),
-                    child: Icon(
-                      isSelected ? activeIcon : icon,
-                      key: ValueKey('${isSelected}_$index'),
-                      color: isSelected ? activeColor : inactiveColor,
-                      size: isSelected ? 24 : 22,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 200),
-                style: (Theme.of(context).textTheme.labelSmall ??
-                        const TextStyle())
-                    .copyWith(
-                  fontSize: isSelected ? 16 : 14,
-                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                  color: isSelected ? activeColor : inactiveColor,
-                  letterSpacing: 0.1,
-                ),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 36,
+                child: Stack(
                   alignment: Alignment.center,
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeOutCubic,
+                      width: isSelected ? 48 : 0,
+                      height: isSelected ? 36 : 0,
+                      decoration: BoxDecoration(
+                        color: activeColor.withValues(
+                            alpha: isSelected ? 0.2 : 0.0),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      transitionBuilder: (child, animation) =>
+                          ScaleTransition(scale: animation, child: child),
+                      child: Icon(
+                        isSelected ? activeIcon : icon,
+                        key: ValueKey('${isSelected}_$index'),
+                        color: isSelected ? activeColor : inactiveColor,
+                        size: isSelected ? 24 : 22,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 200),
+                  style: (Theme.of(context).textTheme.labelSmall ??
+                          const TextStyle())
+                      .copyWith(
+                    fontSize: isSelected ? 16 : 14,
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    color: isSelected ? activeColor : inactiveColor,
+                    letterSpacing: 0.1,
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

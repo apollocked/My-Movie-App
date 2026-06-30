@@ -68,8 +68,7 @@ class GlassNavBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(40),
               border: Border.all(
                 color: isDark
-                    ? Colors.white
-                        .withValues(alpha: 0.15) // Bright, crisp glass edge
+                    ? Colors.white.withValues(alpha: 0.15)
                     : Colors.black.withValues(alpha: 0.1),
                 width: 1,
               ),
@@ -95,9 +94,9 @@ class GlassNavBar extends StatelessWidget {
 
     return Positioned.fill(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: List.generate(5, (index) {
             return ShowcaseNavItem(

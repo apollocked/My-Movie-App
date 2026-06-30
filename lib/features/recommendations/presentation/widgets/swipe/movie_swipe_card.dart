@@ -8,10 +8,11 @@ import 'swipe_card_info_panel.dart';
 
 class MovieSwipeCard extends StatefulWidget {
   final Movie movie;
+  final String? fullOverview;
   final VoidCallback? onSwipeLeft;
   final VoidCallback? onSwipeRight;
 
-  const MovieSwipeCard({super.key, required this.movie, this.onSwipeLeft, this.onSwipeRight});
+  const MovieSwipeCard({super.key, required this.movie, this.fullOverview, this.onSwipeLeft, this.onSwipeRight});
 
   @override
   State<MovieSwipeCard> createState() => _MovieSwipeCardState();
@@ -111,10 +112,10 @@ class _MovieSwipeCardState extends State<MovieSwipeCard> with SingleTickerProvid
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(flex: 3, child: MovieNetworkImage(
+                Expanded(flex: 2, child: MovieNetworkImage(
                   backdropUrl: widget.movie.fullBackdropUrl, posterUrl: widget.movie.fullPosterUrl, title: widget.movie.title,
                 )),
-                Expanded(flex: 2, child: SwipeCardInfoPanel(movie: widget.movie)),
+                Expanded(flex: 3, child: SwipeCardInfoPanel(movie: widget.movie, fullOverview: widget.fullOverview)),
               ],
             ),
             if (_isDragging && _dragRatio.abs() > 0.3) ...[

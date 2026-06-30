@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/core/localization/translations.dart';
+import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
+import 'package:my_movie/core/utils/locale_utils.dart';
+import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import '../blocs/recommendation_bloc.dart';
 import '../blocs/recommendation_event.dart';
 import '../blocs/recommendation_state.dart';
@@ -26,6 +29,28 @@ class SwipeRecommendationsPage extends StatefulWidget {
 }
 
 class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
+  final ApiClient _apiClient = ApiClient();
+  String _fullOverview = '';
+  int? _lastFetchedMovieId;
+
+  void _fetchFullOverview(int movieId, bool isTv) async {
+    if (_lastFetchedMovieId == movieId) return;
+    _lastFetchedMovieId = movieId;
+    try {
+      final lang =
+          getTmdbLanguageCode(context.read<SettingsCubit>().state.locale);
+      final endpoint = isTv ? '/tv/$movieId' : '/movie/$movieId';
+      final data = await _apiClient.get(endpoint, params: {'language': lang});
+      if (!mounted) return;
+      setState(() {
+        _fullOverview = (data['overview'] as String?) ?? '';
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() { _fullOverview = ''; });
+    }
+  }
+
   void _onSkip() {
     context.read<RecommendationBloc>().add(SwipeMovieLeft());
     _checkLoadMore();
@@ -46,6 +71,15 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
     if (s is RecommendationLoaded && s.movies.length - s.currentIndex <= 3) {
       context.read<RecommendationBloc>().add(LoadMoreRecommendations(
           filter: widget.filter, language: widget.language));
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final s = context.read<RecommendationBloc>().state;
+    if (s is RecommendationLoaded && s.currentMovie != null) {
+      _fetchFullOverview(s.currentMovie!.id, widget.filter.isForShows);
     }
   }
 
@@ -85,34 +119,46 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
           })
         ],
       ),
-      body: BlocBuilder<RecommendationBloc, RecommendationState>(
-        builder: (_, state) {
-          if (state is RecommendationLoading) {
-            return const Center(child: CircularProgressIndicator());
+      body: BlocListener<RecommendationBloc, RecommendationState>(
+        listenWhen: (prev, curr) =>
+            curr is RecommendationLoaded && prev is RecommendationLoaded
+                ? curr.currentMovie?.id != prev.currentMovie?.id
+                : curr is RecommendationLoaded,
+        listener: (_, state) {
+          if (state is RecommendationLoaded && state.currentMovie != null) {
+            setState(() { _fullOverview = ''; });
+            _fetchFullOverview(state.currentMovie!.id, widget.filter.isForShows);
           }
-          if (state is RecommendationError) {
-            return ErrorSwipeView(
-                message: state.message,
-                onRetry: () => bloc.add(LoadRecommendations(
-                    filter: widget.filter, language: widget.language)));
-          }
-          if (state is RecommendationEmpty) {
-            return EmptySwipeView(
-                message: state.message.isNotEmpty
-                    ? state.message
-                    : t.swipe.empty_no_movies,
-                onChangeFilters: () => Navigator.of(context).pop());
-          }
-          if (state is AllSwiped) {
-            return AllSwipedView(
-              count: state.watchLaterIds.length,
-              onRefine: () => Navigator.of(context).pop(),
-              onViewWatchLater: () => context.go('/profile'),
-            );
-          }
-          if (state is RecommendationLoaded) return _buildContent(state, isTv);
-          return const SizedBox.shrink();
         },
+        child: BlocBuilder<RecommendationBloc, RecommendationState>(
+          builder: (_, state) {
+            if (state is RecommendationLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is RecommendationError) {
+              return ErrorSwipeView(
+                  message: state.message,
+                  onRetry: () => bloc.add(LoadRecommendations(
+                      filter: widget.filter, language: widget.language)));
+            }
+            if (state is RecommendationEmpty) {
+              return EmptySwipeView(
+                  message: state.message.isNotEmpty
+                      ? state.message
+                      : t.swipe.empty_no_movies,
+                  onChangeFilters: () => Navigator.of(context).pop());
+            }
+            if (state is AllSwiped) {
+              return AllSwipedView(
+                count: state.watchLaterIds.length,
+                onRefine: () => Navigator.of(context).pop(),
+                onViewWatchLater: () => context.go('/profile'),
+              );
+            }
+            if (state is RecommendationLoaded) return _buildContent(state, isTv);
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }
@@ -140,6 +186,7 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
                     height: mq.size.height * 0.6,
                     child: SwipeCardStack(
                         movie: state.currentMovie!,
+                        fullOverview: _fullOverview,
                         onSwipeLeft: _onSkip,
                         onSwipeRight: _onSave)),
               ),
