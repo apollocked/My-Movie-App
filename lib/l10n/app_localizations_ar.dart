@@ -75,6 +75,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get search_filters_actors => 'ممثلين';
 
   @override
+  String get search_filters_language => 'اللغة';
+
+  @override
   String get search_no_results_subtitle => 'حاول البحث عن شيء آخر';
 
   @override
@@ -502,6 +505,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get movie_detail_show_no_episodes => 'لا توجد حلقات بعد';
+
+  @override
+  String get movie_detail_original_language => 'اللغة الأصلية';
 
   @override
   String get actor_born => 'تاريخ الميلاد:';

@@ -6,6 +6,7 @@ class Movie {
   final String backdropPath;
   final String releaseDate;
   final double voteAverage;
+  final String originalLanguage;
   final bool isShow;
 
   const Movie({
@@ -16,6 +17,7 @@ class Movie {
     required this.backdropPath,
     required this.releaseDate,
     required this.voteAverage,
+    this.originalLanguage = '',
     this.isShow = false,
   });
 
@@ -31,6 +33,7 @@ class Movie {
       backdropPath: json['backdrop_path'] ?? '',
       releaseDate: json['release_date'] ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      originalLanguage: json['original_language'] as String? ?? '',
       isShow: json['isShow'] as bool? ?? false,
     );
   }
@@ -44,6 +47,7 @@ class Movie {
       'backdrop_path': backdropPath,
       'release_date': releaseDate,
       'vote_average': voteAverage,
+      'original_language': originalLanguage,
       'isShow': isShow,
     };
   }

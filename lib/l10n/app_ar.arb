@@ -25,6 +25,7 @@
   "search_filters_movies": "أفلام",
   "search_filters_tv_shows": "مسلسلات",
   "search_filters_actors": "ممثلين",
+  "search_filters_language": "اللغة",
   "search_no_results_subtitle": "حاول البحث عن شيء آخر",
   "search_discover_title": "اكتشف الأفلام",
   "search_discover_subtitle": "ابدأ بالكتابة للبحث في ملايين الأفلام والمسلسلات",
@@ -167,6 +168,7 @@
   "movie_detail_show_episode": "الحلقة",
   "movie_detail_show_episodes": "حلقة",
   "movie_detail_show_no_episodes": "لا توجد حلقات بعد",
+  "movie_detail_original_language": "اللغة الأصلية",
 
   "actor_born": "تاريخ الميلاد:",
   "actor_biography": "السيرة الذاتية",

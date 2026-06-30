@@ -8,6 +8,7 @@ class Show {
   final String backdropPath;
   final String firstAirDate;
   final double voteAverage;
+  final String originalLanguage;
 
   const Show({
     required this.id,
@@ -17,6 +18,7 @@ class Show {
     required this.backdropPath,
     required this.firstAirDate,
     required this.voteAverage,
+    this.originalLanguage = '',
   });
 
   String get fullPosterUrl => 'https://image.tmdb.org/t/p/w500$posterPath';
@@ -31,6 +33,7 @@ class Show {
       backdropPath: json['backdrop_path'] ?? '',
       firstAirDate: json['first_air_date'] ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      originalLanguage: json['original_language'] as String? ?? '',
     );
   }
 
@@ -43,6 +46,7 @@ class Show {
       'backdrop_path': backdropPath,
       'first_air_date': firstAirDate,
       'vote_average': voteAverage,
+      'original_language': originalLanguage,
     };
   }
 
@@ -55,6 +59,7 @@ class Show {
       backdropPath: backdropPath,
       releaseDate: firstAirDate,
       voteAverage: voteAverage,
+      originalLanguage: originalLanguage,
       isShow: true,
     );
   }
@@ -68,6 +73,7 @@ class Show {
       backdropPath: movie.backdropPath,
       firstAirDate: movie.releaseDate,
       voteAverage: movie.voteAverage,
+      originalLanguage: movie.originalLanguage,
     );
   }
 }

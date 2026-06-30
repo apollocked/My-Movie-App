@@ -25,6 +25,7 @@
   "search_filters_movies": "فیلمەکان",
   "search_filters_tv_shows": "زنجیرەکان",
   "search_filters_actors": "ئەکتەرەکان",
+  "search_filters_language": "زمان",
   "search_no_results_subtitle": "هەوڵی گەڕان بدە بۆ شتێکی تر",
   "search_discover_title": "فیلمەکان بدۆزەرەوە",
   "search_discover_subtitle": "دەست بکە بە نووسین بۆ گەڕان لە ملیۆنان فیلم و زنجیرە",
@@ -167,6 +168,7 @@
   "movie_detail_show_episode": "ئەڵقە",
   "movie_detail_show_episodes": "ئەڵقە",
   "movie_detail_show_no_episodes": "هێشتا ئەڵقە نییە",
+  "movie_detail_original_language": "زمانی ڕەسەن",
 
   "actor_born": "لەدایکبوون:",
   "actor_biography": "ژیاننامە",

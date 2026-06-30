@@ -86,6 +86,7 @@ class _SearchFilters {
   String get movies => _l.search_filters_movies;
   String get tv_shows => _l.search_filters_tv_shows;
   String get actors => _l.search_filters_actors;
+  String get language => _l.search_filters_language;
 }
 
 class _Profile {
@@ -344,6 +345,7 @@ class _MovieDetail {
   String get added_to_watch_later => _l.movie_detail_added_to_watch_later;
   String get director => _l.movie_detail_director;
   String get cast => _l.movie_detail_cast;
+  String get original_language => _l.movie_detail_original_language;
   String get you_might_also_like => _l.movie_detail_you_might_also_like;
   late final _MovieDetailPrompts prompts = _MovieDetailPrompts(_l);
   late final _MovieDetailActions actions = _MovieDetailActions(_l);

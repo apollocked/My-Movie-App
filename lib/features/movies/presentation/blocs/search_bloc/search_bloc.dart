@@ -29,12 +29,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           params: {'query': event.query, 'language': event.language});
       final results = (data['results'] as List?) ?? [];
 
-      final movies = results
-          .where((json) =>
-              json['media_type'] != 'person' ||
-              event.filter == 'Actors' ||
-              event.filter ==
-                  'All') // Quick filter if multi returns unwanted persons
+      var filtered = results.where((json) =>
+          json['media_type'] != 'person' ||
+          event.filter == 'Actors' ||
+          event.filter == 'All');
+
+      final ol = event.originalLanguage;
+      if (ol != null && ol.isNotEmpty) {
+        filtered = filtered.where(
+            (json) => (json['original_language'] as String?) == ol);
+      }
+
+      final movies = filtered
           .map((json) => Movie(
                 id: (json['id'] as num?)?.toInt() ?? 0,
                 title: json['title'] ?? json['name'] ?? '',
@@ -44,6 +50,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 backdropPath: json['backdrop_path'] ?? '',
                 releaseDate:
                     json['release_date'] ?? json['first_air_date'] ?? '',
+                originalLanguage: json['original_language'] as String? ?? '',
                 voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
               ))
           .toList();

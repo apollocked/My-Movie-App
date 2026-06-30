@@ -33,6 +33,7 @@ class _SearchPageState extends State<SearchPage> {
   final _historyService = getIt<SearchHistoryService>();
   final _searchHistory = <String>[];
   var _selectedFilter = 'All';
+  String? _selectedLanguage;
   var _showHistory = true;
   Timer? _debounce;
 
@@ -68,7 +69,8 @@ class _SearchPageState extends State<SearchPage> {
             query: query,
             filter: _selectedFilter,
             language:
-                getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+                getTmdbLanguageCode(context.read<SettingsCubit>().state.locale),
+            originalLanguage: _selectedLanguage));
       });
     } else {
       context.read<SearchBloc>().add(const ClearSearch());
@@ -93,7 +95,8 @@ class _SearchPageState extends State<SearchPage> {
             query: _searchController.text,
             filter: filter,
             language:
-                getTmdbLanguageCode(context.read<SettingsCubit>().state.locale)));
+                getTmdbLanguageCode(context.read<SettingsCubit>().state.locale),
+            originalLanguage: _selectedLanguage));
       });
     }
   }
@@ -132,6 +135,21 @@ class _SearchPageState extends State<SearchPage> {
             SearchFilterChips(
                 selectedFilter: _selectedFilter,
                 onFilterChanged: _onFilterChanged),
+            const SizedBox(height: 12),
+            _LanguageFilterChip(
+              selected: _selectedLanguage,
+              onChanged: (v) {
+                setState(() => _selectedLanguage = v);
+                if (_searchController.text.trim().isNotEmpty) {
+                  context.read<SearchBloc>().add(ExecuteSearch(
+                      query: _searchController.text,
+                      filter: _selectedFilter,
+                      language: getTmdbLanguageCode(
+                          context.read<SettingsCubit>().state.locale),
+                      originalLanguage: v));
+                }
+              },
+            ),
             const SizedBox(height: 16),
             Expanded(child: _buildMovieSearch(bottom)),
           ],
@@ -180,7 +198,8 @@ class _SearchPageState extends State<SearchPage> {
                     query: _searchController.text,
                     filter: _selectedFilter,
                     language: getTmdbLanguageCode(
-                        context.read<SettingsCubit>().state.locale)));
+                        context.read<SettingsCubit>().state.locale),
+                    originalLanguage: _selectedLanguage));
               }
             },
             actionLabel: t.common.retry);
@@ -209,5 +228,64 @@ class _SearchPageState extends State<SearchPage> {
       }
       return const CategoryBrowserButton();
     });
+  }
+}
+
+class _LanguageFilterChip extends StatelessWidget {
+  final String? selected;
+  final ValueChanged<String?> onChanged;
+
+  const _LanguageFilterChip({required this.selected, required this.onChanged});
+
+  static const _items = [
+    (null, 'All'),
+    ('en', 'English'),
+    ('ko', '한국어'),
+    ('ja', '日本語'),
+    ('fr', 'Français'),
+    ('es', 'Español'),
+    ('de', 'Deutsch'),
+    ('hi', 'हिन्दी'),
+    ('zh', '中文'),
+    ('ar', 'العربية'),
+    ('tr', 'Türkçe'),
+    ('it', 'Italiano'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return SizedBox(
+      height: 36,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        children: _items.map((lang) {
+          final isSelected = selected == lang.$1;
+          return Padding(
+            padding: const EdgeInsetsDirectional.only(end: 6),
+            child: FilterChip(
+              label: Text(lang.$2,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: isSelected
+                        ? theme.primaryColor
+                        : theme.textTheme.bodySmall?.color,
+                  )),
+              selected: isSelected,
+              selectedColor: AppColors.primaryRed.withValues(alpha: 0.15),
+              checkmarkColor: theme.primaryColor,
+              backgroundColor: Colors.transparent,
+              side: BorderSide(
+                  color: isSelected
+                      ? AppColors.primaryRed.withValues(alpha: 0.5)
+                      : (theme.brightness == Brightness.dark
+                          ? AppColors.darkBorder
+                          : AppColors.lightBorder)),
+              onSelected: (_) => onChanged(isSelected ? null : lang.$1),
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 }

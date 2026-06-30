@@ -12,6 +12,7 @@ class RecommendationFilter {
   final ContentType contentType;
   final String? certificationCountry;
   final String? certificationMax;
+  final String? originalLanguage;
 
   const RecommendationFilter({
     this.genreIds = const [],
@@ -25,6 +26,7 @@ class RecommendationFilter {
     this.contentType = ContentType.movies,
     this.certificationCountry,
     this.certificationMax,
+    this.originalLanguage,
   });
 
   bool get isForShows => contentType == ContentType.shows;
@@ -64,6 +66,11 @@ class RecommendationFilter {
       params['include_adult'] = false;
     }
 
+    final ol = originalLanguage;
+    if (ol != null && ol.isNotEmpty) {
+      params['with_original_language'] = ol;
+    }
+
     return params;
   }
 
@@ -79,6 +86,7 @@ class RecommendationFilter {
     ContentType? contentType,
     String? certificationCountry,
     String? certificationMax,
+    String? originalLanguage,
   }) {
     return RecommendationFilter(
       genreIds: genreIds ?? this.genreIds,
@@ -92,6 +100,7 @@ class RecommendationFilter {
       contentType: contentType ?? this.contentType,
       certificationCountry: certificationCountry ?? this.certificationCountry,
       certificationMax: certificationMax ?? this.certificationMax,
+      originalLanguage: originalLanguage ?? this.originalLanguage,
     );
   }
 }

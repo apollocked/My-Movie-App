@@ -29,6 +29,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
   double _yearFrom = 2000;
   double _yearTo = DateTime.now().year.toDouble();
   String? _certification;
+  String? _originalLanguage;
   var _isTv = false;
 
   void _startSwiping() {
@@ -41,6 +42,7 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
       yearTo: _yearTo.round(),
       certificationCountry: 'US',
       certificationMax: _certification,
+      originalLanguage: _originalLanguage,
       contentType: contentType,
     );
     final locale = context.read<SettingsCubit>().state.locale;
@@ -139,6 +141,11 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
               isTv: _isTv,
             ),
             const SizedBox(height: 15),
+            _LanguageSelector(
+              selected: _originalLanguage,
+              onChanged: (v) => setState(() => _originalLanguage = v),
+            ),
+            const SizedBox(height: 15),
             FilterYearCard(
               yearFrom: _yearFrom,
               yearTo: _yearTo,
@@ -159,6 +166,73 @@ class _FilterSetupPageState extends State<FilterSetupPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LanguageSelector extends StatelessWidget {
+  final String? selected;
+  final ValueChanged<String?> onChanged;
+
+  const _LanguageSelector({required this.selected, required this.onChanged});
+
+  static const _languages = [
+    (null, 'Any'),
+    ('en', 'English'),
+    ('ko', '한국어'),
+    ('ja', '日本語'),
+    ('fr', 'Français'),
+    ('es', 'Español'),
+    ('de', 'Deutsch'),
+    ('hi', 'हिन्दी'),
+    ('zh', '中文'),
+    ('ar', 'العربية'),
+    ('tr', 'Türkçe'),
+    ('it', 'Italiano'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(t.search.filters.language,
+              style: theme.textTheme.titleSmall
+                  ?.copyWith(fontWeight: FontWeight.w600)),
+          const SizedBox(height: 8),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: _languages.map((lang) {
+                final isSelected = selected == lang.$1;
+                return Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 8),
+                  child: FilterChip(
+                    label: Text(lang.$2,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isSelected
+                              ? theme.primaryColor
+                              : theme.textTheme.bodySmall?.color,
+                        )),
+                    selected: isSelected,
+                    selectedColor: AppColors.primaryRed.withValues(alpha: 0.15),
+                    checkmarkColor: theme.primaryColor,
+                    backgroundColor: Colors.transparent,
+                    side: BorderSide(
+                        color: isSelected
+                            ? AppColors.primaryRed.withValues(alpha: 0.5)
+                            : theme.dividerColor),
+                    onSelected: (_) => onChanged(isSelected ? null : lang.$1),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }

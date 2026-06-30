@@ -9,6 +9,7 @@ class ShowModel extends Show {
     required super.backdropPath,
     required super.firstAirDate,
     required super.voteAverage,
+    super.originalLanguage = '',
   });
 
   factory ShowModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +21,7 @@ class ShowModel extends Show {
       backdropPath: json['backdrop_path'] ?? '',
       firstAirDate: json['first_air_date'] ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      originalLanguage: json['original_language'] as String? ?? '',
     );
   }
 
@@ -33,6 +35,7 @@ class ShowModel extends Show {
       'backdrop_path': backdropPath,
       'first_air_date': firstAirDate,
       'vote_average': voteAverage,
+      'original_language': originalLanguage,
     };
   }
 }

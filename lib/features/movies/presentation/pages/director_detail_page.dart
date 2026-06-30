@@ -51,6 +51,7 @@ class _DirectorDetailPageState extends State<DirectorDetailPage> {
             backdropPath: j['backdrop_path'] as String? ?? '',
             releaseDate: j['release_date'] as String? ?? '',
             voteAverage: (j['vote_average'] as num?)?.toDouble() ?? 0.0,
+            originalLanguage: j['original_language'] as String? ?? '',
           ))
           .toList();
 

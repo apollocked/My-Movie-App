@@ -25,6 +25,7 @@
   "search_filters_movies": "Movies",
   "search_filters_tv_shows": "TV Shows",
   "search_filters_actors": "Actors",
+  "search_filters_language": "Language",
   "search_no_results_subtitle": "Try searching for something else",
   "search_discover_title": "Discover Movies",
   "search_discover_subtitle": "Start typing to explore millions of movies and TV shows",
@@ -167,6 +168,7 @@
   "movie_detail_show_episode": "Episode",
   "movie_detail_show_episodes": "episodes",
   "movie_detail_show_no_episodes": "No episodes yet",
+  "movie_detail_original_language": "Original Language",
 
   "actor_born": "Born:",
   "actor_biography": "Biography",

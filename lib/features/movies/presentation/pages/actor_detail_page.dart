@@ -40,6 +40,7 @@ class _ActorDetailPageState extends State<ActorDetailPage> {
         backdropPath: j['backdrop_path'] as String? ?? '',
         releaseDate: j['release_date'] as String? ?? '',
         voteAverage: (j['vote_average'] as num?)?.toDouble() ?? 0.0,
+        originalLanguage: j['original_language'] as String? ?? '',
       )).toList();
       final tvShows = tvCast.map((j) =>
           ShowModel.fromJson(j as Map<String, dynamic>).toMovie()).toList();

@@ -74,6 +74,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           overview: json['overview'] as String? ?? '', posterPath: json['poster_path'] as String? ?? '',
           backdropPath: json['backdrop_path'] as String? ?? '', releaseDate: json['release_date'] as String? ?? '',
           voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+          originalLanguage: json['original_language'] as String? ?? '',
         )).toList();
       } catch (e) {
         debugPrint('MovieDetailPage.recommendations error: $e');
@@ -108,6 +109,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       overview: _details?['overview'] as String? ?? '', posterPath: _details?['poster_path'] as String? ?? '',
       backdropPath: _details?['backdrop_path'] as String? ?? '', releaseDate: _details?['release_date'] as String? ?? '',
       voteAverage: (_details?['vote_average'] as num?)?.toDouble() ?? 0.0,
+      originalLanguage: _details?['original_language'] as String? ?? '',
     );
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,

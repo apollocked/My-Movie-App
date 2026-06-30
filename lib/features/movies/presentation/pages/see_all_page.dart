@@ -107,6 +107,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
               backdropPath: json['backdrop_path'] as String? ?? '',
               releaseDate: (json['release_date'] ?? json['first_air_date']) as String? ?? '',
               voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+              originalLanguage: json['original_language'] as String? ?? '',
               isShow: _isTvEndpoint,
             ))
         .toList();

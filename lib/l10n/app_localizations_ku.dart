@@ -75,6 +75,9 @@ class AppLocalizationsKu extends AppLocalizations {
   String get search_filters_actors => 'ئەکتەرەکان';
 
   @override
+  String get search_filters_language => 'زمان';
+
+  @override
   String get search_no_results_subtitle => 'هەوڵی گەڕان بدە بۆ شتێکی تر';
 
   @override
@@ -505,6 +508,9 @@ class AppLocalizationsKu extends AppLocalizations {
 
   @override
   String get movie_detail_show_no_episodes => 'هێشتا ئەڵقە نییە';
+
+  @override
+  String get movie_detail_original_language => 'زمانی ڕەسەن';
 
   @override
   String get actor_born => 'لەدایکبوون:';

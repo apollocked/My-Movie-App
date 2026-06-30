@@ -232,6 +232,12 @@ abstract class AppLocalizations {
   /// **'Actors'**
   String get search_filters_actors;
 
+  /// No description provided for @search_filters_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get search_filters_language;
+
   /// No description provided for @search_no_results_subtitle.
   ///
   /// In en, this message translates to:
@@ -1041,6 +1047,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No episodes yet'**
   String get movie_detail_show_no_episodes;
+
+  /// No description provided for @movie_detail_original_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Original Language'**
+  String get movie_detail_original_language;
 
   /// No description provided for @actor_born.
   ///

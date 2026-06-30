@@ -106,6 +106,21 @@ class MovieDetailInfo extends StatelessWidget {
                               )),
                         ),
                       ],
+                      if (movie.originalLanguage.isNotEmpty) ...[
+                        const SizedBox(width: 12),
+                        Icon(Icons.language_rounded,
+                            size: 16,
+                            color: isDark
+                                ? AppColors.textTertiaryDark
+                                : AppColors.textTertiaryLight),
+                        const SizedBox(width: 4),
+                        Text(movie.originalLanguage.toUpperCase(),
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: isDark
+                                  ? AppColors.textTertiaryDark
+                                  : AppColors.textTertiaryLight,
+                            )),
+                      ],
                     ],
                   ),
                 ],
