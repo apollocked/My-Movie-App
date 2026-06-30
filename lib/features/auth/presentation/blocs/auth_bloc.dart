@@ -8,6 +8,7 @@ import 'package:my_movie/features/auth/domain/entities/user_entity.dart';
 import 'package:my_movie/features/auth/domain/usecases/login_usecase.dart';
 import 'package:my_movie/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:my_movie/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:my_movie/core/utils/rate_limiter.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
@@ -15,6 +16,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LogoutUseCase logoutUseCase;
   final AuthRepository authRepository;
   StreamSubscription<UserEntity?>? _userSubscription;
+  static final _loginLimiter = RateLimiter(maxAttempts: 5, window: Duration(minutes: 1));
+  static final _signupLimiter = RateLimiter(maxAttempts: 3, window: Duration(minutes: 1));
 
   AuthBloc({
     required this.loginUseCase,
@@ -61,6 +64,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<LoginRequested>((event, emit) async {
+      if (_loginLimiter.isBlocked) {
+        emit(Unauthenticated(
+            message: 'Too many login attempts. Please wait ${_loginLimiter.remainingAttempts} minute.'));
+        return;
+      }
+      _loginLimiter.recordAttempt();
       emit(AuthLoading());
       try {
         final user =
@@ -75,6 +84,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SignupRequested>((event, emit) async {
+      if (_signupLimiter.isBlocked) {
+        emit(Unauthenticated(
+            message: 'Too many signup attempts. Please wait a minute.'));
+        return;
+      }
+      _signupLimiter.recordAttempt();
       emit(AuthLoading());
       try {
         final user =

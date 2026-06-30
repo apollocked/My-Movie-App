@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_movie/common/widgets/animated_button.dart';
 import 'package:my_movie/core/localization/translations.dart';
+import 'package:my_movie/core/utils/rate_limiter.dart';
 
 import 'forgot_password_header.dart';
 import 'success_message_card.dart';
@@ -19,6 +20,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   bool _isSent = false;
+  final _resetLimiter = RateLimiter(maxAttempts: 2, window: Duration(minutes: 2));
 
   @override
   void dispose() {
@@ -28,6 +30,17 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
 
   Future<void> _sendResetEmail() async {
     if (_formKey.currentState?.validate() != true) return;
+    if (_resetLimiter.isBlocked) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Too many reset requests. Please wait ${_resetLimiter.remainingAttempts} minutes.'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ));
+      return;
+    }
+    _resetLimiter.recordAttempt();
     setState(() => _isLoading = true);
     try {
       await FirebaseAuth.instance
