@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
@@ -149,12 +150,14 @@ class _ShowSeeAllPageState extends State<ShowSeeAllPage> {
                   );
                 }
                 final show = _shows[index];
-                return InkWell(
-                  key: ValueKey('show_${show.id}'),
-                  onTap: () =>
-                      context.push('/show/${show.id}', extra: show),
-                  borderRadius: BorderRadius.circular(20),
-                  child: MoviePosterCard(movie: show),
+                return PressScale(
+                  child: InkWell(
+                    key: ValueKey('show_${show.id}'),
+                    onTap: () =>
+                        context.push('/show/${show.id}', extra: show),
+                    borderRadius: BorderRadius.circular(20),
+                    child: MoviePosterCard(movie: show),
+                  ),
                 );
               },
             ),

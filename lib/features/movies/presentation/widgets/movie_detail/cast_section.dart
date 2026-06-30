@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
@@ -22,19 +23,18 @@ class CastSection extends StatelessWidget {
         if (crew.isNotEmpty) ...[
           _buildSectionHeader(theme, t.movie_detail.director),
           const SizedBox(height: 12),
-          ...crew
-              .where((c) => c['job'] == 'Director')
-              .map((d) {
+          ...crew.where((c) => c['job'] == 'Director').map((d) {
             final name = d['name'] as String? ?? '';
             final personId = (d['id'] as num?)?.toInt() ?? 0;
             final profilePath = d['profile_path'] as String? ?? '';
-            return GestureDetector(
+            return PressScale(
+                child: GestureDetector(
               onTap: () => context.push('/director/$personId',
                   extra: {'name': name, 'profilePath': profilePath}),
               child: Container(
                 margin: const EdgeInsets.only(bottom: 6),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
                   color: theme.cardColor,
                   borderRadius: BorderRadius.circular(12),
@@ -45,7 +45,8 @@ class CastSection extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 16,
-                      backgroundColor: theme.disabledColor.withValues(alpha: 0.2),
+                      backgroundColor:
+                          theme.disabledColor.withValues(alpha: 0.2),
                       backgroundImage: profilePath.isNotEmpty
                           ? NetworkImage(
                               'https://image.tmdb.org/t/p/w185$profilePath')
@@ -66,16 +67,16 @@ class CastSection extends StatelessWidget {
                   ],
                 ),
               ),
-            );
+            ));
           }),
           const SizedBox(height: 20),
         ],
         if (cast.isNotEmpty) ...[
           _buildSectionHeader(theme, t.movie_detail.cast),
           const SizedBox(height: 14),
-            SizedBox(
-              height: AppSizing.hp(context, 20).clamp(140, 220),
-              child: ListView.builder(
+          SizedBox(
+            height: AppSizing.hp(context, 20).clamp(140, 220),
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemCount: cast.length > 10 ? 10 : cast.length,
@@ -86,7 +87,8 @@ class CastSection extends StatelessWidget {
                 final character = person['character'] as String? ?? '';
                 final personId = (person['id'] as num?)?.toInt() ?? 0;
 
-                return GestureDetector(
+                return PressScale(
+                    child: GestureDetector(
                   onTap: () => context.push('/person/$personId',
                       extra: {'name': name, 'profilePath': profilePath}),
                   child: Container(
@@ -98,8 +100,8 @@ class CastSection extends StatelessWidget {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: AppColors.darkBorder
-                                    .withValues(alpha: 0.3),
+                                color:
+                                    AppColors.darkBorder.withValues(alpha: 0.3),
                                 width: 2),
                           ),
                           child: CircleAvatar(
@@ -120,20 +122,25 @@ class CastSection extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                fontWeight: FontWeight.w600)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(fontWeight: FontWeight.w600)),
                         if (character.isNotEmpty)
                           Text(character,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                  color: theme.hintColor,
-                                  fontWeight: FontWeight.w400)),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                      color: theme.hintColor,
+                                      fontWeight: FontWeight.w400)),
                       ],
                     ),
                   ),
-                );
+                ));
               },
             ),
           ),
@@ -154,9 +161,10 @@ class CastSection extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Flexible(child: Text(title,
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700))),
+        Flexible(
+            child: Text(title,
+                style: theme.textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.w700))),
       ],
     );
   }

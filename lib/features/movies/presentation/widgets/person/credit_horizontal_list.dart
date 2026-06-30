@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/utils/responsive.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import '../movie_poster_card.dart';
@@ -35,31 +36,34 @@ class CreditHorizontalList extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: (context, index) {
               final movie = items[index];
-              return GestureDetector(
-                onTap: () {
-                  if (isTv) {
-                    context.push('/show/${movie.id}', extra: movie);
-                  } else {
-                    context.push('/movie/${movie.id}', extra: movie);
-                  }
-                },
-                child: SizedBox(
-                  width: cardW,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 14),
-                    child: Column(children: [
-                      Expanded(
-                          child: MoviePosterCard(height: cardH, movie: movie)),
-                      const SizedBox(height: 6),
-                      Text(movie.title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall
-                              ?.copyWith(fontWeight: FontWeight.w500)),
-                    ]),
+              return PressScale(
+                child: GestureDetector(
+                  onTap: () {
+                    if (isTv) {
+                      context.push('/show/${movie.id}', extra: movie);
+                    } else {
+                      context.push('/movie/${movie.id}', extra: movie);
+                    }
+                  },
+                  child: SizedBox(
+                    width: cardW,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 14),
+                      child: Column(children: [
+                        Expanded(
+                            child:
+                                MoviePosterCard(height: cardH, movie: movie)),
+                        const SizedBox(height: 6),
+                        Text(movie.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(fontWeight: FontWeight.w500)),
+                      ]),
+                    ),
                   ),
                 ),
               );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
@@ -37,10 +38,12 @@ class CollectionGrid extends StatelessWidget {
 
         return Stack(
           children: [
-            InkWell(
-              onTap: () => context.push('$route/${movie.id}', extra: movie),
-              borderRadius: BorderRadius.circular(20),
-              child: MoviePosterCard(movie: movie, fillWidth: true),
+            PressScale(
+              child: InkWell(
+                onTap: () => context.push('$route/${movie.id}', extra: movie),
+                borderRadius: BorderRadius.circular(20),
+                child: MoviePosterCard(movie: movie, fillWidth: true),
+              ),
             ),
             if (isRatings) _RatingBadge(movie: movie),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'movie_poster_card.dart';
 
@@ -40,13 +41,15 @@ class MovieHorizontalList extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = movies.isEmpty ? null : movies[index];
 
-              return GestureDetector(
-                onTap: () {
-                  if (movie != null && onMovieTap != null) {
-                    onMovieTap!(movie);
-                  }
-                },
-                child: MoviePosterCard(height: cardHeight, movie: movie),
+              return PressScale(
+                child: GestureDetector(
+                  onTap: () {
+                    if (movie != null && onMovieTap != null) {
+                      onMovieTap!(movie);
+                    }
+                  },
+                  child: MoviePosterCard(height: cardHeight, movie: movie),
+                ),
               );
             },
           ),

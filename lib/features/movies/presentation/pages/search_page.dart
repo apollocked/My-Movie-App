@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/utils/locale_utils.dart';
 import 'package:my_movie/features/movies/presentation/blocs/settings_cubit/settings_cubit.dart';
 import 'package:my_movie/core/di/injection.dart';
@@ -159,11 +160,12 @@ class _SearchPageState extends State<SearchPage> {
           itemCount: state.results.length,
           itemBuilder: (context, index) {
             final movie = state.results[index];
-            return InkWell(
-                key: ValueKey('search_${movie.id}'),
-                onTap: () => context.push('/movie/${movie.id}', extra: movie),
-                borderRadius: BorderRadius.circular(20),
-                child: MoviePosterCard(movie: movie));
+            return PressScale(
+              child: InkWell(
+                  key: ValueKey('search_${movie.id}'),
+                  onTap: () => context.push('/movie/${movie.id}', extra: movie),
+                  borderRadius: BorderRadius.circular(20),
+                  child: MoviePosterCard(movie: movie)));
           },
         );
       }

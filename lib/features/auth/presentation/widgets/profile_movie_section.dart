@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/di/injection.dart';
 import 'package:my_movie/features/movies/data/services/collection_service.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
@@ -69,15 +70,17 @@ class _ProfileMovieSectionState extends State<ProfileMovieSection> {
                   return Padding(
                     key: ValueKey('profile_movie_${movie.id}'),
                     padding: const EdgeInsets.only(right: 12),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (isTv) {
-                          context.push('/show/${movie.id}', extra: movie);
-                        } else {
-                          context.push('/movie/${movie.id}', extra: movie);
-                        }
-                      },
-                      child: MoviePosterCard(movie: movie, height: 170),
+                    child: PressScale(
+                      child: GestureDetector(
+                        onTap: () {
+                          if (isTv) {
+                            context.push('/show/${movie.id}', extra: movie);
+                          } else {
+                            context.push('/movie/${movie.id}', extra: movie);
+                          }
+                        },
+                        child: MoviePosterCard(movie: movie, height: 170),
+                      ),
                     ),
                   );
                 },

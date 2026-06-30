@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/network/api_client.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
@@ -96,80 +97,82 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
 
     return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              _expandedSeason = isExpanded ? null : sn;
-            });
-            if (!isExpanded) _fetchEpisodes(sn);
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.fromLTRB(4, 4, 16, 4),
-            decoration: BoxDecoration(
-              color: isExpanded
-                  ? theme.colorScheme.primary.withValues(alpha: 0.08)
-                  : theme.cardColor,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
+        PressScale(
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _expandedSeason = isExpanded ? null : sn;
+              });
+              if (!isExpanded) _fetchEpisodes(sn);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.fromLTRB(4, 4, 16, 4),
+              decoration: BoxDecoration(
                 color: isExpanded
-                    ? theme.colorScheme.primary.withValues(alpha: 0.3)
-                    : theme.dividerColor.withValues(alpha: 0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.08)
+                    : theme.cardColor,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: isExpanded
+                      ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                      : theme.dividerColor.withValues(alpha: 0.5),
+                ),
               ),
-            ),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                    width: 70,
-                    height: 70,
-                    child: CachedNetworkImage(
-                      imageUrl: posterPath.isNotEmpty
-                          ? 'https://image.tmdb.org/t/p/w185$posterPath'
-                          : '',
-                      fit: BoxFit.cover,
-                      placeholder: (_, __) => Container(
-                        color: theme.cardColor,
-                        child:
-                            const Icon(Icons.tv_rounded, color: Colors.white24),
-                      ),
-                      errorWidget: (_, __, ___) => Container(
-                        color: theme.cardColor,
-                        child:
-                            const Icon(Icons.tv_rounded, color: Colors.white24),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: CachedNetworkImage(
+                        imageUrl: posterPath.isNotEmpty
+                            ? 'https://image.tmdb.org/t/p/w185$posterPath'
+                            : '',
+                        fit: BoxFit.cover,
+                        placeholder: (_, __) => Container(
+                          color: theme.cardColor,
+                          child: const Icon(Icons.tv_rounded,
+                              color: Colors.white24),
+                        ),
+                        errorWidget: (_, __, ___) => Container(
+                          color: theme.cardColor,
+                          child: const Icon(Icons.tv_rounded,
+                              color: Colors.white24),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w600)),
-                      const SizedBox(height: 4),
-                      Text('$epCount ${t.movie_detail.show.episodes}',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: theme.hintColor,
-                          )),
-                    ],
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.titleSmall
+                                ?.copyWith(fontWeight: FontWeight.w600)),
+                        const SizedBox(height: 4),
+                        Text('$epCount ${t.movie_detail.show.episodes}',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.hintColor,
+                            )),
+                      ],
+                    ),
                   ),
-                ),
-                AnimatedRotation(
-                  turns: isExpanded ? 0.5 : 0,
-                  duration: const Duration(milliseconds: 200),
-                  child:
-                      Icon(Icons.expand_more_rounded, color: theme.hintColor),
-                ),
-              ],
+                  AnimatedRotation(
+                    turns: isExpanded ? 0.5 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child:
+                        Icon(Icons.expand_more_rounded, color: theme.hintColor),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ), // PressScale
         ),
         AnimatedCrossFade(
           firstChild: const SizedBox.shrink(),
@@ -206,8 +209,7 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
       padding: const EdgeInsets.only(left: 16, bottom: 12),
       child: Column(
         children: episodes
-            .map((ep) => _buildEpisodeCard(
-                context, theme, ep, seasonNumber,
+            .map((ep) => _buildEpisodeCard(context, theme, ep, seasonNumber,
                 ValueKey('ep_${seasonNumber}_${ep['episode_number']}')))
             .toList(),
       ),
@@ -215,7 +217,8 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
   }
 
   Widget _buildEpisodeCard(BuildContext context, ThemeData theme,
-      Map<String, dynamic> ep, int seasonNumber, [Key? key]) {
+      Map<String, dynamic> ep, int seasonNumber,
+      [Key? key]) {
     final epNum = (ep['episode_number'] as num?)?.toInt() ?? 0;
     final title = ep['name'] as String? ?? '';
     final overview = ep['overview'] as String? ?? '';
@@ -224,123 +227,128 @@ class _SeasonEpisodeSectionState extends State<SeasonEpisodeSection> {
     final rating = (ep['vote_average'] as num?)?.toDouble() ?? 0;
     final airDate = ep['air_date'] as String? ?? '';
 
-    return GestureDetector(
-        key: key,
-        onTap: () => context.push(
-              '/show/${widget.showId}/season/$seasonNumber/episode/$epNum',
-              extra: ep,
+    return PressScale(
+      child: GestureDetector(
+          key: key,
+          onTap: () => context.push(
+                '/show/${widget.showId}/season/$seasonNumber/episode/$epNum',
+                extra: ep,
+              ),
+          child: Container(
+            margin: const EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: theme.cardColor.withValues(alpha: 0.6),
+              borderRadius: BorderRadius.circular(12),
+              border:
+                  Border.all(color: theme.dividerColor.withValues(alpha: 0.3)),
             ),
-        child: Container(
-          margin: const EdgeInsets.only(top: 8),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: theme.cardColor.withValues(alpha: 0.6),
-            borderRadius: BorderRadius.circular(12),
-            border:
-                Border.all(color: theme.dividerColor.withValues(alpha: 0.3)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (stillPath.isNotEmpty)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: SizedBox(
-                        width: AppSizing.scale(context, 120).clamp(80.0, 160.0),
-                        height: AppSizing.scale(context, 68).clamp(48.0, 90.0),
-                        child: CachedNetworkImage(
-                          imageUrl: 'https://image.tmdb.org/t/p/w300$stillPath',
-                          fit: BoxFit.cover,
-                          placeholder: (_, __) => Container(
-                            color: theme.disabledColor.withValues(alpha: 0.2),
-                          ),
-                          errorWidget: (_, __, ___) => Container(
-                            color: theme.disabledColor.withValues(alpha: 0.2),
-                            child: const Icon(Icons.broken_image_rounded,
-                                size: 24, color: Colors.white24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (stillPath.isNotEmpty)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: SizedBox(
+                          width:
+                              AppSizing.scale(context, 120).clamp(80.0, 160.0),
+                          height:
+                              AppSizing.scale(context, 68).clamp(48.0, 90.0),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w300$stillPath',
+                            fit: BoxFit.cover,
+                            placeholder: (_, __) => Container(
+                              color: theme.disabledColor.withValues(alpha: 0.2),
+                            ),
+                            errorWidget: (_, __, ___) => Container(
+                              color: theme.disabledColor.withValues(alpha: 0.2),
+                              child: const Icon(Icons.broken_image_rounded,
+                                  size: 24, color: Colors.white24),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  if (stillPath.isNotEmpty) const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.primary
-                                    .withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(4),
+                    if (stillPath.isNotEmpty) const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.primary
+                                      .withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text('$epNum',
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                        color: theme.colorScheme.primary,
+                                        fontWeight: FontWeight.w700)),
                               ),
-                              child: Text('$epNum',
-                                  style: theme.textTheme.labelSmall?.copyWith(
-                                      color: theme.colorScheme.primary,
-                                      fontWeight: FontWeight.w700)),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(title,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.textTheme.labelLarge
-                                      ?.copyWith(fontWeight: FontWeight.w600)),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Row(
-                          children: [
-                            if (rating > 0) ...[
-                              Icon(Icons.star_rounded,
-                                  size: 12, color: AppColors.ratingGold),
-                              const SizedBox(width: 2),
-                              Text(rating.toStringAsFixed(1),
-                                  style: theme.textTheme.labelSmall
-                                      ?.copyWith(color: AppColors.ratingGold)),
-                              const SizedBox(width: 12),
-                            ],
-                            if (runtime != null && runtime > 0) ...[
-                              Icon(Icons.schedule_rounded,
-                                  size: 12, color: theme.hintColor),
-                              const SizedBox(width: 2),
-                              Text('${runtime}m',
-                                  style: theme.textTheme.labelSmall
-                                      ?.copyWith(color: theme.hintColor)),
-                              const SizedBox(width: 12),
-                            ],
-                            if (airDate.isNotEmpty)
+                              const SizedBox(width: 8),
                               Expanded(
-                                child: Text(airDate,
+                                child: Text(title,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.labelLarge?.copyWith(
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              if (rating > 0) ...[
+                                Icon(Icons.star_rounded,
+                                    size: 12, color: AppColors.ratingGold),
+                                const SizedBox(width: 2),
+                                Text(rating.toStringAsFixed(1),
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                        color: AppColors.ratingGold)),
+                                const SizedBox(width: 12),
+                              ],
+                              if (runtime != null && runtime > 0) ...[
+                                Icon(Icons.schedule_rounded,
+                                    size: 12, color: theme.hintColor),
+                                const SizedBox(width: 2),
+                                Text('${runtime}m',
                                     style: theme.textTheme.labelSmall
                                         ?.copyWith(color: theme.hintColor)),
-                              ),
-                          ],
-                        ),
-                      ],
+                                const SizedBox(width: 12),
+                              ],
+                              if (airDate.isNotEmpty)
+                                Expanded(
+                                  child: Text(airDate,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: theme.textTheme.labelSmall
+                                          ?.copyWith(color: theme.hintColor)),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
+                ),
+                if (overview.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(overview,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall
+                          ?.copyWith(height: 1.5, color: theme.hintColor)),
                 ],
-              ),
-              if (overview.isNotEmpty) ...[
-                const SizedBox(height: 8),
-                Text(overview,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall
-                        ?.copyWith(height: 1.5, color: theme.hintColor)),
               ],
-            ],
-          ),
-        ));
+            ),
+          )),
+    );
   }
 }

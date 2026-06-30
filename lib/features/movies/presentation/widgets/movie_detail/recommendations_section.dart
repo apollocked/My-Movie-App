@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_movie/common/widgets/press_scale.dart';
 import 'package:my_movie/core/localization/translations.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
@@ -30,12 +31,14 @@ class RecommendationsSection extends StatelessWidget {
             itemCount: movies.length,
             itemBuilder: (context, index) {
               final movie = movies[index];
-              return GestureDetector(
-                onTap: () =>
-                    context.push('/movie/${movie.id}', extra: movie),
-                child: SizedBox(
-                  width: cardW,
-                  child: MoviePosterCard(height: cardH, movie: movie),
+              return PressScale(
+                child: GestureDetector(
+                  onTap: () =>
+                      context.push('/movie/${movie.id}', extra: movie),
+                  child: SizedBox(
+                    width: cardW,
+                    child: MoviePosterCard(height: cardH, movie: movie),
+                  ),
                 ),
               );
             },
