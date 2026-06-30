@@ -29,28 +29,24 @@ class ReleaseCountdownBadge extends StatelessWidget {
     final days = _daysUntil(dateString);
     if (days == null) return const SizedBox.shrink();
 
-    final isUrgent = days <= 7;
-    final iconColor = isUrgent ? AppColors.primaryOrange : AppColors.infoCyan;
-    final bgColor = isUrgent
-        ? AppColors.primaryRed.withValues(alpha: 0.9)
-        : AppColors.darkElevated.withValues(alpha: 0.85);
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: bgColor,
+        color: AppColors.darkElevated.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: iconColor.withValues(alpha: 0.4), width: 1),
+        border: Border.all(
+            color: AppColors.ratingGold.withValues(alpha: 0.35), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.new_releases_rounded, color: iconColor, size: 12),
+          Icon(Icons.new_releases_rounded,
+              color: AppColors.ratingGold, size: 12),
           const SizedBox(width: 4),
           Text(
             '${t.home.upcoming} · ${days == 0 ? t.movie_detail.release_today : days == 1 ? t.movie_detail.release_1_day : '$days ${t.movie_detail.release_days}'}',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: iconColor,
+              color: AppColors.ratingGold,
               fontWeight: FontWeight.w800,
               letterSpacing: 0.3,
             ),

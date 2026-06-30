@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_movie/features/movies/domain/entities/movie.dart';
 import 'package:my_movie/core/theme/app_colors.dart';
 import 'package:my_movie/core/utils/responsive.dart';
+import 'package:my_movie/features/movies/presentation/widgets/release_countdown_badge.dart';
 import 'favorite_button.dart';
 
 class MovieDetailInfo extends StatelessWidget {
@@ -66,41 +67,45 @@ class MovieDetailInfo extends StatelessWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppColors.ratingGold.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(8),
+                      if (ReleaseCountdownBadge.isUpcoming(movie))
+                        ReleaseCountdownBadge(movie: movie)
+                      else ...[
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: AppColors.ratingGold.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.star_rounded,
+                                  color: AppColors.ratingGold, size: 16),
+                              const SizedBox(width: 4),
+                              Text(
+                                  '${movie.voteAverage.toStringAsFixed(1)}/10',
+                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.ratingGold)),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.star_rounded,
-                                color: AppColors.ratingGold, size: 16),
-                            const SizedBox(width: 4),
-                            Text(
-                                '${movie.voteAverage.toStringAsFixed(1)}/10',
-                                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.ratingGold)),
-                          ],
+                        const SizedBox(width: 12),
+                        Icon(Icons.calendar_month_rounded,
+                            size: 16,
+                            color: isDark
+                                ? AppColors.textTertiaryDark
+                                : AppColors.textTertiaryLight),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(movie.releaseDate.split('-').first,
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                color: isDark
+                                    ? AppColors.textTertiaryDark
+                                    : AppColors.textTertiaryLight,
+                              )),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Icon(Icons.calendar_month_rounded,
-                          size: 16,
-                          color: isDark
-                              ? AppColors.textTertiaryDark
-                              : AppColors.textTertiaryLight),
-                      const SizedBox(width: 4),
-                      Flexible(
-                        child: Text(movie.releaseDate.split('-').first,
-                            style: theme.textTheme.labelMedium?.copyWith(
-                              color: isDark
-                                  ? AppColors.textTertiaryDark
-                                  : AppColors.textTertiaryLight,
-                            )),
-                      ),
+                      ],
                     ],
                   ),
                 ],

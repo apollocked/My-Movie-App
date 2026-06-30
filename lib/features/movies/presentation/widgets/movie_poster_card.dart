@@ -48,7 +48,7 @@ class MoviePosterCard extends StatelessWidget {
         children: [
           Positioned.fill(child: _buildImage(isDark, theme)),
           if (movie != null) ...[
-            Positioned(top: 46, right: 12, child: ReleaseCountdownBadge(movie: movie!)),
+            Positioned(bottom: 48, right: 12, child: ReleaseCountdownBadge(movie: movie!)),
             _buildGlassTitleOverlay(context),
             CardQuickActions(movie: movie!),
             CardRatingBadge(
