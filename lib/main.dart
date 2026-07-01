@@ -63,7 +63,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
     _authBloc = getIt<AuthBloc>()..add(const AuthCheckRequested());
     _movieBloc = getIt<MovieBloc>();
     _searchBloc = getIt<SearchBloc>();
