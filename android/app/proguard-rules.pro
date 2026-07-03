@@ -1,3 +1,3 @@
--keep class com.example.my_movie.** { *; }
+-keep class com.apollo.my_movies.** { *; }
 -keepclassmembers class * extends io.flutter.app.FlutterFragmentActivity { *; }
--dontwarn com.example.my_movie.**
+-dontwarn com.apollo.my_movies.**

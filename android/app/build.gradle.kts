@@ -25,7 +25,7 @@ val keyAliasProp = System.getenv("KEY_ALIAS") ?: keystoreProperties["keyAlias"]?
 val keyPasswordProp = System.getenv("KEY_PASSWORD") ?: keystoreProperties["keyPassword"]?.toString()
 
 android {
-    namespace = "com.example.my_movie"
+    namespace = "com.apollo.my_movies"
 
     compileSdk = 36
     ndkVersion = "28.2.13676358"
@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.my_movie"
+        applicationId = "com.apollo.my_movies"
 
         minSdk = flutter.minSdkVersion
         targetSdk = 36

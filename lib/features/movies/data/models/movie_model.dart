@@ -9,6 +9,7 @@ class MovieModel extends Movie {
     required super.backdropPath,
     required super.releaseDate,
     required super.voteAverage,
+    super.originalLanguage = '',
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +21,7 @@ class MovieModel extends Movie {
       backdropPath: json['backdrop_path'] ?? '',
       releaseDate: json['release_date'] ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      originalLanguage: json['original_language'] as String? ?? '',
     );
   }
 
@@ -33,6 +35,7 @@ class MovieModel extends Movie {
       'backdrop_path': backdropPath,
       'release_date': releaseDate,
       'vote_average': voteAverage,
+      'original_language': originalLanguage,
     };
   }
 }
