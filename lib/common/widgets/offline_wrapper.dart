@@ -21,7 +21,8 @@ class OfflineWrapper extends StatelessWidget {
           backgroundColor: AppColors.errorRed.withValues(alpha: 0.9),
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ));
       },
       child: Column(

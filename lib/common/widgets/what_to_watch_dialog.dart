@@ -23,7 +23,10 @@ class WhatToWatchDialog extends StatelessWidget {
                 size: 48, color: theme.colorScheme.primary),
             const SizedBox(height: 16),
             Text(t.what_to_watch_dialog.title,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800)),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w800)),
             const SizedBox(height: 24),
             _StepIndicator(
                 number: '1',
@@ -78,8 +81,7 @@ class _StepIndicator extends StatelessWidget {
           child: Center(
             child: Text(number,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800)),
+                    color: Colors.white, fontWeight: FontWeight.w800)),
           ),
         ),
         const SizedBox(width: 14),
@@ -88,11 +90,14 @@ class _StepIndicator extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
               Text(desc,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.hintColor, height: 1.4)),
+                  style: theme.textTheme.bodySmall
+                      ?.copyWith(color: theme.hintColor, height: 1.4)),
             ],
           ),
         ),
