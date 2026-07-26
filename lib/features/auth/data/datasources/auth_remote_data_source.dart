@@ -72,9 +72,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return UserModel.fromFirebase(user);
     } on FirebaseAuthException catch (e) {
       throw Exception(_friendlyAuthMessage(e.code));
-    } catch (e, stack) {
+    } catch (e) {
       print('[GoogleSignIn] ERROR: $e');
-      print('[GoogleSignIn] STACK: $stack');
       if (e.toString().contains('cancelled')) rethrow;
       throw Exception('Google sign-in failed. Please try again.');
     }
