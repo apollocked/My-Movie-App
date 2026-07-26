@@ -14,12 +14,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  AuthRemoteDataSourceImpl({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
+  AuthRemoteDataSourceImpl(
+      {FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn(
-          scopes: ['email', 'profile'],
-          serverClientId: '68723194042-m9c7116v9lcojremnbu77m6jhj5slfcj.apps.googleusercontent.com',
-        );
+        _googleSignIn = googleSignIn ??
+            GoogleSignIn(
+              scopes: ['email', 'profile'],
+              serverClientId:
+                  '68723194042-m9c7116v9lcojremnbu77m6jhj5slfcj.apps.googleusercontent.com',
+            );
 
   @override
   Stream<UserModel?> get authStateChanges => _firebaseAuth
@@ -66,14 +69,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         idToken: googleAuth.idToken,
       );
 
-      final userCredential = await _firebaseAuth.signInWithCredential(credential);
+      final userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
       final user = userCredential.user;
       if (user == null) throw Exception('Google authentication failed.');
       return UserModel.fromFirebase(user);
     } on FirebaseAuthException catch (e) {
       throw Exception(_friendlyAuthMessage(e.code));
     } catch (e) {
-      print('[GoogleSignIn] ERROR: $e');
       if (e.toString().contains('cancelled')) rethrow;
       throw Exception('Google sign-in failed. Please try again.');
     }
