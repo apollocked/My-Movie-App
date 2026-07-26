@@ -40,6 +40,24 @@ class _LoginPageState extends State<LoginPage> {
         );
   }
 
+  Widget _buildDivider(ThemeData theme) {
+    return Row(
+      children: [
+        Expanded(child: Divider(color: theme.dividerColor)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            'OR',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.5),
+            ),
+          ),
+        ),
+        Expanded(child: Divider(color: theme.dividerColor)),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -127,6 +145,24 @@ class _LoginPageState extends State<LoginPage> {
                           text: t.auth.login,
                           isLoading: state is AuthLoading,
                           onPressed: _handleLogin,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    _buildDivider(theme),
+                    const SizedBox(height: 20),
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        return AnimatedButton(
+                          text: t.auth.login_with_google,
+                          isLoading: state is AuthLoading,
+                          onPressed: () {
+                            context.read<AuthBloc>().add(const GoogleLoginRequested());
+                          },
+                          backgroundColor: theme.scaffoldBackgroundColor,
+                          foregroundColor: theme.textTheme.bodyLarge?.color ?? Colors.white,
+                          borderColor: theme.dividerColor,
+                          icon: Icons.g_mobiledata,
                         );
                       },
                     ),

@@ -14,6 +14,7 @@ import 'package:my_movie/features/auth/domain/repositories/auth_repository.dart'
 import 'package:my_movie/features/auth/domain/usecases/login_usecase.dart';
 import 'package:my_movie/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:my_movie/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:my_movie/features/auth/domain/usecases/google_login_usecase.dart';
 import 'package:my_movie/features/auth/presentation/blocs/auth_bloc.dart';
 
 // Features - Movies & Settings Imports
@@ -121,6 +122,8 @@ Future<void> configureDependencies() async {
       () => SignupUseCase(getIt<AuthRepository>()));
   getIt.registerLazySingleton<LogoutUseCase>(
       () => LogoutUseCase(getIt<AuthRepository>()));
+  getIt.registerLazySingleton<GoogleLoginUseCase>(
+      () => GoogleLoginUseCase(getIt<AuthRepository>()));
 
   //  Cubits (Singletons to manage app-wide structural states)
   getIt.registerLazySingleton<SettingsCubit>(() => SettingsCubit());
@@ -133,6 +136,7 @@ Future<void> configureDependencies() async {
       loginUseCase: getIt<LoginUseCase>(),
       signupUseCase: getIt<SignupUseCase>(),
       logoutUseCase: getIt<LogoutUseCase>(),
+      googleLoginUseCase: getIt<GoogleLoginUseCase>(),
       authRepository: getIt<AuthRepository>(),
     ),
   );

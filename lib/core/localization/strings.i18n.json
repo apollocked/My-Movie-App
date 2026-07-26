@@ -114,7 +114,8 @@
     "reset_subtitle": "Enter your email address and we'll send you a link to reset your password.",
     "send_reset_link": "Send Reset Link",
     "reset_sent": "Reset link sent! Check your email inbox.",
-    "back_to_login": "Back to Login"
+    "back_to_login": "Back to Login",
+    "login_with_google": "Continue with Google"
   },
   "onboarding": {
     "subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.",

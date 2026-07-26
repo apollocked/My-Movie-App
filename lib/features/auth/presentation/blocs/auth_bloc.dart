@@ -8,12 +8,14 @@ import 'package:my_movie/features/auth/domain/entities/user_entity.dart';
 import 'package:my_movie/features/auth/domain/usecases/login_usecase.dart';
 import 'package:my_movie/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:my_movie/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:my_movie/features/auth/domain/usecases/google_login_usecase.dart';
 import 'package:my_movie/core/utils/rate_limiter.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final SignupUseCase signupUseCase;
   final LogoutUseCase logoutUseCase;
+  final GoogleLoginUseCase googleLoginUseCase;
   final AuthRepository authRepository;
   StreamSubscription<UserEntity?>? _userSubscription;
   static final _loginLimiter = RateLimiter(maxAttempts: 5, window: Duration(minutes: 1));
@@ -23,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.loginUseCase,
     required this.signupUseCase,
     required this.logoutUseCase,
+    required this.googleLoginUseCase,
     required this.authRepository,
   }) : super(AuthInitial()) {
     _userSubscription = authRepository.currentUser.listen((user) {
@@ -108,6 +111,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await prefs.setBool('is_guest', true);
       await prefs.setBool('has_seen_onboarding', true);
       emit(const AuthGuest());
+    });
+
+    on<GoogleLoginRequested>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        final user = await googleLoginUseCase();
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('is_guest', false);
+        await prefs.setBool('has_seen_onboarding', true);
+        emit(Authenticated(user));
+      } catch (e) {
+        final message = e.toString().contains('cancelled')
+            ? 'Google sign-in was cancelled.'
+            : 'Google sign-in failed. Please try again.';
+        emit(Unauthenticated(message: message));
+      }
     });
 
     on<LogoutRequested>((event, emit) async {

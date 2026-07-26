@@ -24,6 +24,10 @@ class ContinueAsGuestRequested extends AuthEvent {
   const ContinueAsGuestRequested();
 }
 
+class GoogleLoginRequested extends AuthEvent {
+  const GoogleLoginRequested();
+}
+
 class AuthStatusChanged extends AuthEvent {
   final UserEntity? user;
   const AuthStatusChanged(this.user);
