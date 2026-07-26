@@ -700,6 +700,12 @@ abstract class AppLocalizations {
   /// **'Back to Login'**
   String get auth_back_to_login;
 
+  /// No description provided for @auth_login_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get auth_login_with_google;
+
   /// No description provided for @onboarding_subtitle.
   ///
   /// In en, this message translates to:

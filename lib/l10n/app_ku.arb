@@ -107,6 +107,7 @@
   "auth_send_reset_link": "ناردنی لینکی ڕێستکردن",
   "auth_reset_sent": "لینکی ڕێستکردن نێردرا! ئیمەیڵەکەت بپشکنە.",
   "auth_back_to_login": "گەڕانەوە بۆ چوونەژوورەوە",
+  "auth_login_with_google": "بەردەوامبە بە Google",
 
   "onboarding_subtitle": "بەدوای ملیۆنان فیلمدا بگەڕێ، لیستی تایبەت بەخۆت دروست بکە، و بە ئاسانی نمرە بە فیلمە دڵخوازەکانت بدە.",
   "onboarding_features_browse_title": "گەڕان و دۆزینەوە",

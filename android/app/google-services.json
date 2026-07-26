@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:68723194042:android:906267e60ed25e16f82a83",
+        "mobilesdk_app_id": "1:68723194042:android:12b668bc36762606f82a83",
         "android_client_info": {
           "package_name": "com.apollo.my_movies"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "68723194042-sn8n7rv6eicl3o19aerevcdug8ntpge6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apollo.my_movies",
+            "certificate_hash": "286f81ca5989429890f6c634b2a9f96c4b015e3c"
+          }
+        },
         {
           "client_id": "68723194042-m9c7116v9lcojremnbu77m6jhj5slfcj.apps.googleusercontent.com",
           "client_type": 3

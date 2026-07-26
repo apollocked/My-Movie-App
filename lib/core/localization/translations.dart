@@ -167,6 +167,7 @@ class _Auth {
   String get send_reset_link => _l.auth_send_reset_link;
   String get reset_sent => _l.auth_reset_sent;
   String get back_to_login => _l.auth_back_to_login;
+  String get login_with_google => _l.auth_login_with_google;
   late final _AuthErrors errors = _AuthErrors(_l);
   late final _AuthGuest guest = _AuthGuest(_l);
 }

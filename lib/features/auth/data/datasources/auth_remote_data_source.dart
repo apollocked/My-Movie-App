@@ -16,7 +16,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   AuthRemoteDataSourceImpl({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: ['email', 'profile']);
+        _googleSignIn = googleSignIn ?? GoogleSignIn(
+          scopes: ['email', 'profile'],
+          serverClientId: '68723194042-m9c7116v9lcojremnbu77m6jhj5slfcj.apps.googleusercontent.com',
+        );
 
   @override
   Stream<UserModel?> get authStateChanges => _firebaseAuth
@@ -69,7 +72,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return UserModel.fromFirebase(user);
     } on FirebaseAuthException catch (e) {
       throw Exception(_friendlyAuthMessage(e.code));
-    } catch (e) {
+    } catch (e, stack) {
+      print('[GoogleSignIn] ERROR: $e');
+      print('[GoogleSignIn] STACK: $stack');
       if (e.toString().contains('cancelled')) rethrow;
       throw Exception('Google sign-in failed. Please try again.');
     }

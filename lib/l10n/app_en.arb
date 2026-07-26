@@ -107,6 +107,7 @@
   "auth_send_reset_link": "Send Reset Link",
   "auth_reset_sent": "Reset link sent! Check your email inbox.",
   "auth_back_to_login": "Back to Login",
+  "auth_login_with_google": "Continue with Google",
 
   "onboarding_subtitle": "Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.",
   "onboarding_features_browse_title": "Browse & Discover",

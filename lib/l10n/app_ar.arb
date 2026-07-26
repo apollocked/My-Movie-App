@@ -107,6 +107,7 @@
   "auth_send_reset_link": "إرسال رابط إعادة التعيين",
   "auth_reset_sent": "تم إرسال رابط إعادة التعيين! تحقق من بريدك الإلكتروني.",
   "auth_back_to_login": "العودة إلى تسجيل الدخول",
+  "auth_login_with_google": "المتابعة باستخدام Google",
 
   "onboarding_subtitle": "تصفح ملايين الأفلام، أنشئ قوائمك الخاصة، وقيم أفلامك المفضلة بسهولة.",
   "onboarding_features_browse_title": "تصفح واكتشف",

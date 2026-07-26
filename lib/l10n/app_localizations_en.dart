@@ -320,6 +320,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_back_to_login => 'Back to Login';
 
   @override
+  String get auth_login_with_google => 'Continue with Google';
+
+  @override
   String get onboarding_subtitle =>
       'Discover millions of movies, build personalized tracklists, and rate your favorite titles easily.';
 

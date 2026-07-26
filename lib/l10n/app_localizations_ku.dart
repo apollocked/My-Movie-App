@@ -321,6 +321,9 @@ class AppLocalizationsKu extends AppLocalizations {
   String get auth_back_to_login => 'گەڕانەوە بۆ چوونەژوورەوە';
 
   @override
+  String get auth_login_with_google => 'بەردەوامبە بە Google';
+
+  @override
   String get onboarding_subtitle =>
       'بەدوای ملیۆنان فیلمدا بگەڕێ، لیستی تایبەت بەخۆت دروست بکە، و بە ئاسانی نمرە بە فیلمە دڵخوازەکانت بدە.';
 
