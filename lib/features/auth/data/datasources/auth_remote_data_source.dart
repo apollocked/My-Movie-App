@@ -1,18 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
   Stream<UserModel?> get authStateChanges;
   Future<UserModel> signUp({required String email, required String password});
   Future<UserModel> logIn({required String email, required String password});
+  Future<UserModel> signInWithGoogle();
   Future<void> logOut();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
 
-  AuthRemoteDataSourceImpl({FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+  AuthRemoteDataSourceImpl({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn(scopes: ['email', 'profile']);
 
   @override
   Stream<UserModel?> get authStateChanges => _firebaseAuth
@@ -47,6 +51,30 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
+  @override
+  Future<UserModel> signInWithGoogle() async {
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) throw Exception('Google sign-in was cancelled.');
+
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await _firebaseAuth.signInWithCredential(credential);
+      final user = userCredential.user;
+      if (user == null) throw Exception('Google authentication failed.');
+      return UserModel.fromFirebase(user);
+    } on FirebaseAuthException catch (e) {
+      throw Exception(_friendlyAuthMessage(e.code));
+    } catch (e) {
+      if (e.toString().contains('cancelled')) rethrow;
+      throw Exception('Google sign-in failed. Please try again.');
+    }
+  }
+
   String _friendlyAuthMessage(String code) {
     switch (code) {
       case 'invalid-credential':
@@ -69,5 +97,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> logOut() => _firebaseAuth.signOut();
+  Future<void> logOut() async {
+    await _googleSignIn.signOut();
+    await _firebaseAuth.signOut();
+  }
 }
