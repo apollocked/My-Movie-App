@@ -48,16 +48,16 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
       listener: (context, state) {
         _showcaseKey.currentState?.tryShowcase();
       },
-      child: ShowcaseHandler(
-        key: _showcaseKey,
-        showcaseKeys: [
-          _homeKey,
-          _searchKey,
-          _recommendKey,
-          _profileKey,
-          _settingsKey
-        ],
-        child: Scaffold(
+        child: ShowcaseHandler(
+          key: _showcaseKey,
+          showcaseKeys: [
+            _homeKey,
+            _searchKey,
+            _recommendKey,
+            _profileKey,
+            _settingsKey
+          ],
+          child: Scaffold(
           extendBody: true,
           body: Stack(
             children: [

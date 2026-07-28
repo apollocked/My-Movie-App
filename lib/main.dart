@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -137,7 +138,38 @@ class _MyAppState extends State<MyApp> {
             routerConfig: _router,
             builder: (context, child) {
               TranslationsManager.init(AppLocalizations.of(context)!);
-              return OfflineWrapper(child: child);
+              return PopScope(
+                canPop: false,
+                onPopInvokedWithResult: (didPop, result) async {
+                  if (didPop) return;
+                  final router = GoRouter.of(context);
+                  if (router.canPop()) {
+                    router.pop();
+                  } else {
+                    final shouldExit = await showDialog<bool>(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: Text(t.common.exit_app),
+                        content: Text(t.common.exit_confirmation),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(ctx).pop(false),
+                            child: Text(t.common.cancel),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(ctx).pop(true),
+                            child: Text(t.common.exit_app),
+                          ),
+                        ],
+                      ),
+                    );
+                    if (shouldExit == true && context.mounted) {
+                      SystemNavigator.pop();
+                    }
+                  }
+                },
+                child: OfflineWrapper(child: child),
+              );
             },
           );
         },

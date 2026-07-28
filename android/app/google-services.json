@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "68723194042-480t7dos4pq8c9ss8835vmosanddnmt8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apollo.my_movies",
+            "certificate_hash": "12b0437c2545a73636014704ab767b09f7402a68"
+          }
+        },
+        {
           "client_id": "68723194042-sn8n7rv6eicl3o19aerevcdug8ntpge6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
