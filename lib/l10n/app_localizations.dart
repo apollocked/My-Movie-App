@@ -1833,6 +1833,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Highest Revenue'**
   String get swipe_sort_options_highest_revenue;
+
+  /// No description provided for @common_exit_app.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get common_exit_app;
+
+  /// No description provided for @common_exit_confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to leave?'**
+  String get common_exit_confirmation;
 }
 
 class _AppLocalizationsDelegate

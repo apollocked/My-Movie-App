@@ -253,7 +253,9 @@
     "see_all": "هەمووی ببینە",
     "back_to_browse": "گەڕانەوە بۆ گەڕان",
     "collection": "کۆمەڵە",
-    "my_movie": "My Movies"
+    "my_movie": "My Movies",
+    "exit_app": "دەرچوون",
+    "exit_confirmation": "دڵنیایت کە دەتەوێت بڕۆیت؟"
   },
   "genres": {
     "g_28": "ئەکشن",

@@ -253,7 +253,9 @@
     "see_all": "عرض الكل",
     "back_to_browse": "العودة إلى التصفح",
     "collection": "المجموعة",
-    "my_movie": "My Movies"
+    "my_movie": "My Movies",
+    "exit_app": "خروج",
+    "exit_confirmation": "هل أنت متأكد أنك تريد المغادرة؟"
   },
   "genres": {
     "g_28": "أكشن",

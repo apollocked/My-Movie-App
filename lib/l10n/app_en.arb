@@ -309,5 +309,7 @@
   "swipe_sort_options_highest_rated": "Highest Rated",
   "swipe_sort_options_newest_first": "Newest First",
   "swipe_sort_options_oldest_first": "Oldest First",
-  "swipe_sort_options_highest_revenue": "Highest Revenue"
+  "swipe_sort_options_highest_revenue": "Highest Revenue",
+  "common_exit_app": "Exit",
+  "common_exit_confirmation": "Are you sure you want to leave?"
 }

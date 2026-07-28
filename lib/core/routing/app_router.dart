@@ -9,11 +9,13 @@ import 'app_route_definitions.dart';
 import 'not_found_page.dart';
 
 class AppRouter {
-  static final _rootNavigatorKey = GlobalKey<NavigatorState>();
-
-  static GoRouter router(AuthBloc authBloc, {Listenable? localeRefresh}) {
+  static GoRouter router(
+    AuthBloc authBloc, {
+    required GlobalKey<NavigatorState> navigatorKey,
+    Listenable? localeRefresh,
+  }) {
     return GoRouter(
-      navigatorKey: _rootNavigatorKey,
+      navigatorKey: navigatorKey,
       extraCodec: MovieCodec(),
       initialLocation: '/',
       debugLogDiagnostics: !kReleaseMode,
@@ -42,7 +44,7 @@ class AppRouter {
 
         return null;
       },
-      routes: getAppRoutes(_rootNavigatorKey),
+      routes: getAppRoutes(navigatorKey),
     );
   }
 }

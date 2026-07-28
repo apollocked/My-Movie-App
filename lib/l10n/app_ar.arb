@@ -309,5 +309,7 @@
   "swipe_sort_options_highest_rated": "الأعلى تقييماً",
   "swipe_sort_options_newest_first": "الأحدث أولاً",
   "swipe_sort_options_oldest_first": "الأقدم أولاً",
-  "swipe_sort_options_highest_revenue": "الأعلى إيرادات"
+  "swipe_sort_options_highest_revenue": "الأعلى إيرادات",
+  "common_exit_app": "خروج",
+  "common_exit_confirmation": "هل أنت متأكد أنك تريد المغادرة؟"
 }

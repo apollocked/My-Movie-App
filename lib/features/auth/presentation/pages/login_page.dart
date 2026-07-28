@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor: theme.scaffoldBackgroundColor,
                           foregroundColor: theme.textTheme.bodyLarge?.color ?? Colors.white,
                           borderColor: theme.dividerColor,
-                          icon: Icons.g_mobiledata,
+                          icon: Icons.login,
                         );
                       },
                     ),

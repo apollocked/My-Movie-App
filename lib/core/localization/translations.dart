@@ -428,6 +428,8 @@ class _Common {
   String get back_to_browse => _l.common_back_to_browse;
   String get collection => _l.common_collection;
   String get my_movie => _l.common_my_movie;
+  String get exit_app => _l.common_exit_app;
+  String get exit_confirmation => _l.common_exit_confirmation;
 }
 
 class _Genres {

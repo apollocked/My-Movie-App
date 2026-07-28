@@ -48,7 +48,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late final AuthBloc _authBloc;
   late final MovieBloc _movieBloc;
   late final SearchBloc _searchBloc;
@@ -60,10 +60,13 @@ class _MyAppState extends State<MyApp> {
   late final ContentTypeCubit _contentTypeCubit;
   late final GoRouter _router;
   late final _LocaleRefreshNotifier _localeRefreshNotifier;
+  final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  bool _isShowingExitDialog = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _authBloc = getIt<AuthBloc>()..add(const AuthCheckRequested());
     _movieBloc = getIt<MovieBloc>();
     _searchBloc = getIt<SearchBloc>();
@@ -74,8 +77,9 @@ class _MyAppState extends State<MyApp> {
     _showSearchBloc = getIt<show_search.ShowSearchBloc>();
     _contentTypeCubit = getIt<ContentTypeCubit>();
     _localeRefreshNotifier = _LocaleRefreshNotifier();
-    _router =
-        AppRouter.router(_authBloc, localeRefresh: _localeRefreshNotifier);
+    _router = AppRouter.router(_authBloc,
+        navigatorKey: _rootNavigatorKey,
+        localeRefresh: _localeRefreshNotifier);
     Locale? previousLocale = _settingsCubit.state.locale;
     _settingsCubit.stream.listen((state) {
       if (state.locale != previousLocale) {
@@ -87,6 +91,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _localeRefreshNotifier.dispose();
     _authBloc.close();
     _movieBloc.close();
@@ -98,6 +103,46 @@ class _MyAppState extends State<MyApp> {
     _showSearchBloc.close();
     _contentTypeCubit.close();
     super.dispose();
+  }
+
+  @override
+  Future<bool> didPopRoute() async {
+    if (_isShowingExitDialog) return false;
+
+    if (_router.routerDelegate.canPop()) {
+      _router.routerDelegate.pop();
+      return true;
+    }
+
+    _isShowingExitDialog = true;
+    try {
+      final navCtx = _rootNavigatorKey.currentContext;
+      if (navCtx == null) return false;
+      final loc = AppLocalizations.of(navCtx);
+      final shouldExit = await showDialog<bool>(
+        context: navCtx,
+        builder: (ctx) => AlertDialog(
+          title: Text(loc?.common_exit_app ?? 'Exit'),
+          content: Text(loc?.common_exit_confirmation ?? 'Are you sure?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(loc?.common_cancel ?? 'Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: Text(loc?.common_exit_app ?? 'Exit'),
+            ),
+          ],
+        ),
+      );
+      if (shouldExit == true) {
+        SystemNavigator.pop();
+      }
+      return true;
+    } finally {
+      _isShowingExitDialog = false;
+    }
   }
 
   @override
@@ -138,38 +183,7 @@ class _MyAppState extends State<MyApp> {
             routerConfig: _router,
             builder: (context, child) {
               TranslationsManager.init(AppLocalizations.of(context)!);
-              return PopScope(
-                canPop: false,
-                onPopInvokedWithResult: (didPop, result) async {
-                  if (didPop) return;
-                  final router = GoRouter.of(context);
-                  if (router.canPop()) {
-                    router.pop();
-                  } else {
-                    final shouldExit = await showDialog<bool>(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Text(t.common.exit_app),
-                        content: Text(t.common.exit_confirmation),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(ctx).pop(false),
-                            child: Text(t.common.cancel),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.of(ctx).pop(true),
-                            child: Text(t.common.exit_app),
-                          ),
-                        ],
-                      ),
-                    );
-                    if (shouldExit == true && context.mounted) {
-                      SystemNavigator.pop();
-                    }
-                  }
-                },
-                child: OfflineWrapper(child: child),
-              );
+              return OfflineWrapper(child: child);
             },
           );
         },

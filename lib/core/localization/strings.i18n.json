@@ -253,7 +253,9 @@
     "see_all": "See All",
     "back_to_browse": "Back to Browse",
     "collection": "Collection",
-    "my_movie": "My Movies"
+    "my_movie": "My Movies",
+    "exit_app": "Exit",
+    "exit_confirmation": "Are you sure you want to leave?"
   },
   "genres": {
     "g_28": "Action",

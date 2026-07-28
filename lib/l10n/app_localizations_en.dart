@@ -907,4 +907,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get swipe_sort_options_highest_revenue => 'Highest Revenue';
+
+  @override
+  String get common_exit_app => 'Exit';
+
+  @override
+  String get common_exit_confirmation => 'Are you sure you want to leave?';
 }

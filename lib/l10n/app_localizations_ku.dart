@@ -914,4 +914,10 @@ class AppLocalizationsKu extends AppLocalizations {
 
   @override
   String get swipe_sort_options_highest_revenue => 'بەرزترین داهات';
+
+  @override
+  String get common_exit_app => 'دەرچوون';
+
+  @override
+  String get common_exit_confirmation => 'دڵنیایت کە دەتەوێت بڕۆیت؟';
 }

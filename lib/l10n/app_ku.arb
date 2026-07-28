@@ -309,5 +309,7 @@
   "swipe_sort_options_highest_rated": "بەرزترین نمرە",
   "swipe_sort_options_newest_first": "نوێترین",
   "swipe_sort_options_oldest_first": "کۆنترین",
-  "swipe_sort_options_highest_revenue": "بەرزترین داهات"
+  "swipe_sort_options_highest_revenue": "بەرزترین داهات",
+  "common_exit_app": "دەرچوون",
+  "common_exit_confirmation": "دڵنیایت کە دەتەوێت بڕۆیت؟"
 }

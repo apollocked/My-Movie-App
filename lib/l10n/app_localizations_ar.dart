@@ -907,4 +907,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get swipe_sort_options_highest_revenue => 'الأعلى إيرادات';
+
+  @override
+  String get common_exit_app => 'خروج';
+
+  @override
+  String get common_exit_confirmation => 'هل أنت متأكد أنك تريد المغادرة؟';
 }
